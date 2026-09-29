@@ -1,0 +1,3 @@
+﻿l_russian:
+ # NR: regular bribe (negotiation option 1)
+ nr_bribe_vice_risk_tt: "Если взятку не разоблачат, через #v 310#! дней лидер, взявший деньги, с шансом #v 20%#! приобретёт порок: #v $grifter$#!, #v $expensive_tastes$#!, #v $alcoholic$#!, #v $opium_addiction$#!, #v $syphilis$#!."

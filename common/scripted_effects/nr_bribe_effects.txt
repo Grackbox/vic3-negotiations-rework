@@ -41,9 +41,12 @@ nr_bribe_exposure_roll = {
 				}
 			}
 		}
-		trigger_event = {
-			id = nr_bribe.1
-			days = 310
+		custom_tooltip = nr_bribe_vice_risk_tt
+		hidden_effect = { # hidden event: a blank "an event fires" line would show otherwise
+			trigger_event = {
+				id = nr_bribe.1
+				days = 310
+			}
 		}
 	}
 	if = {
