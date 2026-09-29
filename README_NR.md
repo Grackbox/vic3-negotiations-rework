@@ -61,6 +61,7 @@ Vanilla: 1 army, 2 law, 3 buildings, 4 taxes, 5 SoL. Ours start at 101.
 | Type | Task |
 |---|---|
 | 101 | `devout_sol` — Devout, SoL with progress bar |
+| 102 | `election_promise` — back the group's party at the next election |
 
 ## Feature devout_sol — "Commitment: The Flock's Welfare"
 - One journal entry `je_nr_devout_sol`, one bar `nr_devout_sol_bar` from 0 to 36 (`nr_devout_sol_bar_max`, keep in sync with `max_value`).
@@ -306,3 +307,61 @@ Shared mechanics:
 | Synodal Administration | state religion still active: amendment; otherwise no event | "Synodal Administration" on `law_state_religion`: `country_authority_add` +25, `country_acceptance_state_religion_add` +5, `interest_group_ig_devout_pop_attraction_mult` -0.05, no cost | while enacting State Religion or its variants, amendment absent, no Synod campaign, leader not against: a "The church governs itself" (default), b attach, c "Let the intelligentsia decide" (Intelligentsia +2, Devout -2) |
 
 Also: the leader rule applied to the older features (schools, sisters, chaplains) - done with `nr_devout_leader_not_against_law` (works without scope:ig, e.g. in event triggers); amendments check their parent law.
+
+## Feature ruler_pressure - the ruler presses the group (extra negotiation option, all interest groups)
+Agreed design. An extra button in `negotiation.1` (not part of the random three options), shown when available. The AI never takes it.
+- Available: the ruler is not against the law being enacted (`ruler` `law_stance` >= neutral) and the country is authoritarian or a monarchy. Ruler type:
+  - monarch: `law_monarchy` (and variants), `law_social_monarchy`, `law_chiefdom` - whatever the distribution of power;
+  - theocrat: `law_theocracy` - whatever the distribution of power;
+  - otherwise by distribution of power: autocrat - `law_autocracy` (and variants), `law_single_party_state`; oligarchs - `law_oligarchy` (and variants), `law_elder_council`; technocrats - `law_technocracy`. Other distributions (voting laws, anarchy): no option.
+- Cost: 400 authority for 5 years (`country_authority_add`, cost slot, see "Authority cost slots"); needs available authority >= 400 and a free cost slot.
+- Result: the group supports the law like after any successful negotiation (`finish_negotiation`, `improve_law_stance`), plus the effects below for 5 years (infamy is one-time). Every effect is shown in the option tooltip; a lore line per ruler type.
+
+Armed Forces (any ruler type), by the loyalty of their leader (0-100, vanilla thresholds 25/50/75):
+
+| Loyalty | Effect |
+|---|---|
+| 75+ ("reliable") | order carried out, no penalty; monarch: morale recovery +5% (`unit_morale_recovery_mult`); autocrat: coup resistance +0.10 |
+| 50-75 | Armed Forces approval -2 |
+| below 50 | Armed Forces approval -3, coup resistance -0.10, leader loyalty -15 (`character_loyalty_add` on the leader) |
+
+Other groups (approval / strength through `interest_group_ig_<group>_approval_add` / `_pol_str_mult`; radicals and loyalists are `state_radicals_from_political_movements_mult` / `state_loyalists_from_political_movements_mult`):
+
+| Group | Monarch | Theocrat | Autocrat | Oligarchs | Technocrats |
+|---|---|---|---|---|---|
+| Devout | approval -2, legitimacy -5 | conversion +10% | approval -3, legitimacy -5 | approval -3 | Devout strength -5%, education access +0.02 |
+| Landowners | approval -3, agriculture throughput -5% | approval -2 | approval -3, agriculture -5% | approval -2 | approval -3, agriculture +5% |
+| Industrialists | approval -3, manufacturing throughput -5% | approval -3, manufacturing -5% | approval -3, military goods cost -10% | approval -1, manufacturing +5%, Industrialists strength +10% | approval -2, manufacturing +5% |
+| Petty Bourgeoisie | approval -2, tax waste +5% | approval -2, tax waste +5% | approval -2, government buildings throughput -5% | approval -3 | approval -2, government buildings -5% |
+| Intelligentsia | infamy +10, radicals +10% | infamy +10, radicals +15%, research -10% | infamy +5, radicals +10%, research -5% | infamy +5, radicals +10% | approval -3 |
+| Trade Unions | radicals +10% | radicals +10% | radicals +10%, approval -3 | radicals +15%, throughput of all buildings -3% | approval -2, throughput -2% |
+| Rural Folk | no penalty, loyalists +5% | no penalty | approval -2 | approval -3, agriculture -3% | approval -3 |
+
+The ruler presses their own group (`ruler.interest_group` = the group) - replaces the cell above: always the group's strength -10% and the ruler's popularity -25 (`character_popularity_add`), plus:
+
+| Own group | Monarch | Theocrat | Autocrat | Oligarchs | Technocrats |
+|---|---|---|---|---|---|
+| Armed Forces | prestige -5%, coup resistance -0.10 | legitimacy -10 | coup resistance -0.15 | legitimacy -10 | legitimacy -10 |
+| Devout | legitimacy -10 | legitimacy -10, conversion -10% | legitimacy -10 | legitimacy -10 | legitimacy -10 |
+| Landowners | prestige -10% | legitimacy -10 | legitimacy -10, agriculture -5% | legitimacy -10 | legitimacy -10 |
+| Industrialists | prestige -5%, legitimacy -5 | legitimacy -10 | legitimacy -10 | legitimacy -10, manufacturing -5% | legitimacy -10 |
+| Petty Bourgeoisie | legitimacy -10 | legitimacy -10 | legitimacy -10, tax waste +5% | legitimacy -10 | legitimacy -10 |
+| Intelligentsia | prestige -10%, radicals +5% | legitimacy -10 | legitimacy -10, radicals +5% | legitimacy -10 | legitimacy -10 |
+| Trade Unions | legitimacy -10 | legitimacy -10 | legitimacy -10, radicals +10% | legitimacy -10 | legitimacy -10 |
+| Rural Folk | prestige -5%, loyalists -5% | legitimacy -10 | legitimacy -10 | legitimacy -10 | legitimacy -10 |
+
+Own Armed Forces with a leader of loyalty 75+: only strength -10% and popularity -25; an autocrat from the Armed Forces gets instead legitimacy +10 and no penalty at all (a general's order carried out by his own army). Positive outcomes are allowed where they fit (user: "some combinations may give positive results").
+
+## Feature election_promise - promise to back the group's party at the next election (extra negotiation option)
+Agreed design. An extra button in `negotiation.1`, a promise like the vanilla ones (`promise_quest`, `promise_quest_type` 102, journal entry `je_nr_election_promise`). The AI never takes it.
+- Available: the country has elections (`country_has_voting_franchise`, any form of government, so a monarchy or theocracy with a franchise may get both options), not `law_single_party_state`, no Tradition of Free Elections (`modifier:country_forbid_electoral_fraud_bool = no`), the group is in a party (`has_party`), the ruler is not against the law, no other election promise running, available authority >= 50 and a free cost slot.
+- Cost: 50 authority for 5 years. Result: the group supports the law (vanilla `promise_quest`).
+- Kept or broken at the next election campaign that starts after the promise, in the vanilla rigging event (`caciquismo.1` / `caciquismo.2`, fired at the start of every campaign while fraud is possible: chosen party +150% momentum, all others -50%):
+  - kept: the player chose the party the group is a member of -> vanilla `promise_quest_completed`;
+  - broken: another party, no rigging, the event expired, the promise abandoned (vanilla button), or the Tradition of Free Elections appeared before the election -> vanilla `promise_quest_failed`;
+  - the group's party is not among the parties listed in the event: an extra option "Back [party], as promised" (vanilla effect: +150% / -50%, `add_caciquismo_effect`);
+  - withdrawn without penalty: the group is in no party when the campaign starts, or the campaign ended without the rigging event (vanilla conditions, e.g. fewer than two parties with members).
+- Needs hooks in a copy of vanilla `events/iberia_events/ip4_election_rigging.txt` (each option reports the chosen party). Brazil's `coffee_with_milk.7` is not touched.
+
+## Authority cost slots (shared)
+Timed authority costs of our options: static modifiers `nr_authority_cost_1` - `_4` (`country_authority_add` = -1, applied with `multiplier` = cost, 5 years). `nr_authority_cost_add = { COST = ... }` takes the first free slot; an option with an authority cost is offered only if a slot is free.
