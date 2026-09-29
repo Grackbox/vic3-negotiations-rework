@@ -58,18 +58,21 @@ je_nr_devout_police_petition = {
 	}
 
 	complete = {
-		OR = {
-			AND = {
-				var:nr_devout_police_petition_law ?= 1
-				has_law = law_type:law_local_police
-			}
-			AND = {
-				var:nr_devout_police_petition_law ?= 2
-				has_law = law_type:law_dedicated_police
-			}
-			AND = {
-				var:nr_devout_police_petition_law ?= 3
-				has_law = law_type:law_militarized_police
+		custom_tooltip = {
+			text = je_nr_devout_police_petition_complete_tt
+			OR = {
+				AND = {
+					var:nr_devout_police_petition_law ?= 1
+					has_law = law_type:law_local_police
+				}
+				AND = {
+					var:nr_devout_police_petition_law ?= 2
+					has_law = law_type:law_dedicated_police
+				}
+				AND = {
+					var:nr_devout_police_petition_law ?= 3
+					has_law = law_type:law_militarized_police
+				}
 			}
 		}
 	}

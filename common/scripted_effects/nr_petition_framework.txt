@@ -48,3 +48,36 @@ nr_petition_improve_stance = {
 		ig:ig_devout ?= { improve_stance = 1 }
 	}
 }
+
+# Called from nr_on_law_enactment_started: every running Devout petition applies its enactment speed bonus at once,
+# instead of waiting for the monthly pulse of its journal entry. Add every new Devout petition here. Scope: country.
+nr_devout_petition_boost_all = {
+	if = {
+		limit = { has_journal_entry = je_nr_devout_schools_petition }
+		nr_petition_boost = { PETITION = nr_devout_schools_petition LAW = law_religious_schools }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_devout_sisters_petition }
+		nr_petition_boost = { PETITION = nr_devout_sisters_petition LAW = law_charitable_health_system }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_devout_censorship_petition }
+		nr_petition_boost = { PETITION = nr_devout_censorship_petition LAW = law_censorship }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_devout_sunday_petition }
+		nr_petition_boost = { PETITION = nr_devout_sunday_petition LAW = law_regulatory_bodies }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_devout_census_petition }
+		nr_petition_boost = { PETITION = nr_devout_census_petition LAW = law_appointed_bureaucrats }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_devout_police_petition }
+		nr_devout_police_petition_boost = yes
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_devout_slavery_petition }
+		nr_petition_boost = { PETITION = nr_devout_slavery_petition LAW = law_slavery_banned }
+	}
+}
