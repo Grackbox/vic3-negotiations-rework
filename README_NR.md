@@ -371,7 +371,7 @@ Agreed design. An extra button in `negotiation.1`, a promise like the vanilla on
   - broken: another party, no rigging, the event expired, the promise abandoned (vanilla button), or the Tradition of Free Elections appeared before the election -> vanilla `promise_quest_failed`;
   - a promised group's party is not among the parties listed in the event: an extra option "Back [party], as promised" per such party (vanilla effect: +150% / -50%, `add_caciquismo_effect`);
   - withdrawn without penalty: the group is in no party when the campaign starts, or the campaign ended without the rigging event (vanilla conditions, e.g. fewer than two parties with members).
-  - notifications (toasts, `common/messages/nr_messages.txt`): kept - `nr_election_promise_kept_toast` (vanilla has no toast for a kept promise); broken - vanilla `neg_failed_quest_toast` (from `promise_quest_failed`); the group was in no party - `nr_election_promise_void_toast` (neutral outcome).
+  - notifications (toasts, `common/messages/nr_messages.txt`): kept - the engine's `journal_entry_completed` toast (fires for every completed journal entry); broken - vanilla `neg_failed_quest_toast` (from `promise_quest_failed`); the group was in no party - `nr_election_promise_void_toast` (neutral outcome: toast, neutral color, sound `diplomatic_treaties_revoke_neutral`).
 - Needs hooks in a copy of vanilla `events/iberia_events/ip4_election_rigging.txt` (each option reports the chosen party). Brazil's `coffee_with_milk.7` is not touched.
 
 ## Authority cost slots (shared)

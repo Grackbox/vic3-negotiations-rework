@@ -149,8 +149,6 @@
  nr_ruler_pressure_own_oligarchs_rural_folk: "The Oligarchs Against Their Own: Rural Folk"
  nr_ruler_pressure_own_technocrats_rural_folk: "The Commission Against Its Own: Rural Folk"
  nr_ruler_pressure_own_technocrats_rural_folk_bonus: "The Commission Against Its Own: Rural Folk"
- notification_nr_election_promise_kept_toast_name: "Promise Kept"
- notification_nr_election_promise_kept_toast_desc: "We backed the party of the [SCOPE.gsInterestGroup('ig').GetName] at the election, as promised."
  notification_nr_election_promise_void_toast_name: "No Party to Back"
  notification_nr_election_promise_void_toast_desc: "The [SCOPE.gsInterestGroup('ig').GetName] found no place in any party at this election. There was no one to back, and our promise is void."
  nr_election_promise_void_cond_tt: "At the election the group is in no party"

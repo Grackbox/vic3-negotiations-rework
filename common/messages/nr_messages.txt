@@ -1,15 +1,11 @@
-﻿# NR: notifications of the mod.
+﻿# NR: notifications of the mod. A kept promise needs none: completing a journal entry already fires the engine's
+# journal_entry_completed toast; a broken one fires vanilla neg_failed_quest_toast.
 
-# Election promise kept (je_nr_election_promise_<group>, on_complete). Vanilla has a toast only for a broken promise.
-nr_election_promise_kept_toast = {
-	type = country
-	texture = "gfx/interface/icons/notification_icons/influence.dds"
-	notification_type = toast
-}
-
-# Election promise withdrawn without penalty: the group was in no party at the election.
+# Election promise withdrawn without penalty: the group was in no party at the election (neutral outcome).
 nr_election_promise_void_toast = {
 	type = country
 	texture = "gfx/interface/icons/notification_icons/elections.dds"
 	notification_type = toast
+	color = neutral
+	on_created_soundeffect = "event:/SFX/UI/Alerts/Toasts/diplomatic_treaties_revoke_neutral"
 }

@@ -43,7 +43,6 @@ je_nr_election_promise_devout = {
 
 	on_complete = {
 		promise_quest_completed = yes
-		post_notification = nr_election_promise_kept_toast
 		nr_election_promise_cleanup = yes
 	}
 
@@ -138,7 +137,6 @@ je_nr_election_promise_landowners = {
 
 	on_complete = {
 		promise_quest_completed = yes
-		post_notification = nr_election_promise_kept_toast
 		nr_election_promise_cleanup = yes
 	}
 
@@ -233,7 +231,6 @@ je_nr_election_promise_industrialists = {
 
 	on_complete = {
 		promise_quest_completed = yes
-		post_notification = nr_election_promise_kept_toast
 		nr_election_promise_cleanup = yes
 	}
 
@@ -328,7 +325,6 @@ je_nr_election_promise_petty_bourgeoisie = {
 
 	on_complete = {
 		promise_quest_completed = yes
-		post_notification = nr_election_promise_kept_toast
 		nr_election_promise_cleanup = yes
 	}
 
@@ -423,7 +419,6 @@ je_nr_election_promise_intelligentsia = {
 
 	on_complete = {
 		promise_quest_completed = yes
-		post_notification = nr_election_promise_kept_toast
 		nr_election_promise_cleanup = yes
 	}
 
@@ -518,7 +513,6 @@ je_nr_election_promise_trade_unions = {
 
 	on_complete = {
 		promise_quest_completed = yes
-		post_notification = nr_election_promise_kept_toast
 		nr_election_promise_cleanup = yes
 	}
 
@@ -613,7 +607,6 @@ je_nr_election_promise_rural_folk = {
 
 	on_complete = {
 		promise_quest_completed = yes
-		post_notification = nr_election_promise_kept_toast
 		nr_election_promise_cleanup = yes
 	}
 
@@ -708,7 +701,6 @@ je_nr_election_promise_armed_forces = {
 
 	on_complete = {
 		promise_quest_completed = yes
-		post_notification = nr_election_promise_kept_toast
 		nr_election_promise_cleanup = yes
 	}
 

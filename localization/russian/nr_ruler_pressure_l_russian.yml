@@ -149,8 +149,6 @@
  nr_ruler_pressure_own_oligarchs_rural_folk: "Олигархи против своих: сельский люд"
  nr_ruler_pressure_own_technocrats_rural_folk: "Комиссия против своих: сельский люд"
  nr_ruler_pressure_own_technocrats_rural_folk_bonus: "Комиссия против своих: сельский люд"
- notification_nr_election_promise_kept_toast_name: "Обещание выполнено"
- notification_nr_election_promise_kept_toast_desc: "Мы поддержали на выборах партию группы «[SCOPE.gsInterestGroup('ig').GetName]», как и обещали."
  notification_nr_election_promise_void_toast_name: "Некого поддерживать"
  notification_nr_election_promise_void_toast_desc: "Группа «[SCOPE.gsInterestGroup('ig').GetName]» не нашла себе места ни в одной партии на этих выборах. Поддерживать было некого, и наше обещание утратило силу."
  nr_election_promise_void_cond_tt: "На выборах группа не состоит ни в одной партии"
