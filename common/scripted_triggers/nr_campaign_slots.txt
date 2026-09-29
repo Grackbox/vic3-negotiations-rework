@@ -1,0 +1,37 @@
+﻿# NR: campaign slots (see scripted_effects/nr_campaign_slots.txt). Scope: country, scope:ig = the group.
+# Limit by the group's clout: 20%+ -> 3 campaigns, 10-20% -> 2, below 10% -> 1.
+
+nr_campaign_slot_free = {
+	OR = {
+		NOT = {
+			calc_true_if = {
+				amount >= 1
+				has_variable = $KEY$_slot_1
+				has_variable = $KEY$_slot_2
+				has_variable = $KEY$_slot_3
+			}
+		}
+		AND = {
+			scope:ig = { ig_clout >= 0.1 }
+			NOT = {
+				calc_true_if = {
+					amount >= 2
+					has_variable = $KEY$_slot_1
+					has_variable = $KEY$_slot_2
+					has_variable = $KEY$_slot_3
+				}
+			}
+		}
+		AND = {
+			scope:ig = { ig_clout >= 0.2 }
+			NOT = {
+				calc_true_if = {
+					amount >= 3
+					has_variable = $KEY$_slot_1
+					has_variable = $KEY$_slot_2
+					has_variable = $KEY$_slot_3
+				}
+			}
+		}
+	}
+}

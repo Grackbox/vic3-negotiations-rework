@@ -19,6 +19,13 @@ nr_devout_softbribe_leader_loves = {
 	}
 }
 
+# A civil form can be offered in event nr_devout_softbribe.1: not offered yet and not already running
+# in another campaign (a second one would overwrite its modifier). $FORM$ = asceticism / enlightenment / ...
+nr_devout_softbribe_can_offer = {
+	NOT = { has_variable = nr_devout_softbribe_offer_$FORM$ }
+	NOT = { has_modifier = nr_devout_softbribe_$FORM$ }
+}
+
 # Colonial subject that missions can target. Scope: subject country; root = overlord.
 nr_devout_softbribe_is_mission_subject = {
 	OR = {

@@ -1,4 +1,4 @@
-﻿# NR (Negotiations Rework): copy of the vanilla file with one hook in neg_option_9_trigger (search "NR:").
+﻿# NR (Negotiations Rework): copy of the vanilla file with hooks in neg_option_2_trigger and neg_option_9_trigger (search "NR:").
 is_promise_abandoned = {
     custom_tooltip = {
         text = has_been_abandoned_neg_tt
@@ -193,8 +193,11 @@ is_neutral_on_law = { #IG scope same as is_neutral_on_law, for ease of scripting
 }
 
 neg_option_2_trigger = {
-    NOT = {
-        has_modifier = negotiation_bureaucracy
+    OR = {
+        nr_neg_option_2_skips_vanilla_block = yes # NR: hook (nr_negotiation_hooks.txt)
+        NOT = {
+            has_modifier = negotiation_bureaucracy
+        }
     }
 }
 

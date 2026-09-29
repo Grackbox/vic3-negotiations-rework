@@ -1,5 +1,8 @@
 ﻿l_russian:
  # NR: Devout church officials (negotiation option 2)
+ nr_devout_officials_penalty_1: "$negotiation_bureaucracy$"
+ nr_devout_officials_penalty_2: "$negotiation_bureaucracy$"
+ nr_devout_officials_penalty_3: "$negotiation_bureaucracy$"
  negotiation.1.nr_o2_devout: "Предложить церкви места в администрации."
  nr_devout_officials_tt: "[SCOPE.gsInterestGroup('ig').GetLeader.GetFullName] поддержит нас, если духовенство получит места в государственном аппарате. Через неделю мы решим, куда направить церковных чиновников: от этого зависят эффекты и итоговая нагрузка на бюрократию."
  nr_devout_officials_benefits: "Церковные должности"

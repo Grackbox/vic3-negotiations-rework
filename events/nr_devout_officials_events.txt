@@ -1,7 +1,7 @@
 ﻿namespace = nr_devout_officials
 
 # NR: where the church officials go (negotiation option 2 for the Devout, see nr_devout_officials_effects.txt).
-# The base bureaucracy penalty (negotiation_bureaucracy x level) is already applied; forms rescale it
+# The base bureaucracy penalty (nr_devout_officials_penalty_<slot> x level) is already applied; forms rescale it
 # (x0.75 / x1 / x1.25 / x1.5). All effects last 10 years and decay.
 # Options shown: Clerical Advisers (always, default) + 2 random of the available forms:
 # Censorship Committees (Right of Assembly), Parish Registers, The Church and the Slaves (slavery legal),
@@ -56,7 +56,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_censorship
 		}
 		custom_tooltip = nr_devout_officials_lore_censorship
-		nr_devout_officials_choose_form = { FORM = censorship FACTOR = 1.25 }
+		nr_devout_officials_choose_form = { FORM = censorship }
+		nr_devout_officials_set_penalty = { FACTOR = 1.25 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -72,7 +73,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_registers
 		}
 		custom_tooltip = nr_devout_officials_lore_registers
-		nr_devout_officials_choose_form = { FORM = registers FACTOR = 0.75 }
+		nr_devout_officials_choose_form = { FORM = registers }
+		nr_devout_officials_set_penalty = { FACTOR = 0.75 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -88,7 +90,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_slaves
 		}
 		custom_tooltip = nr_devout_officials_lore_slaves
-		nr_devout_officials_choose_form = { FORM = slaves FACTOR = 0.75 }
+		nr_devout_officials_choose_form = { FORM = slaves }
+		nr_devout_officials_set_penalty = { FACTOR = 0.75 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -104,7 +107,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_church_tax
 		}
 		custom_tooltip = nr_devout_officials_lore_church_tax
-		nr_devout_officials_choose_form = { FORM = church_tax FACTOR = 1.25 }
+		nr_devout_officials_choose_form = { FORM = church_tax }
+		nr_devout_officials_set_penalty = { FACTOR = 1.25 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -120,7 +124,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_prisons
 		}
 		custom_tooltip = nr_devout_officials_lore_prisons
-		nr_devout_officials_choose_form = { FORM = prisons FACTOR = 1 }
+		nr_devout_officials_choose_form = { FORM = prisons }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -136,7 +140,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_calendar
 		}
 		custom_tooltip = nr_devout_officials_lore_calendar
-		nr_devout_officials_choose_form = { FORM = calendar FACTOR = 1 }
+		nr_devout_officials_choose_form = { FORM = calendar }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -152,7 +156,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_seminarists
 		}
 		custom_tooltip = nr_devout_officials_lore_seminarists
-		nr_devout_officials_choose_form = { FORM = seminarists FACTOR = 1.5 }
+		nr_devout_officials_choose_form = { FORM = seminarists }
+		nr_devout_officials_set_penalty = { FACTOR = 1.5 }
 		ai_chance = {
 			base = 5
 			modifier = {
@@ -172,7 +177,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_synod
 		}
 		custom_tooltip = nr_devout_officials_lore_synod
-		nr_devout_officials_choose_form = { FORM = synod FACTOR = 1.25 }
+		nr_devout_officials_choose_form = { FORM = synod }
+		nr_devout_officials_set_penalty = { FACTOR = 1.25 }
 		ai_chance = {
 			base = 10
 			modifier = {

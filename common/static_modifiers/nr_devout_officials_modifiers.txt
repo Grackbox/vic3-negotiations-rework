@@ -6,6 +6,23 @@ nr_devout_officials_benefits = {
 	interest_group_pol_str_mult = 0.12
 }
 
+# State bureaucracy penalty, one per campaign slot (see nr_campaign_slots.txt); same as vanilla negotiation_bureaucracy.
+# Applied with multiplier = negotiation level x form factor.
+nr_devout_officials_penalty_1 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_bureaucracy_mult = -0.075
+}
+
+nr_devout_officials_penalty_2 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_bureaucracy_mult = -0.075
+}
+
+nr_devout_officials_penalty_3 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_bureaucracy_mult = -0.075
+}
+
 # Censorship Committees, bureaucracy penalty x1.25 (Right of Assembly only)
 nr_devout_officials_censorship = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds

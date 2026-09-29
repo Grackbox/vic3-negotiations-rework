@@ -27,10 +27,20 @@ nr_neg_option_1_is_custom = {
 
 # Can option 1 be rolled at all. Scope: country.
 nr_neg_option_1_allowed = {
-	# Devout: no second option 1 while the previous soft bribe waits for its form event
 	OR = {
 		scope:ig = { NOT = { is_interest_group_type = ig_devout } }
-		NOT = { has_variable = nr_devout_softbribe_pending }
+		AND = {
+			# no second option 1 while the previous soft bribe waits for its form event
+			NOT = { has_variable = nr_devout_softbribe_pending }
+			# a free campaign slot (limit by clout), or else a regular bribe the leader would take
+			OR = {
+				nr_campaign_slot_free = { KEY = nr_devout_softbribe }
+				AND = {
+					nr_devout_bribe_affordable = yes
+					NOT = { scope:ig.leader ?= { nr_devout_softbribe_leader_refuses = yes } }
+				}
+			}
+		}
 	}
 }
 
@@ -70,10 +80,20 @@ nr_neg_option_2_is_custom = {
 	scope:ig = { is_interest_group_type = ig_devout }
 }
 
-# Can option 2 be rolled at all. Scope: country. Vanilla already blocks it while negotiation_bureaucracy is active.
-# No extra conditions for now (a possible bureaucracy deficit is the player's choice); kept as the hook point.
+# Can option 2 be rolled at all. Scope: country.
+# A possible bureaucracy deficit is the player's choice and is not checked.
 nr_neg_option_2_allowed = {
-	always = yes
+	# Devout: church officials only while the church runs fewer campaigns than its clout allows
+	OR = {
+		scope:ig = { NOT = { is_interest_group_type = ig_devout } }
+		nr_campaign_slot_free = { KEY = nr_devout_officials }
+	}
+}
+
+# Vanilla allows one "places in the administration" deal at a time (negotiation_bureaucracy). Groups with their own
+# option 2 use their own penalty modifiers and campaign limit, so they skip that check.
+nr_neg_option_2_skips_vanilla_block = {
+	nr_neg_option_2_is_custom = yes
 }
 
 # AI weights of the custom option 2 (+25 / -30).

@@ -4,19 +4,15 @@
 # Negotiation option. Scope: country, scope:ig = Devout.
 nr_devout_officials_start = {
 	custom_tooltip = nr_devout_officials_tt
-	# vanilla penalty (-7.5% bureaucracy x level 1 / 2 / 4), rescaled by the form a week later
-	add_modifier = {
-		name = negotiation_bureaucracy
-		multiplier = scope:ig.amenability_level
-		days = long_modifier_time
-		is_decaying = yes
-	}
 	hidden_effect = {
 		set_variable = {
 			name = nr_devout_officials_degree
 			value = scope:ig.amenability_level
 		}
+		nr_campaign_take_slot = { KEY = nr_devout_officials }
 	}
+	# penalty like vanilla negotiation_bureaucracy (-7.5% bureaucracy x level 1 / 2 / 4), rescaled by the form a week later
+	nr_devout_officials_set_penalty = { FACTOR = 1 }
 	scope:ig = {
 		finish_negotiation = "negotiation.1.o2"
 		add_modifier = {
@@ -72,20 +68,42 @@ nr_devout_officials_offer_random_form = {
 	}
 }
 
-# Chosen form: its modifier for 10 years, and the bureaucracy penalty rescaled to level x $FACTOR$ (0.75 / 1.25 / 1.5).
-# Scope: country. $FORM$ = censorship / registers / ...
+# Chosen form: its modifier for 10 years. Scope: country. $FORM$ = censorship / registers / ...
+# Forms with a penalty other than x1 also call nr_devout_officials_set_penalty.
 nr_devout_officials_choose_form = {
 	add_modifier = {
 		name = nr_devout_officials_$FORM$
 		days = long_modifier_time
 		is_decaying = yes
 	}
+}
+
+# Sets the bureaucracy penalty of this campaign (its own slot modifier nr_devout_officials_penalty_<slot>)
+# to level x $FACTOR$ (1 at the negotiation; 0.75 / 1.25 / 1.5 for the form). Scope: country.
+nr_devout_officials_set_penalty = {
 	if = {
-		limit = { has_modifier = negotiation_bureaucracy }
-		remove_modifier = negotiation_bureaucracy
+		limit = { has_variable = nr_devout_officials_current_slot }
+		if = {
+			limit = { var:nr_devout_officials_current_slot = 1 }
+			nr_devout_officials_set_slot_penalty = { SLOT = 1 FACTOR = $FACTOR$ }
+		}
+		else_if = {
+			limit = { var:nr_devout_officials_current_slot = 2 }
+			nr_devout_officials_set_slot_penalty = { SLOT = 2 FACTOR = $FACTOR$ }
+		}
+		else = {
+			nr_devout_officials_set_slot_penalty = { SLOT = 3 FACTOR = $FACTOR$ }
+		}
+	}
+}
+
+nr_devout_officials_set_slot_penalty = {
+	if = {
+		limit = { has_modifier = nr_devout_officials_penalty_$SLOT$ }
+		remove_modifier = nr_devout_officials_penalty_$SLOT$
 	}
 	add_modifier = {
-		name = negotiation_bureaucracy
+		name = nr_devout_officials_penalty_$SLOT$
 		multiplier = {
 			value = nr_devout_officials_level
 			multiply = $FACTOR$
@@ -98,6 +116,7 @@ nr_devout_officials_choose_form = {
 # Clears the data of event nr_devout_officials.1. Scope: country.
 nr_devout_officials_cleanup = {
 	remove_variable = nr_devout_officials_degree
+	remove_variable = nr_devout_officials_current_slot
 	remove_variable = nr_devout_officials_offer_censorship
 	remove_variable = nr_devout_officials_offer_registers
 	remove_variable = nr_devout_officials_offer_slaves

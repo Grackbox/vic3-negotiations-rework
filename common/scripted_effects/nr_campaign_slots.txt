@@ -1,0 +1,41 @@
+﻿# NR: campaign slots - how many 10-year campaigns of one kind a group runs at the same time.
+# A campaign takes a slot (country variable <KEY>_slot_1..3, expires with the campaign) and remembers it
+# in <KEY>_current_slot until its form event is done. Per-slot modifiers keep campaigns from overwriting each other.
+# The limit by the group's clout is checked by nr_campaign_slot_free (scripted_triggers/nr_campaign_slots.txt).
+# Parameters: KEY = variable prefix (nr_devout_softbribe / nr_devout_officials). Scope: country.
+
+# Takes the first free slot for long_modifier_time and stores its number in <KEY>_current_slot.
+nr_campaign_take_slot = {
+	if = {
+		limit = { NOT = { has_variable = $KEY$_slot_1 } }
+		set_variable = {
+			name = $KEY$_slot_1
+			days = long_modifier_time
+		}
+		set_variable = {
+			name = $KEY$_current_slot
+			value = 1
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_variable = $KEY$_slot_2 } }
+		set_variable = {
+			name = $KEY$_slot_2
+			days = long_modifier_time
+		}
+		set_variable = {
+			name = $KEY$_current_slot
+			value = 2
+		}
+	}
+	else = {
+		set_variable = {
+			name = $KEY$_slot_3
+			days = long_modifier_time
+		}
+		set_variable = {
+			name = $KEY$_current_slot
+			value = 3
+		}
+	}
+}

@@ -1,8 +1,18 @@
 ﻿# NR: Devout soft bribe - funds for the church's needs (negotiation option 1).
 # Everything lasts 10 years and decays, like the vanilla bribe.
 
-# Weekly expenses (x vanilla bribe amount, then x campaign form factor)
-nr_devout_softbribe_expenses = {
+# Weekly expenses (x vanilla bribe amount, then x campaign form factor), one per campaign slot (see nr_campaign_slots.txt)
+nr_devout_softbribe_expenses_1 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+nr_devout_softbribe_expenses_2 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+nr_devout_softbribe_expenses_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
 	country_expenses_add = 1
 }

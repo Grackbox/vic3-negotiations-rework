@@ -1,5 +1,8 @@
 ﻿l_english:
  # NR: Devout church officials (negotiation option 2)
+ nr_devout_officials_penalty_1: "$negotiation_bureaucracy$"
+ nr_devout_officials_penalty_2: "$negotiation_bureaucracy$"
+ nr_devout_officials_penalty_3: "$negotiation_bureaucracy$"
  negotiation.1.nr_o2_devout: "Offer the church places in the administration."
  nr_devout_officials_tt: "[SCOPE.gsInterestGroup('ig').GetLeader.GetFullName] will support us if the clergy get places in the state apparatus. In a week we will decide where the church officials go: this sets the effects and the final burden on the bureaucracy."
  nr_devout_officials_benefits: "Church Offices"

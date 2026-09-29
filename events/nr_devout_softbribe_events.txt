@@ -1,7 +1,8 @@
 ﻿namespace = nr_devout_softbribe
 
 # NR: choosing where the Devout soft bribe money goes (negotiation option 1: funds for the church's needs).
-# Base expenses (nr_devout_softbribe_expenses x bribe amount) are already applied; forms rescale them.
+# Base expenses (nr_devout_softbribe_expenses_<slot> x bribe amount) are already applied; forms rescale them.
+# Forms already running in another campaign are not offered.
 # All effects last 10 years and decay, like the vanilla bribe.
 # AI weights are situational (see each option's ai_chance).
 # Options shown: Church Propaganda (always) + 2 random of Asceticism / Enlightenment / Sisters of Mercy / Shelters
@@ -202,6 +203,7 @@ nr_devout_softbribe.1 = {
 		name = nr_devout_softbribe.1.g
 		trigger = {
 			net_total_income < 0
+			NOT = { has_modifier = nr_devout_softbribe_parish } # not while another campaign runs this form
 		}
 		custom_tooltip = nr_devout_softbribe_lore_parish
 		nr_devout_softbribe_add_form = { FORM = parish }
@@ -228,6 +230,7 @@ nr_devout_softbribe.1 = {
 		name = nr_devout_softbribe.1.h
 		trigger = {
 			nr_devout_softbribe_has_mission_targets = yes
+			NOT = { has_variable = nr_devout_softbribe_mission_years_left } # missions already running
 		}
 		custom_tooltip = nr_devout_softbribe_lore_missions
 		nr_devout_softbribe_mission_start = yes

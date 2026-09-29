@@ -14,10 +14,12 @@ nr_devout_officials_ai_bad = {
 # ---------- Forms (event nr_devout_officials.1) ----------
 # Every form has nr_devout_officials_<form>_available. A bureaucracy deficit is not checked: the player decides.
 
-# The form is available and not offered yet in this event. $FORM$ = censorship / registers / ...
+# The form is available, not offered yet in this event and not already running in another campaign
+# (a second one would overwrite its modifier). $FORM$ = censorship / registers / ...
 nr_devout_officials_can_offer = {
 	nr_devout_officials_$FORM$_available = yes
 	NOT = { has_variable = nr_devout_officials_offer_$FORM$ }
+	NOT = { has_modifier = nr_devout_officials_$FORM$ }
 }
 
 nr_devout_officials_censorship_available = {

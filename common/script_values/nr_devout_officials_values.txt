@@ -1,8 +1,9 @@
 ﻿# NR: numbers for Devout church officials (negotiation option 2, "places in the administration").
-# The state bureaucracy penalty is the vanilla modifier negotiation_bureaucracy (-7.5% bureaucracy x multiplier):
-# the option applies it with multiplier = negotiation level (1 / 2 / 4, as vanilla), the form event rescales it by the form factor.
+# The state bureaucracy penalty is nr_devout_officials_penalty_<slot> (-7.5% bureaucracy x multiplier, same as vanilla
+# negotiation_bureaucracy): the option applies it with multiplier = negotiation level (1 / 2 / 4, as vanilla),
+# the form event rescales it by the form factor. One modifier per campaign slot, so campaigns stack.
 
-# Vanilla negotiation_bureaucracy: country_bureaucracy_mult = -0.075 per multiplier point.
+# -7.5% bureaucracy per multiplier point, as vanilla negotiation_bureaucracy.
 nr_neg_bureaucracy_penalty_share = 0.075
 
 # Negotiation level (amenability_level 1 / 2 / 4): stored at the option, otherwise read from scope:ig. Scope: country.
@@ -25,7 +26,6 @@ nr_devout_officials_base_production = {
 	if = {
 		limit = {
 			has_variable = nr_devout_officials_degree
-			has_modifier = negotiation_bureaucracy
 		}
 		divide = {
 			value = 1
