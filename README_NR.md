@@ -169,6 +169,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - Engine documentation (effects, triggers, modifiers, on_actions) is dumped by the game into `Documents/Paradox Interactive/Victoria 3/docs/*.log`.
 
 ## Debug (console)
+- Game started with `-debug_mode`; console `~`. The console runs only its own commands (`event <id>`). Script effects (`activate_law = law_type:...`, `set_variable = {...}`) go to `inspect_country` → Script Runner → Effect (Parse, Run); its Trigger field checks a condition for the selected country.
 `events/nr_debug_events.txt`, localization `nr_debug_l_*.yml`. Never fired by the game.
 - `event nr_debug.1` - fires every enactment event `.1` at once; only those matching the law being enacted appear (their 5-year cooldown still applies).
 - `event nr_debug.2` / `event nr_debug.3` - menus of the post-campaign follow-ups `.2` (schools, sisters, chaplains, censorship, synod / church tax, Sunday Rest, Clerical Census, police, slavery). The censorship option also sets the campaign mark `nr_devout_censorship_campaign`. Each follow-up still checks its own trigger.
