@@ -1,0 +1,202 @@
+﻿# NR: amendments of the landowners' grants follow-ups (feature landowners_grants). Sponsor Landowners, no authority cost.
+
+# Tax Exemptions follow-up
+amendment_nr_landowners_noble_privilege = {
+	parent = law_land_based_taxation
+
+	allowed_laws = {
+		law_consumption_based_taxation
+		law_land_based_taxation
+		law_per_capita_based_taxation
+		law_proportional_taxation
+		law_graduated_taxation
+	}
+
+	modifier = {
+		interest_group_ig_landowners_approval_add = 2 # a pillar of the throne
+		interest_group_ig_landowners_pol_str_mult = 0.05
+		building_group_bg_agriculture_self_investment_chance_add = 0.05 # what is saved stays in the estates
+		building_group_bg_agriculture_tax_mult = -0.1
+		building_group_bg_plantations_tax_mult = -0.1
+		state_pop_support_movement_liberal_mult = 0.05
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_landowners
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# Corn Laws follow-up
+amendment_nr_landowners_grain_tariff = {
+	parent = law_protectionism
+
+	allowed_laws = {
+		law_protectionism
+	}
+
+	modifier = {
+		building_group_bg_agriculture_throughput_add = 0.05
+		interest_group_ig_landowners_approval_add = 1
+		state_lower_strata_standard_of_living_add = -0.25
+		interest_group_ig_industrialists_approval_add = -1
+		state_pop_support_movement_liberal_mult = 0.05
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_landowners
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# Noble Land Bank follow-up
+amendment_nr_landowners_land_bank = {
+	parent = law_agrarianism
+
+	allowed_laws = {
+		law_traditionalism
+		law_agrarianism
+		law_interventionism
+		law_laissez_faire
+	}
+
+	modifier = {
+		building_group_bg_agriculture_self_investment_chance_add = 0.1
+		country_loan_interest_rate_add = 0.005
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_landowners
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# Corvee follow-up
+amendment_nr_landowners_corvee_statute = {
+	parent = law_serfdom
+
+	allowed_laws = {
+		law_serfdom
+		law_manorialism
+	}
+
+	modifier = {
+		building_group_bg_agriculture_throughput_add = 0.05
+		building_peasants_standard_of_living_add = -0.5
+		state_pop_support_movement_land_reform_mult = 0.1
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_landowners
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# Return of Fugitives follow-up; vanilla amendment_american_fugitive_slaves_act is limited to yankee / dixie cultures
+amendment_nr_landowners_fugitive_law = {
+	parent = law_legacy_slavery
+
+	allowed_laws = {
+		law_slave_trade
+		law_legacy_slavery
+		law_colonial_slavery
+		law_debt_slavery
+	}
+
+	modifier = {
+		interest_group_ig_landowners_approval_add = 1
+		interest_group_ig_landowners_pol_str_mult = 0.1
+		state_free_state_pop_support_movement_anti_slavery_mult = 0.15
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_landowners
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# Slave Import follow-up; pro-slavery radicalism -0.1 is a movement modifier refreshed yearly (nr_landowners_grants_movements)
+amendment_nr_landowners_free_import = {
+	parent = law_slave_trade
+
+	allowed_laws = {
+		law_slave_trade
+	}
+
+	modifier = {
+		state_slave_import_mult = 0.15
+		building_group_bg_plantations_throughput_add = 0.03
+		state_pop_support_movement_anti_slavery_mult = 0.1
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_landowners
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}

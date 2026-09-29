@@ -1,0 +1,192 @@
+﻿# NR: landowners' grants instead of money (negotiation option 1, feature landowners_grants). Scope: country unless noted.
+
+# The Landowners leader never takes money: status and land matter more than cash. Scope: character.
+nr_landowners_grants_leader_refuses = {
+	OR = {
+		nr_bribe_leader_refuses = yes # Honorable
+		has_trait = ambitious
+		has_trait = imperious
+		has_trait = arrogant
+	}
+}
+
+# Debt above half of the max credit (AI: no noble bank then).
+nr_landowners_grants_high_debt = {
+	principal > {
+		value = credit
+		multiply = 0.5
+	}
+}
+
+# A form can be offered in event nr_landowners_grants.1: available, not offered yet, not already running. $FORM$ = crown_lands / ...
+nr_landowners_grants_can_offer = {
+	nr_landowners_grants_$FORM$_available = yes
+	NOT = { has_variable = nr_landowners_grants_offer_$FORM$ }
+	NOT = { has_modifier = nr_landowners_grants_$FORM$ }
+}
+
+nr_landowners_grants_crown_lands_available = {
+	always = yes
+}
+
+nr_landowners_grants_tax_exemptions_available = {
+	always = yes
+}
+
+nr_landowners_grants_corn_laws_available = {
+	NOT = { has_law = law_type:law_free_trade }
+}
+
+nr_landowners_grants_land_bank_available = {
+	always = yes
+}
+
+nr_landowners_grants_corvee_available = {
+	OR = {
+		has_law = law_type:law_serfdom
+		has_law = law_type:law_manorialism
+	}
+}
+
+nr_landowners_grants_redemption_available = {
+	OR = {
+		has_law = law_type:law_tenant_farmers
+		has_law = law_type:law_latifundias
+		has_law = law_type:law_expanded_latifundias
+		has_law = law_type:law_commercialized_agriculture
+		has_law = law_type:law_peasant_proprietorship
+	}
+}
+
+nr_landowners_grants_fugitives_available = {
+	NOT = { has_law = law_type:law_slavery_banned }
+}
+
+nr_landowners_grants_slave_import_available = {
+	has_law = law_type:law_slave_trade
+}
+
+# ---------- Follow-ups (events nr_landowners_grants.11 - .18). Scope: country. ----------
+
+# The Landowners leader is not against the law (without scope:ig).
+nr_landowners_leader_not_against_law = {
+	NOT = {
+		ig:ig_landowners ?= {
+			leader ?= {
+				law_stance = {
+					law = law_type:$LAW$
+					value < neutral
+				}
+			}
+		}
+	}
+}
+
+# An own amendment can be attached to the active law ($AMENDMENT$ key, $PARENT$ its parent law).
+nr_landowners_amendment_free = {
+	NOT = { nr_amendment_is_present = { AMENDMENT = $AMENDMENT$ } }
+	nr_landowners_leader_not_against_law = { LAW = $PARENT$ }
+}
+
+nr_landowners_tenant_petition_available = {
+	OR = {
+		has_law = law_type:law_peasant_proprietorship
+		has_law = law_type:law_homesteading
+		has_law = law_type:law_commercialized_agriculture
+	}
+	nr_landowners_leader_not_against_law = { LAW = law_tenant_farmers }
+	NOT = { has_journal_entry = je_nr_landowners_tenant_petition }
+}
+
+nr_landowners_tenant_content = {
+	OR = {
+		has_law = law_type:law_tenant_farmers
+		has_law = law_type:law_serfdom
+		has_law = law_type:law_manorialism
+		has_law = law_type:law_latifundias
+		has_law = law_type:law_expanded_latifundias
+	}
+}
+
+nr_landowners_protectionism_petition_available = {
+	NOT = { has_law = law_type:law_protectionism }
+	nr_landowners_leader_not_against_law = { LAW = law_protectionism }
+	NOT = { has_journal_entry = je_nr_landowners_protectionism_petition }
+}
+
+nr_landowners_noble_privilege_available = {
+	OR = {
+		has_law = law_type:law_consumption_based_taxation
+		has_law = law_type:law_land_based_taxation
+		has_law = law_type:law_per_capita_based_taxation
+		has_law = law_type:law_proportional_taxation
+		has_law = law_type:law_graduated_taxation
+	}
+	nr_landowners_amendment_free = { AMENDMENT = amendment_nr_landowners_noble_privilege PARENT = law_land_based_taxation }
+}
+
+nr_landowners_grain_tariff_available = {
+	OR = {
+		has_law = law_type:law_protectionism
+	}
+	nr_landowners_amendment_free = { AMENDMENT = amendment_nr_landowners_grain_tariff PARENT = law_protectionism }
+}
+
+nr_landowners_land_bank_available = {
+	OR = {
+		has_law = law_type:law_traditionalism
+		has_law = law_type:law_agrarianism
+		has_law = law_type:law_interventionism
+		has_law = law_type:law_laissez_faire
+	}
+	nr_landowners_amendment_free = { AMENDMENT = amendment_nr_landowners_land_bank PARENT = law_agrarianism }
+}
+
+nr_landowners_corvee_statute_available = {
+	OR = {
+		has_law = law_type:law_serfdom
+		has_law = law_type:law_manorialism
+	}
+	nr_landowners_amendment_free = { AMENDMENT = amendment_nr_landowners_corvee_statute PARENT = law_serfdom }
+}
+
+nr_landowners_fugitive_law_available = {
+	OR = {
+		has_law = law_type:law_slave_trade
+		has_law = law_type:law_legacy_slavery
+		has_law = law_type:law_colonial_slavery
+		has_law = law_type:law_debt_slavery
+	}
+	nr_landowners_amendment_free = { AMENDMENT = amendment_nr_landowners_fugitive_law PARENT = law_legacy_slavery }
+}
+
+nr_landowners_free_import_available = {
+	OR = {
+		has_law = law_type:law_slave_trade
+	}
+	nr_landowners_amendment_free = { AMENDMENT = amendment_nr_landowners_free_import PARENT = law_slave_trade }
+}
+
+nr_landowners_redemption_available = {
+	OR = {
+		has_law = law_type:law_tenant_farmers
+		has_law = law_type:law_commercialized_agriculture
+		has_law = law_type:law_homesteading
+		has_law = law_type:law_peasant_proprietorship
+	}
+	nr_landowners_amendment_free = { AMENDMENT = amendment_redemption_payments PARENT = law_serfdom }
+}
+
+# The Landowners have an active petition for the law being enacted.
+nr_landowners_petition_for_enacting_law = {
+	OR = {
+		AND = {
+			has_journal_entry = je_nr_landowners_tenant_petition
+			is_enacting_law = law_type:law_tenant_farmers
+		}
+		AND = {
+			has_journal_entry = je_nr_landowners_protectionism_petition
+			is_enacting_law = law_type:law_protectionism
+		}
+	}
+}

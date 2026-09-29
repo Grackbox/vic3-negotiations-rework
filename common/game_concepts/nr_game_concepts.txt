@@ -44,3 +44,23 @@ concept_nr_prison_chaplaincy = {}
 concept_nr_gendarmerie_chaplains = {}
 
 concept_nr_fellow_believers = {}
+
+# Landowners' grants
+
+concept_nr_ranks_orders = {}
+
+concept_nr_crown_lands = {}
+
+concept_nr_noble_tax_exemption = {}
+
+concept_nr_corn_laws = {}
+
+concept_nr_land_bank = {}
+
+concept_nr_corvee = {}
+
+concept_nr_redemption = {}
+
+concept_nr_fugitive_slaves = {}
+
+concept_nr_slave_import = {}

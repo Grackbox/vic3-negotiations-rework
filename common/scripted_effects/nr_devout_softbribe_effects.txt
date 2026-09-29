@@ -21,7 +21,7 @@ nr_devout_softbribe_start = {
 		days = long_modifier_time
 		is_decaying = yes
 	}
-	nr_devout_softbribe_set_cost = { FACTOR = 1 }
+	nr_softbribe_set_cost = { KEY = nr_devout_softbribe FACTOR = 1 }
 	scope:ig = {
 		finish_negotiation = "negotiation.1.o1"
 		add_modifier = {
@@ -76,44 +76,6 @@ nr_devout_softbribe_add_form = {
 	}
 }
 
-# Sets the expenses of this campaign (its own slot modifier nr_devout_softbribe_expenses_<slot>) to the base amount
-# fixed at the negotiation x $FACTOR$ (1 at the negotiation; 0.25 / 0.5 / 1.25 / 1.5 for the form).
-# Guarded by has_variable: the event can be inspected or fired by console without the variables. Scope: country.
-nr_devout_softbribe_set_cost = {
-	if = {
-		limit = {
-			has_variable = nr_devout_softbribe_cost_amount
-			has_variable = nr_devout_softbribe_current_slot
-		}
-		if = {
-			limit = { var:nr_devout_softbribe_current_slot = 1 }
-			nr_devout_softbribe_set_slot_cost = { SLOT = 1 FACTOR = $FACTOR$ }
-		}
-		else_if = {
-			limit = { var:nr_devout_softbribe_current_slot = 2 }
-			nr_devout_softbribe_set_slot_cost = { SLOT = 2 FACTOR = $FACTOR$ }
-		}
-		else = {
-			nr_devout_softbribe_set_slot_cost = { SLOT = 3 FACTOR = $FACTOR$ }
-		}
-	}
-}
-
-nr_devout_softbribe_set_slot_cost = {
-	if = {
-		limit = { has_modifier = nr_devout_softbribe_expenses_$SLOT$ }
-		remove_modifier = nr_devout_softbribe_expenses_$SLOT$
-	}
-	add_modifier = {
-		name = nr_devout_softbribe_expenses_$SLOT$
-		multiplier = {
-			value = var:nr_devout_softbribe_cost_amount
-			multiply = $FACTOR$
-		}
-		days = long_modifier_time
-		is_decaying = yes
-	}
-}
 
 # Clears the data of event nr_devout_softbribe.1. Scope: country.
 nr_devout_softbribe_cleanup = {

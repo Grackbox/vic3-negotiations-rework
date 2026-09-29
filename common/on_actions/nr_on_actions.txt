@@ -37,6 +37,7 @@ nr_on_law_activated = {
 	effect = {
 		owner = {
 			nr_devout_officials_check_censorship = yes # Censorship Committees end under Protected Speech
+			nr_landowners_grants_check_laws = yes # Corn Laws, Corvee, Return of Fugitives, Slave Import end with their laws
 		}
 		if = {
 			limit = { has_amendment = amendment_type:amendment_nr_devout_fellow_believers }
@@ -53,5 +54,6 @@ on_yearly_pulse_country = {
 nr_on_yearly_pulse_country = {
 	effect = {
 		nr_devout_slavery_yearly = yes # "Do Not Enslave Fellow Believers": free the converted, calm the abolitionists
+		nr_landowners_grants_movements = yes # movement radicalism of the running grants and of Free Import
 	}
 }

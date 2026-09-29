@@ -1,0 +1,17 @@
+﻿# NR: helpers for political movements. Scope: country.
+
+# Puts a radicalism modifier on every movement of type $MOVEMENT$ for a year (refreshed by the caller yearly,
+# so movements that appear later get it too). $MOD$ = nr_movement_radicalism_up_010 / ...
+nr_movement_radicalism = {
+	every_political_movement = {
+		limit = { is_political_movement_type = $MOVEMENT$ }
+		if = {
+			limit = { has_modifier = $MOD$ }
+			remove_modifier = $MOD$
+		}
+		add_modifier = {
+			name = $MOD$
+			days = 365
+		}
+	}
+}

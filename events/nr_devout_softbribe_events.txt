@@ -54,7 +54,7 @@ nr_devout_softbribe.1 = {
 		}
 		custom_tooltip = nr_devout_softbribe_lore_asceticism
 		nr_devout_softbribe_add_form = { FORM = asceticism }
-		nr_devout_softbribe_set_cost = { FACTOR = 0.5 }
+		nr_softbribe_set_cost = { KEY = nr_devout_softbribe FACTOR = 0.5 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -79,7 +79,7 @@ nr_devout_softbribe.1 = {
 		}
 		custom_tooltip = nr_devout_softbribe_lore_enlightenment
 		nr_devout_softbribe_add_form = { FORM = enlightenment }
-		nr_devout_softbribe_set_cost = { FACTOR = 1.5 }
+		nr_softbribe_set_cost = { KEY = nr_devout_softbribe FACTOR = 1.5 }
 		hidden_effect = {
 			# NR devout_schools: when the campaign has run its course, the clergy come back with an offer
 			trigger_event = {
@@ -117,7 +117,7 @@ nr_devout_softbribe.1 = {
 		}
 		custom_tooltip = nr_devout_softbribe_lore_sisters
 		nr_devout_softbribe_add_form = { FORM = sisters }
-		nr_devout_softbribe_set_cost = { FACTOR = 1.25 }
+		nr_softbribe_set_cost = { KEY = nr_devout_softbribe FACTOR = 1.25 }
 		hidden_effect = {
 			# NR devout_sisters: when the campaign has run its course, the orders ask to stay in the hospitals
 			trigger_event = {
@@ -152,7 +152,7 @@ nr_devout_softbribe.1 = {
 		}
 		custom_tooltip = nr_devout_softbribe_lore_shelters
 		nr_devout_softbribe_add_form = { FORM = shelters }
-		nr_devout_softbribe_set_cost = { FACTOR = 1.5 }
+		nr_softbribe_set_cost = { KEY = nr_devout_softbribe FACTOR = 1.5 }
 		ai_chance = {
 			base = 0
 			modifier = {
@@ -213,7 +213,7 @@ nr_devout_softbribe.1 = {
 			multiplier = root.var:nr_devout_softbribe_degree
 			is_decaying = yes
 		}
-		nr_devout_softbribe_set_cost = { FACTOR = 0.25 }
+		nr_softbribe_set_cost = { KEY = nr_devout_softbribe FACTOR = 0.25 }
 		scope:ig ?= {
 			add_modifier = {
 				name = nr_devout_softbribe_parish_burden
@@ -234,7 +234,7 @@ nr_devout_softbribe.1 = {
 		}
 		custom_tooltip = nr_devout_softbribe_lore_missions
 		nr_devout_softbribe_mission_start = yes
-		nr_devout_softbribe_set_cost = { FACTOR = 1.25 }
+		nr_softbribe_set_cost = { KEY = nr_devout_softbribe FACTOR = 1.25 }
 		ai_chance = {
 			base = 15
 			modifier = {

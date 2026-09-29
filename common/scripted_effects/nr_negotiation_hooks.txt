@@ -15,6 +15,10 @@ nr_negotiation_after_options = {
 		nr_softbribe_roll = { KEY = nr_devout_softbribe REFUSES = nr_devout_softbribe_leader_refuses }
 	}
 	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
+		nr_softbribe_roll = { KEY = nr_landowners_grants REFUSES = nr_landowners_grants_leader_refuses }
+	}
+	if = {
 		limit = {
 			scope:ig = {
 				is_interest_group_type = ig_devout
@@ -38,6 +42,10 @@ nr_neg_option_1_custom = {
 	if = {
 		limit = { scope:ig = { is_interest_group_type = ig_devout } }
 		nr_devout_softbribe_start = yes
+	}
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
+		nr_landowners_grants_start = yes
 	}
 }
 

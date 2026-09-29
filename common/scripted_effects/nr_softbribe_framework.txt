@@ -32,3 +32,43 @@ nr_softbribe_roll = {
 		}
 	}
 }
+
+# Sets the expenses of this campaign (its own slot modifier <KEY>_expenses_<slot>) to the base amount fixed at the
+# negotiation (<KEY>_cost_amount) x $FACTOR$ (1 at the negotiation, the form factor later). The slot is
+# <KEY>_current_slot (nr_campaign_take_slot). Guarded by has_variable: the form event can be inspected or fired by
+# console without the variables. Scope: country.
+nr_softbribe_set_cost = {
+	if = {
+		limit = {
+			has_variable = $KEY$_cost_amount
+			has_variable = $KEY$_current_slot
+		}
+		if = {
+			limit = { var:$KEY$_current_slot = 1 }
+			nr_softbribe_set_slot_cost = { KEY = $KEY$ SLOT = 1 FACTOR = $FACTOR$ }
+		}
+		else_if = {
+			limit = { var:$KEY$_current_slot = 2 }
+			nr_softbribe_set_slot_cost = { KEY = $KEY$ SLOT = 2 FACTOR = $FACTOR$ }
+		}
+		else = {
+			nr_softbribe_set_slot_cost = { KEY = $KEY$ SLOT = 3 FACTOR = $FACTOR$ }
+		}
+	}
+}
+
+nr_softbribe_set_slot_cost = {
+	if = {
+		limit = { has_modifier = $KEY$_expenses_$SLOT$ }
+		remove_modifier = $KEY$_expenses_$SLOT$
+	}
+	add_modifier = {
+		name = $KEY$_expenses_$SLOT$
+		multiplier = {
+			value = var:$KEY$_cost_amount
+			multiply = $FACTOR$
+		}
+		days = long_modifier_time
+		is_decaying = yes
+	}
+}

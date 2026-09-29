@@ -1,0 +1,26 @@
+﻿# NR: radicalism modifiers put on political movements (nr_movement_radicalism).
+
+nr_movement_radicalism_up_010 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	political_movement_radicalism_add = 0.1
+}
+
+nr_movement_radicalism_up_015 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	political_movement_radicalism_add = 0.15
+}
+
+nr_movement_radicalism_up_020 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	political_movement_radicalism_add = 0.2
+}
+
+nr_movement_radicalism_down_010 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	political_movement_radicalism_add = -0.1
+}
+
+nr_movement_radicalism_down_015 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	political_movement_radicalism_add = -0.15
+}

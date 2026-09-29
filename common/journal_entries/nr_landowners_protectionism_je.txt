@@ -1,0 +1,50 @@
+﻿# NR: the Landowners' petition for Protectionism (feature landowners_grants).
+# 4 years: while Protectionism is being enacted it gets +25% enactment speed and the Landowners support it.
+# Complete: Protectionism is the law. Timeout: Landowners -2 approval for 5 years.
+
+je_nr_landowners_protectionism_petition = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	group = je_group_internal_affairs
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+		nr_petition_boost = { PETITION = nr_landowners_protectionism_petition LAW = law_protectionism }
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			nr_petition_boost = { PETITION = nr_landowners_protectionism_petition LAW = law_protectionism }
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_landowners_protectionism_petition_status_enacting
+				trigger = { is_enacting_law = law_type:law_protectionism }
+			}
+			triggered_desc = {
+				desc = je_nr_landowners_protectionism_petition_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		has_law = law_type:law_protectionism
+	}
+
+	on_complete = {
+		nr_petition_end = { PETITION = nr_landowners_protectionism_petition }
+	}
+
+	on_timeout = {
+		nr_petition_timeout = { PETITION = nr_landowners_protectionism_petition }
+	}
+
+	timeout = 1461 # 4 years
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}

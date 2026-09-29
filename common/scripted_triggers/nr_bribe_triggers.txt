@@ -41,3 +41,17 @@ nr_bribe_leader_loves = {
 nr_bribe_leader_refuses = {
 	has_trait = honorable
 }
+
+# Option 1 can be rolled for a group that has its own soft form ($KEY$ = campaign slot key, $REFUSES$ = trigger:
+# the leader never takes money): no second option 1 while the previous form event is pending ($KEY$_pending),
+# and either a free slot for the form or a regular bribe the leader would take. Scope: country, scope:ig.
+nr_softbribe_option_allowed = {
+	NOT = { has_variable = $KEY$_pending }
+	OR = {
+		nr_campaign_slot_free = { KEY = $KEY$ }
+		AND = {
+			nr_bribe_affordable = yes
+			NOT = { scope:ig.leader ?= { $REFUSES$ = yes } }
+		}
+	}
+}

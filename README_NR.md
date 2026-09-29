@@ -173,9 +173,10 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - `event nr_debug.1` - fires every enactment event `.1` at once; only those matching the law being enacted appear (their 5-year cooldown still applies).
 - `event nr_debug.2` / `event nr_debug.3` - menus of the post-campaign follow-ups `.2` (schools, sisters, chaplains, censorship, synod / church tax, Sunday Rest, Clerical Census, police, slavery). The censorship option also sets the campaign mark `nr_devout_censorship_campaign`. Each follow-up still checks its own trigger.
 - `event nr_debug.4` - Devout regular bribe without a negotiation: pay it exactly as option `negotiation.1.o1` (payment, `bribed_ig_benefits`, exposure roll, vice check in 310 days), give the Devout leader a vice now (100%), or expose it now (`generic_laws.2`, needs a law being enacted).
+- `event nr_debug.5` / `event nr_debug.6` - landowners' grants: the form event `nr_landowners_grants.1` and the follow-ups `.11` - `.18` (with the running mark of their form).
 - New follow-ups and enactment events should be added to these menus.
 
-## Feature landowners_grants - grants instead of money (negotiation option 1) - agreed design, in implementation
+## Feature landowners_grants - grants instead of money (negotiation option 1)
 - Roll (`nr_softbribe_roll`): 50 / 50 money or grant. Always a grant: leader Honorable, Ambitious, Imperious or Arrogant (status and land matter more than cash), or the bribe is unaffordable. Always money: Grifter / Expensive Tastes / Hedonist, or no free grant slot.
 - Option: Landowners +10 / 20 / 30% political strength by level (like the bribe), no attraction; expenses = vanilla bribe amount (`neg_bribe_amount`) weekly, decaying over 10 years, x form factor; form event a week later: default form + 2 random of the available ones. Slots 1 / 2 / 3 by clout; a running form is not offered again.
 - Forms (10 years, decaying; effects are drafts):
@@ -212,6 +213,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 | Slave Import | Slave Trade still in force: own amendment "Free Import": slave import +15%, plantation throughput +3%, abolitionist support +10%; pro-slavery radicalism -0.1 (movement modifier, refreshed yearly); no authority cost |
 
 - Enactment events (.1) for the new amendments: later, as a separate step.
+- Implementation: `common/scripted_effects/nr_landowners_grants_effects.txt` (start, forms, interruption, follow-up amendments), `common/scripted_triggers/nr_landowners_grants_triggers.txt`, `common/static_modifiers/nr_landowners_grants_modifiers.txt`, `common/amendments/nr_landowners_grants_amendments.txt`, `events/nr_landowners_grants_events.txt` (.1 form event, .11 - .18 follow-ups), journal entries `nr_landowners_tenant_je.txt` / `nr_landowners_protectionism_je.txt`, localization `nr_landowners_grants_l_*.yml`, concepts in `nr_game_concepts.txt`. Generic helpers used: `nr_softbribe_roll`, `nr_softbribe_option_allowed`, `nr_softbribe_set_cost` (`common/scripted_effects/nr_softbribe_framework.txt`), campaign slots, petition framework, `nr_movement_radicalism` (`common/scripted_effects/nr_movement_effects.txt`, modifiers `nr_movement_radicalism_up_010` ... in `nr_movement_modifiers.txt`). Each form remembers its slot (`nr_landowners_grants_<form>_slot`) and a running mark (`_running`, 3660 days) that its follow-up requires.
 
 ## Negotiation difficulty (reference)
 - Amenability (0-100) is computed in code; factor weights are not exposed.

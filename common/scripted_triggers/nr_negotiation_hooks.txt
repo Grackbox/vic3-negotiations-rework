@@ -29,22 +29,22 @@ nr_neg_option_1_is_custom = {
 nr_neg_option_1_allowed = {
 	OR = {
 		AND = {
-			# other groups: only a bribe the country can pay without a default
-			scope:ig = { NOT = { is_interest_group_type = ig_devout } }
+			# groups without their own form yet: only a bribe the country can pay without a default
+			scope:ig = {
+				NOR = {
+					is_interest_group_type = ig_devout
+					is_interest_group_type = ig_landowners
+				}
+			}
 			nr_bribe_affordable = yes
 		}
 		AND = {
 			scope:ig = { is_interest_group_type = ig_devout }
-			# no second option 1 while the previous soft bribe waits for its form event
-			NOT = { has_variable = nr_devout_softbribe_pending }
-			# a free campaign slot (limit by clout), or else a regular bribe the leader would take
-			OR = {
-				nr_campaign_slot_free = { KEY = nr_devout_softbribe }
-				AND = {
-					nr_bribe_affordable = yes
-					NOT = { scope:ig.leader ?= { nr_devout_softbribe_leader_refuses = yes } }
-				}
-			}
+			nr_softbribe_option_allowed = { KEY = nr_devout_softbribe REFUSES = nr_devout_softbribe_leader_refuses }
+		}
+		AND = {
+			scope:ig = { is_interest_group_type = ig_landowners }
+			nr_softbribe_option_allowed = { KEY = nr_landowners_grants REFUSES = nr_landowners_grants_leader_refuses }
 		}
 	}
 }

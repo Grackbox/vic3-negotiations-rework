@@ -1,0 +1,149 @@
+﻿# NR: landowners' grants (negotiation option 1, feature landowners_grants). Forms last 10 years and decay.
+
+# Landowners IG at the negotiation (x nr_neg_level_scale = 1 / 2 / 3: +10 / 20 / 30% political strength, like the bribe)
+nr_landowners_grants_favor = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	interest_group_pol_str_mult = 0.1
+}
+
+# Weekly expenses of the grant in campaign slot 1 (x vanilla bribe amount x form factor)
+nr_landowners_grants_expenses_1 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+# Weekly expenses of the grant in campaign slot 2 (x vanilla bribe amount x form factor)
+nr_landowners_grants_expenses_2 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+# Weekly expenses of the grant in campaign slot 3 (x vanilla bribe amount x form factor)
+nr_landowners_grants_expenses_3 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+# form, cost x0.5
+nr_landowners_grants_crown_lands = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	building_group_bg_agriculture_self_investment_chance_add = 0.1
+	building_aristocrats_shares_add = 5 # the estates own more of the farms (vanilla estates grant 10)
+	building_group_bg_subsistence_agriculture_peasants_standard_of_living_add = -1 # the land was taken from the communes
+	state_pop_support_movement_land_reform_mult = 0.1
+}
+
+# form, cost x0.25
+nr_landowners_grants_tax_exemptions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	building_aristocrats_standard_of_living_add = 1
+	building_group_bg_agriculture_tax_mult = -0.2
+	building_group_bg_plantations_tax_mult = -0.2
+	state_pop_support_movement_liberal_mult = 0.1 # privileges of the nobility
+}
+
+# form, cost x0.25
+nr_landowners_grants_corn_laws = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	building_group_bg_agriculture_throughput_add = 0.1
+	state_lower_strata_standard_of_living_add = -0.5 # dear bread
+	interest_group_ig_industrialists_approval_add = -2 # dear bread means higher wages
+	state_pop_support_movement_liberal_mult = 0.15 # like the Anti-Corn Law League
+}
+
+# form, cost x1.25
+nr_landowners_grants_land_bank = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	building_group_bg_agriculture_self_investment_chance_add = 0.2
+	country_loan_interest_rate_add = 0.01 # the state guarantees the bank
+}
+
+# form, cost x0.25
+nr_landowners_grants_corvee = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	building_group_bg_agriculture_throughput_add = 0.1
+	building_aristocrats_standard_of_living_add = 1
+	building_peasants_standard_of_living_add = -1
+	country_peasants_pol_str_mult = -0.1
+	state_pop_support_movement_land_reform_mult = 0.15
+}
+
+# form, cost x1.5
+nr_landowners_grants_redemption = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	building_aristocrats_standard_of_living_add = 1
+	building_group_bg_agriculture_self_investment_chance_add = 0.1 # the estates received capital
+	building_peasants_standard_of_living_add = -1 # redemption payments
+}
+
+# form, cost x0.75
+nr_landowners_grants_fugitives = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_pop_support_movement_slave_revolt_mult = -0.15
+	building_group_bg_plantations_slaves_mortality_mult = -0.05 # fewer escapes and reprisals
+	state_free_state_pop_support_movement_anti_slavery_mult = 0.15
+}
+
+# form, cost x0.25
+nr_landowners_grants_slave_import = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_slave_import_mult = 0.3
+	building_group_bg_plantations_throughput_add = 0.05
+	state_pop_support_movement_anti_slavery_mult = 0.1
+}
+
+# Interruption: the Landowners gave the privilege up themselves (in government)
+nr_landowners_grants_gave_up = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+# Interruption: the order was broken over their heads (in opposition)
+nr_landowners_grants_overruled = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -5
+}
+
+nr_landowners_grants_marginalized = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_pol_str_mult = -0.15
+}
+
+# Interruption backlash for Corn Laws / Corvee: the old order gathers supporters
+nr_landowners_grants_reaction = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	state_pop_support_movement_reactionary_mult = 0.1
+}
+
+# Follow-ups: the offer was declined / the Landowners are content
+nr_landowners_grants_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+nr_landowners_grants_content = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
+
+# Petition for Tenant Farmers
+nr_landowners_tenant_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+nr_landowners_tenant_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Petition for Protectionism
+nr_landowners_protectionism_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+nr_landowners_protectionism_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}

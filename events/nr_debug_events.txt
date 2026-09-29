@@ -176,3 +176,121 @@ nr_debug.4 = {
 		default_option = yes
 	}
 }
+
+# .5 / .6 - landowners' grants: the form event and the follow-ups (with their running mark).
+nr_debug.5 = {
+	type = country_event
+	placement = root
+	title = nr_debug.5.t
+	desc = nr_debug.5.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_debug.5.form
+		trigger_event = { id = nr_landowners_grants.1 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.5.crown_lands
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_grants_crown_lands_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_grants.11 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.5.tax_exemptions
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_grants_tax_exemptions_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_grants.12 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.5.corn_laws
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_grants_corn_laws_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_grants.13 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.5.land_bank
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_grants_land_bank_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_grants.14 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.5.close
+		default_option = yes
+	}
+}
+
+nr_debug.6 = {
+	type = country_event
+	placement = root
+	title = nr_debug.6.t
+	desc = nr_debug.6.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_debug.6.corvee
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_grants_corvee_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_grants.15 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.6.redemption
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_grants_redemption_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_grants.16 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.6.fugitives
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_grants_fugitives_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_grants.17 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.6.slave_import
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_grants_slave_import_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_grants.18 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.6.close
+		default_option = yes
+	}
+}

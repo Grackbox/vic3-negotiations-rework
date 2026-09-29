@@ -1,0 +1,368 @@
+﻿# NR: landowners' grants (negotiation option 1, feature landowners_grants).
+# The form is chosen by event nr_landowners_grants.1 a week later.
+
+# Negotiation option. Scope: country, scope:ig = Landowners.
+nr_landowners_grants_start = {
+	custom_tooltip = nr_landowners_grants_tt
+	hidden_effect = {
+		# Blocks a second option 1 of the Landowners until the form event fires (nr_softbribe_option_allowed)
+		set_variable = {
+			name = nr_landowners_grants_pending
+			days = 14
+		}
+		set_variable = {
+			name = nr_landowners_grants_cost_amount
+			value = neg_bribe_amount
+		}
+		set_variable = {
+			name = nr_landowners_grants_degree
+			value = scope:ig.amenability_level
+		}
+		nr_campaign_take_slot = { KEY = nr_landowners_grants }
+	}
+	nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = 1 }
+	scope:ig = {
+		finish_negotiation = "negotiation.1.o1"
+		add_modifier = {
+			name = nr_landowners_grants_favor
+			days = long_modifier_time
+			multiplier = nr_neg_level_scale
+			is_decaying = yes
+		}
+		improve_law_stance = yes
+	}
+	trigger_event = {
+		id = nr_landowners_grants.1
+		days = 7 # delay of the form event
+		popup = yes
+	}
+}
+
+# Offers one more random form in event nr_landowners_grants.1 (sets nr_landowners_grants_offer_<form>). Scope: country.
+nr_landowners_grants_offer_random_form = {
+	random_list = {
+		1 = {
+			trigger = { nr_landowners_grants_can_offer = { FORM = crown_lands } }
+			set_variable = nr_landowners_grants_offer_crown_lands
+		}
+		1 = {
+			trigger = { nr_landowners_grants_can_offer = { FORM = tax_exemptions } }
+			set_variable = nr_landowners_grants_offer_tax_exemptions
+		}
+		1 = {
+			trigger = { nr_landowners_grants_can_offer = { FORM = corn_laws } }
+			set_variable = nr_landowners_grants_offer_corn_laws
+		}
+		1 = {
+			trigger = { nr_landowners_grants_can_offer = { FORM = land_bank } }
+			set_variable = nr_landowners_grants_offer_land_bank
+		}
+		1 = {
+			trigger = { nr_landowners_grants_can_offer = { FORM = corvee } }
+			set_variable = nr_landowners_grants_offer_corvee
+		}
+		1 = {
+			trigger = { nr_landowners_grants_can_offer = { FORM = redemption } }
+			set_variable = nr_landowners_grants_offer_redemption
+		}
+		1 = {
+			trigger = { nr_landowners_grants_can_offer = { FORM = fugitives } }
+			set_variable = nr_landowners_grants_offer_fugitives
+		}
+		1 = {
+			trigger = { nr_landowners_grants_can_offer = { FORM = slave_import } }
+			set_variable = nr_landowners_grants_offer_slave_import
+		}
+	}
+}
+
+# Chosen form: its modifier for 10 years, its expenses (x $FACTOR$), the slot it occupies (for an interruption),
+# the running mark for its follow-up. Scope: country.
+nr_landowners_grants_choose_form = {
+	add_modifier = {
+		name = nr_landowners_grants_$FORM$
+		days = long_modifier_time
+		is_decaying = yes
+	}
+	nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = $FACTOR$ }
+	hidden_effect = {
+		if = {
+			limit = { has_variable = nr_landowners_grants_current_slot }
+			set_variable = {
+				name = nr_landowners_grants_$FORM$_slot
+				value = var:nr_landowners_grants_current_slot
+				days = long_modifier_time
+			}
+		}
+		set_variable = {
+			name = nr_landowners_grants_$FORM$_running
+			days = 3660
+		}
+	}
+	nr_landowners_grants_movements = yes
+}
+
+# Movement radicalism of the running forms (and of the Free Import amendment); on choice and yearly. Scope: country.
+nr_landowners_grants_movements = {
+	if = {
+		limit = { has_modifier = nr_landowners_grants_corvee }
+		nr_movement_radicalism = { MOVEMENT = movement_land_reform MOD = nr_movement_radicalism_up_010 }
+	}
+	if = {
+		limit = { has_modifier = nr_landowners_grants_redemption }
+		nr_movement_radicalism = { MOVEMENT = movement_land_reform MOD = nr_movement_radicalism_down_015 }
+	}
+	if = {
+		limit = { has_modifier = nr_landowners_grants_fugitives }
+		nr_movement_radicalism = { MOVEMENT = movement_anti_slavery MOD = nr_movement_radicalism_up_015 }
+		nr_movement_radicalism = { MOVEMENT = movement_pro_slavery MOD = nr_movement_radicalism_down_015 }
+	}
+	if = {
+		limit = { has_modifier = nr_landowners_grants_slave_import }
+		nr_movement_radicalism = { MOVEMENT = movement_anti_slavery MOD = nr_movement_radicalism_up_010 }
+		nr_movement_radicalism = { MOVEMENT = movement_pro_slavery MOD = nr_movement_radicalism_down_010 }
+	}
+	if = {
+		limit = { any_active_law = { has_amendment = amendment_type:amendment_nr_landowners_free_import } }
+		nr_movement_radicalism = { MOVEMENT = movement_pro_slavery MOD = nr_movement_radicalism_down_010 }
+	}
+}
+
+# Clears the data of event nr_landowners_grants.1. Scope: country.
+nr_landowners_grants_cleanup = {
+	remove_variable = nr_landowners_grants_pending
+	remove_variable = nr_landowners_grants_cost_amount
+	remove_variable = nr_landowners_grants_degree
+	remove_variable = nr_landowners_grants_current_slot
+	remove_variable = nr_landowners_grants_offer_crown_lands
+	remove_variable = nr_landowners_grants_offer_tax_exemptions
+	remove_variable = nr_landowners_grants_offer_corn_laws
+	remove_variable = nr_landowners_grants_offer_land_bank
+	remove_variable = nr_landowners_grants_offer_corvee
+	remove_variable = nr_landowners_grants_offer_redemption
+	remove_variable = nr_landowners_grants_offer_fugitives
+	remove_variable = nr_landowners_grants_offer_slave_import
+}
+
+# A law change ends a form (called from nr_on_law_activated). Scope: country.
+nr_landowners_grants_check_laws = {
+	if = {
+		limit = {
+			has_modifier = nr_landowners_grants_corn_laws
+			has_law = law_type:law_free_trade
+		}
+		nr_landowners_grants_interrupt = { FORM = corn_laws BACKLASH = reaction }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_grants_corvee
+			NOR = {
+				has_law = law_type:law_serfdom
+				has_law = law_type:law_manorialism
+			}
+		}
+		nr_landowners_grants_interrupt = { FORM = corvee BACKLASH = reaction }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_grants_fugitives
+			has_law = law_type:law_slavery_banned
+		}
+		nr_landowners_grants_interrupt = { FORM = fugitives BACKLASH = planters }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_grants_slave_import
+			NOT = { has_law = law_type:law_slave_trade }
+		}
+		nr_landowners_grants_interrupt = { FORM = slave_import BACKLASH = planters }
+	}
+}
+
+# Ends a form early: its modifier, its expenses and its slot go, no follow-up; the Landowners react -
+# in government: they gave it up themselves; in opposition: the order was broken over their heads. Scope: country.
+nr_landowners_grants_interrupt = {
+	remove_modifier = nr_landowners_grants_$FORM$
+	hidden_effect = {
+		if = {
+			limit = { var:nr_landowners_grants_$FORM$_slot ?= 1 }
+			nr_landowners_grants_free_slot = { SLOT = 1 }
+		}
+		else_if = {
+			limit = { var:nr_landowners_grants_$FORM$_slot ?= 2 }
+			nr_landowners_grants_free_slot = { SLOT = 2 }
+		}
+		else_if = {
+			limit = { var:nr_landowners_grants_$FORM$_slot ?= 3 }
+			nr_landowners_grants_free_slot = { SLOT = 3 }
+		}
+		if = {
+			limit = { has_variable = nr_landowners_grants_$FORM$_slot }
+			remove_variable = nr_landowners_grants_$FORM$_slot
+		}
+		if = {
+			limit = { has_variable = nr_landowners_grants_$FORM$_running }
+			remove_variable = nr_landowners_grants_$FORM$_running
+		}
+	}
+	if = {
+		limit = { ig:ig_landowners ?= { is_in_government = yes } }
+		ig:ig_landowners = {
+			add_modifier = {
+				name = nr_landowners_grants_gave_up
+				days = normal_modifier_time
+			}
+		}
+	}
+	else_if = {
+		limit = { exists = ig:ig_landowners }
+		ig:ig_landowners = {
+			add_modifier = {
+				name = nr_landowners_grants_overruled
+				days = normal_modifier_time
+			}
+			add_modifier = {
+				name = nr_landowners_grants_marginalized
+				days = normal_modifier_time
+				is_decaying = yes
+			}
+		}
+		nr_landowners_grants_backlash_$BACKLASH$ = yes
+	}
+}
+
+nr_landowners_grants_free_slot = {
+	if = {
+		limit = { has_modifier = nr_landowners_grants_expenses_$SLOT$ }
+		remove_modifier = nr_landowners_grants_expenses_$SLOT$
+	}
+	if = {
+		limit = { has_variable = nr_landowners_grants_slot_$SLOT$ }
+		remove_variable = nr_landowners_grants_slot_$SLOT$
+	}
+}
+
+nr_landowners_grants_backlash_reaction = {
+	add_modifier = {
+		name = nr_landowners_grants_reaction
+		days = normal_modifier_time
+	}
+}
+
+nr_landowners_grants_backlash_planters = {
+	nr_movement_radicalism = { MOVEMENT = movement_pro_slavery MOD = nr_movement_radicalism_up_020 }
+}
+
+# ---------- Follow-ups ----------
+
+# Attaches amendment_nr_landowners_noble_privilege to the active law. Scope: country.
+nr_landowners_add_noble_privilege = {
+	if = {
+		limit = { has_law = law_type:law_consumption_based_taxation }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_noble_privilege LAW = law_consumption_based_taxation IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_land_based_taxation }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_noble_privilege LAW = law_land_based_taxation IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_per_capita_based_taxation }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_noble_privilege LAW = law_per_capita_based_taxation IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_proportional_taxation }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_noble_privilege LAW = law_proportional_taxation IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_graduated_taxation }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_noble_privilege LAW = law_graduated_taxation IG = ig_landowners }
+	}
+}
+
+# Attaches amendment_nr_landowners_grain_tariff to the active law. Scope: country.
+nr_landowners_add_grain_tariff = {
+	if = {
+		limit = { has_law = law_type:law_protectionism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_grain_tariff LAW = law_protectionism IG = ig_landowners }
+	}
+}
+
+# Attaches amendment_nr_landowners_land_bank to the active law. Scope: country.
+nr_landowners_add_land_bank = {
+	if = {
+		limit = { has_law = law_type:law_traditionalism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_land_bank LAW = law_traditionalism IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_agrarianism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_land_bank LAW = law_agrarianism IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_interventionism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_land_bank LAW = law_interventionism IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_laissez_faire }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_land_bank LAW = law_laissez_faire IG = ig_landowners }
+	}
+}
+
+# Attaches amendment_nr_landowners_corvee_statute to the active law. Scope: country.
+nr_landowners_add_corvee_statute = {
+	if = {
+		limit = { has_law = law_type:law_serfdom }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_corvee_statute LAW = law_serfdom IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_manorialism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_corvee_statute LAW = law_manorialism IG = ig_landowners }
+	}
+}
+
+# Attaches amendment_nr_landowners_fugitive_law to the active law. Scope: country.
+nr_landowners_add_fugitive_law = {
+	if = {
+		limit = { has_law = law_type:law_slave_trade }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_fugitive_law LAW = law_slave_trade IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_legacy_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_fugitive_law LAW = law_legacy_slavery IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_colonial_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_fugitive_law LAW = law_colonial_slavery IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_debt_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_fugitive_law LAW = law_debt_slavery IG = ig_landowners }
+	}
+}
+
+# Attaches amendment_nr_landowners_free_import to the active law. Scope: country.
+nr_landowners_add_free_import = {
+	if = {
+		limit = { has_law = law_type:law_slave_trade }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_free_import LAW = law_slave_trade IG = ig_landowners }
+	}
+}
+
+# Attaches amendment_redemption_payments to the active law. Scope: country.
+nr_landowners_add_redemption = {
+	if = {
+		limit = { has_law = law_type:law_tenant_farmers }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_redemption_payments LAW = law_tenant_farmers IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_commercialized_agriculture }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_redemption_payments LAW = law_commercialized_agriculture IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_homesteading }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_redemption_payments LAW = law_homesteading IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_peasant_proprietorship }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_redemption_payments LAW = law_peasant_proprietorship IG = ig_landowners }
+	}
+}

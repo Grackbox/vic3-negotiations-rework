@@ -47,6 +47,10 @@ nr_petition_improve_stance = {
 		limit = { nr_devout_petition_for_enacting_law = yes }
 		ig:ig_devout ?= { improve_stance = 1 }
 	}
+	if = {
+		limit = { nr_landowners_petition_for_enacting_law = yes }
+		ig:ig_landowners ?= { improve_stance = 1 }
+	}
 }
 
 # Called from nr_on_law_enactment_started: every running Devout petition applies its enactment speed bonus at once,
@@ -79,5 +83,13 @@ nr_devout_petition_boost_all = {
 	if = {
 		limit = { has_journal_entry = je_nr_devout_slavery_petition }
 		nr_petition_boost = { PETITION = nr_devout_slavery_petition LAW = law_slavery_banned }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_landowners_tenant_petition }
+		nr_petition_boost = { PETITION = nr_landowners_tenant_petition LAW = law_tenant_farmers }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_landowners_protectionism_petition }
+		nr_petition_boost = { PETITION = nr_landowners_protectionism_petition LAW = law_protectionism }
 	}
 }

@@ -30,4 +30,11 @@ NR_SoftBribeLine = {
 		}
 		localization_key = nr_devout_softbribe_option
 	}
+
+	text = {
+		trigger = {
+			is_interest_group_type = ig_landowners
+		}
+		localization_key = nr_landowners_grants_option
+	}
 }
