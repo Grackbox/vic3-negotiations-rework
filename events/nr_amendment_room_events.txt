@@ -90,9 +90,12 @@ nr_amendment_room.1 = {
 		else = {
 			scope:nr_room_strike_1 = {
 				sponsor ?= {
-					add_modifier = {
-						name = nr_amendment_struck
-						days = normal_modifier_time
+					if = {
+						limit = { NOT = { this = scope:room_ig } } # a group swapping its own articles pays nothing
+						add_modifier = {
+							name = nr_amendment_struck
+							days = normal_modifier_time
+						}
 					}
 				}
 				remove_amendment = yes
@@ -115,9 +118,12 @@ nr_amendment_room.1 = {
 		}
 		scope:nr_room_strike_2 = {
 			sponsor ?= {
-				add_modifier = {
-					name = nr_amendment_struck
-					days = normal_modifier_time
+				if = {
+					limit = { NOT = { this = scope:room_ig } } # a group swapping its own articles pays nothing
+					add_modifier = {
+						name = nr_amendment_struck
+						days = normal_modifier_time
+					}
 				}
 			}
 			remove_amendment = yes
