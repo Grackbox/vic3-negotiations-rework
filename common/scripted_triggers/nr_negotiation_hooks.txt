@@ -28,15 +28,20 @@ nr_neg_option_1_is_custom = {
 # Can option 1 be rolled at all. Scope: country.
 nr_neg_option_1_allowed = {
 	OR = {
-		scope:ig = { NOT = { is_interest_group_type = ig_devout } }
 		AND = {
+			# other groups: only a bribe the country can pay without a default
+			scope:ig = { NOT = { is_interest_group_type = ig_devout } }
+			nr_bribe_affordable = yes
+		}
+		AND = {
+			scope:ig = { is_interest_group_type = ig_devout }
 			# no second option 1 while the previous soft bribe waits for its form event
 			NOT = { has_variable = nr_devout_softbribe_pending }
 			# a free campaign slot (limit by clout), or else a regular bribe the leader would take
 			OR = {
 				nr_campaign_slot_free = { KEY = nr_devout_softbribe }
 				AND = {
-					nr_devout_bribe_affordable = yes
+					nr_bribe_affordable = yes
 					NOT = { scope:ig.leader ?= { nr_devout_softbribe_leader_refuses = yes } }
 				}
 			}
@@ -45,33 +50,27 @@ nr_neg_option_1_allowed = {
 }
 
 # Can the regular bribe (negotiation.1.o1) still be chosen. Scope: country.
+# Every group is paid once: a bribe that would cause a default is not offered.
 nr_neg_option_1_affordable = {
-	# Devout: a bribe that would cause a default is not offered
-	OR = {
-		scope:ig = { NOT = { is_interest_group_type = ig_devout } }
-		nr_devout_bribe_affordable = yes
-	}
+	nr_bribe_affordable = yes
 }
 
-# AI weights of the regular bribe. Vanilla income checks apply to groups that pay the vanilla weekly bribe;
-# groups with their own payment get the good / fair / bad weights instead (+35 / +15 / -50).
+# AI weights of the regular bribe. The vanilla income checks were written for the weekly bribe, which no group gets
+# any more; every group uses the good / fair / bad weights of the one-time payment instead (+35 / +15 / -50).
 nr_neg_option_1_vanilla_ai = {
-	scope:ig = { NOT = { is_interest_group_type = ig_devout } }
+	always = no
 }
 
 nr_neg_option_1_ai_good = {
-	scope:ig = { is_interest_group_type = ig_devout }
-	nr_devout_bribe_ai_good = yes
+	nr_bribe_ai_good = yes
 }
 
 nr_neg_option_1_ai_fair = {
-	scope:ig = { is_interest_group_type = ig_devout }
-	nr_devout_bribe_ai_fair = yes
+	nr_bribe_ai_fair = yes
 }
 
 nr_neg_option_1_ai_bad = {
-	scope:ig = { is_interest_group_type = ig_devout }
-	nr_devout_bribe_ai_bad = yes
+	nr_bribe_ai_bad = yes
 }
 
 # ---------- Option 2 (places in the administration) ----------

@@ -5,7 +5,7 @@
 nr_devout_softbribe_roll = {
 	if = {
 		# a bribe that would cause a default is never offered: the church asks for charity instead
-		limit = { nr_devout_bribe_affordable = no }
+		limit = { nr_bribe_affordable = no }
 		scope:ig = { set_variable = nr_soft_bribe }
 	}
 	else_if = {

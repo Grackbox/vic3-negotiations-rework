@@ -1,27 +1,27 @@
 ﻿# NR: regular bribe (negotiation option 1).
 
-# Devout bribe can be paid without reaching the credit limit. Scope: country, scope:ig = Devout IG.
-nr_devout_bribe_affordable = {
-	nr_devout_bribe_room_after >= 0
+# The bribe can be paid without reaching the credit limit. Scope: country, scope:ig = the bribed group.
+nr_bribe_affordable = {
+	nr_bribe_room_after >= 0
 }
 
 # AI (option negotiation.1.o1, via nr_neg_option_1_ai_*).
 # Paid from gold reserves, no new debt.
-nr_devout_bribe_ai_good = {
-	nr_devout_bribe_reserves_after >= 0
+nr_bribe_ai_good = {
+	nr_bribe_reserves_after >= 0
 }
 
 # Partly on credit, but at least half of the credit stays free.
-nr_devout_bribe_ai_fair = {
-	nr_devout_bribe_reserves_after < 0
-	nr_devout_bribe_room_after_share >= 0.5
+nr_bribe_ai_fair = {
+	nr_bribe_reserves_after < 0
+	nr_bribe_room_after_share >= 0.5
 }
 
 # On credit while in deficit, or less than a quarter of the credit left.
-nr_devout_bribe_ai_bad = {
-	nr_devout_bribe_reserves_after < 0
+nr_bribe_ai_bad = {
+	nr_bribe_reserves_after < 0
 	OR = {
 		net_total_income < 0
-		nr_devout_bribe_room_after_share < 0.25
+		nr_bribe_room_after_share < 0.25
 	}
 }

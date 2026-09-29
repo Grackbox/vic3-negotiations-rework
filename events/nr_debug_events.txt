@@ -142,7 +142,7 @@ nr_debug.4 = {
 	option = { # Pay the bribe as negotiation.1.o1 would
 		name = nr_debug.4.a
 		trigger = {
-			nr_devout_bribe_affordable = yes
+			nr_bribe_affordable = yes
 		}
 		nr_bribe_pay = yes
 		scope:ig = {

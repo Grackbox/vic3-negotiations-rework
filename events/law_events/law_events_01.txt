@@ -160,7 +160,7 @@ generic_laws.2 = {
 			name = dealing_with_corruption
 			days = normal_modifier_time
 		}
-		nr_bribe_refund = yes # NR: the unspent part of a Devout bribe returns to the treasury
+		nr_bribe_refund = yes # NR: the unspent part of the bribe returns to the treasury
 	}
 
 	option = {

@@ -1,30 +1,21 @@
 ﻿# NR: regular bribe (negotiation option 1). Called from negotiation.1 option negotiation.1.o1. Scope: country, scope:ig set.
-# Devout: one-time payment, a trait roll for the leader who took the money. Other groups: vanilla behaviour.
+# Every group: one-time payment instead of the vanilla weekly expenses, refund of the unspent part when exposed.
+# Devout: also a trait roll for the leader who took the money.
 
 # Payment
 nr_bribe_pay = {
-	if = {
-		limit = { scope:ig = { is_interest_group_type = ig_devout } }
-		# stored for the refund in generic_laws.2
+	# stored on the group for the refund in generic_laws.2 (a second bribed group does not overwrite it)
+	scope:ig = {
 		set_variable = {
-			name = nr_devout_bribe_paid
-			value = nr_devout_bribe_lump_sum
+			name = nr_bribe_paid
+			value = root.nr_bribe_lump_sum
 			days = 330
 		}
-		# computed directly, not from the variable: tooltips are built before the variable is set
-		add_treasury = {
-			value = nr_devout_bribe_lump_sum
-			multiply = -1
-		}
 	}
-	else = {
-		# vanilla
-		add_modifier = {
-			name = negotiation_bribes
-			multiplier = neg_bribe_amount
-			days = long_modifier_time
-			is_decaying = yes
-		}
+	# computed directly, not from the variable: tooltips are built before the variable is set
+	add_treasury = {
+		value = nr_bribe_lump_sum
+		multiply = -1
 	}
 }
 
@@ -83,15 +74,14 @@ nr_bribe_expose = {
 	}
 }
 
-# Refund of the unspent Devout bribe money when the bribe is exposed. Scope: country; scope:corrupt_ig_scope from generic_laws.2.
+# Refund of the unspent bribe money when the bribe is exposed. Scope: country; scope:corrupt_ig_scope from generic_laws.2.
 nr_bribe_refund = {
 	if = {
 		limit = {
-			scope:corrupt_ig_scope = { is_interest_group_type = ig_devout }
-			has_variable = nr_devout_bribe_paid
+			scope:corrupt_ig_scope ?= { has_variable = nr_bribe_paid }
 		}
-		add_treasury = nr_devout_bribe_refund
-		remove_variable = nr_devout_bribe_paid
+		add_treasury = scope:corrupt_ig_scope.nr_bribe_refund
+		scope:corrupt_ig_scope = { remove_variable = nr_bribe_paid }
 	}
 }
 
