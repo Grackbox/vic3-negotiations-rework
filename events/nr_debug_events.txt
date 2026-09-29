@@ -157,6 +157,7 @@ nr_debug.4 = {
 		name = nr_debug.4.a
 		trigger = {
 			nr_bribe_affordable = yes
+			exists = currently_enacting_law # vanilla bribe values read the law being enacted
 		}
 		nr_bribe_pay = yes
 		scope:ig = {

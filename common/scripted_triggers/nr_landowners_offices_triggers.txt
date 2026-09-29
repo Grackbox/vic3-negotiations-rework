@@ -64,7 +64,7 @@ nr_landowners_offices_chancery_available = {
 # ---------- Follow-ups ----------
 
 # Amendment patrimonial_justice can be attached to the active law.
-nr_landowners_offices_patrimonial_justice_available = {
+nr_landowners_offices_patrimonial_justice_amendment_available = {
 	OR = { has_law = law_type:law_serfdom has_law = law_type:law_manorialism }
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_patrimonial_justice }
@@ -73,7 +73,7 @@ nr_landowners_offices_patrimonial_justice_available = {
 }
 
 # Amendment noble_guard can be attached to the active law.
-nr_landowners_offices_noble_guard_available = {
+nr_landowners_offices_noble_guard_amendment_available = {
 	has_law = law_type:law_local_police
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_guard }
@@ -82,7 +82,7 @@ nr_landowners_offices_noble_guard_available = {
 }
 
 # Amendment noble_curia can be attached to the active law.
-nr_landowners_offices_noble_curia_available = {
+nr_landowners_offices_noble_curia_amendment_available = {
 	has_law = law_type:law_landed_voting
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_curia }
@@ -91,7 +91,7 @@ nr_landowners_offices_noble_curia_available = {
 }
 
 # Amendment patrol_statute can be attached to the active law.
-nr_landowners_offices_patrol_statute_available = {
+nr_landowners_offices_patrol_statute_amendment_available = {
 	OR = { has_law = law_type:law_slave_trade has_law = law_type:law_legacy_slavery has_law = law_type:law_colonial_slavery has_law = law_type:law_debt_slavery }
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_patrol_statute }
@@ -100,7 +100,7 @@ nr_landowners_offices_patrol_statute_available = {
 }
 
 # Amendment state_slaves can be attached to the active law.
-nr_landowners_offices_state_slaves_available = {
+nr_landowners_offices_state_slaves_amendment_available = {
 	OR = { has_law = law_type:law_slave_trade has_law = law_type:law_legacy_slavery has_law = law_type:law_colonial_slavery has_law = law_type:law_debt_slavery }
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_state_slaves }
@@ -109,7 +109,7 @@ nr_landowners_offices_state_slaves_available = {
 }
 
 # Amendment noble_commissions can be attached to the active law.
-nr_landowners_offices_noble_commissions_available = {
+nr_landowners_offices_noble_commissions_amendment_available = {
 	OR = { has_law = law_type:law_peasant_levies has_law = law_type:law_professional_army }
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_commissions }
@@ -118,7 +118,7 @@ nr_landowners_offices_noble_commissions_available = {
 }
 
 # Amendment naval_census can be attached to the active law.
-nr_landowners_offices_naval_census_available = {
+nr_landowners_offices_naval_census_amendment_available = {
 	OR = { has_law = law_type:law_merchant_navy has_law = law_type:law_professional_navy has_law = law_type:law_jeune_ecole has_law = law_type:law_diplomatic_navy }
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_naval_census }
@@ -127,7 +127,7 @@ nr_landowners_offices_naval_census_available = {
 }
 
 # Amendment service_census can be attached to the active law.
-nr_landowners_offices_service_census_available = {
+nr_landowners_offices_service_census_amendment_available = {
 	has_law = law_type:law_hereditary_bureaucrats
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_service_census }

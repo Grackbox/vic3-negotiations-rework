@@ -144,7 +144,7 @@ amendment_nr_landowners_state_slaves = {
 	}
 
 	modifier = {
-		building_group_bg_construction_throughput_add = 0.05
+		building_construction_sector_throughput_add = 0.05
 		interest_group_ig_landowners_approval_add = 1
 		state_pop_support_movement_anti_slavery_mult = 0.05
 	}
@@ -213,7 +213,7 @@ amendment_nr_landowners_naval_census = {
 
 	modifier = {
 		country_navy_goods_cost_mult = -0.05
-		country_prestige_from_navy_power_projection_mult = 0.1
+		country_prestige_mult = 0.05
 	}
 
 	possible = {

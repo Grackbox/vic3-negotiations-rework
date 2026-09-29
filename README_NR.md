@@ -277,13 +277,13 @@ Agreed design; same scheme as the Devout church officials. Numbers are drafts.
 | Provincial Assemblies | x1.25 | no Universal Suffrage | bureaucracy +5%, Landowners +1; Rural Folk -5%, Intelligentsia -5% strength | Universal Suffrage (.33, reaction) |
 | Tax Farming | x0.5 | no Proportional / Graduated Taxation | tax capacity +10%; tax waste +5%, peasants SoL -0.5 | those laws (.34, no backlash) |
 | Slave Patrols | x0.5 | slavery legal | slave revolt support -15%, turmoil effects -5%; abolitionist support +10% | Slavery Banned (.35, planters) |
-| State Slaves | x1 | slavery legal | construction +10%, mining +5%, Landowners +1; abolitionist support +10%, slave mortality +5% | Slavery Banned (.36, planters) |
+| State Slaves | x1 | slavery legal | construction sector +10%, mining +5%, Landowners +1; abolitionist support +10%, slave mortality +5% | Slavery Banned (.36, planters) |
 | Noble Officer Corps | x1 | Peasant Levies / Professional Army | morale recovery +10%, Armed Forces +1, officers +10% strength; experience gain -10%, Intelligentsia -1 | National Militia / Mass Conscription (.37, reaction) |
 | Recruit Quotas by Estate | x0.5 | Peasant Levies | conscription +10%, Landowners +1; Rural Folk -1, peasants SoL -0.25 | no Peasant Levies (.38, no backlash) |
-| Naval Cadet Corps | x0.75 | coastal | prestige from navy +10%, +1 unassigned admiral; Petty Bourgeoisie -1 | - |
+| Naval Cadet Corps | x0.75 | coastal | prestige +5%, +1 unassigned admiral; Petty Bourgeoisie -1 | - |
 | Chancery Posts for Noble Sons | x1 | Hereditary / Appointed Bureaucrats | bureaucracy +5%, aristocrats +10% strength, Landowners +1; Intelligentsia -1, tax waste +3% | Elected Bureaucrats (.39, reaction) |
 
-- Changed from the discussion: Patrimonial Courts use peasants SoL -0.25 instead of "peasant radicals +10%" (no per-pop-type radicals modifier); Slave Patrols have no movement radicalism modifier.
+- Changed from the discussion: "prestige from navy power projection" is not a valid modifier in the game (only in the docs), so the naval form and Naval Census give prestige +5%. Patrimonial Courts use peasants SoL -0.25 instead of "peasant radicals +10%" (no per-pop-type radicals modifier); Slave Patrols have no movement radicalism modifier.
 - Interruption: form modifier, its bureaucracy penalty and its slot go, no follow-up; popup `nr_landowners_offices.31` - `.39` with a historical quote, options by government / opposition (`nr_campaign_react_gave_up` / `nr_campaign_react_overruled`). Called from `nr_on_law_activated` (`nr_landowners_offices_check_laws`).
 - Follow-ups 10 years later (`.11` - `.21`, only with the running mark `nr_landowners_offices_<form>_running`): petition / amendment / decline -1 / thanks +2 / neutral close.
 
@@ -295,10 +295,10 @@ Agreed design; same scheme as the Devout church officials. Numbers are drafts.
 | Provincial Assemblies | no Landed Voting (and no Universal Suffrage): petition for Landed Voting (tech `democracy`); Landed Voting: amendment Noble Curia: aristocrats voting power +50, Landowners +5% strength, liberal support +5% |
 | Tax Farming | thanks |
 | Slave Patrols | amendment Patrol Statute (any legal slavery law): slave revolt support -10%, Landowners +1, abolitionist support +5% |
-| State Slaves | amendment Slaves of the Nation (any legal slavery law): construction +5%, Landowners +1, abolitionist support +5% |
+| State Slaves | amendment Slaves of the Nation (any legal slavery law): construction sector +5%, Landowners +1, abolitionist support +5% |
 | Noble Officer Corps | amendment Noble Commissions (Peasant Levies / Professional Army): military wages -10%, officers +10% strength, experience gain -5% |
 | Recruit Quotas by Estate | thanks |
-| Naval Cadet Corps | amendment Naval Census (any navy law): navy goods cost -5%, prestige from navy +10% |
+| Naval Cadet Corps | amendment Naval Census (any navy law): navy goods cost -5%, prestige +5% |
 | Chancery Posts | Appointed Bureaucrats: petition for Hereditary Bureaucrats; Hereditary: amendment Service Census: population bureaucracy cost -5%, Intelligentsia -5% strength, Landowners +1 |
 
 - Amendments: sponsor Landowners, no authority cost; the leader rule applies (not offered if the Landowners leader is against the parent law).

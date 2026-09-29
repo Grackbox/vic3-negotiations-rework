@@ -293,7 +293,7 @@ nr_landowners_offices.11 = { # follow-up of patrimonial
 	option = { # amendment
 		name = nr_landowners_offices.fu.amendment
 		trigger = {
-			nr_landowners_offices_patrimonial_justice_available = yes
+			nr_landowners_offices_patrimonial_justice_amendment_available = yes
 		}
 		custom_tooltip = nr_landowners_offices_lore_11_amendment
 		nr_landowners_offices_add_patrimonial_justice = yes
@@ -303,7 +303,7 @@ nr_landowners_offices.11 = { # follow-up of patrimonial
 		name = nr_landowners_offices.fu.decline
 		default_option = yes
 		trigger = {
-			nr_landowners_offices_patrimonial_justice_available = yes
+			nr_landowners_offices_patrimonial_justice_amendment_available = yes
 		}
 		scope:ig ?= {
 			add_modifier = {
@@ -317,7 +317,7 @@ nr_landowners_offices.11 = { # follow-up of patrimonial
 		name = nr_landowners_offices.fu.nothing
 		default_option = yes
 		trigger = {
-			NOT = { nr_landowners_offices_patrimonial_justice_available = yes }
+			NOT = { nr_landowners_offices_patrimonial_justice_amendment_available = yes }
 		}
 	}
 
@@ -415,7 +415,7 @@ nr_landowners_offices.13 = { # follow-up of constabulary
 	option = { # amendment
 		name = nr_landowners_offices.fu.amendment
 		trigger = {
-			nr_landowners_offices_noble_guard_available = yes
+			nr_landowners_offices_noble_guard_amendment_available = yes
 		}
 		custom_tooltip = nr_landowners_offices_lore_13_amendment
 		nr_landowners_offices_add_noble_guard = yes
@@ -425,7 +425,7 @@ nr_landowners_offices.13 = { # follow-up of constabulary
 		name = nr_landowners_offices.fu.decline
 		default_option = yes
 		trigger = {
-			OR = { nr_landowners_police_petition_available = yes nr_landowners_offices_noble_guard_available = yes }
+			OR = { nr_landowners_police_petition_available = yes nr_landowners_offices_noble_guard_amendment_available = yes }
 		}
 		scope:ig ?= {
 			add_modifier = {
@@ -439,7 +439,7 @@ nr_landowners_offices.13 = { # follow-up of constabulary
 		name = nr_landowners_offices.fu.nothing
 		default_option = yes
 		trigger = {
-			NOR = { nr_landowners_police_petition_available = yes nr_landowners_offices_noble_guard_available = yes }
+			NOR = { nr_landowners_police_petition_available = yes nr_landowners_offices_noble_guard_amendment_available = yes }
 		}
 	}
 
@@ -490,7 +490,7 @@ nr_landowners_offices.14 = { # follow-up of assemblies
 	option = { # amendment
 		name = nr_landowners_offices.fu.amendment
 		trigger = {
-			nr_landowners_offices_noble_curia_available = yes
+			nr_landowners_offices_noble_curia_amendment_available = yes
 		}
 		custom_tooltip = nr_landowners_offices_lore_14_amendment
 		nr_landowners_offices_add_noble_curia = yes
@@ -500,7 +500,7 @@ nr_landowners_offices.14 = { # follow-up of assemblies
 		name = nr_landowners_offices.fu.decline
 		default_option = yes
 		trigger = {
-			OR = { nr_landowners_landed_petition_available = yes nr_landowners_offices_noble_curia_available = yes }
+			OR = { nr_landowners_landed_petition_available = yes nr_landowners_offices_noble_curia_amendment_available = yes }
 		}
 		scope:ig ?= {
 			add_modifier = {
@@ -514,7 +514,7 @@ nr_landowners_offices.14 = { # follow-up of assemblies
 		name = nr_landowners_offices.fu.nothing
 		default_option = yes
 		trigger = {
-			NOR = { nr_landowners_landed_petition_available = yes nr_landowners_offices_noble_curia_available = yes }
+			NOR = { nr_landowners_landed_petition_available = yes nr_landowners_offices_noble_curia_amendment_available = yes }
 		}
 	}
 
@@ -603,7 +603,7 @@ nr_landowners_offices.16 = { # follow-up of patrols
 	option = { # amendment
 		name = nr_landowners_offices.fu.amendment
 		trigger = {
-			nr_landowners_offices_patrol_statute_available = yes
+			nr_landowners_offices_patrol_statute_amendment_available = yes
 		}
 		custom_tooltip = nr_landowners_offices_lore_16_amendment
 		nr_landowners_offices_add_patrol_statute = yes
@@ -613,7 +613,7 @@ nr_landowners_offices.16 = { # follow-up of patrols
 		name = nr_landowners_offices.fu.decline
 		default_option = yes
 		trigger = {
-			nr_landowners_offices_patrol_statute_available = yes
+			nr_landowners_offices_patrol_statute_amendment_available = yes
 		}
 		scope:ig ?= {
 			add_modifier = {
@@ -627,7 +627,7 @@ nr_landowners_offices.16 = { # follow-up of patrols
 		name = nr_landowners_offices.fu.nothing
 		default_option = yes
 		trigger = {
-			NOT = { nr_landowners_offices_patrol_statute_available = yes }
+			NOT = { nr_landowners_offices_patrol_statute_amendment_available = yes }
 		}
 	}
 
@@ -669,7 +669,7 @@ nr_landowners_offices.17 = { # follow-up of state_slaves
 	option = { # amendment
 		name = nr_landowners_offices.fu.amendment
 		trigger = {
-			nr_landowners_offices_state_slaves_available = yes
+			nr_landowners_offices_state_slaves_amendment_available = yes
 		}
 		custom_tooltip = nr_landowners_offices_lore_17_amendment
 		nr_landowners_offices_add_state_slaves = yes
@@ -679,7 +679,7 @@ nr_landowners_offices.17 = { # follow-up of state_slaves
 		name = nr_landowners_offices.fu.decline
 		default_option = yes
 		trigger = {
-			nr_landowners_offices_state_slaves_available = yes
+			nr_landowners_offices_state_slaves_amendment_available = yes
 		}
 		scope:ig ?= {
 			add_modifier = {
@@ -693,7 +693,7 @@ nr_landowners_offices.17 = { # follow-up of state_slaves
 		name = nr_landowners_offices.fu.nothing
 		default_option = yes
 		trigger = {
-			NOT = { nr_landowners_offices_state_slaves_available = yes }
+			NOT = { nr_landowners_offices_state_slaves_amendment_available = yes }
 		}
 	}
 
@@ -735,7 +735,7 @@ nr_landowners_offices.18 = { # follow-up of officers
 	option = { # amendment
 		name = nr_landowners_offices.fu.amendment
 		trigger = {
-			nr_landowners_offices_noble_commissions_available = yes
+			nr_landowners_offices_noble_commissions_amendment_available = yes
 		}
 		custom_tooltip = nr_landowners_offices_lore_18_amendment
 		nr_landowners_offices_add_noble_commissions = yes
@@ -745,7 +745,7 @@ nr_landowners_offices.18 = { # follow-up of officers
 		name = nr_landowners_offices.fu.decline
 		default_option = yes
 		trigger = {
-			nr_landowners_offices_noble_commissions_available = yes
+			nr_landowners_offices_noble_commissions_amendment_available = yes
 		}
 		scope:ig ?= {
 			add_modifier = {
@@ -759,7 +759,7 @@ nr_landowners_offices.18 = { # follow-up of officers
 		name = nr_landowners_offices.fu.nothing
 		default_option = yes
 		trigger = {
-			NOT = { nr_landowners_offices_noble_commissions_available = yes }
+			NOT = { nr_landowners_offices_noble_commissions_amendment_available = yes }
 		}
 	}
 
@@ -848,7 +848,7 @@ nr_landowners_offices.20 = { # follow-up of naval
 	option = { # amendment
 		name = nr_landowners_offices.fu.amendment
 		trigger = {
-			nr_landowners_offices_naval_census_available = yes
+			nr_landowners_offices_naval_census_amendment_available = yes
 		}
 		custom_tooltip = nr_landowners_offices_lore_20_amendment
 		nr_landowners_offices_add_naval_census = yes
@@ -858,7 +858,7 @@ nr_landowners_offices.20 = { # follow-up of naval
 		name = nr_landowners_offices.fu.decline
 		default_option = yes
 		trigger = {
-			nr_landowners_offices_naval_census_available = yes
+			nr_landowners_offices_naval_census_amendment_available = yes
 		}
 		scope:ig ?= {
 			add_modifier = {
@@ -872,7 +872,7 @@ nr_landowners_offices.20 = { # follow-up of naval
 		name = nr_landowners_offices.fu.nothing
 		default_option = yes
 		trigger = {
-			NOT = { nr_landowners_offices_naval_census_available = yes }
+			NOT = { nr_landowners_offices_naval_census_amendment_available = yes }
 		}
 	}
 
@@ -923,7 +923,7 @@ nr_landowners_offices.21 = { # follow-up of chancery
 	option = { # amendment
 		name = nr_landowners_offices.fu.amendment
 		trigger = {
-			nr_landowners_offices_service_census_available = yes
+			nr_landowners_offices_service_census_amendment_available = yes
 		}
 		custom_tooltip = nr_landowners_offices_lore_21_amendment
 		nr_landowners_offices_add_service_census = yes
@@ -933,7 +933,7 @@ nr_landowners_offices.21 = { # follow-up of chancery
 		name = nr_landowners_offices.fu.decline
 		default_option = yes
 		trigger = {
-			OR = { nr_landowners_hereditary_petition_available = yes nr_landowners_offices_service_census_available = yes }
+			OR = { nr_landowners_hereditary_petition_available = yes nr_landowners_offices_service_census_amendment_available = yes }
 		}
 		scope:ig ?= {
 			add_modifier = {
@@ -947,7 +947,7 @@ nr_landowners_offices.21 = { # follow-up of chancery
 		name = nr_landowners_offices.fu.nothing
 		default_option = yes
 		trigger = {
-			NOR = { nr_landowners_hereditary_petition_available = yes nr_landowners_offices_service_census_available = yes }
+			NOR = { nr_landowners_hereditary_petition_available = yes nr_landowners_offices_service_census_amendment_available = yes }
 		}
 	}
 

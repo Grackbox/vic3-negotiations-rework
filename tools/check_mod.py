@@ -162,6 +162,17 @@ for name, body in param_defs.items():
                     missing_built.append(f'{built}  (from {name} in {f})')
 report('names built from parameters that do not exist', missing_built)
 
+# ---------- duplicated definitions (the game keeps the first and drops the rest) ----------
+dup_defs = []
+for kind in ('scripted_triggers', 'scripted_effects', 'script_values', 'static_modifiers', 'amendments', 'journal_entries'):
+    seen = {}
+    for f in sorted(glob.glob(f'common/{kind}/nr_*.txt')):
+        for name in re.findall(r'(?m)^(nr_[a-z0-9_]+|amendment_nr_[a-z0-9_]+|je_nr_[a-z0-9_]+) = ', open(f, encoding='utf-8-sig').read()):
+            if name in seen:
+                dup_defs.append(f'{name} ({seen[name]}, {f})'.replace('\\', '/'))
+            seen.setdefault(name, f)
+report('defined twice', dup_defs)
+
 # ---------- 5. localization ----------
 no_bom = [f.replace('\\', '/') for lang in LANGS for f in glob.glob(f'localization/{lang}/*.yml')
           if not open(f, 'rb').read(3) == b'\xef\xbb\xbf']
