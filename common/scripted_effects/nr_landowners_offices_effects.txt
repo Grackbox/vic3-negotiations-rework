@@ -1,0 +1,364 @@
+﻿# NR: the Landowners' places in the provinces (negotiation option 2 for the Landowners, feature landowners_offices).
+# The form (which posts they get) is chosen by event nr_landowners_offices.1 a week later. Same scheme as nr_devout_officials.
+
+# Negotiation option. Scope: country, scope:ig = Landowners.
+nr_landowners_offices_start = {
+	custom_tooltip = nr_landowners_offices_tt
+	hidden_effect = {
+		set_variable = {
+			name = nr_landowners_offices_degree
+			value = scope:ig.amenability_level
+		}
+		nr_campaign_take_slot = { KEY = nr_landowners_offices }
+	}
+	nr_landowners_offices_set_penalty = { FACTOR = 1 } # like vanilla negotiation_bureaucracy, rescaled by the form a week later
+	scope:ig = {
+		finish_negotiation = "negotiation.1.o2"
+		add_modifier = {
+			name = nr_landowners_offices_benefits
+			days = long_modifier_time
+			multiplier = nr_neg_level_scale
+			is_decaying = yes
+		}
+		improve_law_stance = yes
+	}
+	trigger_event = {
+		id = nr_landowners_offices.1
+		days = 7
+		popup = yes
+	}
+}
+
+# Offers one more random form in event nr_landowners_offices.1. Scope: country.
+nr_landowners_offices_offer_random_form = {
+	random_list = {
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = patrimonial } }
+			set_variable = nr_landowners_offices_offer_patrimonial
+		}
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = justices } }
+			set_variable = nr_landowners_offices_offer_justices
+		}
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = constabulary } }
+			set_variable = nr_landowners_offices_offer_constabulary
+		}
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = assemblies } }
+			set_variable = nr_landowners_offices_offer_assemblies
+		}
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = tax_farming } }
+			set_variable = nr_landowners_offices_offer_tax_farming
+		}
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = patrols } }
+			set_variable = nr_landowners_offices_offer_patrols
+		}
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = state_slaves } }
+			set_variable = nr_landowners_offices_offer_state_slaves
+		}
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = officers } }
+			set_variable = nr_landowners_offices_offer_officers
+		}
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = recruits } }
+			set_variable = nr_landowners_offices_offer_recruits
+		}
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = naval } }
+			set_variable = nr_landowners_offices_offer_naval
+		}
+		1 = {
+			trigger = { nr_landowners_offices_can_offer = { FORM = chancery } }
+			set_variable = nr_landowners_offices_offer_chancery
+		}
+	}
+}
+
+# Chosen form: its modifier for 10 years, the slot it occupies (for an interruption), the running mark for its
+# follow-up. Scope: country.
+nr_landowners_offices_choose_form = {
+	add_modifier = {
+		name = nr_landowners_offices_$FORM$
+		days = long_modifier_time
+		is_decaying = yes
+	}
+	hidden_effect = {
+		if = {
+			limit = { has_variable = nr_landowners_offices_current_slot }
+			set_variable = {
+				name = nr_landowners_offices_$FORM$_slot
+				value = var:nr_landowners_offices_current_slot
+				days = long_modifier_time
+			}
+		}
+		set_variable = {
+			name = nr_landowners_offices_$FORM$_running
+			days = 3660
+		}
+	}
+}
+
+# Bureaucracy penalty of this campaign (its slot modifier) = level x $FACTOR$. Scope: country.
+nr_landowners_offices_set_penalty = {
+	if = {
+		limit = { has_variable = nr_landowners_offices_current_slot }
+		if = {
+			limit = { var:nr_landowners_offices_current_slot = 1 }
+			nr_landowners_offices_set_slot_penalty = { SLOT = 1 FACTOR = $FACTOR$ }
+		}
+		else_if = {
+			limit = { var:nr_landowners_offices_current_slot = 2 }
+			nr_landowners_offices_set_slot_penalty = { SLOT = 2 FACTOR = $FACTOR$ }
+		}
+		else = {
+			nr_landowners_offices_set_slot_penalty = { SLOT = 3 FACTOR = $FACTOR$ }
+		}
+	}
+}
+
+nr_landowners_offices_set_slot_penalty = {
+	if = {
+		limit = { has_modifier = nr_landowners_offices_penalty_$SLOT$ }
+		remove_modifier = nr_landowners_offices_penalty_$SLOT$
+	}
+	add_modifier = {
+		name = nr_landowners_offices_penalty_$SLOT$
+		multiplier = {
+			value = nr_landowners_offices_level
+			multiply = $FACTOR$
+		}
+		days = long_modifier_time
+		is_decaying = yes
+	}
+}
+
+# Clears the data of event nr_landowners_offices.1. Scope: country.
+nr_landowners_offices_cleanup = {
+	remove_variable = nr_landowners_offices_degree
+	remove_variable = nr_landowners_offices_current_slot
+	remove_variable = nr_landowners_offices_offer_patrimonial
+	remove_variable = nr_landowners_offices_offer_justices
+	remove_variable = nr_landowners_offices_offer_constabulary
+	remove_variable = nr_landowners_offices_offer_assemblies
+	remove_variable = nr_landowners_offices_offer_tax_farming
+	remove_variable = nr_landowners_offices_offer_patrols
+	remove_variable = nr_landowners_offices_offer_state_slaves
+	remove_variable = nr_landowners_offices_offer_officers
+	remove_variable = nr_landowners_offices_offer_recruits
+	remove_variable = nr_landowners_offices_offer_naval
+	remove_variable = nr_landowners_offices_offer_chancery
+}
+
+# A law change ends a form (called from nr_on_law_activated). Scope: country.
+nr_landowners_offices_check_laws = {
+	if = {
+		limit = {
+			has_modifier = nr_landowners_offices_patrimonial
+			NOR = { has_law = law_type:law_serfdom has_law = law_type:law_manorialism has_law = law_type:law_tenant_farmers has_law = law_type:law_latifundias has_law = law_type:law_expanded_latifundias }
+		}
+		nr_landowners_offices_interrupt = { FORM = patrimonial EVENT = 31 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_offices_constabulary
+			OR = { has_law = law_type:law_dedicated_police has_law = law_type:law_militarized_police }
+		}
+		nr_landowners_offices_interrupt = { FORM = constabulary EVENT = 32 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_offices_assemblies
+			has_law = law_type:law_universal_suffrage
+		}
+		nr_landowners_offices_interrupt = { FORM = assemblies EVENT = 33 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_offices_tax_farming
+			OR = { has_law = law_type:law_proportional_taxation has_law = law_type:law_graduated_taxation }
+		}
+		nr_landowners_offices_interrupt = { FORM = tax_farming EVENT = 34 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_offices_patrols
+			has_law = law_type:law_slavery_banned
+		}
+		nr_landowners_offices_interrupt = { FORM = patrols EVENT = 35 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_offices_state_slaves
+			has_law = law_type:law_slavery_banned
+		}
+		nr_landowners_offices_interrupt = { FORM = state_slaves EVENT = 36 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_offices_officers
+			OR = { has_law = law_type:law_national_militia has_law = law_type:law_mass_conscription }
+		}
+		nr_landowners_offices_interrupt = { FORM = officers EVENT = 37 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_offices_recruits
+			NOT = { has_law = law_type:law_peasant_levies }
+		}
+		nr_landowners_offices_interrupt = { FORM = recruits EVENT = 38 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_landowners_offices_chancery
+			has_law = law_type:law_elected_bureaucrats
+		}
+		nr_landowners_offices_interrupt = { FORM = chancery EVENT = 39 }
+	}
+}
+
+# Ends a form early: its modifier, its bureaucracy penalty and its slot go, no follow-up; popup event $EVENT$ tells
+# what happened and applies the Landowners' reaction (pattern "Campaign interruption"). Scope: country.
+nr_landowners_offices_interrupt = {
+	remove_modifier = nr_landowners_offices_$FORM$
+	hidden_effect = {
+		if = {
+			limit = { var:nr_landowners_offices_$FORM$_slot ?= 1 }
+			nr_landowners_offices_free_slot = { SLOT = 1 }
+		}
+		else_if = {
+			limit = { var:nr_landowners_offices_$FORM$_slot ?= 2 }
+			nr_landowners_offices_free_slot = { SLOT = 2 }
+		}
+		else_if = {
+			limit = { var:nr_landowners_offices_$FORM$_slot ?= 3 }
+			nr_landowners_offices_free_slot = { SLOT = 3 }
+		}
+		if = {
+			limit = { has_variable = nr_landowners_offices_$FORM$_slot }
+			remove_variable = nr_landowners_offices_$FORM$_slot
+		}
+		if = {
+			limit = { has_variable = nr_landowners_offices_$FORM$_running }
+			remove_variable = nr_landowners_offices_$FORM$_running
+		}
+	}
+	trigger_event = { id = nr_landowners_offices.$EVENT$ popup = yes }
+}
+
+nr_landowners_offices_free_slot = {
+	if = {
+		limit = { has_modifier = nr_landowners_offices_penalty_$SLOT$ }
+		remove_modifier = nr_landowners_offices_penalty_$SLOT$
+	}
+	if = {
+		limit = { has_variable = nr_landowners_offices_slot_$SLOT$ }
+		remove_variable = nr_landowners_offices_slot_$SLOT$
+	}
+}
+
+# ---------- Follow-ups: attach the amendment to the active law. Scope: country. ----------
+nr_landowners_offices_add_patrimonial_justice = {
+	if = {
+		limit = { has_law = law_type:law_serfdom }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_patrimonial_justice LAW = law_serfdom IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_manorialism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_patrimonial_justice LAW = law_manorialism IG = ig_landowners }
+	}
+}
+
+nr_landowners_offices_add_noble_guard = {
+	if = {
+		limit = { has_law = law_type:law_local_police }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_noble_guard LAW = law_local_police IG = ig_landowners }
+	}
+}
+
+nr_landowners_offices_add_noble_curia = {
+	if = {
+		limit = { has_law = law_type:law_landed_voting }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_noble_curia LAW = law_landed_voting IG = ig_landowners }
+	}
+}
+
+nr_landowners_offices_add_patrol_statute = {
+	if = {
+		limit = { has_law = law_type:law_slave_trade }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_patrol_statute LAW = law_slave_trade IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_legacy_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_patrol_statute LAW = law_legacy_slavery IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_colonial_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_patrol_statute LAW = law_colonial_slavery IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_debt_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_patrol_statute LAW = law_debt_slavery IG = ig_landowners }
+	}
+}
+
+nr_landowners_offices_add_state_slaves = {
+	if = {
+		limit = { has_law = law_type:law_slave_trade }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_state_slaves LAW = law_slave_trade IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_legacy_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_state_slaves LAW = law_legacy_slavery IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_colonial_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_state_slaves LAW = law_colonial_slavery IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_debt_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_state_slaves LAW = law_debt_slavery IG = ig_landowners }
+	}
+}
+
+nr_landowners_offices_add_noble_commissions = {
+	if = {
+		limit = { has_law = law_type:law_peasant_levies }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_noble_commissions LAW = law_peasant_levies IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_professional_army }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_noble_commissions LAW = law_professional_army IG = ig_landowners }
+	}
+}
+
+nr_landowners_offices_add_naval_census = {
+	if = {
+		limit = { has_law = law_type:law_merchant_navy }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_naval_census LAW = law_merchant_navy IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_professional_navy }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_naval_census LAW = law_professional_navy IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_jeune_ecole }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_naval_census LAW = law_jeune_ecole IG = ig_landowners }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_diplomatic_navy }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_naval_census LAW = law_diplomatic_navy IG = ig_landowners }
+	}
+}
+
+nr_landowners_offices_add_service_census = {
+	if = {
+		limit = { has_law = law_type:law_hereditary_bureaucrats }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_landowners_service_census LAW = law_hereditary_bureaucrats IG = ig_landowners }
+	}
+}
+

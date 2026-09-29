@@ -1,0 +1,1376 @@
+﻿namespace = nr_landowners_offices
+
+# NR: the Landowners' places in the provinces (negotiation option 2, see nr_landowners_offices_effects.txt).
+# .1 - form event a week after the negotiation: Noble Elections (always, default) + 2 random of the available forms.
+# .11 - .21 - follow-ups 10 years after the form (only if it was not interrupted).
+# .31 - .39 - a law change ends a form (pattern "Campaign interruption").
+
+nr_landowners_offices.1 = {
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.1.t
+	desc = nr_landowners_offices.1.desc
+	flavor = nr_landowners_offices.1.flavor
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	duration = 3
+
+	immediate = {
+		ig:ig_landowners ?= {
+			save_scope_as = ig
+			leader ?= { save_scope_as = ig_leader }
+		}
+		nr_landowners_offices_offer_random_form = yes
+		nr_landowners_offices_offer_random_form = yes
+	}
+
+	option = { # Noble Elections: base effects only, penalty x1
+		name = nr_landowners_offices.1.elections
+		default_option = yes
+		custom_tooltip = nr_landowners_offices_lore_elections
+		custom_tooltip = nr_landowners_offices_base_tt
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.patrimonial
+		trigger = {
+			has_variable = nr_landowners_offices_offer_patrimonial
+		}
+		custom_tooltip = nr_landowners_offices_lore_patrimonial
+		nr_landowners_offices_choose_form = { FORM = patrimonial }
+		nr_landowners_offices_set_penalty = { FACTOR = 0.5 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.11
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.justices
+		trigger = {
+			has_variable = nr_landowners_offices_offer_justices
+		}
+		custom_tooltip = nr_landowners_offices_lore_justices
+		nr_landowners_offices_choose_form = { FORM = justices }
+		nr_landowners_offices_set_penalty = { FACTOR = 0.75 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.12
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.constabulary
+		trigger = {
+			has_variable = nr_landowners_offices_offer_constabulary
+		}
+		custom_tooltip = nr_landowners_offices_lore_constabulary
+		nr_landowners_offices_choose_form = { FORM = constabulary }
+		nr_landowners_offices_set_penalty = { FACTOR = 0.75 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.13
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.assemblies
+		trigger = {
+			has_variable = nr_landowners_offices_offer_assemblies
+		}
+		custom_tooltip = nr_landowners_offices_lore_assemblies
+		nr_landowners_offices_choose_form = { FORM = assemblies }
+		nr_landowners_offices_set_penalty = { FACTOR = 1.25 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.14
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.tax_farming
+		trigger = {
+			has_variable = nr_landowners_offices_offer_tax_farming
+		}
+		custom_tooltip = nr_landowners_offices_lore_tax_farming
+		nr_landowners_offices_choose_form = { FORM = tax_farming }
+		nr_landowners_offices_set_penalty = { FACTOR = 0.5 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.15
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.patrols
+		trigger = {
+			has_variable = nr_landowners_offices_offer_patrols
+		}
+		custom_tooltip = nr_landowners_offices_lore_patrols
+		nr_landowners_offices_choose_form = { FORM = patrols }
+		nr_landowners_offices_set_penalty = { FACTOR = 0.5 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.16
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.state_slaves
+		trigger = {
+			has_variable = nr_landowners_offices_offer_state_slaves
+		}
+		custom_tooltip = nr_landowners_offices_lore_state_slaves
+		nr_landowners_offices_choose_form = { FORM = state_slaves }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.17
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.officers
+		trigger = {
+			has_variable = nr_landowners_offices_offer_officers
+		}
+		custom_tooltip = nr_landowners_offices_lore_officers
+		nr_landowners_offices_choose_form = { FORM = officers }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.18
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.recruits
+		trigger = {
+			has_variable = nr_landowners_offices_offer_recruits
+		}
+		custom_tooltip = nr_landowners_offices_lore_recruits
+		nr_landowners_offices_choose_form = { FORM = recruits }
+		nr_landowners_offices_set_penalty = { FACTOR = 0.5 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.19
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.naval
+		trigger = {
+			has_variable = nr_landowners_offices_offer_naval
+		}
+		custom_tooltip = nr_landowners_offices_lore_naval
+		nr_landowners_offices_choose_form = { FORM = naval }
+		nr_landowners_offices_set_penalty = { FACTOR = 0.75 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.20
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_landowners_offices.1.chancery
+		trigger = {
+			has_variable = nr_landowners_offices_offer_chancery
+		}
+		custom_tooltip = nr_landowners_offices_lore_chancery
+		nr_landowners_offices_choose_form = { FORM = chancery }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_landowners_offices.21
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			nr_landowners_offices_cleanup = yes
+		}
+	}
+}
+
+nr_landowners_offices.11 = { # follow-up of patrimonial
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.11.t
+	desc = nr_landowners_offices.11.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_patrimonial_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # amendment
+		name = nr_landowners_offices.fu.amendment
+		trigger = {
+			nr_landowners_offices_patrimonial_justice_available = yes
+		}
+		custom_tooltip = nr_landowners_offices_lore_11_amendment
+		nr_landowners_offices_add_patrimonial_justice = yes
+	}
+
+	option = { # decline (only while there was something to offer)
+		name = nr_landowners_offices.fu.decline
+		default_option = yes
+		trigger = {
+			nr_landowners_offices_patrimonial_justice_available = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_landowners_offices.fu.nothing
+		default_option = yes
+		trigger = {
+			NOT = { nr_landowners_offices_patrimonial_justice_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_patrimonial_running }
+				remove_variable = nr_landowners_offices_patrimonial_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.12 = { # follow-up of justices
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.12.t
+	desc = nr_landowners_offices.12.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_justices_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # the Landowners are content
+		name = nr_landowners_offices.fu.thanks
+		default_option = yes
+		custom_tooltip = nr_landowners_offices_lore_12_thanks
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_justices_running }
+				remove_variable = nr_landowners_offices_justices_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.13 = { # follow-up of constabulary
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.13.t
+	desc = nr_landowners_offices.13.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_constabulary_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # petition
+		name = nr_landowners_offices.fu.petition
+		trigger = {
+			nr_landowners_police_petition_available = yes
+		}
+		custom_tooltip = nr_landowners_police_petition_tt
+		add_journal_entry = { type = je_nr_landowners_police_petition }
+	}
+
+	option = { # amendment
+		name = nr_landowners_offices.fu.amendment
+		trigger = {
+			nr_landowners_offices_noble_guard_available = yes
+		}
+		custom_tooltip = nr_landowners_offices_lore_13_amendment
+		nr_landowners_offices_add_noble_guard = yes
+	}
+
+	option = { # decline (only while there was something to offer)
+		name = nr_landowners_offices.fu.decline
+		default_option = yes
+		trigger = {
+			OR = { nr_landowners_police_petition_available = yes nr_landowners_offices_noble_guard_available = yes }
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_landowners_offices.fu.nothing
+		default_option = yes
+		trigger = {
+			NOR = { nr_landowners_police_petition_available = yes nr_landowners_offices_noble_guard_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_constabulary_running }
+				remove_variable = nr_landowners_offices_constabulary_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.14 = { # follow-up of assemblies
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.14.t
+	desc = nr_landowners_offices.14.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_assemblies_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # petition
+		name = nr_landowners_offices.fu.petition
+		trigger = {
+			nr_landowners_landed_petition_available = yes
+		}
+		custom_tooltip = nr_landowners_landed_petition_tt
+		add_journal_entry = { type = je_nr_landowners_landed_petition }
+	}
+
+	option = { # amendment
+		name = nr_landowners_offices.fu.amendment
+		trigger = {
+			nr_landowners_offices_noble_curia_available = yes
+		}
+		custom_tooltip = nr_landowners_offices_lore_14_amendment
+		nr_landowners_offices_add_noble_curia = yes
+	}
+
+	option = { # decline (only while there was something to offer)
+		name = nr_landowners_offices.fu.decline
+		default_option = yes
+		trigger = {
+			OR = { nr_landowners_landed_petition_available = yes nr_landowners_offices_noble_curia_available = yes }
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_landowners_offices.fu.nothing
+		default_option = yes
+		trigger = {
+			NOR = { nr_landowners_landed_petition_available = yes nr_landowners_offices_noble_curia_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_assemblies_running }
+				remove_variable = nr_landowners_offices_assemblies_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.15 = { # follow-up of tax_farming
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.15.t
+	desc = nr_landowners_offices.15.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_tax_farming_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # the Landowners are content
+		name = nr_landowners_offices.fu.thanks
+		default_option = yes
+		custom_tooltip = nr_landowners_offices_lore_15_thanks
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_tax_farming_running }
+				remove_variable = nr_landowners_offices_tax_farming_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.16 = { # follow-up of patrols
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.16.t
+	desc = nr_landowners_offices.16.desc
+
+	duration = 3
+
+	event_image = {
+		video = "southamerica_slave_chains"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_patrols_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # amendment
+		name = nr_landowners_offices.fu.amendment
+		trigger = {
+			nr_landowners_offices_patrol_statute_available = yes
+		}
+		custom_tooltip = nr_landowners_offices_lore_16_amendment
+		nr_landowners_offices_add_patrol_statute = yes
+	}
+
+	option = { # decline (only while there was something to offer)
+		name = nr_landowners_offices.fu.decline
+		default_option = yes
+		trigger = {
+			nr_landowners_offices_patrol_statute_available = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_landowners_offices.fu.nothing
+		default_option = yes
+		trigger = {
+			NOT = { nr_landowners_offices_patrol_statute_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_patrols_running }
+				remove_variable = nr_landowners_offices_patrols_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.17 = { # follow-up of state_slaves
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.17.t
+	desc = nr_landowners_offices.17.desc
+
+	duration = 3
+
+	event_image = {
+		video = "southamerica_slave_chains"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_state_slaves_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # amendment
+		name = nr_landowners_offices.fu.amendment
+		trigger = {
+			nr_landowners_offices_state_slaves_available = yes
+		}
+		custom_tooltip = nr_landowners_offices_lore_17_amendment
+		nr_landowners_offices_add_state_slaves = yes
+	}
+
+	option = { # decline (only while there was something to offer)
+		name = nr_landowners_offices.fu.decline
+		default_option = yes
+		trigger = {
+			nr_landowners_offices_state_slaves_available = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_landowners_offices.fu.nothing
+		default_option = yes
+		trigger = {
+			NOT = { nr_landowners_offices_state_slaves_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_state_slaves_running }
+				remove_variable = nr_landowners_offices_state_slaves_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.18 = { # follow-up of officers
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.18.t
+	desc = nr_landowners_offices.18.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_officers_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # amendment
+		name = nr_landowners_offices.fu.amendment
+		trigger = {
+			nr_landowners_offices_noble_commissions_available = yes
+		}
+		custom_tooltip = nr_landowners_offices_lore_18_amendment
+		nr_landowners_offices_add_noble_commissions = yes
+	}
+
+	option = { # decline (only while there was something to offer)
+		name = nr_landowners_offices.fu.decline
+		default_option = yes
+		trigger = {
+			nr_landowners_offices_noble_commissions_available = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_landowners_offices.fu.nothing
+		default_option = yes
+		trigger = {
+			NOT = { nr_landowners_offices_noble_commissions_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_officers_running }
+				remove_variable = nr_landowners_offices_officers_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.19 = { # follow-up of recruits
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.19.t
+	desc = nr_landowners_offices.19.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_recruits_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # the Landowners are content
+		name = nr_landowners_offices.fu.thanks
+		default_option = yes
+		custom_tooltip = nr_landowners_offices_lore_19_thanks
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_recruits_running }
+				remove_variable = nr_landowners_offices_recruits_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.20 = { # follow-up of naval
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.20.t
+	desc = nr_landowners_offices.20.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_naval_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # amendment
+		name = nr_landowners_offices.fu.amendment
+		trigger = {
+			nr_landowners_offices_naval_census_available = yes
+		}
+		custom_tooltip = nr_landowners_offices_lore_20_amendment
+		nr_landowners_offices_add_naval_census = yes
+	}
+
+	option = { # decline (only while there was something to offer)
+		name = nr_landowners_offices.fu.decline
+		default_option = yes
+		trigger = {
+			nr_landowners_offices_naval_census_available = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_landowners_offices.fu.nothing
+		default_option = yes
+		trigger = {
+			NOT = { nr_landowners_offices_naval_census_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_naval_running }
+				remove_variable = nr_landowners_offices_naval_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.21 = { # follow-up of chancery
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.21.t
+	desc = nr_landowners_offices.21.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_landowners
+		has_variable = nr_landowners_offices_chancery_running
+	}
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+	}
+
+	option = { # petition
+		name = nr_landowners_offices.fu.petition
+		trigger = {
+			nr_landowners_hereditary_petition_available = yes
+		}
+		custom_tooltip = nr_landowners_hereditary_petition_tt
+		add_journal_entry = { type = je_nr_landowners_hereditary_petition }
+	}
+
+	option = { # amendment
+		name = nr_landowners_offices.fu.amendment
+		trigger = {
+			nr_landowners_offices_service_census_available = yes
+		}
+		custom_tooltip = nr_landowners_offices_lore_21_amendment
+		nr_landowners_offices_add_service_census = yes
+	}
+
+	option = { # decline (only while there was something to offer)
+		name = nr_landowners_offices.fu.decline
+		default_option = yes
+		trigger = {
+			OR = { nr_landowners_hereditary_petition_available = yes nr_landowners_offices_service_census_available = yes }
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_landowners_offices_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_landowners_offices.fu.nothing
+		default_option = yes
+		trigger = {
+			NOR = { nr_landowners_hereditary_petition_available = yes nr_landowners_offices_service_census_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_landowners_offices_chancery_running }
+				remove_variable = nr_landowners_offices_chancery_running
+			}
+		}
+	}
+}
+
+nr_landowners_offices.31 = { # a law change ended patrimonial
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.31.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_offices.31.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_offices.31.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_offices.31.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_offices.31.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_landowners }
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_offices.31.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = reaction }
+	}
+}
+
+nr_landowners_offices.32 = { # a law change ended constabulary
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.32.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_offices.32.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_offices.32.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_offices.32.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_offices.32.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_landowners }
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_offices.32.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = reaction }
+	}
+}
+
+nr_landowners_offices.33 = { # a law change ended assemblies
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.33.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_offices.33.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_offices.33.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_offices.33.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_offices.33.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_landowners }
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_offices.33.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = reaction }
+	}
+}
+
+nr_landowners_offices.34 = { # a law change ended tax_farming
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.34.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_offices.34.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_offices.34.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_offices.34.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_offices.34.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_landowners }
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_offices.34.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = none }
+	}
+}
+
+nr_landowners_offices.35 = { # a law change ended patrols
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.35.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_offices.35.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_offices.35.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_offices.35.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "southamerica_slave_chains"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_offices.35.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_landowners }
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_offices.35.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = planters }
+	}
+}
+
+nr_landowners_offices.36 = { # a law change ended state_slaves
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.36.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_offices.36.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_offices.36.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_offices.36.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "southamerica_slave_chains"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_offices.36.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_landowners }
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_offices.36.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = planters }
+	}
+}
+
+nr_landowners_offices.37 = { # a law change ended officers
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.37.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_offices.37.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_offices.37.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_offices.37.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_offices.37.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_landowners }
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_offices.37.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = reaction }
+	}
+}
+
+nr_landowners_offices.38 = { # a law change ended recruits
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.38.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_offices.38.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_offices.38.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_offices.38.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_offices.38.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_landowners }
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_offices.38.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = none }
+	}
+}
+
+nr_landowners_offices.39 = { # a law change ended chancery
+	type = country_event
+	placement = root
+	title = nr_landowners_offices.39.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_offices.39.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_offices.39.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_offices.39.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_offices.39.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_landowners }
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_offices.39.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = reaction }
+	}
+}

@@ -43,7 +43,8 @@ nr_on_law_activated = {
 	effect = {
 		owner = {
 			nr_devout_officials_check_censorship = yes # Censorship Committees end under Protected Speech
-			nr_landowners_grants_check_laws = yes # Corn Laws, Corvee, Return of Fugitives, Slave Import end with their laws
+			nr_landowners_grants_check_laws = yes
+			nr_landowners_offices_check_laws = yes # places in the provinces end with their laws # Corn Laws, Corvee, Return of Fugitives, Slave Import end with their laws
 		}
 		if = {
 			limit = { has_amendment = amendment_type:amendment_nr_devout_fellow_believers }

@@ -1,0 +1,97 @@
+﻿# NR: numbers for the Landowners' places in the provinces (negotiation option 2, feature landowners_offices).
+# Same scheme as the Devout church officials (nr_devout_officials_values.txt).
+
+# Negotiation level (amenability_level 1 / 2 / 4): stored at the option, otherwise read from scope:ig. Scope: country.
+nr_landowners_offices_level = {
+	value = 1
+	if = {
+		limit = { exists = scope:ig }
+		value = scope:ig.amenability_level
+	}
+	if = {
+		limit = { has_variable = nr_landowners_offices_degree }
+		value = var:nr_landowners_offices_degree
+	}
+}
+
+# Bureaucracy production without our base penalty (already applied while the form event is pending). Scope: country.
+nr_landowners_offices_base_production = {
+	value = produced_bureaucracy
+	if = {
+		limit = { has_variable = nr_landowners_offices_degree }
+		divide = {
+			value = 1
+			subtract = {
+				value = nr_neg_bureaucracy_penalty_share
+				multiply = var:nr_landowners_offices_degree
+			}
+		}
+	}
+}
+
+# Spare bureaucracy after the x1 penalty as a share of usage (for AI weights). Scope: country.
+nr_landowners_offices_spare_share = {
+	value = nr_landowners_offices_base_production
+	multiply = {
+		value = 1
+		subtract = {
+			value = nr_neg_bureaucracy_penalty_share
+			multiply = nr_landowners_offices_level
+		}
+	}
+	subtract = bureaucracy_usage
+	divide = {
+		value = bureaucracy_usage
+		min = 1
+	}
+}
+
+# Chance of option 2 by the Landowners leader (added to the base weight 10 in set_neg_options). Scope: interest group.
+nr_landowners_offices_leader_weight = {
+	value = 0
+	if = {
+		limit = { leader ?= { has_trait = ambitious } }
+		add = 10 # wants levers of power
+	}
+	if = {
+		limit = { leader ?= { has_trait = imperious } }
+		add = 10 # likes control
+	}
+	if = {
+		limit = { leader ?= { has_trait = master_bureaucrat } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { has_trait = political_appointee } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { has_trait = basic_political_operator } }
+		add = 5
+	}
+	if = {
+		limit = { leader ?= { has_trait = experienced_political_operator } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { has_trait = expert_political_operator } }
+		add = 15
+	}
+	if = {
+		limit = { leader ?= { has_trait = honorable } }
+		add = 5 # service to the crown is a duty of his rank
+	}
+	if = {
+		limit = { leader ?= { has_trait = reckless } }
+		add = -5
+	}
+	if = {
+		limit = { leader ?= { has_trait = romantic } }
+		add = -5
+	}
+	if = {
+		limit = { leader ?= { nr_bribe_leader_loves = yes } }
+		add = -5 # Grifter / Expensive Tastes / Hedonist want money, not posts
+	}
+	min = -10 # base weight 10 + this >= 0
+}

@@ -78,3 +78,22 @@ NR_PressureLine = {
 		localization_key = nr_ruler_pressure_option_technocrats
 	}
 }
+
+# Own option 2 ("places in the administration") name per interest group.
+NR_OfficesLine = {
+	type = interest_group
+
+	text = {
+		trigger = {
+			is_interest_group_type = ig_devout
+		}
+		localization_key = nr_devout_officials_option
+	}
+
+	text = {
+		trigger = {
+			is_interest_group_type = ig_landowners
+		}
+		localization_key = nr_landowners_offices_option
+	}
+}

@@ -385,3 +385,127 @@ nr_debug.7 = {
 		default_option = yes
 	}
 }
+
+nr_debug.8 = {
+	type = country_event
+	placement = root
+	title = nr_debug.8.t
+	desc = nr_debug.8.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_debug.8.form
+		trigger_event = { id = nr_landowners_offices.1 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.patrimonial
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_patrimonial_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.11 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.justices
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_justices_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.12 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.constabulary
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_constabulary_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.13 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.assemblies
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_assemblies_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.14 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.tax_farming
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_tax_farming_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.15 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.patrols
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_patrols_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.16 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.state_slaves
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_state_slaves_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.17 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.officers
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_officers_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.18 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.recruits
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_recruits_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.19 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.naval
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_naval_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.20 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.chancery
+		set_variable = { # the follow-up needs the running mark of its form
+			name = nr_landowners_offices_chancery_running
+			days = 3660
+		}
+		trigger_event = { id = nr_landowners_offices.21 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.8.close
+		default_option = yes
+	}
+}

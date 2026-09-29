@@ -188,5 +188,17 @@ nr_landowners_petition_for_enacting_law = {
 			has_journal_entry = je_nr_landowners_protectionism_petition
 			is_enacting_law = law_type:law_protectionism
 		}
+		AND = {
+			has_journal_entry = je_nr_landowners_police_petition
+			is_enacting_law = law_type:law_local_police
+		}
+		AND = {
+			has_journal_entry = je_nr_landowners_landed_petition
+			is_enacting_law = law_type:law_landed_voting
+		}
+		AND = {
+			has_journal_entry = je_nr_landowners_hereditary_petition
+			is_enacting_law = law_type:law_hereditary_bureaucrats
+		}
 	}
 }

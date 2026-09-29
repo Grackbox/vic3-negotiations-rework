@@ -6,3 +6,4 @@
  nr_campaign_overruled: "Overruled"
  nr_campaign_marginalized: "Pushed Aside"
  nr_campaign_reaction: "Longing for the Old Order"
+ negotiation.1.nr_o2_custom: "[SCOPE.gsInterestGroup('negotiating_interest_group').GetCustom('NR_OfficesLine')]"

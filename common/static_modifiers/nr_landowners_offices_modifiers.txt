@@ -1,0 +1,168 @@
+﻿# NR: the Landowners' places in the provinces (negotiation option 2, feature landowners_offices). 10 years, decaying.
+
+# Landowners IG: posts give power, not new followers (x nr_neg_level_scale = 1 / 2 / 3: +12 / 24 / 36%)
+nr_landowners_offices_benefits = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_pol_str_mult = 0.12
+}
+
+# State bureaucracy penalty of campaign slot 1 (same as vanilla negotiation_bureaucracy), multiplier = level x form factor
+nr_landowners_offices_penalty_1 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_bureaucracy_mult = -0.075
+}
+
+# State bureaucracy penalty of campaign slot 2 (same as vanilla negotiation_bureaucracy), multiplier = level x form factor
+nr_landowners_offices_penalty_2 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_bureaucracy_mult = -0.075
+}
+
+# State bureaucracy penalty of campaign slot 3 (same as vanilla negotiation_bureaucracy), multiplier = level x form factor
+nr_landowners_offices_penalty_3 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_bureaucracy_mult = -0.075
+}
+
+# patrimonial, bureaucracy penalty x0.5
+nr_landowners_offices_patrimonial = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_ig_landowners_pol_str_mult = 0.05
+	interest_group_ig_landowners_approval_add = 1
+	state_turmoil_effects_mult = -0.05
+	building_peasants_standard_of_living_add = -0.25
+	state_pop_support_movement_land_reform_mult = 0.1
+}
+
+# justices, bureaucracy penalty x0.75
+nr_landowners_offices_justices = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	state_turmoil_effects_mult = -0.05
+	interest_group_ig_landowners_approval_add = 1
+	interest_group_ig_petty_bourgeoisie_pol_str_mult = -0.05
+}
+
+# constabulary, bureaucracy penalty x0.75
+nr_landowners_offices_constabulary = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	state_turmoil_effects_mult = -0.1
+	interest_group_ig_landowners_pol_str_mult = 0.05
+	interest_group_ig_rural_folk_pol_str_mult = -0.1
+	state_pop_support_movement_liberal_mult = 0.05
+}
+
+# assemblies, bureaucracy penalty x1.25
+nr_landowners_offices_assemblies = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	country_bureaucracy_mult = 0.05
+	interest_group_ig_landowners_approval_add = 1
+	interest_group_ig_rural_folk_pol_str_mult = -0.05
+	interest_group_ig_intelligentsia_pol_str_mult = -0.05
+}
+
+# tax_farming, bureaucracy penalty x0.5
+nr_landowners_offices_tax_farming = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	state_tax_capacity_mult = 0.1
+	state_tax_waste_add = 0.05
+	building_peasants_standard_of_living_add = -0.5
+}
+
+# patrols, bureaucracy penalty x0.5
+nr_landowners_offices_patrols = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	state_pop_support_movement_slave_revolt_mult = -0.15
+	state_turmoil_effects_mult = -0.05
+	state_pop_support_movement_anti_slavery_mult = 0.1
+}
+
+# state_slaves, bureaucracy penalty x1
+nr_landowners_offices_state_slaves = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	building_group_bg_construction_throughput_add = 0.1
+	building_group_bg_mining_throughput_add = 0.05
+	interest_group_ig_landowners_approval_add = 1
+	state_pop_support_movement_anti_slavery_mult = 0.1
+	building_slaves_mortality_mult = 0.05
+}
+
+# officers, bureaucracy penalty x1
+nr_landowners_offices_officers = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	unit_morale_recovery_mult = 0.1
+	interest_group_ig_armed_forces_approval_add = 1
+	country_officers_pol_str_mult = 0.1
+	unit_experience_gain_mult = -0.1
+	interest_group_ig_intelligentsia_approval_add = -1
+}
+
+# recruits, bureaucracy penalty x0.5
+nr_landowners_offices_recruits = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	state_conscription_rate_mult = 0.1
+	interest_group_ig_landowners_approval_add = 1
+	interest_group_ig_rural_folk_approval_add = -1
+	building_peasants_standard_of_living_add = -0.25
+}
+
+# naval, bureaucracy penalty x0.75
+nr_landowners_offices_naval = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	country_prestige_from_navy_power_projection_mult = 0.1
+	country_max_unassigned_admirals_add = 1
+	interest_group_ig_petty_bourgeoisie_approval_add = -1
+}
+
+# chancery, bureaucracy penalty x1
+nr_landowners_offices_chancery = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	country_bureaucracy_mult = 0.05
+	country_aristocrats_pol_str_mult = 0.1
+	interest_group_ig_landowners_approval_add = 1
+	interest_group_ig_intelligentsia_approval_add = -1
+	state_tax_waste_add = 0.03
+}
+
+# Follow-ups: the offer was declined / the Landowners are content
+nr_landowners_offices_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+nr_landowners_offices_content = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
+
+# Petition for law_local_police
+nr_landowners_police_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+nr_landowners_police_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Petition for law_landed_voting
+nr_landowners_landed_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+nr_landowners_landed_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Petition for law_hereditary_bureaucrats
+nr_landowners_hereditary_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+nr_landowners_hereditary_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}

@@ -92,4 +92,16 @@ nr_devout_petition_boost_all = {
 		limit = { has_journal_entry = je_nr_landowners_protectionism_petition }
 		nr_petition_boost = { PETITION = nr_landowners_protectionism_petition LAW = law_protectionism }
 	}
+	if = {
+		limit = { has_journal_entry = je_nr_landowners_police_petition }
+		nr_petition_boost = { PETITION = nr_landowners_police_petition LAW = law_local_police }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_landowners_landed_petition }
+		nr_petition_boost = { PETITION = nr_landowners_landed_petition LAW = law_landed_voting }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_landowners_hereditary_petition }
+		nr_petition_boost = { PETITION = nr_landowners_hereditary_petition LAW = law_hereditary_bureaucrats }
+	}
 }

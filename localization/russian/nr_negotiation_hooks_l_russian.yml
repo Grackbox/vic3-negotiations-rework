@@ -6,3 +6,4 @@
  nr_campaign_overruled: "Их мнением пренебрегли"
  nr_campaign_marginalized: "Оттеснены"
  nr_campaign_reaction: "Тоска по старому порядку"
+ negotiation.1.nr_o2_custom: "[SCOPE.gsInterestGroup('negotiating_interest_group').GetCustom('NR_OfficesLine')]"

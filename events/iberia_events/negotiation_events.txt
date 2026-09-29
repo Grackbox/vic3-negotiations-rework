@@ -414,8 +414,8 @@ negotiation.1 = {
 		}
 	}
 
-	option = { # NR: custom option 2 (Devout: church officials) - logic in common/scripted_effects/nr_negotiation_hooks.txt
-		name = negotiation.1.nr_o2_devout
+	option = { # NR: custom option 2 (Devout: church officials, Landowners: places in the provinces) - logic in common/scripted_effects/nr_negotiation_hooks.txt
+		name = negotiation.1.nr_o2_custom
 		trigger = {
 			OR = {
 				var:negotiation_option_a = 2

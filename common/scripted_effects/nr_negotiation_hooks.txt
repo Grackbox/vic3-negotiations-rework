@@ -49,11 +49,15 @@ nr_neg_option_1_custom = {
 	}
 }
 
-# Option 2: church officials for groups in nr_neg_option_2_is_custom.
+# Option 2: the group's own posts for groups in nr_neg_option_2_is_custom.
 nr_neg_option_2_custom = {
 	if = {
 		limit = { scope:ig = { is_interest_group_type = ig_devout } }
 		nr_devout_officials_start = yes
+	}
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
+		nr_landowners_offices_start = yes
 	}
 }
 

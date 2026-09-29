@@ -74,9 +74,15 @@ nr_neg_option_1_ai_bad = {
 }
 
 # ---------- Option 2 (places in the administration) ----------
-# Devout get their own version of option 2 (church officials, nr_devout_officials_*).
+# Groups with their own version of option 2: Devout (church officials, nr_devout_officials_*),
+# Landowners (places in the provinces, nr_landowners_offices_*).
 nr_neg_option_2_is_custom = {
-	scope:ig = { is_interest_group_type = ig_devout }
+	scope:ig = {
+		OR = {
+			is_interest_group_type = ig_devout
+			is_interest_group_type = ig_landowners
+		}
+	}
 }
 
 # Can option 2 be rolled at all. Scope: country.
@@ -84,8 +90,20 @@ nr_neg_option_2_is_custom = {
 nr_neg_option_2_allowed = {
 	# Devout: church officials only while the church runs fewer campaigns than its clout allows
 	OR = {
-		scope:ig = { NOT = { is_interest_group_type = ig_devout } }
-		nr_campaign_slot_free = { KEY = nr_devout_officials }
+		scope:ig = {
+			NOR = {
+				is_interest_group_type = ig_devout
+				is_interest_group_type = ig_landowners
+			}
+		}
+		AND = {
+			scope:ig = { is_interest_group_type = ig_devout }
+			nr_campaign_slot_free = { KEY = nr_devout_officials }
+		}
+		AND = {
+			scope:ig = { is_interest_group_type = ig_landowners }
+			nr_campaign_slot_free = { KEY = nr_landowners_offices }
+		}
 	}
 }
 
@@ -97,11 +115,27 @@ nr_neg_option_2_skips_vanilla_block = {
 
 # AI weights of the custom option 2 (+25 / -30).
 nr_neg_option_2_ai_good = {
-	scope:ig = { is_interest_group_type = ig_devout }
-	nr_devout_officials_ai_good = yes
+	OR = {
+		AND = {
+			scope:ig = { is_interest_group_type = ig_devout }
+			nr_devout_officials_ai_good = yes
+		}
+		AND = {
+			scope:ig = { is_interest_group_type = ig_landowners }
+			nr_landowners_offices_ai_good = yes
+		}
+	}
 }
 
 nr_neg_option_2_ai_bad = {
-	scope:ig = { is_interest_group_type = ig_devout }
-	nr_devout_officials_ai_bad = yes
+	OR = {
+		AND = {
+			scope:ig = { is_interest_group_type = ig_devout }
+			nr_devout_officials_ai_bad = yes
+		}
+		AND = {
+			scope:ig = { is_interest_group_type = ig_landowners }
+			nr_landowners_offices_ai_bad = yes
+		}
+	}
 }

@@ -1,0 +1,143 @@
+﻿# NR: the Landowners' petitions from the follow-ups of their places in the provinces (feature landowners_offices).
+# 4 years: the law gets +25% enactment speed and the Landowners support it. Timeout: Landowners -2 approval for 5 years.
+
+je_nr_landowners_police_petition = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	group = je_group_internal_affairs
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+		nr_petition_boost = { PETITION = nr_landowners_police_petition LAW = law_local_police }
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			nr_petition_boost = { PETITION = nr_landowners_police_petition LAW = law_local_police }
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_landowners_police_petition_status_enacting
+				trigger = { is_enacting_law = law_type:law_local_police }
+			}
+			triggered_desc = {
+				desc = je_nr_landowners_police_petition_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		has_law = law_type:law_local_police
+	}
+
+	on_complete = {
+		nr_petition_end = { PETITION = nr_landowners_police_petition }
+	}
+
+	on_timeout = {
+		nr_petition_timeout = { PETITION = nr_landowners_police_petition }
+	}
+
+	timeout = 1461 # 4 years
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_landowners_landed_petition = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	group = je_group_internal_affairs
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+		nr_petition_boost = { PETITION = nr_landowners_landed_petition LAW = law_landed_voting }
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			nr_petition_boost = { PETITION = nr_landowners_landed_petition LAW = law_landed_voting }
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_landowners_landed_petition_status_enacting
+				trigger = { is_enacting_law = law_type:law_landed_voting }
+			}
+			triggered_desc = {
+				desc = je_nr_landowners_landed_petition_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		has_law = law_type:law_landed_voting
+	}
+
+	on_complete = {
+		nr_petition_end = { PETITION = nr_landowners_landed_petition }
+	}
+
+	on_timeout = {
+		nr_petition_timeout = { PETITION = nr_landowners_landed_petition }
+	}
+
+	timeout = 1461 # 4 years
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_landowners_hereditary_petition = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	group = je_group_internal_affairs
+
+	immediate = {
+		ig:ig_landowners ?= { save_scope_as = ig }
+		nr_petition_boost = { PETITION = nr_landowners_hereditary_petition LAW = law_hereditary_bureaucrats }
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			nr_petition_boost = { PETITION = nr_landowners_hereditary_petition LAW = law_hereditary_bureaucrats }
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_landowners_hereditary_petition_status_enacting
+				trigger = { is_enacting_law = law_type:law_hereditary_bureaucrats }
+			}
+			triggered_desc = {
+				desc = je_nr_landowners_hereditary_petition_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		has_law = law_type:law_hereditary_bureaucrats
+	}
+
+	on_complete = {
+		nr_petition_end = { PETITION = nr_landowners_hereditary_petition }
+	}
+
+	on_timeout = {
+		nr_petition_timeout = { PETITION = nr_landowners_hereditary_petition }
+	}
+
+	timeout = 1461 # 4 years
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}

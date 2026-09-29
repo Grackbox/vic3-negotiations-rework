@@ -16,7 +16,7 @@ Copied vanilla files contain only hooks; all mod logic lives in the mod's own fi
 | `set_neg_options`, option 1 (bribe) in all three lists | `nr_neg_option_1_allowed` (condition) and `nr_neg_option_1_modifier` (weight) |
 | `set_neg_options`, option 2 (bureaucracy) in all three lists | `nr_neg_option_2_allowed` (condition) and `nr_neg_option_2_modifier` (weight) |
 | `negotiation.1.o1` | `nr_neg_option_1_is_custom = no`, `nr_neg_option_1_affordable`; AI: `nr_neg_option_1_vanilla_ai` gates the vanilla income checks, `nr_neg_option_1_ai_good` / `_fair` / `_bad` (+35 / +15 / -50) for groups with their own bribe. Otherwise option `negotiation.1.nr_o1_soft` → `nr_neg_option_1_custom` |
-| `negotiation.1.o2` | `nr_neg_option_2_is_custom = no`; otherwise option `negotiation.1.nr_o2_devout` (`nr_neg_option_2_allowed`, AI `nr_neg_option_2_ai_good` / `_bad`) → `nr_neg_option_2_custom` |
+| `negotiation.1.o2` | `nr_neg_option_2_is_custom = no`; otherwise option `negotiation.1.nr_o2_custom` (name per group via custom loc `NR_OfficesLine`; `nr_neg_option_2_allowed`, AI `nr_neg_option_2_ai_good` / `_bad`) → `nr_neg_option_2_custom` (Devout: church officials, Landowners: places in the provinces) |
 | `negotiation.1`, extra options before the cancel option | `negotiation.1.nr_pressure` (`nr_ruler_pressure_available` -> `nr_ruler_pressure_apply`), `negotiation.1.nr_election_promise` (`nr_election_promise_available` -> `nr_election_promise_start`) |
 | `negotiation.1.o1`, `bribed_ig_benefits` | multiplier `nr_neg_level_scale` (level 1 / 2 / 4 → 1 / 2 / 3); the same value scales soft bribe patronage and church officials |
 
@@ -192,6 +192,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - `event nr_debug.2` / `event nr_debug.3` - menus of the post-campaign follow-ups `.2` (schools, sisters, chaplains, censorship, synod / church tax, Sunday Rest, Clerical Census, police, slavery). The censorship option also sets the campaign mark `nr_devout_censorship_campaign`. Each follow-up still checks its own trigger.
 - `event nr_debug.4` - Devout regular bribe without a negotiation: pay it exactly as option `negotiation.1.o1` (payment, `bribed_ig_benefits`, exposure roll, vice check in 310 days), give the Devout leader a vice now (100%), or expose it now (`generic_laws.2`, needs a law being enacted).
 - `event nr_debug.5` / `event nr_debug.6` - landowners' grants: the form event `nr_landowners_grants.1` and the follow-ups `.11` - `.18` (with the running mark of their form).
+- `event nr_debug.8` - landowners' places in the provinces: the form event `nr_landowners_offices.1` and the follow-ups `.11` - `.21` (with the running mark of their form).
 - `event nr_debug.7` - activate a law at once (`activate_law`): Free Trade, Protectionism, Tenant Farmers, Serfdom, Slavery Banned, Legacy Slavery, Slave Trade - to test interruptions.
 - New follow-ups and enactment events should be added to these menus.
 - Ruler pressure / election promise: form of government via Script Runner (`activate_law = law_type:law_autocracy` etc.); an election campaign starts with `call_election = { months = 1 }` (Script Runner, Effect) - the rigging event `caciquismo.2` fires at its start if electoral fraud is possible.
@@ -246,6 +247,48 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 | .6 | Free Import | Slave Trade | Intelligentsia |
 - Implementation: `common/scripted_effects/nr_landowners_grants_effects.txt` (start, forms, interruption, follow-up amendments), `common/scripted_triggers/nr_landowners_grants_triggers.txt`, `common/static_modifiers/nr_landowners_grants_modifiers.txt`, `common/amendments/nr_landowners_grants_amendments.txt`, `events/nr_landowners_grants_events.txt` (.1 form event, .11 - .18 follow-ups), journal entries `nr_landowners_tenant_je.txt` / `nr_landowners_protectionism_je.txt`, localization `nr_landowners_grants_l_*.yml`, concepts in `nr_game_concepts.txt`. Generic helpers used: `nr_softbribe_roll`, `nr_softbribe_option_allowed`, `nr_softbribe_set_cost` (`common/scripted_effects/nr_softbribe_framework.txt`), campaign slots, petition framework, `nr_movement_radicalism` (`common/scripted_effects/nr_movement_effects.txt`, modifiers `nr_movement_radicalism_up_010` ... in `nr_movement_modifiers.txt`). Each form remembers its slot (`nr_landowners_grants_<form>_slot`) and a running mark (`_running`, 3660 days) that its follow-up requires.
 
+## Feature landowners_offices - places in the provinces (negotiation option 2 for the Landowners)
+Agreed design; same scheme as the Devout church officials. Numbers are drafts.
+- Option `negotiation.1.nr_o2_custom` ("Offer the estates places in the provinces"): vanilla bureaucracy penalty (`nr_landowners_offices_penalty_<slot>`, -7.5% x level 1 / 2 / 4, decaying 10 years) x form factor; Landowners +12 / 24 / 36% political strength (`nr_landowners_offices_benefits`, decaying); form event `nr_landowners_offices.1` a week later: Noble Elections (default) + 2 random available forms. Campaign slots 1 / 2 / 3 by clout (`KEY = nr_landowners_offices`), a running form is not offered again. No bureaucracy deficit check. Leader weight for option 2: Ambitious / Imperious / Master Bureaucrat / Political Appointee +10, political operator +5 / 10 / 15, Honorable +5; Reckless / Romantic -5, bribe lovers -5.
+- Rule agreed with the user: cost-structure effects (institution / bureaucracy cost) go into the follow-up amendments, not into the 10-year forms.
+
+| Form | Cost | Available | Effects (10 years, decaying) | Ended by |
+|---|---|---|---|---|
+| Noble Elections (default) | x1 | always | base effects only | - |
+| Patrimonial Courts | x0.5 | Serfdom / Manorialism / Tenant Farmers / Latifundias | Landowners +5% strength, +1 approval, turmoil effects -5%; peasants SoL -0.25, land reform support +10% | none of those laws (popup .31, backlash reaction) |
+| Justices of the Peace | x0.75 | no Serfdom / Manorialism | turmoil effects -5%, Landowners +1; Petty Bourgeoisie -5% strength | - |
+| Estate Constabulary | x0.75 | No Police / Local Police | turmoil effects -10%, Landowners +5% strength; Rural Folk -10% strength, liberal support +5% | Dedicated / Militarized Police (.32, reaction) |
+| Provincial Assemblies | x1.25 | no Universal Suffrage | bureaucracy +5%, Landowners +1; Rural Folk -5%, Intelligentsia -5% strength | Universal Suffrage (.33, reaction) |
+| Tax Farming | x0.5 | no Proportional / Graduated Taxation | tax capacity +10%; tax waste +5%, peasants SoL -0.5 | those laws (.34, no backlash) |
+| Slave Patrols | x0.5 | slavery legal | slave revolt support -15%, turmoil effects -5%; abolitionist support +10% | Slavery Banned (.35, planters) |
+| State Slaves | x1 | slavery legal | construction +10%, mining +5%, Landowners +1; abolitionist support +10%, slave mortality +5% | Slavery Banned (.36, planters) |
+| Noble Officer Corps | x1 | Peasant Levies / Professional Army | morale recovery +10%, Armed Forces +1, officers +10% strength; experience gain -10%, Intelligentsia -1 | National Militia / Mass Conscription (.37, reaction) |
+| Recruit Quotas by Estate | x0.5 | Peasant Levies | conscription +10%, Landowners +1; Rural Folk -1, peasants SoL -0.25 | no Peasant Levies (.38, no backlash) |
+| Naval Cadet Corps | x0.75 | coastal | prestige from navy +10%, +1 unassigned admiral; Petty Bourgeoisie -1 | - |
+| Chancery Posts for Noble Sons | x1 | Hereditary / Appointed Bureaucrats | bureaucracy +5%, aristocrats +10% strength, Landowners +1; Intelligentsia -1, tax waste +3% | Elected Bureaucrats (.39, reaction) |
+
+- Changed from the discussion: Patrimonial Courts use peasants SoL -0.25 instead of "peasant radicals +10%" (no per-pop-type radicals modifier); Slave Patrols have no movement radicalism modifier.
+- Interruption: form modifier, its bureaucracy penalty and its slot go, no follow-up; popup `nr_landowners_offices.31` - `.39` with a historical quote, options by government / opposition (`nr_campaign_react_gave_up` / `nr_campaign_react_overruled`). Called from `nr_on_law_activated` (`nr_landowners_offices_check_laws`).
+- Follow-ups 10 years later (`.11` - `.21`, only with the running mark `nr_landowners_offices_<form>_running`): petition / amendment / decline -1 / thanks +2 / neutral close.
+
+| Form | Follow-up |
+|---|---|
+| Patrimonial Courts | amendment Patrimonial Justice (Serfdom / Manorialism): population bureaucracy cost -5%, Landowners +5% strength, peasants SoL -0.25 |
+| Justices of the Peace | thanks |
+| Estate Constabulary | No Police: petition for Local Police (tech `tech_bureaucracy`); Local Police: amendment Noble Guard: police institution cost -10%, Landowners +5%, Rural Folk -5% strength |
+| Provincial Assemblies | no Landed Voting (and no Universal Suffrage): petition for Landed Voting (tech `democracy`); Landed Voting: amendment Noble Curia: aristocrats voting power +50, Landowners +5% strength, liberal support +5% |
+| Tax Farming | thanks |
+| Slave Patrols | amendment Patrol Statute (any legal slavery law): slave revolt support -10%, Landowners +1, abolitionist support +5% |
+| State Slaves | amendment Slaves of the Nation (any legal slavery law): construction +5%, Landowners +1, abolitionist support +5% |
+| Noble Officer Corps | amendment Noble Commissions (Peasant Levies / Professional Army): military wages -10%, officers +10% strength, experience gain -5% |
+| Recruit Quotas by Estate | thanks |
+| Naval Cadet Corps | amendment Naval Census (any navy law): navy goods cost -5%, prestige from navy +10% |
+| Chancery Posts | Appointed Bureaucrats: petition for Hereditary Bureaucrats; Hereditary: amendment Service Census: population bureaucracy cost -5%, Intelligentsia -5% strength, Landowners +1 |
+
+- Amendments: sponsor Landowners, no authority cost; the leader rule applies (not offered if the Landowners leader is against the parent law). Enactment events (.1) for these amendments: not yet.
+- Every form: lore line + historical concept (noble assemblies after 1785; Prussian patrimonial courts until 1849, Russian until 1861; English JPs until the county councils of 1888; Prussian manorial police until 1872, Russian elected district police chief until 1862; zemstvos 1864; poll tax through the landowner, tax farming; Southern slave patrols; Brazil's slaves of the nation, El Cobre until 1800, Capitol built partly by hired slaves; Junker officer corps, purchase of commissions until 1871; Russian recruit levies until 1874; Naval Cadet Corps; Table of Ranks 1722, Prussian Landrat).
+- Files: `common/scripted_effects/nr_landowners_offices_effects.txt`, `common/scripted_triggers/nr_landowners_offices_triggers.txt`, `common/script_values/nr_landowners_offices_values.txt`, `common/static_modifiers/nr_landowners_offices_modifiers.txt`, `common/amendments/nr_landowners_offices_amendments.txt`, `common/journal_entries/nr_landowners_offices_je.txt` (petitions police / landed / hereditary), `events/nr_landowners_offices_events.txt`, `localization/*/nr_landowners_offices_l_*.yml`, concepts in `nr_game_concepts.txt`. Debug: `event nr_debug.8` (form event and every follow-up).
+
 ## Negotiation difficulty (reference)
 - Amenability (0-100) is computed in code; factor weights are not exposed.
 - Level thresholds: `NPolitics` in `common/defines/00_defines.txt` — MIN_AMENABILITY_TENSE/NORMAL/FRIENDLY_NEGOTIATION = 25/50/75 → levels 4/2/1.
@@ -278,7 +321,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 
 ## Feature devout_officials (negotiation option 2: church officials instead of places in the administration)
 - Files: `events/nr_devout_officials_events.txt`, `common/scripted_effects/nr_devout_officials_effects.txt`, `common/scripted_triggers/nr_devout_officials_triggers.txt`, `common/script_values/nr_devout_officials_values.txt`, `common/static_modifiers/nr_devout_officials_modifiers.txt`, localization `nr_devout_officials_l_*.yml`, concepts in `nr_game_concepts.txt`.
-- Hooks: `set_neg_options` option 2 gets `nr_neg_option_2_allowed` (currently no extra conditions) and weight `nr_neg_option_2_modifier` (Devout leader traits, `nr_devout_officials_leader_weight`). In `negotiation.1` the vanilla option 2 is hidden for the Devout (`nr_neg_option_2_is_custom`), they get `negotiation.1.nr_o2_devout` -> `nr_neg_option_2_custom` -> `nr_devout_officials_start`.
+- Hooks: `set_neg_options` option 2 gets `nr_neg_option_2_allowed` (currently no extra conditions) and weight `nr_neg_option_2_modifier` (Devout leader traits, `nr_devout_officials_leader_weight`). In `negotiation.1` the vanilla option 2 is hidden for the Devout (`nr_neg_option_2_is_custom`), they get `negotiation.1.nr_o2_custom` -> `nr_neg_option_2_custom` -> `nr_devout_officials_start`.
 - Option: bureaucracy penalty `nr_devout_officials_penalty_<slot>` (same as vanilla `negotiation_bureaucracy`, one per campaign slot so campaigns stack) x negotiation level (1 / 2 / 4, -7.5% bureaucracy per point, decaying 10 years); Devout get `nr_devout_officials_benefits` (+12% political strength x 1 / 2 / 3, no attraction); form event `nr_devout_officials.1` in 7 days.
 - Campaign limit (at the moment option 2 is rolled, `nr_neg_option_2_allowed`): at most 1 / 2 / 3 officials campaigns at once by Devout clout (<10% / 10-20% / 20%+), separate from the soft bribe limit. The vanilla one-deal-at-a-time block (`negotiation_bureaucracy` in `neg_option_2_trigger`) is skipped for the Devout (`nr_neg_option_2_skips_vanilla_block`). A form already running is not offered again.
 - No bureaucracy deficit check: the option and every form can push the country into a deficit, the player decides. The AI still weighs the spare bureaucracy (below).

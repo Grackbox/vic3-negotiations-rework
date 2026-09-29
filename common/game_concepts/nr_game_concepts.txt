@@ -66,3 +66,27 @@ concept_nr_fugitive_slaves = {}
 concept_nr_slave_import = {}
 
 concept_nr_lenten_fish = {}
+
+concept_nr_noble_elections = {}
+
+concept_nr_patrimonial = {}
+
+concept_nr_justices = {}
+
+concept_nr_constabulary = {}
+
+concept_nr_assemblies = {}
+
+concept_nr_tax_farming = {}
+
+concept_nr_patrols = {}
+
+concept_nr_state_slaves = {}
+
+concept_nr_officers = {}
+
+concept_nr_recruits = {}
+
+concept_nr_naval = {}
+
+concept_nr_chancery = {}
