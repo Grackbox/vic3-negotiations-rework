@@ -3,6 +3,7 @@
 # NR: debug events for testing, fired from the console only (event nr_debug.1 / .2 / .3). Never triggered by the game.
 # .1 - fire every enactment event (.1); each checks its own trigger, so only those matching the law being enacted
 #      appear (their 5-year cooldown still applies).
+# .4 - Devout regular bribe, see below.
 # .2 / .3 - menus: fire a post-campaign follow-up (.2) now; the Censorship follow-up also gets its campaign mark.
 #      Each follow-up still checks its own trigger (laws, amendments, leader stance).
 
@@ -110,6 +111,68 @@ nr_debug.3 = {
 
 	option = {
 		name = nr_debug.3.close
+		default_option = yes
+	}
+}
+
+# .4 - Devout regular bribe (negotiation option 1) without a negotiation: pay it as the option would, give the leader
+#      a vice now (100%), or expose it now (generic_laws.2 needs a law being enacted).
+nr_debug.4 = {
+	type = country_event
+	placement = root
+	title = nr_debug.4.t
+	desc = nr_debug.4.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_devout
+	}
+
+	immediate = {
+		ig:ig_devout = { save_scope_as = ig }
+	}
+
+	option = { # Pay the bribe as negotiation.1.o1 would
+		name = nr_debug.4.a
+		trigger = {
+			nr_devout_bribe_affordable = yes
+		}
+		nr_bribe_pay = yes
+		scope:ig = {
+			add_modifier = {
+				name = bribed_ig_benefits
+				days = long_modifier_time
+				multiplier = nr_neg_level_scale
+				is_decaying = yes
+			}
+		}
+		nr_bribe_exposure_roll = yes
+	}
+
+	option = { # The leader gets a vice now (100%)
+		name = nr_debug.4.b
+		scope:ig.leader ?= {
+			nr_bribe_add_vice_trait = yes
+		}
+	}
+
+	option = { # Expose the bribe now
+		name = nr_debug.4.c
+		trigger = {
+			enacting_any_law = yes
+		}
+		trigger_event = { id = generic_laws.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.4.close
 		default_option = yes
 	}
 }

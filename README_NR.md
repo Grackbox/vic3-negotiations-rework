@@ -153,6 +153,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 `events/nr_debug_events.txt`, localization `nr_debug_l_*.yml`. Never fired by the game.
 - `event nr_debug.1` - fires every enactment event `.1` at once; only those matching the law being enacted appear (their 5-year cooldown still applies).
 - `event nr_debug.2` / `event nr_debug.3` - menus of the post-campaign follow-ups `.2` (schools, sisters, chaplains, censorship, synod / church tax, Sunday Rest, Clerical Census, police, slavery). The censorship option also sets the campaign mark `nr_devout_censorship_campaign`. Each follow-up still checks its own trigger.
+- `event nr_debug.4` - Devout regular bribe without a negotiation: pay it exactly as option `negotiation.1.o1` (payment, `bribed_ig_benefits`, exposure roll, vice check in 310 days), give the Devout leader a vice now (100%), or expose it now (`generic_laws.2`, needs a law being enacted).
 - New follow-ups and enactment events should be added to these menus.
 
 ## Negotiation difficulty (reference)
