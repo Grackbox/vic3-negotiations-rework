@@ -131,9 +131,32 @@ nr_amendment_room.1 = {
 		}
 	}
 
-	option = { # leave the law as it is: the new article is given up
+	option = { # leave the law as it is: the new article is given up, like refusing it in the event that offered it
 		name = nr_amendment_room.1.c
 		default_option = yes
+		if = {
+			limit = {
+				has_variable = nr_room_enacting
+				currently_enacting_law ?= scope:room_law
+			}
+			add_enactment_modifier = { # as option a of the enactment events
+				name = nr_amendment_room_fast
+			}
+			scope:room_ig = {
+				add_modifier = {
+					name = nr_amendment_room_rejected
+					days = normal_modifier_time
+				}
+			}
+		}
+		else = { # as declining a follow-up
+			scope:room_ig = {
+				add_modifier = {
+					name = nr_amendment_room_declined
+					days = normal_modifier_time
+				}
+			}
+		}
 	}
 
 	after = {
@@ -141,6 +164,10 @@ nr_amendment_room.1 = {
 			remove_variable = nr_room_law
 			remove_variable = nr_room_amendment
 			remove_variable = nr_room_ig
+			if = {
+				limit = { has_variable = nr_room_enacting }
+				remove_variable = nr_room_enacting
+			}
 		}
 	}
 }

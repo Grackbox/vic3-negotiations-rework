@@ -9,3 +9,6 @@
  nr_amendment_room.1.c: "Оставить закон как есть."
  nr_amendment_no_room_tt: "В законе [SCOPE.sLaw('nr_room_law_scope').GetName] нет места для статьи «[SCOPE.sAmendmentType('nr_room_new_type').GetName]»: придётся выбрать, какую статью вычеркнуть, или отказаться от этой."
  nr_amendment_struck: "Их статью вычеркнули"
+ nr_amendment_room_fast: "Закон пройдёт быстрее"
+ nr_amendment_room_rejected: "Их статья не вошла в закон"
+ nr_amendment_room_declined: "Их статья не вошла в закон"

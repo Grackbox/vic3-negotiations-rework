@@ -19,6 +19,7 @@ nr_amendment_add_to_enacting_law = {
 	else_if = {
 		limit = { exists = currently_enacting_law }
 		currently_enacting_law = { save_scope_as = nr_room_law_scope }
+		hidden_effect = { set_variable = nr_room_enacting } # "leave as it is" repeats the refusal of an enactment event
 		nr_amendment_no_room = { AMENDMENT = $AMENDMENT$ IG = $IG$ }
 	}
 }

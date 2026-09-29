@@ -3,3 +3,20 @@ nr_amendment_struck = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_approval_add = -3
 }
+
+# "Leave the law as it is" while the law is being enacted: like refusing the article in an enactment event
+nr_amendment_room_fast = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+nr_amendment_room_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# "Leave the law as it is" for an active law: like declining a follow-up
+nr_amendment_room_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}

@@ -9,3 +9,6 @@
  nr_amendment_room.1.c: "Leave the law as it is."
  nr_amendment_no_room_tt: "There is no room in [SCOPE.sLaw('nr_room_law_scope').GetName] for the article “[SCOPE.sAmendmentType('nr_room_new_type').GetName]”: we will have to choose which article to strike, or give this one up."
  nr_amendment_struck: "Their Article Was Struck"
+ nr_amendment_room_fast: "The Law Passes Faster"
+ nr_amendment_room_rejected: "Their Article Was Left Out"
+ nr_amendment_room_declined: "Their Article Was Left Out"
