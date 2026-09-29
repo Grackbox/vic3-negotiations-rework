@@ -778,8 +778,10 @@ negotiation.1 = {
 		name = negotiation.1.nr_pressure
 		trigger = {
 			nr_ruler_pressure_available = yes
+			nr_ruler_pressure_blocked = no
 		}
-		show_as_unavailable = {
+		show_as_unavailable = { # the option is shown greyed out with the reason when only the block fails
+			nr_ruler_pressure_available = yes
 			nr_ruler_pressure_blocked = yes
 		}
 		ai_chance = {
@@ -792,8 +794,10 @@ negotiation.1 = {
 		name = negotiation.1.nr_election_promise
 		trigger = {
 			nr_election_promise_available = yes
+			nr_election_promise_blocked = no
 		}
-		show_as_unavailable = {
+		show_as_unavailable = { # the option is shown greyed out with the reason when only the block fails
+			nr_election_promise_available = yes
 			nr_election_promise_blocked = yes
 		}
 		ai_chance = {
