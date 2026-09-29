@@ -47,6 +47,7 @@ nr_amendment_add_to_active_law = {
 # No room on the law (scope:nr_room_law_scope) for $AMENDMENT$ of $IG$: event nr_amendment_room.1 lets the player strike an article
 # (its sponsor -3 approval for 5 years) or give up the new one. Scope: country.
 nr_amendment_no_room = {
+	amendment_type:$AMENDMENT$ = { save_scope_as = nr_room_new_type } # for the tooltip
 	custom_tooltip = nr_amendment_no_room_tt
 	hidden_effect = {
 		set_variable = {

@@ -7,5 +7,5 @@
  nr_amendment_room.1.a: "Вычеркнуть «[SCOPE.sAmendmentType('nr_room_strike_type_1').GetName]»."
  nr_amendment_room.1.b: "Вычеркнуть «[SCOPE.sAmendmentType('nr_room_strike_type_2').GetName]»."
  nr_amendment_room.1.c: "Оставить закон как есть."
- nr_amendment_no_room_tt: "Если в законе не найдётся места для этой статьи, придётся выбрать, какую статью вычеркнуть, или отказаться от этой."
+ nr_amendment_no_room_tt: "В законе [SCOPE.sLaw('nr_room_law_scope').GetName] нет места для статьи «[SCOPE.sAmendmentType('nr_room_new_type').GetName]»: придётся выбрать, какую статью вычеркнуть, или отказаться от этой."
  nr_amendment_struck: "Их статью вычеркнули"
