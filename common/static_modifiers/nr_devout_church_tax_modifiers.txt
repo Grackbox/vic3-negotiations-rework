@@ -1,0 +1,31 @@
+﻿# NR: Church Tax (feature devout_church_tax).
+
+# Devout IG: the church tax was not written into the law
+nr_devout_church_tax_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+# Enactment event nr_devout_church_tax.1: "The church will take care of itself" - faster enactment
+nr_devout_church_tax_self_support = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+# Enactment event nr_devout_church_tax.1: the church tax is written into the law - slower enactment
+nr_devout_church_tax_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+# Devout IG: the church tax was kept out of the law being enacted
+nr_devout_church_tax_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Petty Bourgeoisie IG: the taxpayers were asked to decide
+nr_devout_church_tax_taxpayers_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}

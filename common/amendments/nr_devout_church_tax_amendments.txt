@@ -1,0 +1,68 @@
+﻿# NR: Church Tax amendments (feature devout_church_tax). Two amendments:
+# A - "Church Tax Guarantee" on a state church law: +50 authority, and a promise: when the country moves to
+#     Freedom of Conscience or Total Separation, amendment B is attached to the new law automatically
+#     (nr_devout_church_tax_transfer, called from nr_on_law_enactment_started).
+# B - "Church Tax" on Freedom of Conscience / Total Separation: +50 authority and a weaker permanent version of the form.
+# Both: parent law_state_religion (stances follow State Religion), sponsor Devout, no authority cost.
+
+amendment_nr_devout_church_tax_guarantee = {
+	parent = law_state_religion
+
+	allowed_laws = {
+		law_state_religion
+		law_millet_system
+		law_people_of_the_book
+	}
+
+	modifier = {
+		country_authority_add = 50 # the church is a financially bound partner of the government
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_devout
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+amendment_nr_devout_church_tax = {
+	parent = law_state_religion
+
+	allowed_laws = {
+		law_freedom_of_conscience
+		law_total_separation
+	}
+
+	modifier = {
+		country_authority_add = 50
+		building_clergymen_standard_of_living_add = 1 # form: +2
+		state_tax_collection_mult = -0.02 # form: -0.03; double taxation, more evasion
+		state_conversion_mult = -0.03 # form: -0.05; some leave the church to stop paying
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_devout
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}

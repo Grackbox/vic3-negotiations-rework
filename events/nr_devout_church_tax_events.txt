@@ -1,0 +1,183 @@
+﻿namespace = nr_devout_church_tax
+
+# NR: Church Tax (feature devout_church_tax), see common/amendments/nr_devout_church_tax_amendments.txt.
+# .1 - enactment of Freedom of Conscience / Total Separation without amendment A: may attach amendment B.
+#      (With A the transfer is automatic, see nr_devout_church_tax_transfer.)
+# .2 - 10 years after the Church Tax form: state church law -> amendment A; separated law -> amendment B;
+#      otherwise (both present, State Atheism) no event.
+# .3 - notification: amendment B was attached automatically.
+
+nr_devout_church_tax.1 = {
+	type = country_event
+	placement = root
+	title = nr_devout_church_tax.1.t
+	desc = nr_devout_church_tax.1.desc
+	flavor = nr_devout_church_tax.1.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		nr_devout_church_tax_enacting_separation = yes
+		exists = ig:ig_devout
+		NOT = { any_active_law = { has_amendment = amendment_type:amendment_nr_devout_church_tax_guarantee } } # automatic transfer instead
+		NOT = { currently_enacting_law ?= { has_amendment = amendment_type:amendment_nr_devout_church_tax } }
+		NOT = { has_modifier = nr_devout_officials_church_tax } # the campaign is running: its follow-up offers the amendment
+		nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_devout ?= { save_scope_as = devout_ig }
+		ig:ig_petty_bourgeoisie ?= { save_scope_as = taxpayers_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # The church will take care of itself
+		name = nr_devout_church_tax.1.a
+		default_option = yes
+		custom_tooltip = nr_devout_church_tax_lore_1a
+		add_enactment_modifier = {
+			name = nr_devout_church_tax_self_support
+		}
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_church_tax_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Keep the church's right to the tax
+		name = nr_devout_church_tax.1.b
+		custom_tooltip = nr_devout_church_tax_lore_1b
+		add_enactment_modifier = {
+			name = nr_devout_church_tax_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_devout_church_tax
+			IG = ig_devout
+		}
+	}
+
+	option = { # Let the taxpayers decide
+		name = nr_devout_church_tax.1.c
+		custom_tooltip = nr_devout_church_tax_lore_1c
+		scope:taxpayers_ig ?= {
+			add_modifier = {
+				name = nr_devout_church_tax_taxpayers_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_church_tax_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_devout_church_tax.2 = {
+	type = country_event
+	placement = root
+	title = nr_devout_church_tax.2.t
+	desc = nr_devout_church_tax.2.desc
+	flavor = nr_devout_church_tax.2.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_devout
+		OR = {
+			nr_devout_church_tax_a_available = yes
+			nr_devout_church_tax_b_available = yes
+		}
+	}
+
+	immediate = {
+		ig:ig_devout ?= {
+			save_scope_as = ig
+			save_scope_as = devout_ig
+		}
+	}
+
+	option = { # State church: the guarantee (amendment A)
+		name = nr_devout_church_tax.2.a
+		trigger = {
+			nr_devout_church_tax_a_available = yes
+		}
+		custom_tooltip = nr_devout_church_tax_lore_2a
+		custom_tooltip = nr_devout_church_tax_guarantee_tt
+		nr_devout_church_tax_add_a = yes
+	}
+
+	option = { # Separated church: the tax itself (amendment B)
+		name = nr_devout_church_tax.2.b
+		trigger = {
+			nr_devout_church_tax_b_available = yes
+		}
+		custom_tooltip = nr_devout_church_tax_lore_2b
+		nr_devout_church_tax_add_b = yes
+	}
+
+	option = { # Decline
+		name = nr_devout_church_tax.2.c
+		default_option = yes
+		custom_tooltip = nr_devout_church_tax_lore_2c
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_church_tax_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_devout_church_tax.3 = {
+	type = country_event
+	placement = root
+	title = nr_devout_church_tax.3.t
+	desc = nr_devout_church_tax.3.desc
+	flavor = nr_devout_church_tax.3.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_devout_church_tax.3.a
+		default_option = yes
+		custom_tooltip = nr_devout_church_tax_lore_3a
+	}
+}

@@ -1,0 +1,44 @@
+﻿# NR: Church Tax (feature devout_church_tax).
+
+# Attaches amendment A to whichever state church law is active. Scope: country.
+nr_devout_church_tax_add_a = {
+	if = {
+		limit = { has_law = law_type:law_state_religion }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_church_tax_guarantee LAW = law_state_religion IG = ig_devout }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_millet_system }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_church_tax_guarantee LAW = law_millet_system IG = ig_devout }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_people_of_the_book }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_church_tax_guarantee LAW = law_people_of_the_book IG = ig_devout }
+	}
+}
+
+# Attaches amendment B to whichever separated law is active. Scope: country.
+nr_devout_church_tax_add_b = {
+	if = {
+		limit = { has_law = law_type:law_freedom_of_conscience }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_church_tax LAW = law_freedom_of_conscience IG = ig_devout }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_total_separation }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_church_tax LAW = law_total_separation IG = ig_devout }
+	}
+}
+
+# Guaranteed transfer (the Weimar compromise): enactment of Freedom of Conscience or Total Separation starts while
+# amendment A is active - amendment B is attached to the law being enacted at once, with a notification.
+# If the enactment fails, B goes with the failed law and A stays on the old one. Called from nr_on_law_enactment_started.
+nr_devout_church_tax_transfer = {
+	if = {
+		limit = {
+			nr_devout_church_tax_enacting_separation = yes
+			any_active_law = { has_amendment = amendment_type:amendment_nr_devout_church_tax_guarantee }
+			exists = ig:ig_devout
+		}
+		nr_amendment_add_to_enacting_law = { AMENDMENT = amendment_nr_devout_church_tax IG = ig_devout }
+		trigger_event = { id = nr_devout_church_tax.3 }
+	}
+}

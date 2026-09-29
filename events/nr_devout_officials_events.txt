@@ -121,6 +121,14 @@ nr_devout_officials.1 = {
 		custom_tooltip = nr_devout_officials_lore_church_tax
 		nr_devout_officials_choose_form = { FORM = church_tax }
 		nr_devout_officials_set_penalty = { FACTOR = 1.25 }
+		hidden_effect = {
+			# NR devout_church_tax: follow-up in 10 years
+			trigger_event = {
+				id = nr_devout_church_tax.2
+				days = 3650
+				popup = yes
+			}
+		}
 		ai_chance = {
 			base = 10
 			modifier = {

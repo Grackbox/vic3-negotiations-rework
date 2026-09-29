@@ -7,6 +7,7 @@ on_law_checkpoint_debate = {
 	random_events = {
 		10 = nr_devout_chaplains.1
 		10 = nr_devout_synod.1
+		10 = nr_devout_church_tax.1
 	}
 }
 
@@ -23,6 +24,7 @@ on_law_enactment_started = {
 nr_on_law_enactment_started = {
 	effect = {
 		nr_petition_improve_stance = yes # groups with a petition for this law support its enactment
+		nr_devout_church_tax_transfer = yes # church tax guarantee: amendment B goes into Freedom of Conscience / Total Separation
 	}
 }
 
