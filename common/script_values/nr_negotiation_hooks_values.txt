@@ -1,9 +1,11 @@
 ﻿# NR: values used by the hooks in vanilla negotiations.
 
 # Negotiation level (amenability_level 1 / 2 / 4) scaled down to 1 / 2 / 3. Used instead of the raw level for
-# rewards to the group: the bribe (bribed_ig_benefits), soft bribe patronage, church officials. Scope: interest group.
+# rewards to the group: the bribe (bribed_ig_benefits), soft bribe patronage, church officials. Requires scope:ig.
+# Read explicitly from scope:ig, like vanilla: modifier multipliers are not always evaluated in the group's scope,
+# and the vanilla amenability value errors out in country scope.
 nr_neg_level_scale = {
-	value = amenability_level
+	value = scope:ig.amenability_level
 	max = 3
 }
 

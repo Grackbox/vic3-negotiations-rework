@@ -23,7 +23,7 @@ nr_devout_bribe_slow_total = {
 nr_devout_bribe_credit_cap = {
 	value = credit
 	multiply = nr_bribe_credit_share_per_level
-	multiply = scope:ig.nr_neg_level_scale
+	multiply = nr_neg_level_scale
 }
 
 # Money left before the credit limit (gold reserves + unused credit). Can be negative.
