@@ -15,11 +15,12 @@ nr_ruler_pressure_apply = {
 	else = {
 		nr_ruler_pressure_other = yes
 	}
+	add_to_variable_list = { # the 5-year limit is per group
+		name = nr_ruler_pressure_pressed
+		target = scope:ig
+		years = 5
+	}
 	scope:ig = {
-		set_variable = {
-			name = nr_ruler_pressure_cooldown
-			days = normal_modifier_time
-		}
 		finish_negotiation = "negotiation.1.nr_pressure"
 		improve_law_stance = yes
 	}

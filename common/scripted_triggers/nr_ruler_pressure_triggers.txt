@@ -45,7 +45,12 @@ nr_ruler_pressure_constitutional = {
 		nr_ruler_is_monarch = yes
 		nr_ruler_is_theocrat = yes
 	}
-	country_has_voting_franchise = yes
+	OR = {
+		has_law_or_variant = law_type:law_landed_voting
+		has_law_or_variant = law_type:law_wealth_voting
+		has_law_or_variant = law_type:law_census_voting
+		has_law_or_variant = law_type:law_universal_suffrage
+	}
 }
 
 # The ruler is not against the law being enacted.
@@ -88,7 +93,10 @@ nr_ruler_pressure_blocked = {
 	OR = {
 		custom_tooltip = {
 			text = nr_ruler_pressure_cooldown_tt
-			scope:ig = { has_variable = nr_ruler_pressure_cooldown }
+			is_target_in_variable_list = {
+				name = nr_ruler_pressure_pressed
+				target = scope:ig
+			}
 		}
 		custom_tooltip = {
 			text = nr_authority_cost_no_slot_tt

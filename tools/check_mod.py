@@ -93,7 +93,7 @@ known = set(defined)
 for t in texts.values():
     known |= set(re.findall(r'namespace\s*=\s*([a-z0-9_]+)', t))
     known |= set(re.findall(r'save_(?:temporary_)?scope_as\s*=\s*([a-z0-9_]+)', t))
-    known |= set(re.findall(r'(?:set_variable|remove_variable|has_variable|change_variable)\s*=\s*\{?\s*(?:name\s*=\s*)?([a-z0-9_$]+)', t))
+    known |= set(re.findall(r'(?:set_variable|remove_variable|has_variable|change_variable|add_to_variable_list|is_target_in_variable_list|remove_list_variable)\s*=\s*\{?\s*(?:name\s*=\s*)?([a-z0-9_$]+)', t))
     known |= set(re.findall(r'var:([a-z0-9_]+)', t))
     known |= set(re.findall(r'\b[A-Z]+\s*=\s*([a-z0-9_]+)', t))  # parameter values: KEY = nr_devout_softbribe
 
@@ -173,7 +173,7 @@ report('duplicate localization keys', dups)
 
 need, variables = set(), set()
 for f, t in texts.items():
-    variables |= set(re.findall(r'(?:set_variable|remove_variable)\s*=\s*\{?\s*(?:name\s*=\s*)?([a-z0-9_]+)', t))
+    variables |= set(re.findall(r'(?:set_variable|remove_variable|add_to_variable_list)\s*=\s*\{?\s*(?:name\s*=\s*)?([a-z0-9_]+)', t))
     for pat in (r'custom_tooltip\s*=\s*([a-z0-9_.]+)', r'\btext\s*=\s*([a-z0-9_.]+)',
                 r'\b(?:name|title|desc|flavor)\s*=\s*"?([a-z0-9_.]+)"?', r'type\s*=\s*(je_nr[a-z0-9_]+)'):
         need |= {k for k in re.findall(pat, t) if k.startswith(('nr_', 'je_nr', 'amendment_nr'))}
