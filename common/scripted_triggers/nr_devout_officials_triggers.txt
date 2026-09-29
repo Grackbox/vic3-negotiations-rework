@@ -1,10 +1,5 @@
 ﻿# NR: Devout church officials (negotiation option 2). Scope: country unless noted.
 
-# The penalty x $FACTOR$ (1 / 1.25 / 1.5) does not push the country into a bureaucracy deficit.
-nr_devout_officials_affordable = {
-	nr_devout_officials_max_factor >= $FACTOR$
-}
-
 # AI (option negotiation.1.nr_o2_devout, via nr_neg_option_2_ai_*).
 # Plenty of spare bureaucracy after the penalty.
 nr_devout_officials_ai_good = {
@@ -17,7 +12,7 @@ nr_devout_officials_ai_bad = {
 }
 
 # ---------- Forms (event nr_devout_officials.1) ----------
-# Every form has nr_devout_officials_<form>_available; forms with a penalty above x1 check it fits.
+# Every form has nr_devout_officials_<form>_available. A bureaucracy deficit is not checked: the player decides.
 
 # The form is available and not offered yet in this event. $FORM$ = censorship / registers / ...
 nr_devout_officials_can_offer = {
@@ -28,7 +23,6 @@ nr_devout_officials_can_offer = {
 nr_devout_officials_censorship_available = {
 	has_law = law_type:law_right_of_assembly
 	nr_ig_leader_not_against_law = { LAW = law_censorship }
-	nr_devout_officials_affordable = { FACTOR = 1.25 }
 }
 
 nr_devout_officials_registers_available = {
@@ -46,7 +40,6 @@ nr_devout_officials_church_tax_available = {
 		has_law = law_type:law_people_of_the_book
 		has_law = law_type:law_freedom_of_conscience
 	}
-	nr_devout_officials_affordable = { FACTOR = 1.25 }
 }
 
 nr_devout_officials_prisons_available = {
@@ -58,7 +51,7 @@ nr_devout_officials_calendar_available = {
 }
 
 nr_devout_officials_seminarists_available = {
-	nr_devout_officials_affordable = { FACTOR = 1.5 }
+	always = yes
 }
 
 nr_devout_officials_synod_available = {
@@ -68,5 +61,4 @@ nr_devout_officials_synod_available = {
 		has_law = law_type:law_people_of_the_book
 	}
 	nr_ig_leader_not_against_law = { LAW = law_state_religion }
-	nr_devout_officials_affordable = { FACTOR = 1.25 }
 }

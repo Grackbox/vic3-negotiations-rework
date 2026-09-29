@@ -422,7 +422,7 @@ negotiation.1 = {
 				var:negotiation_option_c = 2
 			}
 			nr_neg_option_2_is_custom = yes
-			nr_neg_option_2_allowed = yes # the bureaucracy may have changed during the negotiation
+			nr_neg_option_2_allowed = yes
 		}
 		ai_chance = {
 			base = 5

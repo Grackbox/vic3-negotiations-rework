@@ -7,7 +7,7 @@
 # Censorship Committees (Right of Assembly), Parish Registers, The Church and the Slaves (slavery legal),
 # Church Tax (state religion or freedom of conscience), Prisons, Calendar and Holidays (not state atheism),
 # Seminarists in the Chancelleries, Synodal Administration (state religion).
-# Forms that raise the penalty are only offered if they do not cause a bureaucracy deficit.
+# A bureaucracy deficit is not checked: every form is offered, the player decides.
 
 nr_devout_officials.1 = {
 	type = country_event

@@ -59,20 +59,6 @@ nr_devout_officials_spare_share = {
 	}
 }
 
-# Largest form factor the country can take without a bureaucracy deficit:
-# production x (1 - share x level x factor) >= usage  <=>  factor <= (production - usage) / (production x share x level).
-# Compared with the form factor in nr_devout_officials_affordable. Scope: country.
-nr_devout_officials_max_factor = {
-	value = nr_devout_officials_base_production
-	subtract = bureaucracy_usage
-	divide = {
-		value = nr_devout_officials_base_production
-		multiply = nr_neg_bureaucracy_penalty_share
-		multiply = nr_devout_officials_level
-		min = 0.001
-	}
-}
-
 # Chance of option 2 by the Devout leader (added to the base weight 10 in set_neg_options). Scope: interest group.
 nr_devout_officials_leader_weight = {
 	value = 0
@@ -116,13 +102,26 @@ nr_devout_officials_leader_weight = {
 		limit = { leader ?= { prominence >= define:NCharacters|PROMINENCE_IMPORTANT_THRESHOLD } }
 		add = 5
 	}
-	if = {
-		limit = { leader ?= { has_trait = honorable } }
-		add = -10 # patronage is nepotism to him
-	}
+	# Leaders with no taste for office work: they would rather preach, fight or dream than sit in a chancellery
 	if = {
 		limit = { leader ?= { has_trait = reserved } }
 		add = -5
+	}
+	if = {
+		limit = { leader ?= { has_trait = romantic } }
+		add = -5
+	}
+	if = {
+		limit = { leader ?= { has_trait = reckless } }
+		add = -5
+	}
+	if = {
+		limit = { leader ?= { has_trait = firebrand } }
+		add = -5 # a street preacher, not a clerk
+	}
+	if = {
+		limit = { leader ?= { has_trait = inspirational_orator } }
+		add = -5 # his place is the pulpit
 	}
 	if = {
 		limit = { leader ?= { nr_devout_softbribe_leader_loves = yes } }

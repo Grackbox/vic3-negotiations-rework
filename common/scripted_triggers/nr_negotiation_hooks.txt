@@ -71,12 +71,9 @@ nr_neg_option_2_is_custom = {
 }
 
 # Can option 2 be rolled at all. Scope: country. Vanilla already blocks it while negotiation_bureaucracy is active.
+# No extra conditions for now (a possible bureaucracy deficit is the player's choice); kept as the hook point.
 nr_neg_option_2_allowed = {
-	# Devout: never offered if the penalty would push the country into a bureaucracy deficit
-	OR = {
-		scope:ig = { NOT = { is_interest_group_type = ig_devout } }
-		nr_devout_officials_affordable = { FACTOR = 1 }
-	}
+	always = yes
 }
 
 # AI weights of the custom option 2 (+25 / -30).
