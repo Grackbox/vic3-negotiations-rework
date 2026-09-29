@@ -1,0 +1,121 @@
+﻿# NR: enactment events of the Landowners' amendments (events/nr_landowners_enact_events.txt).
+
+nr_landowners_enact_privilege_fast = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+nr_landowners_enact_privilege_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+nr_landowners_enact_privilege_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+nr_landowners_enact_privilege_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
+
+nr_landowners_enact_grain_fast = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+nr_landowners_enact_grain_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+nr_landowners_enact_grain_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+nr_landowners_enact_grain_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
+
+nr_landowners_enact_bank_fast = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+nr_landowners_enact_bank_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+nr_landowners_enact_bank_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+nr_landowners_enact_bank_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
+
+nr_landowners_enact_corvee_fast = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+nr_landowners_enact_corvee_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+nr_landowners_enact_corvee_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+nr_landowners_enact_corvee_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
+
+nr_landowners_enact_fugitive_fast = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+nr_landowners_enact_fugitive_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+nr_landowners_enact_fugitive_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+nr_landowners_enact_fugitive_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
+
+nr_landowners_enact_import_fast = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+nr_landowners_enact_import_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+nr_landowners_enact_import_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+nr_landowners_enact_import_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}

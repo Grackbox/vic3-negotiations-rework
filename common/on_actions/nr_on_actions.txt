@@ -11,6 +11,12 @@ on_law_checkpoint_debate = {
 		10 = nr_devout_sunday.1
 		10 = nr_devout_census.1
 		10 = nr_devout_slavery.1
+		10 = nr_landowners_enact.1
+		10 = nr_landowners_enact.2
+		10 = nr_landowners_enact.3
+		10 = nr_landowners_enact.4
+		10 = nr_landowners_enact.5
+		10 = nr_landowners_enact.6
 	}
 }
 

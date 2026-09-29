@@ -188,7 +188,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 ## Debug (console)
 - Game started with `-debug_mode`; console `~`. The console runs only its own commands (`event <id>`). Script effects (`activate_law = law_type:...`, `set_variable = {...}`) go to `inspect_country` → Script Runner → Effect (Parse, Run); its Trigger field checks a condition for the selected country.
 `events/nr_debug_events.txt`, localization `nr_debug_l_*.yml`. Never fired by the game.
-- `event nr_debug.1` - fires every enactment event `.1` at once; only those matching the law being enacted appear (their 5-year cooldown still applies).
+- `event nr_debug.1` - fires every enactment event `.1` at once (Devout and `nr_landowners_enact.1` - `.6`); only those matching the law being enacted appear (their 5-year cooldown still applies).
 - `event nr_debug.2` / `event nr_debug.3` - menus of the post-campaign follow-ups `.2` (schools, sisters, chaplains, censorship, synod / church tax, Sunday Rest, Clerical Census, police, slavery). The censorship option also sets the campaign mark `nr_devout_censorship_campaign`. Each follow-up still checks its own trigger.
 - `event nr_debug.4` - Devout regular bribe without a negotiation: pay it exactly as option `negotiation.1.o1` (payment, `bribed_ig_benefits`, exposure roll, vice check in 310 days), give the Devout leader a vice now (100%), or expose it now (`generic_laws.2`, needs a law being enacted).
 - `event nr_debug.5` / `event nr_debug.6` - landowners' grants: the form event `nr_landowners_grants.1` and the follow-ups `.11` - `.18` (with the running mark of their form).
@@ -233,7 +233,16 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 | Return of Fugitives | own amendment "Fugitive Slave Law" on any slavery law (vanilla amendment_american_fugitive_slaves_act is limited to yankee / dixie cultures): Landowners +1 approval, +10% political strength, abolitionist support in free states +15% |
 | Slave Import | Slave Trade still in force: own amendment "Free Import": slave import +15%, plantation throughput +3%, abolitionist support +10%; pro-slavery radicalism -0.1 (movement modifier, refreshed yearly); no authority cost |
 
-- Enactment events (.1) for the new amendments: later, as a separate step.
+- Enactment events for the six amendments: `nr_landowners_enact.1` - `.6` (`events/nr_landowners_enact_events.txt`), the Devout .1 pattern applied to the Landowners: in the `on_law_checkpoint_debate` pool (weight 10), cooldown 5 years; not if the amendment is present, not while the grant whose follow-up offers it is running, not if the Landowners leader is against the amendment's parent law (`nr_landowners_leader_not_against_law`). Options: a (default) +15% enactment speed, Landowners -2 approval 5 years; b attach the amendment, -15% speed; c the other group +2, Landowners -2.
+
+| Event | Amendment | While enacting | c: who decides |
+|---|---|---|---|
+| .1 | Noble Privilege | any taxation law | Petty Bourgeoisie |
+| .2 | Grain Tariff | Protectionism | Industrialists |
+| .3 | Noble Land Bank | Traditionalism / Agrarianism / Interventionism / Laissez-Faire | Industrialists |
+| .4 | Corvee Statute | Serfdom / Manorialism | Rural Folk |
+| .5 | Fugitive Slave Law | Slave Trade / Legacy / Colonial / Debt Slavery | Intelligentsia |
+| .6 | Free Import | Slave Trade | Intelligentsia |
 - Implementation: `common/scripted_effects/nr_landowners_grants_effects.txt` (start, forms, interruption, follow-up amendments), `common/scripted_triggers/nr_landowners_grants_triggers.txt`, `common/static_modifiers/nr_landowners_grants_modifiers.txt`, `common/amendments/nr_landowners_grants_amendments.txt`, `events/nr_landowners_grants_events.txt` (.1 form event, .11 - .18 follow-ups), journal entries `nr_landowners_tenant_je.txt` / `nr_landowners_protectionism_je.txt`, localization `nr_landowners_grants_l_*.yml`, concepts in `nr_game_concepts.txt`. Generic helpers used: `nr_softbribe_roll`, `nr_softbribe_option_allowed`, `nr_softbribe_set_cost` (`common/scripted_effects/nr_softbribe_framework.txt`), campaign slots, petition framework, `nr_movement_radicalism` (`common/scripted_effects/nr_movement_effects.txt`, modifiers `nr_movement_radicalism_up_010` ... in `nr_movement_modifiers.txt`). Each form remembers its slot (`nr_landowners_grants_<form>_slot`) and a running mark (`_running`, 3660 days) that its follow-up requires.
 
 ## Negotiation difficulty (reference)

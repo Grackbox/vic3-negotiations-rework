@@ -26,3 +26,17 @@ nr_devout_leader_not_against_law = {
 		}
 	}
 }
+
+# Same for the Landowners leader, without scope:ig (usable in event triggers). Scope: country.
+nr_landowners_leader_not_against_law = {
+	NOT = {
+		ig:ig_landowners ?= {
+			leader ?= {
+				law_stance = {
+					law = law_type:$LAW$
+					value < neutral
+				}
+			}
+		}
+	}
+}

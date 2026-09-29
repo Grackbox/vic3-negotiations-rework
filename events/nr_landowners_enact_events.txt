@@ -1,0 +1,553 @@
+﻿namespace = nr_landowners_enact
+
+# NR: enactment events for the Landowners' own amendments (pattern "IG amendment pair", like the Devout .1 events).
+# In the vanilla on_law_checkpoint_debate pool. a (default): +15% enactment speed, Landowners -2 approval 5 years;
+# b: attach the amendment, -15% speed; c: let another group decide - it gets +2, the Landowners -2.
+# Not while the grant whose follow-up offers the same amendment is running.
+
+nr_landowners_enact.1 = { # amendment_nr_landowners_noble_privilege
+	type = country_event
+	placement = root
+	title = nr_landowners_enact.1.t
+	desc = nr_landowners_enact.1.desc
+	flavor = nr_landowners_enact.1.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_consumption_based_taxation
+			is_enacting_law = law_type:law_land_based_taxation
+			is_enacting_law = law_type:law_per_capita_based_taxation
+			is_enacting_law = law_type:law_proportional_taxation
+			is_enacting_law = law_type:law_graduated_taxation
+		}
+		exists = ig:ig_landowners
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_privilege }
+		}
+		NOT = { has_modifier = nr_landowners_grants_tax_exemptions } # the grant is running: its follow-up offers the amendment
+		nr_landowners_leader_not_against_law = { LAW = law_land_based_taxation } # parent law of the amendment
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_landowners ?= { save_scope_as = landowners_ig }
+		ig:ig_petty_bourgeoisie ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_landowners_enact.1.a
+		default_option = yes
+		custom_tooltip = nr_landowners_enact_lore_1a
+		add_enactment_modifier = {
+			name = nr_landowners_enact_privilege_fast
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_privilege_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_landowners_enact.1.b
+		custom_tooltip = nr_landowners_enact_lore_1b
+		add_enactment_modifier = {
+			name = nr_landowners_enact_privilege_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_landowners_noble_privilege
+			IG = ig_landowners
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_landowners_enact.1.c
+		custom_tooltip = nr_landowners_enact_lore_1c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_privilege_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_privilege_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_landowners_enact.2 = { # amendment_nr_landowners_grain_tariff
+	type = country_event
+	placement = root
+	title = nr_landowners_enact.2.t
+	desc = nr_landowners_enact.2.desc
+	flavor = nr_landowners_enact.2.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		is_enacting_law = law_type:law_protectionism
+		exists = ig:ig_landowners
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_grain_tariff }
+		}
+		NOT = { has_modifier = nr_landowners_grants_corn_laws } # the grant is running: its follow-up offers the amendment
+		nr_landowners_leader_not_against_law = { LAW = law_protectionism } # parent law of the amendment
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_landowners ?= { save_scope_as = landowners_ig }
+		ig:ig_industrialists ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_landowners_enact.2.a
+		default_option = yes
+		custom_tooltip = nr_landowners_enact_lore_2a
+		add_enactment_modifier = {
+			name = nr_landowners_enact_grain_fast
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_grain_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_landowners_enact.2.b
+		custom_tooltip = nr_landowners_enact_lore_2b
+		add_enactment_modifier = {
+			name = nr_landowners_enact_grain_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_landowners_grain_tariff
+			IG = ig_landowners
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_landowners_enact.2.c
+		custom_tooltip = nr_landowners_enact_lore_2c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_grain_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_grain_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_landowners_enact.3 = { # amendment_nr_landowners_land_bank
+	type = country_event
+	placement = root
+	title = nr_landowners_enact.3.t
+	desc = nr_landowners_enact.3.desc
+	flavor = nr_landowners_enact.3.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_traditionalism
+			is_enacting_law = law_type:law_agrarianism
+			is_enacting_law = law_type:law_interventionism
+			is_enacting_law = law_type:law_laissez_faire
+		}
+		exists = ig:ig_landowners
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_land_bank }
+		}
+		NOT = { has_modifier = nr_landowners_grants_land_bank } # the grant is running: its follow-up offers the amendment
+		nr_landowners_leader_not_against_law = { LAW = law_agrarianism } # parent law of the amendment
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_landowners ?= { save_scope_as = landowners_ig }
+		ig:ig_industrialists ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_landowners_enact.3.a
+		default_option = yes
+		custom_tooltip = nr_landowners_enact_lore_3a
+		add_enactment_modifier = {
+			name = nr_landowners_enact_bank_fast
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_bank_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_landowners_enact.3.b
+		custom_tooltip = nr_landowners_enact_lore_3b
+		add_enactment_modifier = {
+			name = nr_landowners_enact_bank_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_landowners_land_bank
+			IG = ig_landowners
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_landowners_enact.3.c
+		custom_tooltip = nr_landowners_enact_lore_3c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_bank_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_bank_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_landowners_enact.4 = { # amendment_nr_landowners_corvee_statute
+	type = country_event
+	placement = root
+	title = nr_landowners_enact.4.t
+	desc = nr_landowners_enact.4.desc
+	flavor = nr_landowners_enact.4.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_serfdom
+			is_enacting_law = law_type:law_manorialism
+		}
+		exists = ig:ig_landowners
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_corvee_statute }
+		}
+		NOT = { has_modifier = nr_landowners_grants_corvee } # the grant is running: its follow-up offers the amendment
+		nr_landowners_leader_not_against_law = { LAW = law_serfdom } # parent law of the amendment
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_landowners ?= { save_scope_as = landowners_ig }
+		ig:ig_rural_folk ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_landowners_enact.4.a
+		default_option = yes
+		custom_tooltip = nr_landowners_enact_lore_4a
+		add_enactment_modifier = {
+			name = nr_landowners_enact_corvee_fast
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_corvee_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_landowners_enact.4.b
+		custom_tooltip = nr_landowners_enact_lore_4b
+		add_enactment_modifier = {
+			name = nr_landowners_enact_corvee_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_landowners_corvee_statute
+			IG = ig_landowners
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_landowners_enact.4.c
+		custom_tooltip = nr_landowners_enact_lore_4c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_corvee_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_corvee_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_landowners_enact.5 = { # amendment_nr_landowners_fugitive_law
+	type = country_event
+	placement = root
+	title = nr_landowners_enact.5.t
+	desc = nr_landowners_enact.5.desc
+	flavor = nr_landowners_enact.5.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "southamerica_slave_chains"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_slave_trade
+			is_enacting_law = law_type:law_legacy_slavery
+			is_enacting_law = law_type:law_colonial_slavery
+			is_enacting_law = law_type:law_debt_slavery
+		}
+		exists = ig:ig_landowners
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_fugitive_law }
+		}
+		NOT = { has_modifier = nr_landowners_grants_fugitives } # the grant is running: its follow-up offers the amendment
+		nr_landowners_leader_not_against_law = { LAW = law_legacy_slavery } # parent law of the amendment
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_landowners ?= { save_scope_as = landowners_ig }
+		ig:ig_intelligentsia ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_landowners_enact.5.a
+		default_option = yes
+		custom_tooltip = nr_landowners_enact_lore_5a
+		add_enactment_modifier = {
+			name = nr_landowners_enact_fugitive_fast
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_fugitive_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_landowners_enact.5.b
+		custom_tooltip = nr_landowners_enact_lore_5b
+		add_enactment_modifier = {
+			name = nr_landowners_enact_fugitive_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_landowners_fugitive_law
+			IG = ig_landowners
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_landowners_enact.5.c
+		custom_tooltip = nr_landowners_enact_lore_5c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_fugitive_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_fugitive_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_landowners_enact.6 = { # amendment_nr_landowners_free_import
+	type = country_event
+	placement = root
+	title = nr_landowners_enact.6.t
+	desc = nr_landowners_enact.6.desc
+	flavor = nr_landowners_enact.6.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "southamerica_slave_chains"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		is_enacting_law = law_type:law_slave_trade
+		exists = ig:ig_landowners
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_free_import }
+		}
+		NOT = { has_modifier = nr_landowners_grants_slave_import } # the grant is running: its follow-up offers the amendment
+		nr_landowners_leader_not_against_law = { LAW = law_slave_trade } # parent law of the amendment
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_landowners ?= { save_scope_as = landowners_ig }
+		ig:ig_intelligentsia ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_landowners_enact.6.a
+		default_option = yes
+		custom_tooltip = nr_landowners_enact_lore_6a
+		add_enactment_modifier = {
+			name = nr_landowners_enact_import_fast
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_import_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_landowners_enact.6.b
+		custom_tooltip = nr_landowners_enact_lore_6b
+		add_enactment_modifier = {
+			name = nr_landowners_enact_import_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_landowners_free_import
+			IG = ig_landowners
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_landowners_enact.6.c
+		custom_tooltip = nr_landowners_enact_lore_6c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_import_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_landowners_enact_import_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
