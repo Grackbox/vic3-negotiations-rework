@@ -1,5 +1,6 @@
 ﻿# NR: the ruler presses a group in negotiations (feature ruler_pressure). Country modifiers, 5 years.
-# Generated from the tables in README_NR.md ("Feature ruler_pressure").
+# Generated from the tables in README_NR.md ("Feature ruler_pressure"). <name> = penalties (scaled x1.5 for
+# constitutional monarchs / theocrats), <name>_bonus = bonuses (never scaled).
 
 nr_ruler_pressure_monarch_devout = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
@@ -7,7 +8,7 @@ nr_ruler_pressure_monarch_devout = {
 	country_legitimacy_base_add = -5
 }
 
-nr_ruler_pressure_theocrat_devout = {
+nr_ruler_pressure_theocrat_devout_bonus = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	state_conversion_mult = 0.1
 }
@@ -26,6 +27,10 @@ nr_ruler_pressure_oligarchs_devout = {
 nr_ruler_pressure_technocrats_devout = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_ig_devout_pol_str_mult = -0.05
+}
+
+nr_ruler_pressure_technocrats_devout_bonus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	state_education_access_add = 0.02
 }
 
@@ -54,6 +59,10 @@ nr_ruler_pressure_oligarchs_landowners = {
 nr_ruler_pressure_technocrats_landowners = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_ig_landowners_approval_add = -3
+}
+
+nr_ruler_pressure_technocrats_landowners_bonus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	building_group_bg_agriculture_throughput_add = 0.05
 }
 
@@ -72,12 +81,20 @@ nr_ruler_pressure_theocrat_industrialists = {
 nr_ruler_pressure_autocrat_industrialists = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_ig_industrialists_approval_add = -3
+}
+
+nr_ruler_pressure_autocrat_industrialists_bonus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	country_military_goods_cost_mult = -0.1
 }
 
 nr_ruler_pressure_oligarchs_industrialists = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_ig_industrialists_approval_add = -1
+}
+
+nr_ruler_pressure_oligarchs_industrialists_bonus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	building_group_bg_manufacturing_throughput_add = 0.05
 	interest_group_ig_industrialists_pol_str_mult = 0.1
 }
@@ -85,6 +102,10 @@ nr_ruler_pressure_oligarchs_industrialists = {
 nr_ruler_pressure_technocrats_industrialists = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_ig_industrialists_approval_add = -2
+}
+
+nr_ruler_pressure_technocrats_industrialists_bonus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	building_group_bg_manufacturing_throughput_add = 0.05
 }
 
@@ -172,7 +193,7 @@ nr_ruler_pressure_technocrats_trade_unions = {
 	building_throughput_add = -0.02
 }
 
-nr_ruler_pressure_monarch_rural_folk = {
+nr_ruler_pressure_monarch_rural_folk_bonus = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	state_loyalists_from_political_movements_mult = 0.05
 }
@@ -296,6 +317,10 @@ nr_ruler_pressure_own_technocrats_landowners = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_ig_landowners_pol_str_mult = -0.1
 	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_technocrats_landowners_bonus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	building_group_bg_agriculture_throughput_add = 0.05
 }
 
@@ -317,6 +342,10 @@ nr_ruler_pressure_own_autocrat_industrialists = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_ig_industrialists_pol_str_mult = -0.1
 	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_autocrat_industrialists_bonus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	country_military_goods_cost_mult = -0.1
 }
 
@@ -331,6 +360,10 @@ nr_ruler_pressure_own_technocrats_industrialists = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_ig_industrialists_pol_str_mult = -0.1
 	interest_group_ig_industrialists_approval_add = -3
+}
+
+nr_ruler_pressure_own_technocrats_industrialists_bonus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	building_group_bg_manufacturing_throughput_add = 0.05
 }
 
@@ -471,6 +504,10 @@ nr_ruler_pressure_own_technocrats_rural_folk = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_ig_rural_folk_pol_str_mult = -0.1
 	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_technocrats_rural_folk_bonus = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	building_group_bg_agriculture_throughput_add = 0.03
 }
 

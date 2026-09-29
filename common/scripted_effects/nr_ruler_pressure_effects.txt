@@ -91,7 +91,7 @@ nr_ruler_pressure_other = {
 		}
 		else_if = {
 			limit = { nr_ruler_is_theocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_theocrat_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_modifier = { name = nr_ruler_pressure_theocrat_devout_bonus days = normal_modifier_time }
 		}
 		else_if = {
 			limit = { nr_ruler_is_autocrat = yes }
@@ -104,6 +104,7 @@ nr_ruler_pressure_other = {
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }
 			add_modifier = { name = nr_ruler_pressure_technocrats_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_modifier = { name = nr_ruler_pressure_technocrats_devout_bonus days = normal_modifier_time }
 		}
 	}
 	else_if = {
@@ -127,6 +128,7 @@ nr_ruler_pressure_other = {
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }
 			add_modifier = { name = nr_ruler_pressure_technocrats_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_modifier = { name = nr_ruler_pressure_technocrats_landowners_bonus days = normal_modifier_time }
 		}
 	}
 	else_if = {
@@ -142,14 +144,17 @@ nr_ruler_pressure_other = {
 		else_if = {
 			limit = { nr_ruler_is_autocrat = yes }
 			add_modifier = { name = nr_ruler_pressure_autocrat_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_modifier = { name = nr_ruler_pressure_autocrat_industrialists_bonus days = normal_modifier_time }
 		}
 		else_if = {
 			limit = { nr_ruler_is_oligarchs = yes }
 			add_modifier = { name = nr_ruler_pressure_oligarchs_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_modifier = { name = nr_ruler_pressure_oligarchs_industrialists_bonus days = normal_modifier_time }
 		}
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }
 			add_modifier = { name = nr_ruler_pressure_technocrats_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_modifier = { name = nr_ruler_pressure_technocrats_industrialists_bonus days = normal_modifier_time }
 		}
 	}
 	else_if = {
@@ -229,7 +234,7 @@ nr_ruler_pressure_other = {
 		limit = { scope:ig = { is_interest_group_type = ig_rural_folk } }
 		if = {
 			limit = { nr_ruler_is_monarch = yes }
-			add_modifier = { name = nr_ruler_pressure_monarch_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_modifier = { name = nr_ruler_pressure_monarch_rural_folk_bonus days = normal_modifier_time }
 		}
 		else_if = {
 			limit = { nr_ruler_is_theocrat = yes }
@@ -341,6 +346,7 @@ nr_ruler_pressure_own = {
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
 				add_modifier = { name = nr_ruler_pressure_own_technocrats_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_landowners_bonus days = normal_modifier_time }
 			}
 		}
 		else_if= {
@@ -356,6 +362,7 @@ nr_ruler_pressure_own = {
 			else_if = {
 				limit = { nr_ruler_is_autocrat = yes }
 				add_modifier = { name = nr_ruler_pressure_own_autocrat_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+				add_modifier = { name = nr_ruler_pressure_own_autocrat_industrialists_bonus days = normal_modifier_time }
 			}
 			else_if = {
 				limit = { nr_ruler_is_oligarchs = yes }
@@ -364,6 +371,7 @@ nr_ruler_pressure_own = {
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
 				add_modifier = { name = nr_ruler_pressure_own_technocrats_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_industrialists_bonus days = normal_modifier_time }
 			}
 		}
 		else_if= {
@@ -456,6 +464,7 @@ nr_ruler_pressure_own = {
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
 				add_modifier = { name = nr_ruler_pressure_own_technocrats_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_rural_folk_bonus days = normal_modifier_time }
 			}
 		}
 	}
