@@ -1,0 +1,18 @@
+﻿l_english:
+ # NR: debug events (console only)
+ nr_debug.2.t: "Debug: Follow-ups (1/2)"
+ nr_debug.3.t: "Debug: Follow-ups (2/2)"
+ nr_debug.2.desc: "Fire a follow-up event of a church campaign now. The event still checks its own conditions: if nothing appears, the current laws do not allow it."
+ nr_debug.3.desc: "Fire a follow-up event of a church campaign now. The event still checks its own conditions: if nothing appears, the current laws do not allow it."
+ nr_debug.2.close: "Close."
+ nr_debug.3.close: "Close."
+ nr_debug.2.schools: "Schools (after Enlightening the Lost)"
+ nr_debug.2.sisters: "Sisters of Mercy"
+ nr_debug.2.chaplains: "Army Chaplains"
+ nr_debug.2.censorship: "Censorship Committees"
+ nr_debug.2.synod: "Synodal Administration"
+ nr_debug.3.church_tax: "Church Tax"
+ nr_debug.3.sunday: "Church Calendar (Sunday Rest)"
+ nr_debug.3.census: "Seminarists (Clerical Census)"
+ nr_debug.3.police: "Prison Ministry (police)"
+ nr_debug.3.slavery: "The Church and the Slaves"

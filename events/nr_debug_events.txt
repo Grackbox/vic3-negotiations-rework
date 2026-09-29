@@ -1,0 +1,115 @@
+﻿namespace = nr_debug
+
+# NR: debug events for testing, fired from the console only (event nr_debug.1 / .2 / .3). Never triggered by the game.
+# .1 - fire every enactment event (.1); each checks its own trigger, so only those matching the law being enacted
+#      appear (their 5-year cooldown still applies).
+# .2 / .3 - menus: fire a post-campaign follow-up (.2) now; the Censorship follow-up also gets its campaign mark.
+#      Each follow-up still checks its own trigger (laws, amendments, leader stance).
+
+nr_debug.1 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		trigger_event = { id = nr_devout_chaplains.1 popup = yes }
+		trigger_event = { id = nr_devout_synod.1 popup = yes }
+		trigger_event = { id = nr_devout_church_tax.1 popup = yes }
+		trigger_event = { id = nr_devout_sunday.1 popup = yes }
+		trigger_event = { id = nr_devout_census.1 popup = yes }
+		trigger_event = { id = nr_devout_slavery.1 popup = yes }
+	}
+}
+
+nr_debug.2 = {
+	type = country_event
+	placement = root
+	title = nr_debug.2.t
+	desc = nr_debug.2.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_debug.2.schools
+		trigger_event = { id = nr_devout_schools.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.2.sisters
+		trigger_event = { id = nr_devout_sisters.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.2.chaplains
+		trigger_event = { id = nr_devout_chaplains.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.2.censorship
+		set_variable = { # the follow-up needs the campaign mark
+			name = nr_devout_censorship_campaign
+			days = 3660
+		}
+		trigger_event = { id = nr_devout_censorship.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.2.synod
+		trigger_event = { id = nr_devout_synod.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.2.close
+		default_option = yes
+	}
+}
+
+nr_debug.3 = {
+	type = country_event
+	placement = root
+	title = nr_debug.3.t
+	desc = nr_debug.3.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_debug.3.church_tax
+		trigger_event = { id = nr_devout_church_tax.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.3.sunday
+		trigger_event = { id = nr_devout_sunday.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.3.census
+		trigger_event = { id = nr_devout_census.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.3.police
+		trigger_event = { id = nr_devout_police.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.3.slavery
+		trigger_event = { id = nr_devout_slavery.2 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.3.close
+		default_option = yes
+	}
+}

@@ -144,6 +144,12 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
   - e (default) "Close": neutral, no penalty; shown when nothing is on offer and the church runs no schools.
   - d (default, replaces c) "The schools are already in good hands" - if Religious Schools or Church-Organized Schools are already in place (`nr_devout_schools_church_runs_schools`): Devout +2 approval for 5 years.
 
+## Debug (console)
+`events/nr_debug_events.txt`, localization `nr_debug_l_*.yml`. Never fired by the game.
+- `event nr_debug.1` - fires every enactment event `.1` at once; only those matching the law being enacted appear (their 5-year cooldown still applies).
+- `event nr_debug.2` / `event nr_debug.3` - menus of the post-campaign follow-ups `.2` (schools, sisters, chaplains, censorship, synod / church tax, Sunday Rest, Clerical Census, police, slavery). The censorship option also sets the campaign mark `nr_devout_censorship_campaign`. Each follow-up still checks its own trigger.
+- New follow-ups and enactment events should be added to these menus.
+
 ## Negotiation difficulty (reference)
 - Amenability (0-100) is computed in code; factor weights are not exposed.
 - Level thresholds: `NPolitics` in `common/defines/00_defines.txt` — MIN_AMENABILITY_TENSE/NORMAL/FRIENDLY_NEGOTIATION = 25/50/75 → levels 4/2/1.
