@@ -104,6 +104,14 @@ nr_devout_officials.1 = {
 		custom_tooltip = nr_devout_officials_lore_slaves
 		nr_devout_officials_choose_form = { FORM = slaves }
 		nr_devout_officials_set_penalty = { FACTOR = 0.75 }
+		hidden_effect = {
+			# NR devout_slavery: follow-up in 10 years (only if slavery is still legal)
+			trigger_event = {
+				id = nr_devout_slavery.2
+				days = 3650
+				popup = yes
+			}
+		}
 		ai_chance = {
 			base = 10
 			modifier = {

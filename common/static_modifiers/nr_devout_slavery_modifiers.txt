@@ -1,0 +1,49 @@
+﻿# NR: The Church and the Slaves follow-up (feature devout_slavery).
+
+# On movement_anti_slavery, renewed yearly while the amendment is active: "the church already frees its own"
+nr_devout_slavery_abolitionists_calmed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	political_movement_radicalism_add = -0.25
+}
+
+# Enactment modifier while enacting Slavery Banned under the clergy's petition
+nr_devout_slavery_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+# Devout IG: the petition expired without Slavery Banned
+nr_devout_slavery_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Devout IG: the offer was declined
+nr_devout_slavery_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+# Enactment event nr_devout_slavery.1: "A slave is a slave, whatever his faith" - faster enactment
+nr_devout_slavery_faith_irrelevant = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+# Enactment event nr_devout_slavery.1: the amendment is written into the law - slower enactment (the landowners stall)
+nr_devout_slavery_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+# Devout IG: the amendment was kept out of the law being enacted
+nr_devout_slavery_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Landowners IG: they were asked to decide
+nr_devout_slavery_landowners_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}

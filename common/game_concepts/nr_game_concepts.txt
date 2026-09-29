@@ -42,3 +42,5 @@ concept_nr_parish_constables = {}
 concept_nr_prison_chaplaincy = {}
 
 concept_nr_gendarmerie_chaplains = {}
+
+concept_nr_fellow_believers = {}

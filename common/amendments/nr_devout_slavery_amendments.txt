@@ -1,0 +1,39 @@
+﻿# NR: "Do Not Enslave Fellow Believers" (feature devout_slavery).
+# Offered by nr_devout_slavery.2 (10 years after The Church and the Slaves form) and nr_devout_slavery.1 (enactment of
+# a slavery law). While it is active, slaves of the state religion are freed: when it is added to the active law,
+# when a law carrying it is activated, and then yearly (nr_devout_slavery_yearly).
+# Parent Slavery Banned: groups see it as a step towards abolition. Sponsor Devout.
+
+amendment_nr_devout_fellow_believers = {
+	parent = law_slavery_banned
+
+	allowed_laws = {
+		law_slave_trade
+		law_legacy_slavery
+		law_colonial_slavery
+		law_debt_slavery
+	}
+
+	modifier = {
+		state_pop_support_movement_anti_slavery_mult = 0.1 # the movement for full abolition gains support
+		state_bureaucracy_population_base_cost_factor_mult = 0.05 # every slave has to be checked for baptism
+		interest_group_ig_landowners_approval_add = -2 # the landowners resent it while it is in force
+		country_authority_cost_add = 100
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_devout
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}

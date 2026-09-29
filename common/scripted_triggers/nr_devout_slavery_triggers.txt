@@ -1,0 +1,50 @@
+﻿# NR: The Church and the Slaves follow-up (feature devout_slavery). Scope: country unless noted.
+
+nr_devout_slavery_legal = {
+	NOT = { has_law = law_type:law_slavery_banned }
+}
+
+nr_devout_slavery_enacting_slavery = {
+	OR = {
+		is_enacting_law = law_type:law_slave_trade
+		is_enacting_law = law_type:law_legacy_slavery
+		is_enacting_law = law_type:law_colonial_slavery
+		is_enacting_law = law_type:law_debt_slavery
+	}
+}
+
+# Petition for Slavery Banned can be offered.
+nr_devout_slavery_petition_available = {
+	nr_devout_slavery_legal = yes
+	nr_devout_leader_not_against_law = { LAW = law_slavery_banned }
+	NOT = { has_journal_entry = je_nr_devout_slavery_petition }
+}
+
+# The amendment can be attached to the active slavery law.
+nr_devout_slavery_amendment_available = {
+	nr_devout_slavery_legal = yes
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_fellow_believers }
+	}
+	nr_devout_leader_not_against_law = { LAW = law_slavery_banned } # parent law of the amendment
+}
+
+# Anything to offer at all. Without it declining is a neutral close.
+nr_devout_slavery_offer_available = {
+	OR = {
+		nr_devout_slavery_petition_available = yes
+		nr_devout_slavery_amendment_available = yes
+	}
+}
+
+# The pop works on a farm, plantation, ranch or subsistence holding (freed slaves become peasants). Scope: pop.
+nr_devout_slavery_rural_work = {
+	OR = {
+		pop_employment_building_group = bg_agriculture
+		pop_employment_building_group = bg_staple_crops
+		pop_employment_building_group = bg_subsistence_agriculture
+		pop_employment_building_group = bg_ranching
+		pop_employment_building_group = bg_subsistence_ranching
+		pop_employment_building_group = bg_plantations
+	}
+}

@@ -1,0 +1,168 @@
+﻿namespace = nr_devout_slavery
+
+# NR: The Church and the Slaves follow-up (feature devout_slavery), an instance of the "IG amendment pair" pattern.
+# .1 - enactment of slave trade / legacy / colonial / debt slavery: may attach the amendment to the law being enacted.
+# .2 - 10 years after The Church and the Slaves form, only if slavery is still legal: petition for Slavery Banned,
+#      the amendment on the active slavery law, or decline -1; nothing to offer -> neutral close.
+#      Slavery banned during the campaign: no event.
+
+nr_devout_slavery.1 = {
+	type = country_event
+	placement = root
+	title = nr_devout_slavery.1.t
+	desc = nr_devout_slavery.1.desc
+	flavor = nr_devout_slavery.1.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "southamerica_slave_chains"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		nr_devout_slavery_enacting_slavery = yes
+		exists = ig:ig_devout
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_fellow_believers }
+		}
+		NOT = { has_modifier = nr_devout_officials_slaves } # the campaign is running: its follow-up offers the amendment
+		nr_devout_leader_not_against_law = { LAW = law_slavery_banned } # parent law of the amendment
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_devout ?= { save_scope_as = devout_ig }
+		ig:ig_landowners ?= { save_scope_as = landowners_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # A slave is a slave, whatever his faith
+		name = nr_devout_slavery.1.a
+		default_option = yes
+		custom_tooltip = nr_devout_slavery_lore_1a
+		add_enactment_modifier = {
+			name = nr_devout_slavery_faith_irrelevant
+		}
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_slavery_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # The baptised cannot be a slave: attach the amendment
+		name = nr_devout_slavery.1.b
+		custom_tooltip = nr_devout_slavery_lore_1b
+		custom_tooltip = nr_devout_slavery_free_on_law_tt
+		add_enactment_modifier = {
+			name = nr_devout_slavery_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_devout_fellow_believers
+			IG = ig_devout
+		}
+	}
+
+	option = { # Let the landowners decide
+		name = nr_devout_slavery.1.c
+		custom_tooltip = nr_devout_slavery_lore_1c
+		scope:landowners_ig ?= {
+			add_modifier = {
+				name = nr_devout_slavery_landowners_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_slavery_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_devout_slavery.2 = {
+	type = country_event
+	placement = root
+	title = nr_devout_slavery.2.t
+	desc = nr_devout_slavery.2.desc
+	flavor = nr_devout_slavery.2.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "southamerica_slave_chains"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	trigger = {
+		exists = ig:ig_devout
+		nr_devout_slavery_legal = yes
+	}
+
+	immediate = {
+		ig:ig_devout ?= {
+			save_scope_as = ig
+			save_scope_as = devout_ig
+		}
+	}
+
+	option = { # Petition for Slavery Banned
+		name = nr_devout_slavery.2.a
+		trigger = {
+			nr_devout_slavery_petition_available = yes
+		}
+		custom_tooltip = nr_devout_slavery_lore_2a
+		custom_tooltip = nr_devout_slavery_petition_tt
+		add_journal_entry = { type = je_nr_devout_slavery_petition }
+	}
+
+	option = { # Do Not Enslave Fellow Believers
+		name = nr_devout_slavery.2.b
+		trigger = {
+			nr_devout_slavery_amendment_available = yes
+		}
+		custom_tooltip = nr_devout_slavery_lore_2b
+		nr_devout_slavery_add_amendment = yes
+	}
+
+	option = { # Decline (only while there was something to offer)
+		name = nr_devout_slavery.2.c
+		default_option = yes
+		trigger = {
+			nr_devout_slavery_offer_available = yes
+		}
+		custom_tooltip = nr_devout_slavery_lore_2c
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_slavery_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Nothing to offer: neutral close
+		name = nr_devout_slavery.2.e
+		default_option = yes
+		trigger = {
+			nr_devout_slavery_offer_available = no
+		}
+	}
+}

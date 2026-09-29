@@ -1,0 +1,71 @@
+﻿# NR: The Church and the Slaves follow-up (feature devout_slavery).
+
+# Frees every slave of the state religion: rural work or no work -> peasants, anything else (mines, factories,
+# ports) -> laborers. Scope: country.
+nr_devout_slavery_free_believers = {
+	every_scope_state = {
+		every_scope_pop = {
+			limit = {
+				is_pop_type = slaves
+				has_state_religion = yes
+			}
+			if = {
+				limit = {
+					OR = {
+						is_employed = no
+						nr_devout_slavery_rural_work = yes
+					}
+				}
+				change_poptype = pop_type:peasants
+			}
+			else = {
+				change_poptype = pop_type:laborers
+			}
+		}
+	}
+}
+
+# Yearly while the amendment is active: free the slaves converted since last year, and calm the abolitionists
+# ("the church already frees its own"): radicalism -0.25 on movement_anti_slavery for a year.
+# Called from nr_on_yearly_pulse_country. Scope: country.
+nr_devout_slavery_yearly = {
+	if = {
+		limit = {
+			any_active_law = { has_amendment = amendment_type:amendment_nr_devout_fellow_believers }
+		}
+		nr_devout_slavery_free_believers = yes
+		every_political_movement = {
+			limit = { is_political_movement_type = movement_anti_slavery }
+			if = {
+				limit = { has_modifier = nr_devout_slavery_abolitionists_calmed }
+				remove_modifier = nr_devout_slavery_abolitionists_calmed
+			}
+			add_modifier = {
+				name = nr_devout_slavery_abolitionists_calmed
+				days = 365
+			}
+		}
+	}
+}
+
+# Attaches the amendment to whichever slavery law is active and frees the believers at once. Scope: country.
+nr_devout_slavery_add_amendment = {
+	if = {
+		limit = { has_law = law_type:law_slave_trade }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_fellow_believers LAW = law_slave_trade IG = ig_devout }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_legacy_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_fellow_believers LAW = law_legacy_slavery IG = ig_devout }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_colonial_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_fellow_believers LAW = law_colonial_slavery IG = ig_devout }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_debt_slavery }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_fellow_believers LAW = law_debt_slavery IG = ig_devout }
+	}
+	custom_tooltip = nr_devout_slavery_free_tt
+	hidden_effect = { nr_devout_slavery_free_believers = yes }
+}
