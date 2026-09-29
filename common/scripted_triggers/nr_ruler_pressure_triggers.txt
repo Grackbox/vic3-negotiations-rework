@@ -79,7 +79,12 @@ nr_ruler_pressure_available = {
 		nr_ruler_is_oligarchs = yes
 		nr_ruler_is_technocrats = yes
 	}
-	NOT = { has_law = law_type:law_social_monarchy } # the social monarch does not press groups
+	NOR = { # the social monarch presses groups only as an autocrat
+		AND = {
+			has_law = law_type:law_social_monarchy
+			NOT = { has_law_or_variant = law_type:law_autocracy }
+		}
+	}
 	nr_ruler_not_against_law = yes
 	scope:ig = { NOT = { has_variable = nr_ruler_pressure_cooldown } } # not pressed in the last 5 years
 	authority >= 400
