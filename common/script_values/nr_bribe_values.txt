@@ -51,16 +51,6 @@ nr_devout_bribe_lump_sum = {
 	min = 0
 }
 
-# Amount actually paid, stored on the country at payment time (the payment itself depends on the treasury). Scope: country.
-nr_devout_bribe_paid_negative = {
-	value = 0
-	if = {
-		limit = { has_variable = nr_devout_bribe_paid }
-		value = var:nr_devout_bribe_paid
-		multiply = -1
-	}
-}
-
 # ---------- Refund when the bribe is exposed ----------
 # The bribe money is assumed to be spent evenly over 2 years; exposure (generic_laws.2) comes 300 days after the bribe,
 # so (730 - 300) / 730 = ~59% is still unspent and returns to the treasury. Scope: country.

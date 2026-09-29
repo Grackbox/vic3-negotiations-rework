@@ -5,13 +5,17 @@
 nr_bribe_pay = {
 	if = {
 		limit = { scope:ig = { is_interest_group_type = ig_devout } }
-		# stored before paying: the amount depends on the treasury; also used for the refund in generic_laws.2
+		# stored for the refund in generic_laws.2
 		set_variable = {
 			name = nr_devout_bribe_paid
 			value = nr_devout_bribe_lump_sum
 			days = 330
 		}
-		add_treasury = nr_devout_bribe_paid_negative
+		# computed directly, not from the variable: tooltips are built before the variable is set
+		add_treasury = {
+			value = nr_devout_bribe_lump_sum
+			multiply = -1
+		}
 	}
 	else = {
 		# vanilla
