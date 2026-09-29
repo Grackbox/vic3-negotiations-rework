@@ -21,6 +21,7 @@ amendment_nr_landowners_patrimonial_justice = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -52,6 +53,7 @@ amendment_nr_landowners_noble_guard = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -83,6 +85,7 @@ amendment_nr_landowners_noble_curia = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -117,6 +120,7 @@ amendment_nr_landowners_patrol_statute = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -151,6 +155,7 @@ amendment_nr_landowners_state_slaves = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -183,6 +188,7 @@ amendment_nr_landowners_noble_commissions = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -216,6 +222,7 @@ amendment_nr_landowners_naval_census = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -247,6 +254,7 @@ amendment_nr_landowners_service_census = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}

@@ -27,6 +27,7 @@ amendment_nr_devout_fellow_believers = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_devout
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_devout } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}

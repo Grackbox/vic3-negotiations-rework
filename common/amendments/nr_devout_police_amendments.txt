@@ -22,6 +22,7 @@ amendment_nr_devout_parish_constables = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_devout
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_devout } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -54,6 +55,7 @@ amendment_nr_devout_prison_chaplaincy = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_devout
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_devout } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -85,6 +87,7 @@ amendment_nr_devout_gendarmerie_chaplains = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_devout
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_devout } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}

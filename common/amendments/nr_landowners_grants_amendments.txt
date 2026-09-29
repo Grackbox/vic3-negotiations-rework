@@ -28,6 +28,7 @@ amendment_nr_landowners_noble_privilege = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -61,6 +62,7 @@ amendment_nr_landowners_grain_tariff = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -96,6 +98,7 @@ amendment_nr_landowners_land_bank = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -130,6 +133,7 @@ amendment_nr_landowners_corvee_statute = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -164,6 +168,7 @@ amendment_nr_landowners_fugitive_law = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}
@@ -195,6 +200,7 @@ amendment_nr_landowners_free_import = {
 
 	would_sponsor = {
 		is_interest_group_type = ig_landowners
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_landowners } } # NR: room in the law
 		exists = scope:approval
 		scope:approval > 0
 	}

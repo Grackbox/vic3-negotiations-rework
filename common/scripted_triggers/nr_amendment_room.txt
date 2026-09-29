@@ -1,0 +1,148 @@
+﻿# NR: room in the law for our amendments (pattern "Room in the law", README_NR.md).
+# A law carries at most 2 of our amendments, and no two of them may come from groups that oppose each other on that
+# law (opposition is per law group). Vanilla and other mods' amendments do not count.
+
+# The amendment is one of ours. Scope: amendment.
+nr_amendment_is_ours = {
+	OR = {
+		type = amendment_type:amendment_nr_devout_census
+		type = amendment_type:amendment_nr_devout_chaplains
+		type = amendment_type:amendment_nr_devout_church_tax
+		type = amendment_type:amendment_nr_devout_church_tax_guarantee
+		type = amendment_type:amendment_nr_devout_fellow_believers
+		type = amendment_type:amendment_nr_devout_gendarmerie_chaplains
+		type = amendment_type:amendment_nr_devout_parish_constables
+		type = amendment_type:amendment_nr_devout_prison_chaplaincy
+		type = amendment_type:amendment_nr_devout_sisters
+		type = amendment_type:amendment_nr_devout_sunday
+		type = amendment_type:amendment_nr_devout_synod
+		type = amendment_type:amendment_nr_landowners_corvee_statute
+		type = amendment_type:amendment_nr_landowners_free_import
+		type = amendment_type:amendment_nr_landowners_fugitive_law
+		type = amendment_type:amendment_nr_landowners_grain_tariff
+		type = amendment_type:amendment_nr_landowners_land_bank
+		type = amendment_type:amendment_nr_landowners_naval_census
+		type = amendment_type:amendment_nr_landowners_noble_commissions
+		type = amendment_type:amendment_nr_landowners_noble_curia
+		type = amendment_type:amendment_nr_landowners_noble_guard
+		type = amendment_type:amendment_nr_landowners_noble_privilege
+		type = amendment_type:amendment_nr_landowners_patrimonial_justice
+		type = amendment_type:amendment_nr_landowners_patrol_statute
+		type = amendment_type:amendment_nr_landowners_service_census
+		type = amendment_type:amendment_nr_landowners_state_slaves
+	}
+}
+
+# There is room on the law for a new amendment sponsored by $IG$. Scope: law.
+nr_amendment_fits = {
+	NOT = {
+		any_scope_amendment = {
+			count >= 2
+			nr_amendment_is_ours = yes
+		}
+	}
+	nr_amendment_opposed_$IG$ = no
+}
+
+# The law carries an amendment of a group opposing ig_armed_forces on this law. Scope: law.
+nr_amendment_opposed_ig_armed_forces = {
+	always = no # no opposing group on any law yet
+}
+
+# The law carries an amendment of a group opposing ig_devout on this law. Scope: law.
+nr_amendment_opposed_ig_devout = {
+	OR = {
+		AND = { # slavery
+			OR = { type = law_type:law_slavery_banned type = law_type:law_slave_trade type = law_type:law_legacy_slavery type = law_type:law_colonial_slavery type = law_type:law_debt_slavery }
+			any_scope_amendment = {
+				nr_amendment_is_ours = yes
+				sponsor ?= { is_interest_group_type = ig_landowners }
+			}
+		}
+		AND = { # policing
+			OR = { type = law_type:law_no_police type = law_type:law_local_police type = law_type:law_dedicated_police type = law_type:law_militarized_police }
+			any_scope_amendment = {
+				nr_amendment_is_ours = yes
+				sponsor ?= { is_interest_group_type = ig_landowners }
+			}
+		}
+	}
+}
+
+# The law carries an amendment of a group opposing ig_industrialists on this law. Scope: law.
+nr_amendment_opposed_ig_industrialists = {
+	always = no # no opposing group on any law yet
+}
+
+# The law carries an amendment of a group opposing ig_intelligentsia on this law. Scope: law.
+nr_amendment_opposed_ig_intelligentsia = {
+	always = no # no opposing group on any law yet
+}
+
+# The law carries an amendment of a group opposing ig_landowners on this law. Scope: law.
+nr_amendment_opposed_ig_landowners = {
+	OR = {
+		AND = { # slavery
+			OR = { type = law_type:law_slavery_banned type = law_type:law_slave_trade type = law_type:law_legacy_slavery type = law_type:law_colonial_slavery type = law_type:law_debt_slavery }
+			any_scope_amendment = {
+				nr_amendment_is_ours = yes
+				sponsor ?= { is_interest_group_type = ig_devout }
+			}
+		}
+		AND = { # policing
+			OR = { type = law_type:law_no_police type = law_type:law_local_police type = law_type:law_dedicated_police type = law_type:law_militarized_police }
+			any_scope_amendment = {
+				nr_amendment_is_ours = yes
+				sponsor ?= { is_interest_group_type = ig_devout }
+			}
+		}
+	}
+}
+
+# The law carries an amendment of a group opposing ig_petty_bourgeoisie on this law. Scope: law.
+nr_amendment_opposed_ig_petty_bourgeoisie = {
+	always = no # no opposing group on any law yet
+}
+
+# The law carries an amendment of a group opposing ig_rural_folk on this law. Scope: law.
+nr_amendment_opposed_ig_rural_folk = {
+	always = no # no opposing group on any law yet
+}
+
+# The law carries an amendment of a group opposing ig_trade_unions on this law. Scope: law.
+nr_amendment_opposed_ig_trade_unions = {
+	always = no # no opposing group on any law yet
+}
+
+# In event nr_amendment_room.1: this amendment's sponsor opposes the sponsor of the new one on this law. Scope: amendment.
+nr_amendment_opposes_room = {
+	nr_amendment_is_ours = yes
+	OR = {
+		AND = { # slavery
+			scope:room_law = { OR = { type = law_type:law_slavery_banned type = law_type:law_slave_trade type = law_type:law_legacy_slavery type = law_type:law_colonial_slavery type = law_type:law_debt_slavery } }
+			OR = {
+				AND = {
+					scope:room_ig = { is_interest_group_type = ig_devout }
+					sponsor ?= { is_interest_group_type = ig_landowners }
+				}
+				AND = {
+					scope:room_ig = { is_interest_group_type = ig_landowners }
+					sponsor ?= { is_interest_group_type = ig_devout }
+				}
+			}
+		}
+		AND = { # policing
+			scope:room_law = { OR = { type = law_type:law_no_police type = law_type:law_local_police type = law_type:law_dedicated_police type = law_type:law_militarized_police } }
+			OR = {
+				AND = {
+					scope:room_ig = { is_interest_group_type = ig_devout }
+					sponsor ?= { is_interest_group_type = ig_landowners }
+				}
+				AND = {
+					scope:room_ig = { is_interest_group_type = ig_landowners }
+					sponsor ?= { is_interest_group_type = ig_devout }
+				}
+			}
+		}
+	}
+}

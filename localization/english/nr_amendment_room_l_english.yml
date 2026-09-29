@@ -1,0 +1,11 @@
+﻿l_english:
+ # NR: room in the law for our amendments
+ nr_amendment_room.1.t: "No Room in the Law"
+ nr_amendment_room.1.desc_conflict: "The [SCOPE.gsInterestGroup('room_ig').GetName] want the article “[SCOPE.sAmendmentType('room_amendment_type').GetName]” in [SCOPE.sLaw('room_law').GetName], but the law already carries “[SCOPE.sAmendmentType('nr_room_strike_type_1').GetName]”, written for their opponents. The two cannot stand in one law: one of them must go."
+ nr_amendment_room.1.desc_full: "The [SCOPE.gsInterestGroup('room_ig').GetName] want the article “[SCOPE.sAmendmentType('room_amendment_type').GetName]” in [SCOPE.sLaw('room_law').GetName], but the law already carries two articles written for interest groups. To add a third, one of them must be struck."
+ nr_amendment_room.1.flavor: "“A law that tries to please everyone ends by being obeyed by no one.” From a speech in a parliamentary committee"
+ nr_amendment_room.1.a: "Strike “[SCOPE.sAmendmentType('nr_room_strike_type_1').GetName]”."
+ nr_amendment_room.1.b: "Strike “[SCOPE.sAmendmentType('nr_room_strike_type_2').GetName]”."
+ nr_amendment_room.1.c: "Leave the law as it is."
+ nr_amendment_no_room_tt: "If there is no room for this article in the law, we will have to choose which article to strike, or give this one up."
+ nr_amendment_struck: "Their Article Was Struck"

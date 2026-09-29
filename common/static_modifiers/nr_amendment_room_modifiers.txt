@@ -1,0 +1,5 @@
+﻿# NR: an article of the group was struck from a law to make room for another one (event nr_amendment_room.1).
+nr_amendment_struck = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -3
+}

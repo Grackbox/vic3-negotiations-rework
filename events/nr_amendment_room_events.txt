@@ -1,0 +1,146 @@
+﻿namespace = nr_amendment_room
+
+# NR: no room in the law for a new amendment of ours (fired by nr_amendment_no_room). Either the law already carries
+# 2 of our amendments (strike one of them) or an amendment of an opposing group (strike those), or give up the new one.
+
+nr_amendment_room.1 = {
+	type = country_event
+	placement = root
+	title = nr_amendment_room.1.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_amendment_room.1.desc_conflict
+				trigger = { exists = scope:nr_room_conflict }
+			}
+			triggered_desc = {
+				desc = nr_amendment_room.1.desc_full
+			}
+		}
+	}
+	flavor = nr_amendment_room.1.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = var:nr_room_law
+		exists = var:nr_room_amendment
+		exists = var:nr_room_ig
+	}
+
+	immediate = {
+		var:nr_room_law = { save_scope_as = room_law }
+		var:nr_room_amendment = { save_scope_as = room_amendment_type }
+		var:nr_room_ig = { save_scope_as = room_ig }
+		scope:room_law = {
+			if = {
+				limit = {
+					any_scope_amendment = { nr_amendment_opposes_room = yes }
+				}
+				random_scope_amendment = {
+					limit = { nr_amendment_opposes_room = yes }
+					save_scope_as = nr_room_conflict
+					save_scope_as = nr_room_strike_1
+				}
+			}
+			else = {
+				random_scope_amendment = {
+					limit = { nr_amendment_is_ours = yes }
+					save_scope_as = nr_room_strike_1
+				}
+				random_scope_amendment = {
+					limit = {
+						nr_amendment_is_ours = yes
+						NOT = { this = scope:nr_room_strike_1 }
+					}
+					save_scope_as = nr_room_strike_2
+				}
+			}
+		}
+		scope:nr_room_strike_1.type ?= { save_scope_as = nr_room_strike_type_1 }
+		scope:nr_room_strike_2.type ?= { save_scope_as = nr_room_strike_type_2 }
+	}
+
+	option = { # strike the first article (with a conflict: every article of the opposing group)
+		name = nr_amendment_room.1.a
+		trigger = { exists = scope:nr_room_strike_1 }
+		if = {
+			limit = { exists = scope:nr_room_conflict }
+			scope:room_law = {
+				every_scope_amendment = {
+					limit = { nr_amendment_opposes_room = yes }
+					sponsor ?= {
+						add_modifier = {
+							name = nr_amendment_struck
+							days = normal_modifier_time
+						}
+					}
+					remove_amendment = yes
+				}
+			}
+		}
+		else = {
+			scope:nr_room_strike_1 = {
+				sponsor ?= {
+					add_modifier = {
+						name = nr_amendment_struck
+						days = normal_modifier_time
+					}
+				}
+				remove_amendment = yes
+			}
+		}
+		scope:room_law = {
+			add_amendment = {
+				type = scope:room_amendment_type
+				sponsor = scope:room_ig
+				cooldown = 120
+			}
+		}
+	}
+
+	option = { # strike the second article
+		name = nr_amendment_room.1.b
+		trigger = {
+			exists = scope:nr_room_strike_2
+			NOT = { exists = scope:nr_room_conflict }
+		}
+		scope:nr_room_strike_2 = {
+			sponsor ?= {
+				add_modifier = {
+					name = nr_amendment_struck
+					days = normal_modifier_time
+				}
+			}
+			remove_amendment = yes
+		}
+		scope:room_law = {
+			add_amendment = {
+				type = scope:room_amendment_type
+				sponsor = scope:room_ig
+				cooldown = 120
+			}
+		}
+	}
+
+	option = { # leave the law as it is: the new article is given up
+		name = nr_amendment_room.1.c
+		default_option = yes
+	}
+
+	after = {
+		hidden_effect = {
+			remove_variable = nr_room_law
+			remove_variable = nr_room_amendment
+			remove_variable = nr_room_ig
+		}
+	}
+}

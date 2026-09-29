@@ -1,0 +1,11 @@
+﻿l_russian:
+ # NR: room in the law for our amendments
+ nr_amendment_room.1.t: "Места в законе нет"
+ nr_amendment_room.1.desc_conflict: "Группа «[SCOPE.gsInterestGroup('room_ig').GetName]» хочет внести в закон [SCOPE.sLaw('room_law').GetName] статью «[SCOPE.sAmendmentType('room_amendment_type').GetName]», но в нём уже есть статья «[SCOPE.sAmendmentType('nr_room_strike_type_1').GetName]», написанная для её противников. В одном законе они не уживутся: одна должна уйти."
+ nr_amendment_room.1.desc_full: "Группа «[SCOPE.gsInterestGroup('room_ig').GetName]» хочет внести в закон [SCOPE.sLaw('room_law').GetName] статью «[SCOPE.sAmendmentType('room_amendment_type').GetName]», но в нём уже две статьи, написанные для групп интересов. Чтобы добавить третью, одну из них придётся вычеркнуть."
+ nr_amendment_room.1.flavor: "«Закон, который хочет угодить всем, кончает тем, что его не исполняет никто». Из речи в парламентской комиссии"
+ nr_amendment_room.1.a: "Вычеркнуть «[SCOPE.sAmendmentType('nr_room_strike_type_1').GetName]»."
+ nr_amendment_room.1.b: "Вычеркнуть «[SCOPE.sAmendmentType('nr_room_strike_type_2').GetName]»."
+ nr_amendment_room.1.c: "Оставить закон как есть."
+ nr_amendment_no_room_tt: "Если в законе не найдётся места для этой статьи, придётся выбрать, какую статью вычеркнуть, или отказаться от этой."
+ nr_amendment_struck: "Их статью вычеркнули"

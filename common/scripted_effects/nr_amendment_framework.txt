@@ -2,15 +2,24 @@
 #   1) an enactment event (in the on_law_checkpoint_debate pool) can attach the amendment to the law being enacted;
 #   2) after the IG's campaign ends, a popup offers to attach it to the already active law.
 # Parameters: AMENDMENT = amendment key, LAW = law key, IG = interest group type. Scope: country.
+# Both helpers respect the room in the law (nr_amendment_fits, common/scripted_triggers/nr_amendment_room.txt).
 
 # Attach an amendment to the law currently being enacted (same as vanilla education_laws.2).
 nr_amendment_add_to_enacting_law = {
-	currently_enacting_law = {
-		add_amendment = {
-			type = $AMENDMENT$
-			sponsor = root.ig:$IG$
-			cooldown = 120
+	if = {
+		limit = { currently_enacting_law ?= { nr_amendment_fits = { IG = $IG$ } } }
+		currently_enacting_law = {
+			add_amendment = {
+				type = $AMENDMENT$
+				sponsor = root.ig:$IG$
+				cooldown = 120
+			}
 		}
+	}
+	else_if = {
+		limit = { exists = currently_enacting_law }
+		currently_enacting_law = { save_scope_as = nr_room_law_scope }
+		nr_amendment_no_room = { AMENDMENT = $AMENDMENT$ IG = $IG$ }
 	}
 }
 
@@ -18,9 +27,40 @@ nr_amendment_add_to_enacting_law = {
 nr_amendment_add_to_active_law = {
 	random_active_law = {
 		limit = { type = law_type:$LAW$ }
-		add_amendment = {
-			type = $AMENDMENT$
-			sponsor = root.ig:$IG$
+		save_scope_as = nr_room_law_scope
+	}
+	if = {
+		limit = { scope:nr_room_law_scope ?= { nr_amendment_fits = { IG = $IG$ } } }
+		scope:nr_room_law_scope = {
+			add_amendment = {
+				type = $AMENDMENT$
+				sponsor = root.ig:$IG$
+			}
 		}
+	}
+	else_if = {
+		limit = { exists = scope:nr_room_law_scope }
+		nr_amendment_no_room = { AMENDMENT = $AMENDMENT$ IG = $IG$ }
+	}
+}
+
+# No room on the law (scope:nr_room_law_scope) for $AMENDMENT$ of $IG$: event nr_amendment_room.1 lets the player strike an article
+# (its sponsor -3 approval for 5 years) or give up the new one. Scope: country.
+nr_amendment_no_room = {
+	custom_tooltip = nr_amendment_no_room_tt
+	hidden_effect = {
+		set_variable = {
+			name = nr_room_law
+			value = scope:nr_room_law_scope
+		}
+		set_variable = {
+			name = nr_room_amendment
+			value = amendment_type:$AMENDMENT$
+		}
+		set_variable = {
+			name = nr_room_ig
+			value = ig:$IG$
+		}
+		trigger_event = { id = nr_amendment_room.1 popup = yes }
 	}
 }

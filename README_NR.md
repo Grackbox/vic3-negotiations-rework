@@ -115,6 +115,22 @@ An IG-themed amendment reaches a law in two ways:
 - Guard: `nr_amendment_is_present = { AMENDMENT = ... }` (active on any law, or on the law being enacted).
 - New instance checklist: amendment in `common/amendments/nr_<group>_<topic>_amendments.txt`; events `nr_<group>_<topic>.1` (enactment, 3 options) and `.2` (post-campaign); pool entry in `nr_on_actions.txt`; schedule `.2` from the campaign form; localization `nr_<group>_<topic>_l_*.yml`.
 
+## Pattern: room in the law (all our amendments)
+Agreed with the user. Applies only to our amendments (`amendment_nr_*`, list generated into `nr_amendment_is_ours`); vanilla and other mods' amendments do not count.
+- A law carries at most 2 of our amendments.
+- Two of our amendments on one law may not come from groups that oppose each other on that law. Opposition is per law group; two amendments of the same group never conflict:
+
+| Law group | Opposing sponsors | Why |
+|---|---|---|
+| Slavery | Devout - Landowners | "Do Not Enslave Fellow Believers" frees slaves; the planters' amendments hold them |
+| Policing | Devout - Landowners | whose police rules the village: the parish or the manor |
+| Army (Devout chaplains, Landowners' noble commissions) | none | altar and noble officer are allies |
+
+New groups' amendments get their pairs per law group when they are designed (e.g. Education: Devout - Intelligentsia; Labour: Industrialists - Trade Unions).
+- Enforcement: both framework helpers (`nr_amendment_add_to_enacting_law`, `nr_amendment_add_to_active_law`) check `nr_amendment_fits = { IG = ... }` (law scope). No room: `nr_amendment_no_room` stores the law, amendment and group and fires `nr_amendment_room.1` - strike an article (full law: either of the two; conflict: every article of the opposing group) and attach the new one, or leave the law as it is (default). The struck article's sponsor gets `nr_amendment_struck` (-3 approval, 5 years). This covers every event that offers our amendments, the church tax transfer and the census attached with its petition.
+- Vanilla negotiation option 8 picks amendments by `would_sponsor`: ours also require `owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ... } }`, so it never offers one that does not fit (no striking there).
+- Files: `common/scripted_triggers/nr_amendment_room.txt` (generated: our amendment list, opposition per law group), `events/nr_amendment_room_events.txt`, `common/static_modifiers/nr_amendment_room_modifiers.txt`, `localization/*/nr_amendment_room_l_*.yml`.
+
 ## Pattern: IG petition (reusable)
 A post-campaign offer can open a 4-year journal entry asking for a law (schools, sisters).
 - Helpers in `common/scripted_effects/nr_petition_framework.txt`, parameters `PETITION` (key prefix) and `LAW`: `nr_petition_boost` (at the start of the enactment via `nr_devout_petition_boost_all` from `nr_on_law_enactment_started`, plus JE `immediate` and monthly pulse as a fallback: +enactment speed once per enactment attempt; every new petition must be added to `nr_devout_petition_boost_all` and `nr_devout_petition_for_enacting_law`), `nr_petition_end` (`on_complete`), `nr_petition_timeout` (`on_timeout`: approval penalty on `scope:ig`).
