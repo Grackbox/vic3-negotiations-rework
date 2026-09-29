@@ -1,0 +1,12 @@
+﻿l_english:
+ # NR: Synodal Administration (feature devout_synod)
+ nr_devout_synod.2.t: "The Chief Procurator's Office"
+ nr_devout_synod.2.desc: "For ten years state officials have worked in the consistories and dioceses. The church has order and money, and the ministry has a hand inside the church. The bishops now ask to make the arrangement permanent."
+ nr_devout_synod.2.flavor: "“The church is governed by the Holy Spirit - and on weekdays by the chief procurator's office.” A Petersburg joke"
+ nr_devout_synod.2.a: "Write the synod into the law."
+ nr_devout_synod.2.b: "Let the bishops manage their own affairs."
+ nr_devout_synod_lore_2a: "#lore A permanent [Concept('concept_nr_synod', 'synodal administration')]: the state keeps its officials in the church's offices, the church keeps its privileged place. Both sides get used to it, and the faithful notice.#!"
+ nr_devout_synod_lore_2b: "#lore The officials go back to their ministries. The bishops will have to keep their own books again - and they will remember who took the clerks away.#!"
+ amendment_nr_devout_synod: "Synodal Administration"
+ amendment_nr_devout_synod_desc: "The church is governed through a state office: a lay chief procurator supervises the synod, the state gains a lever inside the church, and the church looks more and more like a government department."
+ nr_devout_synod_declined: "Synod Not Written into Law"

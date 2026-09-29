@@ -58,6 +58,18 @@ nr_devout_officials.1 = {
 		custom_tooltip = nr_devout_officials_lore_censorship
 		nr_devout_officials_choose_form = { FORM = censorship }
 		nr_devout_officials_set_penalty = { FACTOR = 1.25 }
+		hidden_effect = {
+			# NR devout_censorship: follow-up in 10 years; the variable is cleared if Protected Speech aborts the campaign
+			set_variable = {
+				name = nr_devout_censorship_campaign
+				days = 3660
+			}
+			trigger_event = {
+				id = nr_devout_censorship.2
+				days = 3650
+				popup = yes
+			}
+		}
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -179,6 +191,14 @@ nr_devout_officials.1 = {
 		custom_tooltip = nr_devout_officials_lore_synod
 		nr_devout_officials_choose_form = { FORM = synod }
 		nr_devout_officials_set_penalty = { FACTOR = 1.25 }
+		hidden_effect = {
+			# NR devout_synod: follow-up in 10 years
+			trigger_event = {
+				id = nr_devout_synod.2
+				days = 3650
+				popup = yes
+			}
+		}
 		ai_chance = {
 			base = 10
 			modifier = {

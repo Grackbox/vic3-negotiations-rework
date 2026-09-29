@@ -1,0 +1,19 @@
+﻿# NR: Synodal Administration (feature devout_synod). Scope: country.
+
+# State religion or its variants - the laws the Synod amendment can be attached to.
+nr_devout_synod_state_church = {
+	OR = {
+		has_law = law_type:law_state_religion
+		has_law = law_type:law_millet_system
+		has_law = law_type:law_people_of_the_book
+	}
+}
+
+# The amendment can be attached to the active church-and-state law.
+nr_devout_synod_amendment_available = {
+	nr_devout_synod_state_church = yes
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_synod }
+	}
+	nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+}

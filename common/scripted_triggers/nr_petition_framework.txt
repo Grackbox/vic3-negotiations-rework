@@ -1,0 +1,19 @@
+﻿# NR: triggers for the "IG petition" pattern. Scope: country.
+
+# The Devout have an active petition for the law being enacted. Add every new Devout petition here.
+nr_devout_petition_for_enacting_law = {
+	OR = {
+		AND = {
+			has_journal_entry = je_nr_devout_schools_petition
+			is_enacting_law = law_type:law_religious_schools
+		}
+		AND = {
+			has_journal_entry = je_nr_devout_sisters_petition
+			is_enacting_law = law_type:law_charitable_health_system
+		}
+		AND = {
+			has_journal_entry = je_nr_devout_censorship_petition
+			is_enacting_law = law_type:law_censorship
+		}
+	}
+}

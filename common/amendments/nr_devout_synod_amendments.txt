@@ -1,0 +1,34 @@
+﻿# NR: Synodal Administration amendment (feature devout_synod).
+# Offered by event nr_devout_synod.2, 10 years after the Synodal Administration form of the church officials.
+
+amendment_nr_devout_synod = {
+	parent = law_state_religion
+
+	allowed_laws = {
+		law_state_religion
+		law_millet_system
+		law_people_of_the_book
+	}
+
+	modifier = {
+		country_authority_add = 25 # the chief procurator: the state steers the church from within
+		country_acceptance_state_religion_add = 5
+		interest_group_ig_devout_pop_attraction_mult = -0.05 # the "priest-official" repels the faithful
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_devout
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}

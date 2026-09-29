@@ -1,0 +1,7 @@
+﻿# NR: Synodal Administration (feature devout_synod).
+
+# Devout IG: the synod was not written into the law
+nr_devout_synod_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}

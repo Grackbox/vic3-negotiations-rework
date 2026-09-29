@@ -37,7 +37,9 @@ No interest group is named in the copied vanilla files; every group-specific che
 | devout_sol | `common/journal_entries/nr_devout_sol_je.txt`, `common/scripted_progress_bars/nr_devout_sol_bars.txt`, `common/scripted_effects/nr_devout_sol_effects.txt`, `common/script_values/nr_devout_sol_values.txt`, `localization/*/nr_devout_sol_l_*.yml` |
 | devout_charity | `common/scripted_buttons/nr_devout_charity_buttons.txt`, `common/scripted_effects/nr_devout_charity_effects.txt`, `common/script_values/nr_devout_charity_values.txt`, `common/static_modifiers/nr_devout_charity_modifiers.txt`, `localization/*/nr_devout_charity_l_*.yml` |
 | amendment framework | `common/scripted_effects/nr_amendment_framework.txt`, `common/scripted_triggers/nr_amendment_framework.txt`, `common/on_actions/nr_on_actions.txt` |
-| petition framework | `common/scripted_effects/nr_petition_framework.txt` |
+| petition framework | `common/scripted_effects/nr_petition_framework.txt`, `common/scripted_triggers/nr_petition_framework.txt` (list of Devout petitions for `improve_stance`) |
+| devout_censorship | `events/nr_devout_censorship_events.txt`, `common/journal_entries/nr_devout_censorship_je.txt`, `common/scripted_triggers/nr_devout_censorship_triggers.txt`, `common/static_modifiers/nr_devout_censorship_modifiers.txt`, `localization/*/nr_devout_censorship_l_*.yml` |
+| devout_synod | `common/amendments/nr_devout_synod_amendments.txt`, `events/nr_devout_synod_events.txt`, `common/scripted_effects/nr_devout_synod_effects.txt`, `common/scripted_triggers/nr_devout_synod_triggers.txt`, `common/static_modifiers/nr_devout_synod_modifiers.txt`, `localization/*/nr_devout_synod_l_*.yml` |
 | campaign slots | `common/scripted_effects/nr_campaign_slots.txt`, `common/scripted_triggers/nr_campaign_slots.txt` |
 | devout_schools | `events/nr_devout_schools_events.txt`, `common/journal_entries/nr_devout_schools_je.txt`, `common/scripted_triggers/nr_devout_schools_triggers.txt`, `common/static_modifiers/nr_devout_schools_modifiers.txt`, `localization/*/nr_devout_schools_l_*.yml` |
 | devout_sisters | `common/amendments/nr_devout_sisters_amendments.txt`, `events/nr_devout_sisters_events.txt`, `common/journal_entries/nr_devout_sisters_je.txt`, `common/scripted_triggers/nr_devout_sisters_triggers.txt`, `common/static_modifiers/nr_devout_sisters_modifiers.txt`, `localization/*/nr_devout_sisters_l_*.yml` |
@@ -181,14 +183,14 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 
 - Censorship Committees end at once when Protected Speech is enacted (`on_law_activated` -> `nr_on_law_activated` -> `nr_devout_officials_check_censorship`).
 - General rule: an IG never offers a form, petition or amendment its leader is against (`nr_ig_leader_not_against_law`, `common/scripted_triggers/nr_leader_stance_triggers.txt`).
-- Not done yet: the officials follow-ups below (agreed design, not implemented).
+- Follow-ups below: done - censorship `.2` + petition, synod `.2` + amendment, `improve_stance` for petitions, the leader rule for older features. Not done yet - everything else in the table.
 
 ### Devout officials - follow-ups (agreed design, to implement)
 Common to all: follow-up event 10 years after the form was chosen (scheduled from the form option, pattern of schools/sisters), namespace `nr_devout_<topic>`, `.2` = post-campaign, `.1` = enactment event in the `on_law_checkpoint_debate` pool (cooldown 5 years, options a default "+15% speed, Devout -2 approval 5 years" / b "attach the amendment, -15% speed" / c "let group X decide: X +2, Devout -2, 5 years"). Petitions use the petition framework (JE 4 years, +25% enactment speed, timeout: Devout -2 approval 5 years). Decline in `.2`: Devout -1 approval 5 years. Leader rule everywhere: no form, petition or amendment the Devout leader is against. Flavor: lore line + historical concept for every form and amendment (dates to be re-checked before writing).
 
 Shared mechanics:
 - `on_law_enactment_started` (vanilla code on_action, root = country) -> our `nr_on_law_enactment_started` (appended via `on_actions`, no vanilla override):
-  - `improve_stance = 1` for the Devout if they have an active petition for the law being enacted (neutral -> approve, only for this enactment);
+  - `improve_stance = 1` for the Devout if they have an active petition for the law being enacted (neutral -> approve, only for this enactment). Done: `nr_petition_improve_stance`, list of petitions in `nr_devout_petition_for_enacting_law`;
   - church tax: amendment A on the old church-and-state law -> amendment B attached to the enacting Freedom of Conscience / Total Separation (`nr_amendment_add_to_enacting_law`), with a notification;
   - seminarists: an active petition for Appointed Bureaucrats -> "Clerical Census" amendment attached automatically.
 
@@ -203,4 +205,4 @@ Shared mechanics:
 | Seminarists in the Chancelleries | hereditary / elected bureaucrats: petition for `law_appointed_bureaucrats` (leader not against), the amendment attaches automatically when its enactment starts; Appointed Bureaucrats: amendment at once | "Clerical Census for Officials" on `law_appointed_bureaucrats`, parent `law_state_religion`, sponsor Devout, no cost: `interest_group_ig_intelligentsia_pol_str_mult` -0.10, `interest_group_ig_intelligentsia_approval_add` -1, `interest_group_ig_devout_pol_str_mult` +0.10 | while enacting Appointed Bureaucrats, amendment absent, no Seminarists campaign, no petition, leader not against: a "The civil service is secular" (default), b "Clerical census" (attach), c "Let the universities decide" (Intelligentsia +2, Devout -2) |
 | Synodal Administration | state religion still active: amendment; otherwise no event | "Synodal Administration" on `law_state_religion`: `country_authority_add` +25, `country_acceptance_state_religion_add` +5, `interest_group_ig_devout_pop_attraction_mult` -0.05, no cost | while enacting State Religion (by the common template) |
 
-Also: the leader rule applied to the older features (schools, sisters, chaplains).
+Also: the leader rule applied to the older features (schools, sisters, chaplains) - done with `nr_devout_leader_not_against_law` (works without scope:ig, e.g. in event triggers); amendments check their parent law.

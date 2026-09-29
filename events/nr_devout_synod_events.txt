@@ -1,0 +1,54 @@
+﻿namespace = nr_devout_synod
+
+# NR: follow-up of the Synodal Administration form (feature devout_synod).
+# .1 is reserved for the enactment event (State Religion).
+# .2 - 10 years after the form was chosen: if a state church law is still active and the amendment is absent,
+#      offer to write the synod into the law; otherwise no event.
+
+nr_devout_synod.2 = {
+	type = country_event
+	placement = root
+	title = nr_devout_synod.2.t
+	desc = nr_devout_synod.2.desc
+	flavor = nr_devout_synod.2.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_devout
+		nr_devout_synod_amendment_available = yes
+	}
+
+	immediate = {
+		ig:ig_devout ?= {
+			save_scope_as = ig
+			save_scope_as = devout_ig
+		}
+	}
+
+	option = { # Write the synod into the law
+		name = nr_devout_synod.2.a
+		custom_tooltip = nr_devout_synod_lore_2a
+		nr_devout_synod_add_amendment = yes
+	}
+
+	option = { # Decline
+		name = nr_devout_synod.2.b
+		default_option = yes
+		custom_tooltip = nr_devout_synod_lore_2b
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_synod_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+}

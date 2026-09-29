@@ -14,6 +14,17 @@ on_law_activated = {
 	on_actions = { nr_on_law_activated }
 }
 
+# Root = country, enactment of any law begins (currently_enacting_law = the new law, the old law is still active).
+on_law_enactment_started = {
+	on_actions = { nr_on_law_enactment_started }
+}
+
+nr_on_law_enactment_started = {
+	effect = {
+		nr_petition_improve_stance = yes # groups with a petition for this law support its enactment
+	}
+}
+
 nr_on_law_activated = {
 	effect = {
 		owner = {

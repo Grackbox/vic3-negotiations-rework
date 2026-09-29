@@ -13,11 +13,13 @@ nr_devout_sisters_petition_available = {
 	has_technology_researched = medical_degrees
 	NOT = { has_law = law_type:law_charitable_health_system }
 	NOT = { has_journal_entry = je_nr_devout_sisters_petition }
+	nr_devout_leader_not_against_law = { LAW = law_charitable_health_system }
 }
 
 # Sisters of Mercy amendment can be attached to the active Public Health Insurance. Scope: country.
 nr_devout_sisters_amendment_available = {
 	has_law = law_type:law_public_health_insurance
+	nr_devout_leader_not_against_law = { LAW = law_charitable_health_system } # parent law of the amendment
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_sisters }
 	}

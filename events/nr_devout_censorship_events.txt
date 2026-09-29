@@ -1,0 +1,93 @@
+﻿namespace = nr_devout_censorship
+
+# NR: follow-up of the Censorship Committees form (feature devout_censorship).
+# .2 - 10 years after the form was chosen (variable nr_devout_censorship_campaign, cleared if Protected Speech aborts it):
+#      Censorship adopted meanwhile: thanks (+2); still Right of Assembly: petition for Censorship or decline (-1);
+#      nothing to offer: neutral close. Outlawed Dissent adopted meanwhile: no event - the church wanted censorship,
+#      not political repression.
+
+nr_devout_censorship.2 = {
+	type = country_event
+	placement = root
+	title = nr_devout_censorship.2.t
+	desc = nr_devout_censorship.2.desc
+	flavor = nr_devout_censorship.2.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_devout
+		has_variable = nr_devout_censorship_campaign
+		NOT = { has_law = law_type:law_outlawed_dissent }
+		NOT = { has_law = law_type:law_protected_speech }
+	}
+
+	immediate = {
+		ig:ig_devout ?= {
+			save_scope_as = ig
+			save_scope_as = devout_ig
+		}
+	}
+
+	option = { # Petition for Censorship
+		name = nr_devout_censorship.2.a
+		trigger = {
+			nr_devout_censorship_petition_available = yes
+		}
+		custom_tooltip = nr_devout_censorship_lore_2a
+		custom_tooltip = nr_devout_censorship_petition_tt
+		add_journal_entry = { type = je_nr_devout_censorship_petition }
+	}
+
+	option = { # Censorship was adopted: thanks
+		name = nr_devout_censorship.2.d
+		default_option = yes
+		trigger = {
+			has_law = law_type:law_censorship
+		}
+		custom_tooltip = nr_devout_censorship_lore_2d
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_censorship_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Decline (only while the petition was on offer)
+		name = nr_devout_censorship.2.c
+		default_option = yes
+		trigger = {
+			NOT = { has_law = law_type:law_censorship }
+			nr_devout_censorship_petition_available = yes
+		}
+		custom_tooltip = nr_devout_censorship_lore_2c
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_censorship_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Nothing to offer: neutral close
+		name = nr_devout_censorship.2.e
+		default_option = yes
+		trigger = {
+			NOT = { has_law = law_type:law_censorship }
+			nr_devout_censorship_petition_available = no
+		}
+	}
+
+	after = {
+		hidden_effect = { remove_variable = nr_devout_censorship_campaign }
+	}
+}

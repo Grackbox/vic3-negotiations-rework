@@ -135,5 +135,9 @@ nr_devout_officials_check_censorship = {
 			has_law = law_type:law_protected_speech
 		}
 		remove_modifier = nr_devout_officials_censorship
+		if = {
+			limit = { has_variable = nr_devout_censorship_campaign }
+			remove_variable = nr_devout_censorship_campaign # no follow-up event
+		}
 	}
 }

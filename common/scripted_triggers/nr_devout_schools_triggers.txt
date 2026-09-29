@@ -19,11 +19,13 @@ nr_devout_schools_petition_available = {
 		has_law = law_type:law_serfdom
 	}
 	NOT = { has_journal_entry = je_nr_devout_schools_petition }
+	nr_devout_leader_not_against_law = { LAW = law_religious_schools }
 }
 
 # Church-Organized Schools amendment can be attached to the active Public Schools. Scope: country.
 nr_devout_schools_amendment_available = {
 	has_law = law_type:law_public_schools
+	nr_devout_leader_not_against_law = { LAW = law_religious_schools } # parent law of Church-Organized Schools
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_church_organised_schools }
 	}

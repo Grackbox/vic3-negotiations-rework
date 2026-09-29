@@ -39,3 +39,12 @@ nr_petition_timeout = {
 	}
 	nr_petition_end = { PETITION = $PETITION$ }
 }
+
+# Called from nr_on_law_enactment_started: a group with an active petition for the law being enacted supports it
+# (improve_stance = 1: neutral becomes approve, only for this enactment). Scope: country.
+nr_petition_improve_stance = {
+	if = {
+		limit = { nr_devout_petition_for_enacting_law = yes }
+		ig:ig_devout ?= { improve_stance = 1 }
+	}
+}

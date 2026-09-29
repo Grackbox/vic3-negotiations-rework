@@ -1,0 +1,25 @@
+﻿# NR: follow-up of the Censorship Committees form (feature devout_censorship).
+
+# Enactment modifier while enacting Censorship under the clergy's petition
+nr_devout_censorship_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+# Devout IG: the petition expired without Censorship
+nr_devout_censorship_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Devout IG: the petition was declined
+nr_devout_censorship_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+# Devout IG: Censorship was adopted during the campaign
+nr_devout_censorship_content = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
