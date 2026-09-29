@@ -185,22 +185,22 @@ nr_ruler_pressure_other = {
 		if = {
 			limit = { nr_ruler_is_monarch = yes }
 			add_modifier = { name = nr_ruler_pressure_monarch_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
-			add_infamy = { value = 10 multiply = nr_ruler_pressure_scale }
+			if = { limit = { nr_ruler_pressure_constitutional = yes } change_infamy = 15 } else = { change_infamy = 10 }
 		}
 		else_if = {
 			limit = { nr_ruler_is_theocrat = yes }
 			add_modifier = { name = nr_ruler_pressure_theocrat_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
-			add_infamy = { value = 10 multiply = nr_ruler_pressure_scale }
+			if = { limit = { nr_ruler_pressure_constitutional = yes } change_infamy = 15 } else = { change_infamy = 10 }
 		}
 		else_if = {
 			limit = { nr_ruler_is_autocrat = yes }
 			add_modifier = { name = nr_ruler_pressure_autocrat_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
-			add_infamy = { value = 5 multiply = nr_ruler_pressure_scale }
+			if = { limit = { nr_ruler_pressure_constitutional = yes } change_infamy = 7.5 } else = { change_infamy = 5 }
 		}
 		else_if = {
 			limit = { nr_ruler_is_oligarchs = yes }
 			add_modifier = { name = nr_ruler_pressure_oligarchs_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
-			add_infamy = { value = 5 multiply = nr_ruler_pressure_scale }
+			if = { limit = { nr_ruler_pressure_constitutional = yes } change_infamy = 7.5 } else = { change_infamy = 5 }
 		}
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }

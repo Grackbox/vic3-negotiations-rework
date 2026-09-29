@@ -42,7 +42,10 @@ je_nr_election_promise_devout = {
 	}
 
 	on_complete = {
-		promise_quest_completed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_degree } }
+			promise_quest_completed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -61,7 +64,10 @@ je_nr_election_promise_devout = {
 	}
 
 	on_fail = {
-		promise_quest_failed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_type } }
+			promise_quest_failed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -136,7 +142,10 @@ je_nr_election_promise_landowners = {
 	}
 
 	on_complete = {
-		promise_quest_completed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_degree } }
+			promise_quest_completed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -155,7 +164,10 @@ je_nr_election_promise_landowners = {
 	}
 
 	on_fail = {
-		promise_quest_failed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_type } }
+			promise_quest_failed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -230,7 +242,10 @@ je_nr_election_promise_industrialists = {
 	}
 
 	on_complete = {
-		promise_quest_completed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_degree } }
+			promise_quest_completed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -249,7 +264,10 @@ je_nr_election_promise_industrialists = {
 	}
 
 	on_fail = {
-		promise_quest_failed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_type } }
+			promise_quest_failed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -324,7 +342,10 @@ je_nr_election_promise_petty_bourgeoisie = {
 	}
 
 	on_complete = {
-		promise_quest_completed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_degree } }
+			promise_quest_completed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -343,7 +364,10 @@ je_nr_election_promise_petty_bourgeoisie = {
 	}
 
 	on_fail = {
-		promise_quest_failed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_type } }
+			promise_quest_failed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -418,7 +442,10 @@ je_nr_election_promise_intelligentsia = {
 	}
 
 	on_complete = {
-		promise_quest_completed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_degree } }
+			promise_quest_completed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -437,7 +464,10 @@ je_nr_election_promise_intelligentsia = {
 	}
 
 	on_fail = {
-		promise_quest_failed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_type } }
+			promise_quest_failed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -512,7 +542,10 @@ je_nr_election_promise_trade_unions = {
 	}
 
 	on_complete = {
-		promise_quest_completed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_degree } }
+			promise_quest_completed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -531,7 +564,10 @@ je_nr_election_promise_trade_unions = {
 	}
 
 	on_fail = {
-		promise_quest_failed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_type } }
+			promise_quest_failed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -606,7 +642,10 @@ je_nr_election_promise_rural_folk = {
 	}
 
 	on_complete = {
-		promise_quest_completed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_degree } }
+			promise_quest_completed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -625,7 +664,10 @@ je_nr_election_promise_rural_folk = {
 	}
 
 	on_fail = {
-		promise_quest_failed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_type } }
+			promise_quest_failed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -700,7 +742,10 @@ je_nr_election_promise_armed_forces = {
 	}
 
 	on_complete = {
-		promise_quest_completed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_degree } }
+			promise_quest_completed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
@@ -719,7 +764,10 @@ je_nr_election_promise_armed_forces = {
 	}
 
 	on_fail = {
-		promise_quest_failed = yes
+		if = { # the entry's tooltip is still shown after the cleanup removed the promise variables
+			limit = { scope:ig ?= { has_variable = promise_quest_type } }
+			promise_quest_failed = yes
+		}
 		nr_election_promise_cleanup = yes
 	}
 
