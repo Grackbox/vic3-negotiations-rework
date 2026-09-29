@@ -317,7 +317,8 @@ Also: the leader rule applied to the older features (schools, sisters, chaplains
 ## Feature ruler_pressure - the ruler presses the group (extra negotiation option, all interest groups)
 Agreed design. An extra button in `negotiation.1` (not part of the random three options), shown when available. The AI never takes it.
 - Available: the ruler is not against the law being enacted (`ruler` `law_stance` >= neutral) and the country is authoritarian or a monarchy. Ruler type:
-  - monarch: `law_monarchy` (and variants), `law_chiefdom` - whatever the distribution of power; `law_social_monarchy`: pressure only with `law_autocracy` (and variants), as a monarch; with any other distribution of power no pressure (it still counts as a monarchy, never as autocrat / oligarchs / technocrats);
+  - monarch: `law_monarchy` (and variants), `law_chiefdom` - whatever the distribution of power;
+  - `law_social_monarchy` is a non-factor: the ruler type comes from the distribution of power, as in a republic;
   - theocrat: `law_theocracy` - whatever the distribution of power;
   - otherwise by distribution of power: autocrat - `law_autocracy` (and variants), `law_single_party_state`; oligarchs - `law_oligarchy` (and variants), `law_elder_council`; technocrats - `law_technocracy`. Other distributions (voting laws, anarchy): no option.
 - Cost: 400 authority for 5 years (`country_authority_add`, cost slot, see "Authority cost slots"); needs available authority >= 400 and a free cost slot.

@@ -1,11 +1,11 @@
 ﻿# NR: the ruler presses the group (feature ruler_pressure) and the election promise (feature election_promise).
 # Scope: country; in negotiation.1 scope:ig = the group, scope:law = the law being enacted.
 
-# Ruler type. Monarchy and theocracy whatever the distribution of power; otherwise by the distribution of power.
+# Ruler type. Monarchy and theocracy whatever the distribution of power; otherwise (Social Monarchy included, it is
+# a non-factor) by the distribution of power.
 nr_ruler_is_monarch = {
 	OR = {
 		has_law_or_variant = law_type:law_monarchy
-		has_law = law_type:law_social_monarchy
 		has_law = law_type:law_chiefdom
 	}
 }
@@ -78,12 +78,6 @@ nr_ruler_pressure_available = {
 		nr_ruler_is_autocrat = yes
 		nr_ruler_is_oligarchs = yes
 		nr_ruler_is_technocrats = yes
-	}
-	NOR = { # the social monarch presses groups only as an autocrat
-		AND = {
-			has_law = law_type:law_social_monarchy
-			NOT = { has_law_or_variant = law_type:law_autocracy }
-		}
 	}
 	nr_ruler_not_against_law = yes
 	scope:ig = { NOT = { has_variable = nr_ruler_pressure_cooldown } } # not pressed in the last 5 years
