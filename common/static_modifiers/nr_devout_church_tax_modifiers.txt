@@ -29,3 +29,15 @@ nr_devout_church_tax_taxpayers_heard = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
 	interest_group_approval_add = 2
 }
+
+# Devout IG: the church tax guarantee was broken
+nr_devout_church_tax_betrayed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -10
+}
+
+# Country: the church tax guarantee was broken
+nr_devout_church_tax_betrayal = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	country_legitimacy_base_add = -10
+}

@@ -5,7 +5,8 @@
 #      (With A the transfer is automatic, see nr_devout_church_tax_transfer.)
 # .2 - 10 years after the Church Tax form: state church law -> amendment A; separated law -> amendment B;
 #      otherwise (both present, State Atheism) no event.
-# .3 - notification: amendment B was attached automatically.
+# .3 - enactment of Freedom of Conscience / Total Separation started while amendment A is active:
+#      keep the promise (B is attached to the law being enacted, default) or betray the church.
 
 nr_devout_church_tax.1 = {
 	type = country_event
@@ -175,9 +176,49 @@ nr_devout_church_tax.3 = {
 
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
 
-	option = {
+	trigger = {
+		nr_devout_church_tax_enacting_separation = yes
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_devout ?= { save_scope_as = devout_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # Keep the promise: amendment B goes into the law being enacted
 		name = nr_devout_church_tax.3.a
 		default_option = yes
 		custom_tooltip = nr_devout_church_tax_lore_3a
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_devout_church_tax
+			IG = ig_devout
+		}
+		ai_chance = {
+			base = 90
+		}
+	}
+
+	option = { # Betray the church
+		name = nr_devout_church_tax.3.b
+		custom_tooltip = nr_devout_church_tax_lore_3b
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_church_tax_betrayed
+				days = normal_modifier_time
+			}
+		}
+		add_modifier = {
+			name = nr_devout_church_tax_betrayal
+			days = normal_modifier_time
+		}
+		ai_chance = {
+			base = 10
+		}
 	}
 }
