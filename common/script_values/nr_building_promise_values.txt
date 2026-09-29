@@ -1,0 +1,126 @@
+﻿# NR: building promises (negotiation options 5 and 6, all interest groups).
+# Vanilla asks for (GDP / 4M) x cost factor x negotiation level new building levels: linear in GDP, so late game
+# asks for hundreds of levels. We keep vanilla up to a GDP of 50M and grow logarithmically above it:
+# every doubling of GDP adds 30% of the requirement at the threshold.
+# Hooked into vanilla building_scaler (common/script_values/negotiation_values.txt), which both
+# building_levels_to_increase_value (option 5) and building_group_levels_to_increase_value (option 6) use.
+
+# GDP up to which the vanilla linear scaling is kept.
+nr_building_linear_gdp = 50000000
+
+# Share of the requirement at the threshold added by every doubling of GDP above it.
+nr_building_doubling_share = 0.3
+
+# Vanilla scaler: GDP / 4M. Scope: interest group (owner = country).
+nr_building_gdp_linear = {
+	value = owner.gdp
+	divide = 4000000
+}
+
+# GDP relative to the threshold (>= 1 above it). Scope: interest group.
+nr_building_gdp_ratio = {
+	value = owner.gdp
+	divide = nr_building_linear_gdp
+	min = 1
+}
+
+# log2(nr_building_gdp_ratio), piecewise linear inside each doubling (error below 0.09). Scope: interest group.
+nr_building_gdp_log2 = {
+	if = {
+		limit = { nr_building_gdp_ratio < 2 }
+		value = nr_building_gdp_ratio
+		divide = 1
+		add = -1
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 4 }
+		value = nr_building_gdp_ratio
+		divide = 2
+		add = 0
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 8 }
+		value = nr_building_gdp_ratio
+		divide = 4
+		add = 1
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 16 }
+		value = nr_building_gdp_ratio
+		divide = 8
+		add = 2
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 32 }
+		value = nr_building_gdp_ratio
+		divide = 16
+		add = 3
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 64 }
+		value = nr_building_gdp_ratio
+		divide = 32
+		add = 4
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 128 }
+		value = nr_building_gdp_ratio
+		divide = 64
+		add = 5
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 256 }
+		value = nr_building_gdp_ratio
+		divide = 128
+		add = 6
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 512 }
+		value = nr_building_gdp_ratio
+		divide = 256
+		add = 7
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 1024 }
+		value = nr_building_gdp_ratio
+		divide = 512
+		add = 8
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 2048 }
+		value = nr_building_gdp_ratio
+		divide = 1024
+		add = 9
+	}
+	else_if = {
+		limit = { nr_building_gdp_ratio < 4096 }
+		value = nr_building_gdp_ratio
+		divide = 2048
+		add = 10
+	}
+	else = {
+		value = 11 # GDP above 4096 x the threshold: capped
+	}
+}
+
+# Replacement for vanilla building_scaler. Scope: interest group.
+nr_building_scaler = {
+	if = {
+		limit = { owner.gdp <= 0 }
+		value = 0.01 # vanilla fallback
+	}
+	else_if = {
+		limit = { owner.gdp <= nr_building_linear_gdp }
+		value = nr_building_gdp_linear
+	}
+	else = {
+		# linear value at the threshold x (1 + share x log2(GDP / threshold))
+		value = nr_building_doubling_share
+		multiply = nr_building_gdp_log2
+		add = 1
+		multiply = {
+			value = nr_building_linear_gdp
+			divide = 4000000
+		}
+	}
+}

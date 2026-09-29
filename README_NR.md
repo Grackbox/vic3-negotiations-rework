@@ -21,6 +21,7 @@ No interest group is named in the copied vanilla files; every group-specific che
 ## Overridden vanilla files (after every game patch: take the new vanilla file and re-add the hooks)
 - `events/iberia_events/negotiation_events.txt`
 - `common/scripted_triggers/ip4_negotiation_triggers.txt`
+- `common/script_values/negotiation_values.txt` (hook in `building_scaler`)
 - `common/scripted_effects/04_neg_event_options_scripted_effects.txt`
 
 ## Naming
@@ -160,6 +161,11 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - Amenability (0-100) is computed in code; factor weights are not exposed.
 - Level thresholds: `NPolitics` in `common/defines/00_defines.txt` — MIN_AMENABILITY_TENSE/NORMAL/FRIENDLY_NEGOTIATION = 25/50/75 → levels 4/2/1.
 - `promise_quest_degree = amenability_level` in the `immediate` of `negotiation.1`.
+
+## Building promises (negotiation options 5 and 6, all interest groups)
+- Vanilla asks for (GDP / 4M) x cost factor x negotiation level (1 / 2 / 4) new levels - linear in GDP, hundreds of levels in the late game.
+- `building_scaler` (vanilla `negotiation_values.txt`) now returns `nr_building_scaler` (`common/script_values/nr_building_promise_values.txt`): vanilla up to GDP 50M (`nr_building_linear_gdp`), above it the value at the threshold x (1 + 0.3 x log2(GDP / 50M)) (`nr_building_doubling_share`). log2 is piecewise linear per doubling (`nr_building_gdp_log2`, error < 0.09). Cost factors and the 1 / 2 / 4 level multiplier stay vanilla; option 6 (building groups) uses the same scaler.
+- University (cost 400), new levels at open / pragmatic / tense: GDP 30M 12 / 24 / 48 (vanilla), 50M 20 / 40 / 80, 100M 26 / 52 / 104, 300M 36 / 71 / 142, 1B 46 / 92 / 184 (vanilla 400 / 800 / 1600), 2B 52 / 104 / 208.
 
 ## Regular bribe (negotiation option 1, all interest groups)
 - `bribed_ig_benefits` is overridden in `common/static_modifiers/00_negotiation_modifiers.txt` (copy of the vanilla file): no pop attraction, +10% political strength (vanilla: +25% attraction, +5% strength).
