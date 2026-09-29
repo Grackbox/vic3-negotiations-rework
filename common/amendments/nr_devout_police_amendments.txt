@@ -1,0 +1,97 @@
+﻿# NR: police amendments (feature devout_police), one per police law, different by design.
+# Offered by nr_devout_police.2, 10 years after the Prison Ministry form of the church officials.
+# Parent State Religion, sponsor Devout, 50 authority each: the state controls its own apparatus less.
+
+amendment_nr_devout_parish_constables = {
+	parent = law_state_religion
+
+	allowed_laws = {
+		law_local_police
+	}
+
+	modifier = {
+		state_turmoil_effects_mult = -0.05 # order is kept by the parish
+		interest_group_ig_devout_pol_str_mult = 0.05 # the parish, not the squire, chooses the constable
+		interest_group_ig_landowners_pol_str_mult = -0.05 # takes back part of the landowners' bonus from local police
+		country_authority_cost_add = 50 # the state controls its own apparatus less
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_devout
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+amendment_nr_devout_prison_chaplaincy = {
+	parent = law_state_religion
+
+	allowed_laws = {
+		law_dedicated_police
+	}
+
+	modifier = {
+		state_radicals_from_political_movements_mult = -0.03 # a weaker permanent version of the Prison Ministry form
+		state_loyalists_from_political_movements_mult = 0.03
+		state_mortality_turmoil_mult = 0.001 # the form's drawback stays too, weaker
+		interest_group_ig_devout_pol_str_mult = 0.05
+		country_authority_cost_add = 50
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_devout
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+amendment_nr_devout_gendarmerie_chaplains = {
+	parent = law_state_religion
+
+	allowed_laws = {
+		law_militarized_police
+	}
+
+	modifier = {
+		state_mortality_turmoil_mult = -0.002 # "firm without violence": half of the law's own penalty
+		interest_group_ig_devout_pol_str_mult = 0.05
+		country_coup_resistance_add = 0.25 # a corps bound by oath, chaplain and patron saint is a poor tool for a coup
+		country_authority_cost_add = 50
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_devout
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}

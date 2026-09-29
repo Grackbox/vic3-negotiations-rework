@@ -1,0 +1,19 @@
+﻿# NR: police follow-up (feature devout_police).
+
+# Enactment modifier while enacting the requested police law under the clergy's petition
+nr_devout_police_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+# Devout IG: the petition expired without the police law
+nr_devout_police_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Devout IG: the offer was declined
+nr_devout_police_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}

@@ -1,0 +1,76 @@
+﻿# NR: police follow-up (feature devout_police).
+
+# Picks the police law the clergy will petition for (country variable nr_devout_police_target = 1 / 2 / 3):
+# one the Devout leader approves of if there is any, otherwise a random unlocked one he is not against. Scope: country.
+nr_devout_police_pick_target = {
+	if = {
+		limit = {
+			OR = {
+				nr_devout_police_approved = { LAW = law_local_police TECH = tech_bureaucracy }
+				nr_devout_police_approved = { LAW = law_dedicated_police TECH = law_enforcement }
+				nr_devout_police_approved = { LAW = law_militarized_police TECH = mass_surveillance }
+			}
+		}
+		random_list = {
+			1 = {
+				trigger = { nr_devout_police_approved = { LAW = law_local_police TECH = tech_bureaucracy } }
+				set_variable = { name = nr_devout_police_target value = 1 }
+			}
+			1 = {
+				trigger = { nr_devout_police_approved = { LAW = law_dedicated_police TECH = law_enforcement } }
+				set_variable = { name = nr_devout_police_target value = 2 }
+			}
+			1 = {
+				trigger = { nr_devout_police_approved = { LAW = law_militarized_police TECH = mass_surveillance } }
+				set_variable = { name = nr_devout_police_target value = 3 }
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				nr_devout_police_candidate = { LAW = law_local_police TECH = tech_bureaucracy }
+				nr_devout_police_candidate = { LAW = law_dedicated_police TECH = law_enforcement }
+				nr_devout_police_candidate = { LAW = law_militarized_police TECH = mass_surveillance }
+			}
+		}
+		random_list = {
+			1 = {
+				trigger = { nr_devout_police_candidate = { LAW = law_local_police TECH = tech_bureaucracy } }
+				set_variable = { name = nr_devout_police_target value = 1 }
+			}
+			1 = {
+				trigger = { nr_devout_police_candidate = { LAW = law_dedicated_police TECH = law_enforcement } }
+				set_variable = { name = nr_devout_police_target value = 2 }
+			}
+			1 = {
+				trigger = { nr_devout_police_candidate = { LAW = law_militarized_police TECH = mass_surveillance } }
+				set_variable = { name = nr_devout_police_target value = 3 }
+			}
+		}
+	}
+}
+
+# Enactment speed bonus of the petition for the chosen law (see nr_petition_boost). Scope: country.
+nr_devout_police_petition_boost = {
+	if = {
+		limit = { var:nr_devout_police_petition_law ?= 1 }
+		nr_petition_boost = { PETITION = nr_devout_police_petition LAW = law_local_police }
+	}
+	else_if = {
+		limit = { var:nr_devout_police_petition_law ?= 2 }
+		nr_petition_boost = { PETITION = nr_devout_police_petition LAW = law_dedicated_police }
+	}
+	else_if = {
+		limit = { var:nr_devout_police_petition_law ?= 3 }
+		nr_petition_boost = { PETITION = nr_devout_police_petition LAW = law_militarized_police }
+	}
+}
+
+# The petition is over. Scope: country.
+nr_devout_police_petition_cleanup = {
+	if = {
+		limit = { has_variable = nr_devout_police_petition_law }
+		remove_variable = nr_devout_police_petition_law
+	}
+}

@@ -1,0 +1,67 @@
+﻿# NR: police follow-up (feature devout_police). Scope: country.
+# Police laws: 1 = law_local_police (tech tech_bureaucracy), 2 = law_dedicated_police (law_enforcement),
+# 3 = law_militarized_police (mass_surveillance).
+
+# A police law the clergy may petition for: unlocked, the Devout leader is not against it.
+nr_devout_police_candidate = {
+	has_technology_researched = $TECH$
+	nr_devout_leader_not_against_law = { LAW = $LAW$ }
+}
+
+# ... and the Devout leader approves of it.
+nr_devout_police_approved = {
+	nr_devout_police_candidate = { LAW = $LAW$ TECH = $TECH$ }
+	ig:ig_devout ?= {
+		leader ?= {
+			law_stance = {
+				law = law_type:$LAW$
+				value >= approve
+			}
+		}
+	}
+}
+
+# Petition for a police law can be offered: no police, a target was picked, no petition running.
+nr_devout_police_petition_available = {
+	has_law = law_type:law_no_police
+	has_variable = nr_devout_police_target
+	NOT = { has_journal_entry = je_nr_devout_police_petition }
+}
+
+# The amendment for the active police law can be attached. $AMENDMENT$ / $LAW$ = one of the three pairs.
+nr_devout_police_amendment_available = {
+	has_law = law_type:$LAW$
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = $AMENDMENT$ }
+	}
+	nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+}
+
+# Anything to offer at all. Without it declining is a neutral close.
+nr_devout_police_offer_available = {
+	OR = {
+		nr_devout_police_petition_available = yes
+		nr_devout_police_amendment_available = { AMENDMENT = amendment_nr_devout_parish_constables LAW = law_local_police }
+		nr_devout_police_amendment_available = { AMENDMENT = amendment_nr_devout_prison_chaplaincy LAW = law_dedicated_police }
+		nr_devout_police_amendment_available = { AMENDMENT = amendment_nr_devout_gendarmerie_chaplains LAW = law_militarized_police }
+	}
+}
+
+# The clergy's petition targets the law being enacted.
+nr_devout_police_petition_for_enacting_law = {
+	has_journal_entry = je_nr_devout_police_petition
+	OR = {
+		AND = {
+			var:nr_devout_police_petition_law ?= 1
+			is_enacting_law = law_type:law_local_police
+		}
+		AND = {
+			var:nr_devout_police_petition_law ?= 2
+			is_enacting_law = law_type:law_dedicated_police
+		}
+		AND = {
+			var:nr_devout_police_petition_law ?= 3
+			is_enacting_law = law_type:law_militarized_police
+		}
+	}
+}

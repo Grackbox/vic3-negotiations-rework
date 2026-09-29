@@ -1,0 +1,137 @@
+﻿namespace = nr_devout_police
+
+# NR: police follow-up (feature devout_police), 10 years after the Prison Ministry form of the church officials.
+# .2 - No Police: petition for a police law (the one the Devout leader approves of, otherwise a random unlocked one
+#      he is not against); a police law is active: its own amendment (Parish Constables / Prison Chaplaincy /
+#      Gendarmerie Chaplains); decline -1; nothing to offer -> neutral close. No enactment event (.1) by design.
+
+nr_devout_police.2 = {
+	type = country_event
+	placement = root
+	title = nr_devout_police.2.t
+	desc = nr_devout_police.2.desc
+	flavor = nr_devout_police.2.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_devout
+	}
+
+	immediate = {
+		ig:ig_devout ?= {
+			save_scope_as = ig
+			save_scope_as = devout_ig
+		}
+		if = {
+			limit = { has_law = law_type:law_no_police }
+			nr_devout_police_pick_target = yes
+		}
+	}
+
+	option = { # Petition for a police law
+		name = nr_devout_police.2.a
+		trigger = {
+			nr_devout_police_petition_available = yes
+		}
+		custom_tooltip = nr_devout_police_lore_2a
+		if = {
+			limit = { var:nr_devout_police_target ?= 1 }
+			custom_tooltip = nr_devout_police_petition_tt_1
+		}
+		if = {
+			limit = { var:nr_devout_police_target ?= 2 }
+			custom_tooltip = nr_devout_police_petition_tt_2
+		}
+		if = {
+			limit = { var:nr_devout_police_target ?= 3 }
+			custom_tooltip = nr_devout_police_petition_tt_3
+		}
+		hidden_effect = {
+			set_variable = {
+				name = nr_devout_police_petition_law
+				value = var:nr_devout_police_target
+			}
+		}
+		add_journal_entry = { type = je_nr_devout_police_petition }
+	}
+
+	option = { # Amendment for law_local_police
+		name = nr_devout_police.2.b
+		trigger = {
+			nr_devout_police_amendment_available = { AMENDMENT = amendment_nr_devout_parish_constables LAW = law_local_police }
+		}
+		custom_tooltip = nr_devout_police_lore_2b
+		nr_amendment_add_to_active_law = {
+			AMENDMENT = amendment_nr_devout_parish_constables
+			LAW = law_local_police
+			IG = ig_devout
+		}
+	}
+
+	option = { # Amendment for law_dedicated_police
+		name = nr_devout_police.2.c
+		trigger = {
+			nr_devout_police_amendment_available = { AMENDMENT = amendment_nr_devout_prison_chaplaincy LAW = law_dedicated_police }
+		}
+		custom_tooltip = nr_devout_police_lore_2c
+		nr_amendment_add_to_active_law = {
+			AMENDMENT = amendment_nr_devout_prison_chaplaincy
+			LAW = law_dedicated_police
+			IG = ig_devout
+		}
+	}
+
+	option = { # Amendment for law_militarized_police
+		name = nr_devout_police.2.d
+		trigger = {
+			nr_devout_police_amendment_available = { AMENDMENT = amendment_nr_devout_gendarmerie_chaplains LAW = law_militarized_police }
+		}
+		custom_tooltip = nr_devout_police_lore_2d
+		nr_amendment_add_to_active_law = {
+			AMENDMENT = amendment_nr_devout_gendarmerie_chaplains
+			LAW = law_militarized_police
+			IG = ig_devout
+		}
+	}
+
+	option = { # Decline (only while there was something to offer)
+		name = nr_devout_police.2.f
+		default_option = yes
+		trigger = {
+			nr_devout_police_offer_available = yes
+		}
+		custom_tooltip = nr_devout_police_lore_2f
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_police_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Nothing to offer: neutral close
+		name = nr_devout_police.2.e
+		default_option = yes
+		trigger = {
+			nr_devout_police_offer_available = no
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_devout_police_target }
+				remove_variable = nr_devout_police_target
+			}
+		}
+	}
+}

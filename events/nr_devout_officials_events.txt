@@ -145,6 +145,14 @@ nr_devout_officials.1 = {
 		}
 		custom_tooltip = nr_devout_officials_lore_prisons
 		nr_devout_officials_choose_form = { FORM = prisons }
+		hidden_effect = {
+			# NR devout_police: follow-up in 10 years
+			trigger_event = {
+				id = nr_devout_police.2
+				days = 3650
+				popup = yes
+			}
+		}
 		ai_chance = {
 			base = 10
 			modifier = {
