@@ -348,14 +348,14 @@ The ruler presses their own group (`ruler.interest_group` = the group) - replace
 
 | Own group | Monarch | Theocrat | Autocrat | Oligarchs | Technocrats |
 |---|---|---|---|---|---|
-| Armed Forces | prestige -5%, coup resistance -0.10 | legitimacy -10 | coup resistance -0.15 | legitimacy -10 | legitimacy -10 |
-| Devout | legitimacy -10 | legitimacy -10, conversion -10% | legitimacy -10 | legitimacy -10 | legitimacy -10 |
-| Landowners | prestige -10% | legitimacy -10 | legitimacy -10, agriculture -5% | legitimacy -10 | legitimacy -10 |
-| Industrialists | prestige -5%, legitimacy -5 | legitimacy -10 | legitimacy -10 | legitimacy -10, manufacturing -5% | legitimacy -10 |
-| Petty Bourgeoisie | legitimacy -10 | legitimacy -10 | legitimacy -10, tax waste +5% | legitimacy -10 | legitimacy -10 |
-| Intelligentsia | prestige -10%, radicals +5% | legitimacy -10 | legitimacy -10, radicals +5% | legitimacy -10 | legitimacy -10 |
-| Trade Unions | legitimacy -10 | legitimacy -10 | legitimacy -10, radicals +10% | legitimacy -10 | legitimacy -10 |
-| Rural Folk | prestige -5%, loyalists -5% | legitimacy -10 | legitimacy -10 | legitimacy -10 | legitimacy -10 |
+| Armed Forces | prestige -5%, coup resistance -0.10 | legitimacy -5, morale recovery -5% | coup resistance -0.15 | legitimacy -5, coup resistance -0.10 | legitimacy -5, military research -10% |
+| Devout | legitimacy -10, conversion -5% | legitimacy -10, conversion -10% | legitimacy -5, Devout approval -3 | legitimacy -5, Devout approval -2 | legitimacy -5, education access -0.02 |
+| Landowners | prestige -10% | legitimacy -5, agriculture -3% | legitimacy -10, agriculture -5% | Landowners approval -3, agriculture -3% | legitimacy -10, agriculture +5% |
+| Industrialists | prestige -5%, legitimacy -5 | legitimacy -5, manufacturing -3% | legitimacy -10, military goods cost -10% | legitimacy -10, manufacturing -5% | Industrialists approval -3, manufacturing +5% |
+| Petty Bourgeoisie | legitimacy -5, tax waste +5% | legitimacy -5, tax waste +3% | legitimacy -10, tax waste +5% | legitimacy -5, government buildings -5% | legitimacy -5, government buildings -5% |
+| Intelligentsia | prestige -10%, radicals +5% | legitimacy -5, research -10% | legitimacy -10, radicals +5% | research -5%, radicals +5% | legitimacy -10, government buildings -5% |
+| Trade Unions | legitimacy -5, loyalists -5% | legitimacy -5, radicals +5% | legitimacy -10, radicals +10% | legitimacy -5, throughput -3% | legitimacy -5, throughput -2% |
+| Rural Folk | prestige -5%, loyalists -5% | legitimacy -5, conversion -5% | legitimacy -10, agriculture -3% | legitimacy -5, agriculture -3% | legitimacy -10, agriculture +3% |
 
 Own Armed Forces with a leader of loyalty 75+: only strength -10% and popularity -25; an autocrat from the Armed Forces gets instead legitimacy +10 and no penalty at all (a general's order carried out by his own army). Positive outcomes are allowed where they fit (user: "some combinations may give positive results").
 
