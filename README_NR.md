@@ -174,6 +174,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - `event nr_debug.2` / `event nr_debug.3` - menus of the post-campaign follow-ups `.2` (schools, sisters, chaplains, censorship, synod / church tax, Sunday Rest, Clerical Census, police, slavery). The censorship option also sets the campaign mark `nr_devout_censorship_campaign`. Each follow-up still checks its own trigger.
 - `event nr_debug.4` - Devout regular bribe without a negotiation: pay it exactly as option `negotiation.1.o1` (payment, `bribed_ig_benefits`, exposure roll, vice check in 310 days), give the Devout leader a vice now (100%), or expose it now (`generic_laws.2`, needs a law being enacted).
 - `event nr_debug.5` / `event nr_debug.6` - landowners' grants: the form event `nr_landowners_grants.1` and the follow-ups `.11` - `.18` (with the running mark of their form).
+- `event nr_debug.7` - activate a law at once (`activate_law`): Free Trade, Protectionism, Tenant Farmers, Serfdom, Slavery Banned, Legacy Slavery, Slave Trade - to test interruptions.
 - New follow-ups and enactment events should be added to these menus.
 
 ## Feature landowners_grants - grants instead of money (negotiation option 1)

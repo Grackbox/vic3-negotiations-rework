@@ -294,3 +294,80 @@ nr_debug.6 = {
 		default_option = yes
 	}
 }
+
+# .7 - activate a law at once (activate_law, as vanilla events do): tests the interruption of grants and campaigns.
+nr_debug.7 = {
+	type = country_event
+	placement = root
+	title = nr_debug.7.t
+	desc = nr_debug.7.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_debug.7.free_trade
+		trigger = {
+			NOT = { has_law = law_type:law_free_trade }
+		}
+		activate_law = law_type:law_free_trade
+	}
+
+	option = {
+		name = nr_debug.7.protectionism
+		trigger = {
+			NOT = { has_law = law_type:law_protectionism }
+		}
+		activate_law = law_type:law_protectionism
+	}
+
+	option = {
+		name = nr_debug.7.tenant_farmers
+		trigger = {
+			NOT = { has_law = law_type:law_tenant_farmers }
+		}
+		activate_law = law_type:law_tenant_farmers
+	}
+
+	option = {
+		name = nr_debug.7.serfdom
+		trigger = {
+			NOT = { has_law = law_type:law_serfdom }
+		}
+		activate_law = law_type:law_serfdom
+	}
+
+	option = {
+		name = nr_debug.7.slavery_banned
+		trigger = {
+			NOT = { has_law = law_type:law_slavery_banned }
+		}
+		activate_law = law_type:law_slavery_banned
+	}
+
+	option = {
+		name = nr_debug.7.legacy_slavery
+		trigger = {
+			NOT = { has_law = law_type:law_legacy_slavery }
+		}
+		activate_law = law_type:law_legacy_slavery
+	}
+
+	option = {
+		name = nr_debug.7.slave_trade
+		trigger = {
+			NOT = { has_law = law_type:law_slave_trade }
+		}
+		activate_law = law_type:law_slave_trade
+	}
+
+	option = {
+		name = nr_debug.7.close
+		default_option = yes
+	}
+}
