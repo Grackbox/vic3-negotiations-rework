@@ -1,37 +1,6 @@
 ﻿# NR: Devout soft bribe - funds for the church's needs (negotiation option 1).
 # The form of spending is chosen by event nr_devout_softbribe.1 a week later.
 
-# Bribe or charity in this negotiation. Called from nr_negotiation_after_options.
-nr_devout_softbribe_roll = {
-	if = {
-		# a bribe that would cause a default is never offered: the church asks for charity instead
-		limit = { nr_bribe_affordable = no }
-		scope:ig = { set_variable = nr_soft_bribe }
-	}
-	else_if = {
-		limit = { scope:ig = { leader ?= { nr_devout_softbribe_leader_refuses = yes } } }
-		scope:ig = { set_variable = nr_soft_bribe }
-	}
-	else_if = {
-		# the church already runs as many campaigns as its clout allows: only a regular bribe is possible
-		limit = { NOT = { nr_campaign_slot_free = { KEY = nr_devout_softbribe } } }
-	}
-	else_if = {
-		limit = { scope:ig = { leader ?= { nr_devout_softbribe_leader_loves = yes } } }
-		# regular bribe
-	}
-	else = {
-		random_list = {
-			60 = { # chance of charity when the leader has no relevant traits
-				scope:ig = { set_variable = nr_soft_bribe }
-			}
-			40 = {
-				# regular bribe
-			}
-		}
-	}
-}
-
 # Negotiation option. The base cost is shown right away; the campaign form is chosen by an event a week later.
 nr_devout_softbribe_start = {
 	custom_tooltip = nr_devout_softbribe_tt

@@ -12,7 +12,7 @@ nr_negotiation_after_options = {
 	}
 	if = {
 		limit = { scope:ig = { is_interest_group_type = ig_devout } }
-		nr_devout_softbribe_roll = yes
+		nr_softbribe_roll = { KEY = nr_devout_softbribe REFUSES = nr_devout_softbribe_leader_refuses }
 	}
 	if = {
 		limit = {

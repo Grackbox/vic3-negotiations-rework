@@ -124,7 +124,7 @@ nr_devout_officials_leader_weight = {
 		add = -5 # his place is the pulpit
 	}
 	if = {
-		limit = { leader ?= { nr_devout_softbribe_leader_loves = yes } }
+		limit = { leader ?= { nr_bribe_leader_loves = yes } }
 		add = -5 # Grifter / Expensive Tastes / Hedonist want money, not posts
 	}
 	min = -10 # base weight 10 + this >= 0

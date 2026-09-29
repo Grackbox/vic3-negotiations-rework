@@ -9,13 +9,18 @@ nr_neg_level_scale = {
 	max = 3
 }
 
-# Extra weight for option 1 (bribe, base 10) in set_neg_options. Like vanilla, option 1 is not guaranteed.
+# Extra weight for option 1 (bribe, base 10) in set_neg_options: group attitude to bribes + leader traits.
+# Like vanilla, option 1 is not guaranteed. Total weight never below 0.
 nr_neg_option_1_modifier = {
-	value = 0
+	value = scope:ig.nr_bribe_ig_weight
 	if = {
 		limit = { scope:ig = { is_interest_group_type = ig_devout } }
 		add = scope:ig.nr_devout_softbribe_leader_weight
 	}
+	else = {
+		add = scope:ig.nr_bribe_leader_weight
+	}
+	min = -10
 }
 
 # Extra weight for option 2 (bureaucracy, base 10) in set_neg_options.

@@ -10,7 +10,7 @@ nr_devout_softbribe_base_cost = {
 nr_devout_softbribe_leader_weight = {
 	value = 0
 	if = {
-		limit = { leader ?= { nr_devout_softbribe_leader_loves = yes } }
+		limit = { leader ?= { nr_bribe_leader_loves = yes } }
 		add = 10 # Grifter / Expensive Tastes / Hedonist
 	}
 	if = {

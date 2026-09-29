@@ -1,0 +1,34 @@
+﻿# NR: "money or the group's own soft form" for negotiation option 1 (every group that has a soft form:
+# Devout - charity; more to come). Decided once at the start of the negotiation, flag nr_soft_bribe on the group.
+# Parameters: KEY = campaign slot key of the soft form (nr_campaign_slots), REFUSES = trigger (character scope):
+# the leader never takes money. Scope: country, scope:ig = the group.
+nr_softbribe_roll = {
+	if = {
+		# a bribe that would cause a default is never offered: the group asks for its own form instead
+		limit = { nr_bribe_affordable = no }
+		scope:ig = { set_variable = nr_soft_bribe }
+	}
+	else_if = {
+		limit = { scope:ig = { leader ?= { $REFUSES$ = yes } } }
+		scope:ig = { set_variable = nr_soft_bribe }
+	}
+	else_if = {
+		# the group already runs as many campaigns of its form as its clout allows: only money is possible
+		limit = { NOT = { nr_campaign_slot_free = { KEY = $KEY$ } } }
+	}
+	else_if = {
+		limit = { scope:ig = { leader ?= { nr_bribe_leader_loves = yes } } }
+		# money
+	}
+	else = {
+		random_list = {
+			0 = { # the group's own form, share nr_softbribe_share
+				modifier = { value = scope:ig.nr_softbribe_share }
+				scope:ig = { set_variable = nr_soft_bribe }
+			}
+			0 = { # money
+				modifier = { value = scope:ig.nr_bribe_cash_share }
+			}
+		}
+	}
+}

@@ -25,3 +25,19 @@ nr_bribe_ai_bad = {
 		nr_bribe_room_after_share < 0.25
 	}
 }
+
+# ---------- Leader traits (every group). Scope: character. ----------
+# Loves money: always takes a regular bribe, +10 to the weight of option 1.
+nr_bribe_leader_loves = {
+	OR = {
+		has_trait = grifter
+		has_trait = expensive_tastes
+		has_trait = hedonist
+	}
+}
+
+# Will not take money: always the group's own soft form, -10 to the weight of option 1 (groups other than the Devout,
+# whose leader weight and refusal traits are their own: nr_devout_softbribe_leader_weight / _refuses).
+nr_bribe_leader_refuses = {
+	has_trait = honorable
+}

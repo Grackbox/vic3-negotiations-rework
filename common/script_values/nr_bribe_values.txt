@@ -90,3 +90,78 @@ nr_bribe_room_after_share = {
 	value = nr_bribe_room_after
 	divide = nr_credit_nonzero
 }
+
+# ---------- Per-group attitude to bribes ----------
+# Weight change of negotiation option 1 (base 10) by group type. Scope: interest group.
+nr_bribe_ig_weight = {
+	value = 0
+	if = {
+		limit = { is_interest_group_type = ig_industrialists }
+		value = 20 # can almost always be bought: contracts, concessions, privileges
+	}
+	else_if = {
+		limit = {
+			OR = {
+				is_interest_group_type = ig_petty_bourgeoisie
+				is_interest_group_type = ig_landowners
+			}
+		}
+		value = 10
+	}
+	else_if = {
+		limit = {
+			OR = {
+				is_interest_group_type = ig_intelligentsia
+				is_interest_group_type = ig_trade_unions
+				is_interest_group_type = ig_rural_folk
+			}
+		}
+		value = -5 # idealists, leaders who risk their standing, or little to buy
+	}
+}
+
+# Leader traits for groups other than the Devout (the Devout use nr_devout_softbribe_leader_weight). Scope: interest group.
+nr_bribe_leader_weight = {
+	value = 0
+	if = {
+		limit = { leader ?= { nr_bribe_leader_loves = yes } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { nr_bribe_leader_refuses = yes } }
+		add = -10
+	}
+}
+
+# Share (out of 100) of the group's own soft form instead of money, when the leader has no deciding trait.
+# Used only by groups that already have a soft form (see nr_softbribe_roll). Scope: interest group.
+nr_softbribe_share = {
+	value = 50 # landowners, armed forces
+	if = {
+		limit = { is_interest_group_type = ig_devout }
+		value = 75 # charity
+	}
+	else_if = {
+		limit = { is_interest_group_type = ig_industrialists }
+		value = 20
+	}
+	else_if = {
+		limit = { is_interest_group_type = ig_petty_bourgeoisie }
+		value = 40
+	}
+	else_if = {
+		limit = {
+			OR = {
+				is_interest_group_type = ig_intelligentsia
+				is_interest_group_type = ig_trade_unions
+				is_interest_group_type = ig_rural_folk
+			}
+		}
+		value = 70
+	}
+}
+
+nr_bribe_cash_share = {
+	value = 100
+	subtract = nr_softbribe_share
+}

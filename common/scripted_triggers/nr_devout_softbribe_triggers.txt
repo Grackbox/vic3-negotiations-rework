@@ -10,15 +10,6 @@ nr_devout_softbribe_leader_refuses = {
 	}
 }
 
-# Devout leader loves gifts - always a regular bribe (and +10 weight, see nr_devout_softbribe_leader_weight).
-nr_devout_softbribe_leader_loves = {
-	OR = {
-		has_trait = grifter # Grifter
-		has_trait = expensive_tastes # Expensive Tastes
-		has_trait = hedonist # Hedonist
-	}
-}
-
 # A civil form can be offered in event nr_devout_softbribe.1: not offered yet and not already running
 # in another campaign (a second one would overwrite its modifier). $FORM$ = asceticism / enlightenment / ...
 nr_devout_softbribe_can_offer = {

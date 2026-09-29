@@ -74,7 +74,7 @@ Vanilla: 1 army, 2 law, 3 buildings, 4 taxes, 5 SoL. Ours start at 101.
 - Ends together with the commitment; the rest period is kept.
 
 ### Feature devout_softbribe — funds for the church's needs (negotiation option 1)
-- Rolled once at the start of the negotiation (`nr_devout_softbribe_roll`): bribe unaffordable (would cause a default) → always charity; leader with Honorable, Pious, Cautious or Reserved → always charity; with Grifter, Expensive Tastes or Hedonist → always a regular bribe; otherwise 60% charity / 40% bribe. Flag `nr_soft_bribe` on the IG.
+- Rolled once at the start of the negotiation by the general `nr_softbribe_roll` (see "Pattern: money or the group's own form"): bribe unaffordable (would cause a default) → always charity; leader with Honorable, Pious, Cautious or Reserved (`nr_devout_softbribe_leader_refuses`) → always charity; no free charity slot → regular bribe; Grifter, Expensive Tastes or Hedonist (`nr_bribe_leader_loves`) → regular bribe; otherwise 75% charity / 25% bribe. Flag `nr_soft_bribe` on the IG.
 - Chance of option 1 (base weight 10) by Devout leader (`nr_devout_softbribe_leader_weight`): Grifter/Expensive Tastes/Hedonist +10, Ambitious +10, Charismatic +10, Arrogant +5, prominence 50+ +10, Reserved -5, Cautious -5 (total never below 0). Not guaranteed, like vanilla.
 - Negotiation option "Allocate funds for the church's needs." (`nr_devout_softbribe_start`): expenses `nr_devout_softbribe_expenses_<slot>` (one modifier per campaign slot) = vanilla bribe amount (`neg_bribe_amount`); +10% conversion (`nr_devout_softbribe_base`); Devout get `nr_devout_softbribe_patronage` (+35% attraction, +5% political strength x `nr_neg_level_scale` = 1 / 2 / 3 by level, i.e. 5/10/15%; the regular bribe gives no attraction and +10/20/30% strength, see "Regular bribe"); law stance improves. Everything lasts 10 years and decays.
 - 7 days later event `nr_devout_softbribe.1` picks the campaign form; all forms last 10 years and decay:
@@ -109,6 +109,24 @@ An IG-themed amendment reaches a law in two ways:
 A post-campaign offer can open a 4-year journal entry asking for a law (schools, sisters).
 - Helpers in `common/scripted_effects/nr_petition_framework.txt`, parameters `PETITION` (key prefix) and `LAW`: `nr_petition_boost` (at the start of the enactment via `nr_devout_petition_boost_all` from `nr_on_law_enactment_started`, plus JE `immediate` and monthly pulse as a fallback: +enactment speed once per enactment attempt; every new petition must be added to `nr_devout_petition_boost_all` and `nr_devout_petition_for_enacting_law`), `nr_petition_end` (`on_complete`), `nr_petition_timeout` (`on_timeout`: approval penalty on `scope:ig`).
 - New instance checklist: journal entry `je_<PETITION>` saving the group as `scope:ig`; static modifiers `<PETITION>_speed` (enactment speed) and `<PETITION>_ignored` (approval); availability trigger `nr_<group>_<topic>_petition_available`.
+
+## Pattern: money or the group's own form (negotiation option 1)
+Every group will get its own soft form of option 1 instead of money (Devout: charity; landowners: grants, in design). Groups differ in how often they talk money at all and how often they prefer their own form.
+- Weight of option 1 (base 10): `nr_neg_option_1_modifier` = `nr_bribe_ig_weight` (per group) + leader traits: `nr_bribe_leader_weight` (Grifter / Expensive Tastes / Hedonist +10, Honorable -10) for every group except the Devout, who use their own `nr_devout_softbribe_leader_weight`. Total never below 0.
+- Money or own form: `nr_softbribe_roll = { KEY REFUSES }` (`common/scripted_effects/nr_softbribe_framework.txt`), called from `nr_negotiation_after_options` for each group that has a form: unaffordable bribe → own form; leader with a `REFUSES` trait → own form; no free campaign slot (`KEY`) → money; `nr_bribe_leader_loves` → money; otherwise `nr_softbribe_share` % own form. Groups without a form yet always take money.
+
+| Group | Option 1 weight | Money / own form | Own form |
+|---|---|---|---|
+| Industrialists | +20 | 80 / 20 | (to design: state contracts, concessions) |
+| Petty Bourgeoisie | +10 | 60 / 40 | (to design: town privileges, patents) |
+| Landowners | +10 | 50 / 50 | grants (in design) |
+| Armed Forces | 0 | 50 / 50 | (to design: army orders, officers' pensions) |
+| Intelligentsia | -5 | 30 / 70 | (to design: grants, universities, publications) |
+| Trade Unions | -5 | 30 / 70 | (to design: mutual aid funds, workers' clubs) |
+| Rural Folk | -5 | 30 / 70 | (to design: aid to communes, seed loans) |
+| Devout | 0 (+ own leader weight) | 25 / 75 | charity (done) |
+
+- New group checklist: its soft-form start effect (like `nr_devout_softbribe_start`), a `REFUSES` trigger, the call in `nr_negotiation_after_options`, `nr_neg_option_1_custom` routing, the option 1 roll condition in `nr_neg_option_1_allowed` (pending form event, free slot or affordable bribe), the option name in `NR_SoftBribeLine`.
 
 ## Pattern: campaign slots
 A group can run several 10-year campaigns of one kind at once, limited by its clout: 20%+ -> 3, 10-20% -> 2, below 10% -> 1.
@@ -175,10 +193,10 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 ### One-time bribe (every group) and the Devout leader's vices
 - Files: `common/scripted_effects/nr_bribe_effects.txt`, `events/nr_bribe_events.txt`, values in `common/script_values/nr_bribe_values.txt`, triggers in `common/scripted_triggers/nr_bribe_triggers.txt`. Hooked in `negotiation.1.o1` (`nr_bribe_pay`, `nr_bribe_exposure_roll`). No group gets the vanilla weekly `negotiation_bribes` any more.
 - Payment (`nr_bribe_lump_sum`, `add_treasury`, computed directly so the tooltip shows it): the vanilla slow sum (`neg_bribe_amount` x 260.7 weeks of linear decay over 10 years) / 2.5 (`nr_bribe_lump_divisor`), i.e. about 3.9% / 7.8% / 15.6% of GDP by level 1 / 2 / 4. Capped by 10% / 20% / 30% of max credit (`credit`). Rounded to 100.
-- A bribe that would cause a default is not offered (`nr_bribe_affordable`: `gold_reserves + credit - principal - payment >= 0`): option 1 is not rolled for other groups (`nr_neg_option_1_allowed`); for the Devout the roll `nr_devout_softbribe_roll` gives charity instead (even for greedy leaders); the option `negotiation.1.o1` is hidden if the money ran out during the negotiation (`nr_neg_option_1_affordable`).
+- A bribe that would cause a default is not offered (`nr_bribe_affordable`: `gold_reserves + credit - principal - payment >= 0`): option 1 is not rolled for other groups (`nr_neg_option_1_allowed`); for the Devout the roll `nr_softbribe_roll` gives charity instead (even for greedy leaders); the option `negotiation.1.o1` is hidden if the money ran out during the negotiation (`nr_neg_option_1_affordable`).
 - `generic_laws.2` option c ("corruption is good") needs vanilla `negotiation_bribes`, so it is no longer shown (the money is already paid).
 - Exposure: vanilla chances (10%, 20% under Protected Speech), `generic_laws.2` in 300 days. Devout only: the leader gets `nr_bribe_taken` (and `nr_bribe_exposed` if the roll hit), 330 days.
-- Devout only: 310 days after the bribe, hidden `nr_bribe.1`: every character of the country with `nr_bribe_taken` and without `nr_bribe_exposed` has a 20% chance of a trait (`nr_bribe_add_vice_trait`): Grifter 25, Expensive Tastes 25, Alcoholic 20, Opium Addiction 15, Syphilis 15 (only traits he does not have). Grifter and Expensive Tastes make the leader always take a regular bribe afterwards (`nr_devout_softbribe_leader_loves`). Tooltip `nr_bribe_vice_risk_tt`.
+- Devout only: 310 days after the bribe, hidden `nr_bribe.1`: every character of the country with `nr_bribe_taken` and without `nr_bribe_exposed` has a 20% chance of a trait (`nr_bribe_add_vice_trait`): Grifter 25, Expensive Tastes 25, Alcoholic 20, Opium Addiction 15, Syphilis 15 (only traits he does not have). Grifter and Expensive Tastes make the leader always take a regular bribe afterwards (`nr_bribe_leader_loves`). Tooltip `nr_bribe_vice_risk_tt`.
 - AI (option `negotiation.1.o1`, every group; the vanilla income checks are switched off by `nr_neg_option_1_vanilla_ai = no`): +35 if the payment fits in gold reserves (`nr_bribe_ai_good`); +15 if partly on credit but at least 50% of the credit stays free (`nr_bribe_ai_fair`); -50 if on credit while in deficit or with less than 25% of the credit left (`nr_bribe_ai_bad`).
 - Refund: the paid amount is stored on the bribed group (`nr_bribe_paid`, 330 days), so two bribed groups do not overwrite each other. The money is assumed to be spent evenly over 2 years (`nr_bribe_spend_days` = 730), exposure comes after 300 days, so ~59% is unspent (`nr_bribe_refund`, group scope). Returned in `generic_laws.2` option b ("deal with it", overridden in `events/law_events/law_events_01.txt`, copy of the vanilla file) for the exposed group (`scope:corrupt_ig_scope`). Option a (ignore) returns nothing.
 
