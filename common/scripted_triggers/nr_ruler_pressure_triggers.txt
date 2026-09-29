@@ -70,7 +70,7 @@ nr_ruler_pressure_own_group = {
 	}
 }
 
-# Option "the ruler presses the group" is offered.
+# Option "the ruler presses the group" is shown: a ruler who can press, not against the law.
 nr_ruler_pressure_available = {
 	OR = {
 		nr_ruler_is_monarch = yes
@@ -80,9 +80,21 @@ nr_ruler_pressure_available = {
 		nr_ruler_is_technocrats = yes
 	}
 	nr_ruler_not_against_law = yes
-	scope:ig = { NOT = { has_variable = nr_ruler_pressure_cooldown } } # not pressed in the last 5 years
-	authority >= 400
-	nr_authority_cost_slot_free = yes
+}
+
+# ... but greyed out with the reason (show_as_unavailable): this group was pressed in the last 5 years (the limit is
+# per group), or too many authority costs run at once. Authority itself may go negative, as in vanilla.
+nr_ruler_pressure_blocked = {
+	OR = {
+		custom_tooltip = {
+			text = nr_ruler_pressure_cooldown_tt
+			scope:ig = { has_variable = nr_ruler_pressure_cooldown }
+		}
+		custom_tooltip = {
+			text = nr_authority_cost_no_slot_tt
+			nr_authority_cost_slot_free = no
+		}
+	}
 }
 
 # The leader of the Armed Forces is reliable (vanilla LOYALTY_RELIABLE_THRESHOLD) / at least neutral.

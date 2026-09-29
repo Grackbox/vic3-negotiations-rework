@@ -152,3 +152,6 @@
  notification_nr_election_promise_void_toast_name: "No Party to Back"
  notification_nr_election_promise_void_toast_desc: "The [SCOPE.gsInterestGroup('ig').GetName] found no place in any party at this election. There was no one to back, and our promise is void."
  nr_election_promise_void_cond_tt: "At the election the group is in no party"
+ nr_ruler_pressure_cooldown_tt: "This group was already pressed in the last 5 years"
+ nr_election_promise_already_tt: "This group has already been promised our support at the election"
+ nr_authority_cost_no_slot_tt: "Too many authority costs of negotiations running at once (at most 10)"

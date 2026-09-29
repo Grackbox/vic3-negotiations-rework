@@ -152,3 +152,6 @@
  notification_nr_election_promise_void_toast_name: "Некого поддерживать"
  notification_nr_election_promise_void_toast_desc: "Группа «[SCOPE.gsInterestGroup('ig').GetName]» не нашла себе места ни в одной партии на этих выборах. Поддерживать было некого, и наше обещание утратило силу."
  nr_election_promise_void_cond_tt: "На выборах группа не состоит ни в одной партии"
+ nr_ruler_pressure_cooldown_tt: "На эту группу уже давили в последние 5 лет"
+ nr_election_promise_already_tt: "Этой группе уже обещана поддержка на выборах"
+ nr_authority_cost_no_slot_tt: "Слишком много одновременных трат авторитета на переговоры (не больше 10)"

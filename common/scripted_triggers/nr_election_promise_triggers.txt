@@ -1,14 +1,26 @@
 ﻿# NR: promise to back the group's party at the next election (feature election_promise).
 # Scope: country; in negotiation.1 scope:ig = the group, scope:law = the law being enacted.
 
+# Option shown: elections that can be rigged, the ruler is not against the law.
 nr_election_promise_available = {
 	country_has_voting_franchise = yes
 	NOT = { has_law_or_variant = law_type:law_single_party_state }
 	modifier:country_forbid_electoral_fraud_bool = no # no Tradition of Free Elections
-	scope:ig = { NOT = { has_variable = nr_election_promise } }
 	nr_ruler_not_against_law = yes
-	authority >= 50
-	nr_authority_cost_slot_free = yes
+}
+
+# ... but greyed out with the reason (show_as_unavailable).
+nr_election_promise_blocked = {
+	OR = {
+		custom_tooltip = {
+			text = nr_election_promise_already_tt
+			scope:ig = { has_variable = nr_election_promise }
+		}
+		custom_tooltip = {
+			text = nr_authority_cost_no_slot_tt
+			nr_authority_cost_slot_free = no
+		}
+	}
 }
 
 

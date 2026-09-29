@@ -779,6 +779,9 @@ negotiation.1 = {
 		trigger = {
 			nr_ruler_pressure_available = yes
 		}
+		show_as_unavailable = {
+			nr_ruler_pressure_blocked = yes
+		}
 		ai_chance = {
 			base = 0
 		}
@@ -789,6 +792,9 @@ negotiation.1 = {
 		name = negotiation.1.nr_election_promise
 		trigger = {
 			nr_election_promise_available = yes
+		}
+		show_as_unavailable = {
+			nr_election_promise_blocked = yes
 		}
 		ai_chance = {
 			base = 0
