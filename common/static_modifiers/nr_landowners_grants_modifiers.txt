@@ -92,28 +92,6 @@ nr_landowners_grants_slave_import = {
 	state_pop_support_movement_anti_slavery_mult = 0.1
 }
 
-# Interruption: the Landowners gave the privilege up themselves (in government)
-nr_landowners_grants_gave_up = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
-	interest_group_approval_add = -1
-}
-
-# Interruption: the order was broken over their heads (in opposition)
-nr_landowners_grants_overruled = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
-	interest_group_approval_add = -5
-}
-
-nr_landowners_grants_marginalized = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
-	interest_group_pol_str_mult = -0.15
-}
-
-# Interruption backlash for Corn Laws / Corvee: the old order gathers supporters
-nr_landowners_grants_reaction = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
-	state_pop_support_movement_reactionary_mult = 0.1
-}
 
 # Follow-ups: the offer was declined / the Landowners are content
 nr_landowners_grants_declined = {

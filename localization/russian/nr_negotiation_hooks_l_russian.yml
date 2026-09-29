@@ -1,3 +1,8 @@
 ﻿l_russian:
  # NR: shared texts of the negotiation hooks
  negotiation.1.nr_o1_soft: "[SCOPE.gsInterestGroup('negotiating_interest_group').GetCustom('NR_SoftBribeLine')]"
+ # campaign interruption (nr_campaign_modifiers.txt)
+ nr_campaign_gave_up: "Уступили сами"
+ nr_campaign_overruled: "Их мнением пренебрегли"
+ nr_campaign_marginalized: "Оттеснены"
+ nr_campaign_reaction: "Тоска по старому порядку"

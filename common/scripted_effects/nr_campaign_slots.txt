@@ -39,3 +39,51 @@ nr_campaign_take_slot = {
 		}
 	}
 }
+
+# ---------- Campaign interruption (pattern in README_NR.md) ----------
+# A law change ends a campaign early: a popup event tells what happened, and its option applies the group's reaction.
+# $IG$ = interest group type. Scope: country.
+
+# The group is in government: it gave the concession up itself.
+nr_campaign_react_gave_up = {
+	ig:$IG$ ?= {
+		add_modifier = {
+			name = nr_campaign_gave_up
+			days = normal_modifier_time
+		}
+	}
+}
+
+# The group is not in government: the order was broken over its head - marginalization and a backlash
+# ($BACKLASH$ = reaction / planters / none).
+nr_campaign_react_overruled = {
+	ig:$IG$ ?= {
+		add_modifier = {
+			name = nr_campaign_overruled
+			days = normal_modifier_time
+		}
+		add_modifier = {
+			name = nr_campaign_marginalized
+			days = normal_modifier_time
+			is_decaying = yes
+		}
+	}
+	nr_campaign_backlash_$BACKLASH$ = yes
+}
+
+# Backlash: the old order gathers supporters.
+nr_campaign_backlash_reaction = {
+	add_modifier = {
+		name = nr_campaign_reaction
+		days = normal_modifier_time
+	}
+}
+
+# Backlash: the planters are up in arms.
+nr_campaign_backlash_planters = {
+	nr_movement_radicalism = { MOVEMENT = movement_pro_slavery MOD = nr_movement_radicalism_up_020 }
+}
+
+nr_campaign_backlash_none = {
+	# no backlash
+}

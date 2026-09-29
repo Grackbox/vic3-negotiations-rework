@@ -839,7 +839,7 @@ nr_landowners_grants.21 = {
 		trigger = {
 			ig:ig_landowners ?= { is_in_government = yes }
 		}
-		nr_landowners_grants_react_gave_up = yes
+		nr_campaign_react_gave_up = { IG = ig_landowners }
 	}
 
 	option = { # the order was broken over their heads
@@ -848,7 +848,7 @@ nr_landowners_grants.21 = {
 		trigger = {
 			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
 		}
-		nr_landowners_grants_react_overruled = { BACKLASH = reaction }
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = reaction }
 	}
 }
 
@@ -885,7 +885,7 @@ nr_landowners_grants.22 = {
 		trigger = {
 			ig:ig_landowners ?= { is_in_government = yes }
 		}
-		nr_landowners_grants_react_gave_up = yes
+		nr_campaign_react_gave_up = { IG = ig_landowners }
 	}
 
 	option = { # the order was broken over their heads
@@ -894,7 +894,7 @@ nr_landowners_grants.22 = {
 		trigger = {
 			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
 		}
-		nr_landowners_grants_react_overruled = { BACKLASH = reaction }
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = reaction }
 	}
 }
 
@@ -931,7 +931,7 @@ nr_landowners_grants.23 = {
 		trigger = {
 			ig:ig_landowners ?= { is_in_government = yes }
 		}
-		nr_landowners_grants_react_gave_up = yes
+		nr_campaign_react_gave_up = { IG = ig_landowners }
 	}
 
 	option = { # the order was broken over their heads
@@ -940,7 +940,7 @@ nr_landowners_grants.23 = {
 		trigger = {
 			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
 		}
-		nr_landowners_grants_react_overruled = { BACKLASH = planters }
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = planters }
 	}
 }
 
@@ -977,7 +977,7 @@ nr_landowners_grants.24 = {
 		trigger = {
 			ig:ig_landowners ?= { is_in_government = yes }
 		}
-		nr_landowners_grants_react_gave_up = yes
+		nr_campaign_react_gave_up = { IG = ig_landowners }
 	}
 
 	option = { # the order was broken over their heads
@@ -986,6 +986,6 @@ nr_landowners_grants.24 = {
 		trigger = {
 			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
 		}
-		nr_landowners_grants_react_overruled = { BACKLASH = planters }
+		nr_campaign_react_overruled = { IG = ig_landowners BACKLASH = planters }
 	}
 }

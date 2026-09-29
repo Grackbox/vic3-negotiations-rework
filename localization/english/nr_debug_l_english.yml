@@ -47,3 +47,4 @@
  nr_debug.7.slavery_banned: "Slavery Banned (ends Fugitives and Slave Import)"
  nr_debug.7.legacy_slavery: "Legacy Slavery (ends Slave Import)"
  nr_debug.7.slave_trade: "Slave Trade"
+ nr_debug.7.protected_speech: "Protected Speech (ends Censorship Committees)"

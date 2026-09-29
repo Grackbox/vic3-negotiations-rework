@@ -139,5 +139,6 @@ nr_devout_officials_check_censorship = {
 			limit = { has_variable = nr_devout_censorship_campaign }
 			remove_variable = nr_devout_censorship_campaign # no follow-up event
 		}
+		trigger_event = { id = nr_devout_censorship.3 popup = yes } # tells what happened; the Devout react in its options
 	}
 }

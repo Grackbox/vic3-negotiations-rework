@@ -208,32 +208,6 @@ nr_landowners_grants_interrupt = {
 	trigger_event = { id = nr_landowners_grants.$EVENT$ popup = yes } # tells what happened; the Landowners' reaction is in its options
 }
 
-# The Landowners' reaction to an interrupted grant (options of events nr_landowners_grants.21 - .24). Scope: country.
-# In government: they gave the privilege up themselves.
-nr_landowners_grants_react_gave_up = {
-	ig:ig_landowners ?= {
-		add_modifier = {
-			name = nr_landowners_grants_gave_up
-			days = normal_modifier_time
-		}
-	}
-}
-
-# In opposition: the order was broken over their heads - marginalization and a backlash ($BACKLASH$ = reaction / planters).
-nr_landowners_grants_react_overruled = {
-	ig:ig_landowners ?= {
-		add_modifier = {
-			name = nr_landowners_grants_overruled
-			days = normal_modifier_time
-		}
-		add_modifier = {
-			name = nr_landowners_grants_marginalized
-			days = normal_modifier_time
-			is_decaying = yes
-		}
-	}
-	nr_landowners_grants_backlash_$BACKLASH$ = yes
-}
 
 nr_landowners_grants_free_slot = {
 	if = {
@@ -246,16 +220,6 @@ nr_landowners_grants_free_slot = {
 	}
 }
 
-nr_landowners_grants_backlash_reaction = {
-	add_modifier = {
-		name = nr_landowners_grants_reaction
-		days = normal_modifier_time
-	}
-}
-
-nr_landowners_grants_backlash_planters = {
-	nr_movement_radicalism = { MOVEMENT = movement_pro_slavery MOD = nr_movement_radicalism_up_020 }
-}
 
 # ---------- Follow-ups ----------
 

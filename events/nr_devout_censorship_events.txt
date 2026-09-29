@@ -5,6 +5,7 @@
 #      Censorship adopted meanwhile: thanks (+2); still Right of Assembly: petition for Censorship or decline (-1);
 #      nothing to offer: neutral close. Outlawed Dissent adopted meanwhile: no event - the church wanted censorship,
 #      not political repression.
+# .3 - Protected Speech ended the Censorship Committees campaign (campaign interruption pattern).
 
 nr_devout_censorship.2 = {
 	type = country_event
@@ -89,5 +90,51 @@ nr_devout_censorship.2 = {
 
 	after = {
 		hidden_effect = { remove_variable = nr_devout_censorship_campaign }
+	}
+}
+
+nr_devout_censorship.3 = {
+	type = country_event
+	placement = root
+	title = nr_devout_censorship.3.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_devout_censorship.3.desc_gov
+				trigger = { ig:ig_devout ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_devout_censorship.3.desc_opp
+			}
+		}
+	}
+	flavor = nr_devout_censorship.3.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Devout gave it up themselves
+		name = nr_devout_censorship.3.a
+		default_option = yes
+		trigger = {
+			ig:ig_devout ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_devout }
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_devout_censorship.3.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_devout ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_devout BACKLASH = reaction }
 	}
 }

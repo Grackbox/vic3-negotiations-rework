@@ -1,0 +1,24 @@
+﻿# NR: the group's reaction to an interrupted campaign (pattern "Campaign interruption", nr_campaign_slots.txt).
+
+# In government: the group gave the concession up itself
+nr_campaign_gave_up = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+# Not in government: the order was broken over its head
+nr_campaign_overruled = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -5
+}
+
+nr_campaign_marginalized = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_pol_str_mult = -0.15
+}
+
+# Backlash: the old order gathers supporters (country)
+nr_campaign_reaction = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	state_pop_support_movement_reactionary_mult = 0.1
+}
