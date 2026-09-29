@@ -9,6 +9,7 @@ on_law_checkpoint_debate = {
 		10 = nr_devout_synod.1
 		10 = nr_devout_church_tax.1
 		10 = nr_devout_sunday.1
+		10 = nr_devout_census.1
 	}
 }
 
@@ -26,6 +27,7 @@ nr_on_law_enactment_started = {
 	effect = {
 		nr_petition_improve_stance = yes # groups with a petition for this law support its enactment
 		nr_devout_church_tax_transfer = yes # church tax guarantee: amendment B goes into Freedom of Conscience / Total Separation
+		nr_devout_census_attach_on_petition = yes # clergy petition for Appointed Bureaucrats: the Clerical Census comes with it
 	}
 }
 

@@ -1,0 +1,26 @@
+﻿# NR: Clerical Census for Officials (feature devout_census). Scope: country.
+
+# Petition for Appointed Bureaucrats can be offered: other bureaucracy law, leader not against, no petition running.
+nr_devout_census_petition_available = {
+	NOT = { has_law = law_type:law_appointed_bureaucrats }
+	nr_devout_leader_not_against_law = { LAW = law_appointed_bureaucrats }
+	nr_devout_leader_not_against_law = { LAW = law_state_religion } # the amendment comes with the petition
+	NOT = { has_journal_entry = je_nr_devout_census_petition }
+}
+
+# The amendment can be attached to the active Appointed Bureaucrats.
+nr_devout_census_amendment_available = {
+	has_law = law_type:law_appointed_bureaucrats
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_census }
+	}
+	nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+}
+
+# Anything to offer at all. Without it declining is a neutral close.
+nr_devout_census_offer_available = {
+	OR = {
+		nr_devout_census_petition_available = yes
+		nr_devout_census_amendment_available = yes
+	}
+}

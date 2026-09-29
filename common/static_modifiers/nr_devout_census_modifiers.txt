@@ -1,0 +1,43 @@
+﻿# NR: Clerical Census for Officials (feature devout_census).
+
+# Enactment modifier while enacting Appointed Bureaucrats under the clergy's petition
+nr_devout_census_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+# Devout IG: the petition expired without Appointed Bureaucrats
+nr_devout_census_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Devout IG: the offer was declined
+nr_devout_census_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+# Enactment event nr_devout_census.1: "The civil service is secular" - faster enactment
+nr_devout_census_secular_service = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+# Enactment event nr_devout_census.1: the clerical census is written into the law - slower enactment
+nr_devout_census_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+# Devout IG: the clerical census was kept out of the law being enacted
+nr_devout_census_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Intelligentsia IG: the universities were asked to decide
+nr_devout_census_universities_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}

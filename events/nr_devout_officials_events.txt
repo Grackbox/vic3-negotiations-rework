@@ -186,6 +186,14 @@ nr_devout_officials.1 = {
 		custom_tooltip = nr_devout_officials_lore_seminarists
 		nr_devout_officials_choose_form = { FORM = seminarists }
 		nr_devout_officials_set_penalty = { FACTOR = 1.5 }
+		hidden_effect = {
+			# NR devout_census: follow-up in 10 years
+			trigger_event = {
+				id = nr_devout_census.2
+				days = 3650
+				popup = yes
+			}
+		}
 		ai_chance = {
 			base = 5
 			modifier = {

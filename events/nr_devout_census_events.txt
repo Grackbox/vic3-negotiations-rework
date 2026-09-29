@@ -1,0 +1,169 @@
+﻿namespace = nr_devout_census
+
+# NR: Clerical Census for Officials (feature devout_census), an instance of the "IG amendment pair" pattern.
+# .1 - enactment of Appointed Bureaucrats: may attach amendment_nr_devout_census to the law being enacted.
+#      Not while the clergy's petition runs: then the amendment is attached automatically.
+# .2 - 10 years after the Seminarists form: other bureaucracy law -> petition for Appointed Bureaucrats (the amendment
+#      comes with it); Appointed Bureaucrats -> the amendment at once; decline -1; nothing to offer -> neutral close.
+
+nr_devout_census.1 = {
+	type = country_event
+	placement = root
+	title = nr_devout_census.1.t
+	desc = nr_devout_census.1.desc
+	flavor = nr_devout_census.1.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		is_enacting_law = law_type:law_appointed_bureaucrats
+		exists = ig:ig_devout
+		NOT = { currently_enacting_law ?= { has_amendment = amendment_type:amendment_nr_devout_census } }
+		NOT = { has_journal_entry = je_nr_devout_census_petition } # attached automatically instead
+		NOT = { has_modifier = nr_devout_officials_seminarists } # the seminarists campaign is running: its follow-up offers the amendment
+		nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_devout ?= { save_scope_as = devout_ig }
+		ig:ig_intelligentsia ?= { save_scope_as = intelligentsia_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # The civil service is secular
+		name = nr_devout_census.1.a
+		default_option = yes
+		custom_tooltip = nr_devout_census_lore_1a
+		add_enactment_modifier = {
+			name = nr_devout_census_secular_service
+		}
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_census_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Clerical census: attach the amendment
+		name = nr_devout_census.1.b
+		custom_tooltip = nr_devout_census_lore_1b
+		add_enactment_modifier = {
+			name = nr_devout_census_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_devout_census
+			IG = ig_devout
+		}
+	}
+
+	option = { # Let the universities decide
+		name = nr_devout_census.1.c
+		custom_tooltip = nr_devout_census_lore_1c
+		scope:intelligentsia_ig ?= {
+			add_modifier = {
+				name = nr_devout_census_universities_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_census_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_devout_census.2 = {
+	type = country_event
+	placement = root
+	title = nr_devout_census.2.t
+	desc = nr_devout_census.2.desc
+	flavor = nr_devout_census.2.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_devout
+	}
+
+	immediate = {
+		ig:ig_devout ?= {
+			save_scope_as = ig
+			save_scope_as = devout_ig
+		}
+	}
+
+	option = { # Petition for Appointed Bureaucrats
+		name = nr_devout_census.2.a
+		trigger = {
+			nr_devout_census_petition_available = yes
+		}
+		custom_tooltip = nr_devout_census_lore_2a
+		custom_tooltip = nr_devout_census_petition_tt
+		add_journal_entry = { type = je_nr_devout_census_petition }
+	}
+
+	option = { # Clerical census amendment
+		name = nr_devout_census.2.b
+		trigger = {
+			nr_devout_census_amendment_available = yes
+		}
+		custom_tooltip = nr_devout_census_lore_2b
+		nr_amendment_add_to_active_law = {
+			AMENDMENT = amendment_nr_devout_census
+			LAW = law_appointed_bureaucrats
+			IG = ig_devout
+		}
+	}
+
+	option = { # Decline (only while there was something to offer)
+		name = nr_devout_census.2.c
+		default_option = yes
+		trigger = {
+			nr_devout_census_offer_available = yes
+		}
+		custom_tooltip = nr_devout_census_lore_2c
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_census_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Nothing to offer: neutral close
+		name = nr_devout_census.2.e
+		default_option = yes
+		trigger = {
+			nr_devout_census_offer_available = no
+		}
+	}
+}

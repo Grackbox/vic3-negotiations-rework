@@ -1,0 +1,15 @@
+﻿# NR: Clerical Census for Officials (feature devout_census).
+
+# Enactment of Appointed Bureaucrats starts while the clergy's petition is running: the amendment goes into the law
+# being enacted automatically (the petition text promises it). Called from nr_on_law_enactment_started. Scope: country.
+nr_devout_census_attach_on_petition = {
+	if = {
+		limit = {
+			is_enacting_law = law_type:law_appointed_bureaucrats
+			has_journal_entry = je_nr_devout_census_petition
+			exists = ig:ig_devout
+			NOT = { currently_enacting_law ?= { has_amendment = amendment_type:amendment_nr_devout_census } }
+		}
+		nr_amendment_add_to_enacting_law = { AMENDMENT = amendment_nr_devout_census IG = ig_devout }
+	}
+}

@@ -1,0 +1,51 @@
+﻿# NR: the clergy's petition for Appointed Bureaucrats (feature devout_census).
+# 4 years: while Appointed Bureaucrats is being enacted it gets +25% enactment speed, and the Clerical Census amendment
+# is attached to it when the enactment starts (nr_devout_census_attach_on_petition).
+# Complete: Appointed Bureaucrats is the law. Timeout: Devout -2 approval for 5 years.
+
+je_nr_devout_census_petition = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	group = je_group_internal_affairs
+
+	immediate = {
+		ig:ig_devout ?= { save_scope_as = ig }
+		nr_petition_boost = { PETITION = nr_devout_census_petition LAW = law_appointed_bureaucrats }
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			nr_petition_boost = { PETITION = nr_devout_census_petition LAW = law_appointed_bureaucrats }
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_devout_census_petition_status_enacting
+				trigger = { is_enacting_law = law_type:law_appointed_bureaucrats }
+			}
+			triggered_desc = {
+				desc = je_nr_devout_census_petition_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		has_law = law_type:law_appointed_bureaucrats
+	}
+
+	on_complete = {
+		nr_petition_end = { PETITION = nr_devout_census_petition }
+	}
+
+	on_timeout = {
+		nr_petition_timeout = { PETITION = nr_devout_census_petition }
+	}
+
+	timeout = 1461 # 4 years
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}

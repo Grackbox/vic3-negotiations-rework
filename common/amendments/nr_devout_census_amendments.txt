@@ -1,0 +1,35 @@
+﻿# NR: Clerical Census for Officials amendment (feature devout_census).
+# Offered by nr_devout_census.2 (10 years after the Seminarists form), by nr_devout_census.1 (enactment of Appointed
+# Bureaucrats), and attached automatically when Appointed Bureaucrats starts enacting under the clergy's petition.
+# Parent State Religion: the Intelligentsia (anti-clerical) like appointed officials but dislike this amendment,
+# the Devout (moralist) like it.
+
+amendment_nr_devout_census = {
+	parent = law_state_religion
+
+	allowed_laws = {
+		law_appointed_bureaucrats
+	}
+
+	modifier = {
+		interest_group_ig_intelligentsia_pol_str_mult = -0.1 # posts go to seminarists, not university graduates
+		interest_group_ig_intelligentsia_approval_add = -1
+		interest_group_ig_devout_pol_str_mult = 0.1
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_devout
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
