@@ -144,6 +144,11 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
   - e (default) "Close": neutral, no penalty; shown when nothing is on offer and the church runs no schools.
   - d (default, replaces c) "The schools are already in good hands" - if Religious Schools or Church-Organized Schools are already in place (`nr_devout_schools_church_runs_schools`): Devout +2 approval for 5 years.
 
+## Tools
+- `python tools/check_mod.py` - static checks, no game needed: braces and indentation, every `nr_` symbol defined and used, names built from parameters (`nr_devout_officials_$FORM$` etc.) exist for every value passed, localization BOM / EN-RU parity / duplicates / missing keys. `--fix-indent` rewrites indentation. Runs on GitHub on every push (`.github/workflows/check.yml`).
+- `pwsh tools/deploy.ps1` - mirrors the mod into `Documents/Paradox Interactive/Victoria 3/mod/negotiations_rework` for testing (without `.git`, `.github`, `tools`).
+- Engine documentation (effects, triggers, modifiers, on_actions) is dumped by the game into `Documents/Paradox Interactive/Victoria 3/docs/*.log`.
+
 ## Debug (console)
 `events/nr_debug_events.txt`, localization `nr_debug_l_*.yml`. Never fired by the game.
 - `event nr_debug.1` - fires every enactment event `.1` at once; only those matching the law being enacted appear (their 5-year cooldown still applies).
