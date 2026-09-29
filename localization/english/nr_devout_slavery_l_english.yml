@@ -27,7 +27,7 @@
  je_nr_devout_slavery_petition_status_enacting: "Slavery Banned is being enacted: #g +25%#! enactment speed."
  je_nr_devout_slavery_petition_status_waiting: "Start enacting Slavery Banned to get #v +25%#! enactment speed."
  amendment_nr_devout_fellow_believers: "Do Not Enslave Fellow Believers"
- amendment_nr_devout_fellow_believers_desc: "No one of the state faith may be held as a slave: believers are freed, and every year those who convert. The abolitionists are calmed but grow in number, the landowners resent it, and checking every slave burdens the administration."
+ amendment_nr_devout_fellow_believers_desc: "While in force: #v once a year all slaves of the state religion are freed#! - those on farms, plantations and ranches or without work become #v peasants#!, the rest #v laborers#! - and the abolitionist movement gets #g -0.25#! radicalism for a year. The first freeing happens as soon as the amendment takes effect.\n\nNo one of the state faith may be held as a slave: the abolitionists are calmed but grow in number, the landowners resent it, and checking every slave burdens the administration."
  nr_devout_slavery_abolitionists_calmed: "The Church Frees Its Own"
  nr_devout_slavery_petition_speed: "Backed by the Clergy"
  nr_devout_slavery_petition_ignored: "Clergy Petition Ignored"
