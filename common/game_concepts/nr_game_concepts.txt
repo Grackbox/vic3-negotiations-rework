@@ -64,3 +64,5 @@ concept_nr_redemption = {}
 concept_nr_fugitive_slaves = {}
 
 concept_nr_slave_import = {}
+
+concept_nr_lenten_fish = {}

@@ -1,0 +1,31 @@
+﻿# NR: the Devout of Christian countries may ask for fishing wharves (feature devout_fish). Scope: interest group.
+
+# Weight of the fishing wharf in the Devout list of building requests (vanilla: university 50, administration 35).
+# Catholics and the Orthodox keep many fast days; Protestants abolished obligatory fasting but knew state "fish days".
+nr_devout_fish_weight = {
+	value = 25
+	if = {
+		limit = { owner.religion = rel:protestant }
+		value = 10
+	}
+}
+
+# Weight of the vanilla choice: 85 (university 50 + administration 35) if vanilla picked a building, else nothing.
+nr_devout_fish_vanilla_weight = {
+	value = 0
+	if = {
+		limit = { has_variable = promised_building_type }
+		value = 85
+	}
+}
+
+# Multiplier of the requirement of option 5 by the promised building type (hook in vanilla building_levels_to_increase_value).
+# The fishing wharf is cheap (200), so it counts as a 400-cost building, like a university, instead of twice as many
+# levels. Scope: interest group.
+nr_promised_building_cost_scale = {
+	value = 1
+	if = {
+		limit = { var:promised_building_type ?= bt:building_fishing_wharf }
+		value = 0.5
+	}
+}

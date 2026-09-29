@@ -262,6 +262,7 @@ negotiation.1 = {
 				value = scope:ig.amenability_level
 			}
 			set_promised_building_type = yes #this must be done here as it powers neg_option_5_trigger
+			nr_after_promised_building_type = yes # NR: hook; logic in common/scripted_effects/nr_negotiation_hooks.txt
 			set_promised_building_group = yes #likewise
 		}
 		## Set loc variables
@@ -568,6 +569,7 @@ negotiation.1 = {
 		custom_tooltip = {
 			text = promise_build_tt
 		}
+		nr_neg_option_5_flavor = yes # NR: hook; lore line for our building requests (nr_negotiation_hooks.txt)
 		scope:ig = {
 			finish_negotiation = "negotiation.1.o5"
 			set_variable = {

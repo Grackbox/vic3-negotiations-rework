@@ -56,3 +56,24 @@ nr_neg_option_2_custom = {
 		nr_devout_officials_start = yes
 	}
 }
+
+# Called in negotiation.1 right after the vanilla set_promised_building_type (option 5). Scope: interest group.
+nr_after_promised_building_type = {
+	if = {
+		limit = { is_interest_group_type = ig_devout }
+		nr_devout_fish_roll = yes
+	}
+}
+
+# Option 5 (buildings): lore line for the building requests added by the mod. Scope: country, scope:ig.
+nr_neg_option_5_flavor = {
+	if = {
+		limit = {
+			scope:ig = {
+				is_interest_group_type = ig_devout
+				var:promised_building_type ?= bt:building_fishing_wharf
+			}
+		}
+		custom_tooltip = nr_devout_fish_lore
+	}
+}

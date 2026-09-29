@@ -1,0 +1,21 @@
+﻿# NR: the Devout of Christian countries may ask for fishing wharves (feature devout_fish).
+
+# Adds the fishing wharf to the Devout list of building requests (called from nr_after_promised_building_type).
+# If vanilla picked nothing, the wharf is the only entry. Scope: interest group.
+nr_devout_fish_roll = {
+	if = {
+		limit = { nr_devout_fish_possible = yes }
+		random_list = {
+			0 = {
+				modifier = { value = nr_devout_fish_weight }
+				set_variable = {
+					name = promised_building_type
+					value = bt:building_fishing_wharf
+				}
+			}
+			0 = { # keep the vanilla choice
+				modifier = { value = nr_devout_fish_vanilla_weight }
+			}
+		}
+	}
+}

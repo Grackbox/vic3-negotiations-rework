@@ -1,0 +1,11 @@
+﻿# NR: the Devout of Christian countries may ask for fishing wharves (feature devout_fish). Scope: interest group.
+
+# The request is possible: Christian state religion, the country already has a fishing wharf (coastal; vanilla never
+# asks for a first building of a type), not in tense negotiations (like the vanilla Devout requests).
+nr_devout_fish_possible = {
+	amenability_level <= 2
+	owner = {
+		religion = { has_discrimination_trait = heritage_christian }
+		any_scope_building = { is_building_type = building_fishing_wharf }
+	}
+}

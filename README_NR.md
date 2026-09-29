@@ -8,6 +8,9 @@ Copied vanilla files contain only hooks; all mod logic lives in the mod's own fi
 | Where (vanilla) | What it calls |
 |---|---|
 | `negotiation.1` → `immediate`, after `set_neg_options` | `nr_negotiation_after_options` — overrides precomputed option values, rolls bribe vs soft bribe |
+| `negotiation.1` → `immediate`, right after `set_promised_building_type` | `nr_after_promised_building_type` (IG scope) — the Devout may ask for fishing wharves |
+| `negotiation.1.o5` | `nr_neg_option_5_flavor` — lore line for the mod's building requests |
+| `building_scaler`, `building_levels_to_increase_value` (`negotiation_values.txt`) | `nr_building_scaler` (logarithmic GDP scaling), `nr_promised_building_cost_scale` |
 | `negotiation.1.o9` | `nr_neg_option_9_is_custom` → `nr_neg_option_9_custom`, otherwise vanilla |
 | `neg_option_9_trigger` | `nr_has_custom_sol_promise = no` |
 | `set_neg_options`, option 1 (bribe) in all three lists | `nr_neg_option_1_allowed` (condition) and `nr_neg_option_1_modifier` (weight) |
@@ -21,7 +24,7 @@ No interest group is named in the copied vanilla files; every group-specific che
 ## Overridden vanilla files (after every game patch: take the new vanilla file and re-add the hooks)
 - `events/iberia_events/negotiation_events.txt`
 - `common/scripted_triggers/ip4_negotiation_triggers.txt`
-- `common/script_values/negotiation_values.txt` (hook in `building_scaler`)
+- `common/script_values/negotiation_values.txt` (hooks in `building_scaler` and `building_levels_to_increase_value`)
 - `common/scripted_effects/04_neg_event_options_scripted_effects.txt`
 
 ## Naming
@@ -234,6 +237,11 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - Vanilla asks for (GDP / 4M) x cost factor x negotiation level (1 / 2 / 4) new levels - linear in GDP, hundreds of levels in the late game.
 - `building_scaler` (vanilla `negotiation_values.txt`) now returns `nr_building_scaler` (`common/script_values/nr_building_promise_values.txt`): vanilla up to GDP 50M (`nr_building_linear_gdp`), above it the value at the threshold x (1 + 0.3 x log2(GDP / 50M)) (`nr_building_doubling_share`). log2 is piecewise linear per doubling (`nr_building_gdp_log2`, error < 0.09). Cost factors and the 1 / 2 / 4 level multiplier stay vanilla; option 6 (building groups) uses the same scaler.
 - University (cost 400), new levels at open / pragmatic / tense: GDP 30M 12 / 24 / 48 (vanilla), 50M 20 / 40 / 80, 100M 26 / 52 / 104, 300M 36 / 71 / 142, 1B 46 / 92 / 184 (vanilla 400 / 800 / 1600), 2B 52 / 104 / 208.
+
+### Devout: fishing wharves (feature devout_fish)
+- The Devout of countries with a Christian state religion (`heritage_christian`) can ask for fishing wharves in option 5: weight 25 (Catholic, Orthodox, Oriental Orthodox) or 10 (Protestant) next to the vanilla choice (university 50 + administration 35 = 85); if vanilla picked nothing, the wharf is the only entry. Only if the country already has a fishing wharf and not in tense negotiations, like the vanilla Devout requests. Unlike vanilla, no State Religion law is required: fasting is the flock's, not the law's.
+- Hooks: `nr_after_promised_building_type` right after vanilla `set_promised_building_type` in `negotiation.1`; `nr_promised_building_cost_scale` in `building_levels_to_increase_value` - the wharf (cost 200) counts as a 400-cost building, like a university; lore line `nr_devout_fish_lore` in option 5 via `nr_neg_option_5_flavor`, concept `concept_nr_lenten_fish`.
+- Files: `common/scripted_effects/nr_devout_fish_effects.txt`, `common/scripted_triggers/nr_devout_fish_triggers.txt`, `common/script_values/nr_devout_fish_values.txt`, `localization/*/nr_devout_fish_l_*.yml`.
 
 ## Regular bribe (negotiation option 1, all interest groups)
 - `bribed_ig_benefits` is overridden in `common/static_modifiers/00_negotiation_modifiers.txt` (copy of the vanilla file): no pop attraction, +10% political strength (vanilla: +25% attraction, +5% strength).

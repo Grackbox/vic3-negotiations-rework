@@ -1,4 +1,4 @@
-﻿# NR (Negotiations Rework): copy of the vanilla file. Only building_scaler is changed (search "NR").
+﻿# NR (Negotiations Rework): copy of the vanilla file. Hooks in building_scaler and building_levels_to_increase_value (search "NR").
 law_estimated_pass_chance = { # needs law_type scope
 	add = this.law_estimated_enactment_chance
 	subtract = this.law_estimated_stall_chance
@@ -679,6 +679,7 @@ building_levels_to_increase_value = { #uses IG scope
 					else = {
 						multiply = 0.80 #Being a bit nicer since we are asking for specific building types, as opposed to groups. '
 					}
+					multiply = nr_promised_building_cost_scale # NR: cheap buildings asked by our groups count as dearer ones
 					min = 1
 					multiply = scope:ig_for_calc.var:promise_quest_degree
 					round = 1

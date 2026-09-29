@@ -1,0 +1,5 @@
+﻿l_english:
+ # NR: Devout request for fishing wharves (feature devout_fish)
+ nr_devout_fish_lore: "#lore Meat is forbidden on a third of the days of the year, fish is not. The bishops remind us who fills the markets on Fridays and during Lent: [Concept('concept_nr_lenten_fish', 'Lenten fish')] feeds the faithful and the fishermen alike.#!"
+ concept_nr_lenten_fish: "Lenten Fish"
+ concept_nr_lenten_fish_desc: "The Church forbade meat on Fridays and in Lent, but allowed fish, and for centuries fasting shaped the fisheries of Christian Europe. Portuguese and Basque fleets crossed the Atlantic to the Newfoundland banks for the salted cod that became bacalhau; the Orthodox kept around two hundred fast days a year. Even Protestant England, which had abolished obligatory fasting, passed a law in 1563 establishing “fish days” to support its fishermen and the navy that recruited them."
