@@ -362,6 +362,8 @@ The ruler presses their own group (`ruler.interest_group` = the group) - replace
 
 Own Armed Forces with a leader of loyalty 75+: only strength -10% and popularity -25; an autocrat from the Armed Forces gets instead legitimacy +10 and no penalty at all (a general's order carried out by his own army). Positive outcomes are allowed where they fit (user: "some combinations may give positive results").
 
+Tested in game: pressure on the Intelligentsia and the Armed Forces, x1.5 with legitimacy -5 for a constitutional monarch, the 5-year limit per group, no election option without elections (Russia).
+
 ## Feature election_promise - promise to back the group's party at the next election (extra negotiation option)
 Agreed design. An extra button in `negotiation.1`, a promise like the vanilla ones (`promise_quest`, `promise_quest_type` 102, journal entry `je_nr_election_promise`). The AI never takes it.
 - Available: the country has elections (a voting law: landed / wealth / census voting or universal suffrage - vanilla `country_has_voting_franchise` is not used, it counts stray voting modifiers; any form of government, so a monarchy or theocracy with a franchise may get both options), not `law_single_party_state`, no Tradition of Free Elections (`modifier:country_forbid_electoral_fraud_bool = no`), the ruler is not against the law, this group holds no election promise yet and a free cost slot (authority may go negative).
@@ -373,6 +375,7 @@ Agreed design. An extra button in `negotiation.1`, a promise like the vanilla on
   - a promised group's party is not among the parties listed in the event: an extra option "Back [party], as promised" per such party (vanilla effect: +150% / -50%, `add_caciquismo_effect`);
   - withdrawn without penalty: the group is in no party when the campaign starts, or the campaign ended without the rigging event (vanilla conditions, e.g. fewer than two parties with members).
   - notifications (toasts, `common/messages/nr_messages.txt`): kept - the engine's `journal_entry_completed` toast (fires for every completed journal entry); broken - vanilla `neg_failed_quest_toast` (from `promise_quest_failed`); the group was in no party - `nr_election_promise_void_toast` (neutral outcome: toast, neutral color, sound `diplomatic_treaties_revoke_neutral`).
+- Tested in game: a kept promise (vanilla completion toast). Not yet: a broken promise, a group without a party, the extra option for an unlisted party.
 - Needs hooks in a copy of vanilla `events/iberia_events/ip4_election_rigging.txt` (each option reports the chosen party). Brazil's `coffee_with_milk.7` is not touched.
 
 ## Authority cost slots (shared)
