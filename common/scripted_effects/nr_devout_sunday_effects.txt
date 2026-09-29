@@ -1,0 +1,13 @@
+﻿# NR: Sunday Rest (feature devout_sunday).
+
+# Attaches the amendment to whichever labour law is active. Scope: country.
+nr_devout_sunday_add_amendment = {
+	if = {
+		limit = { has_law = law_type:law_regulatory_bodies }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_sunday LAW = law_regulatory_bodies IG = ig_devout }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_worker_protections }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_devout_sunday LAW = law_worker_protections IG = ig_devout }
+	}
+}

@@ -1,0 +1,29 @@
+﻿# NR: Sunday Rest (feature devout_sunday). Scope: country.
+
+# Petition for Regulatory Bodies can be offered: no workers' rights yet, tech labor_movement, leader not against, no petition running.
+nr_devout_sunday_petition_available = {
+	has_law = law_type:law_no_workers_rights
+	has_technology_researched = labor_movement
+	nr_devout_leader_not_against_law = { LAW = law_regulatory_bodies }
+	NOT = { has_journal_entry = je_nr_devout_sunday_petition }
+}
+
+# The amendment can be attached to the active labour law.
+nr_devout_sunday_amendment_available = {
+	OR = {
+		has_law = law_type:law_regulatory_bodies
+		has_law = law_type:law_worker_protections
+	}
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_sunday }
+	}
+	nr_devout_leader_not_against_law = { LAW = law_worker_protections } # parent law of the amendment
+}
+
+# Anything to offer at all. Without it declining is a neutral close.
+nr_devout_sunday_offer_available = {
+	OR = {
+		nr_devout_sunday_petition_available = yes
+		nr_devout_sunday_amendment_available = yes
+	}
+}

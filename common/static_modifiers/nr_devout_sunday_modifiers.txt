@@ -1,0 +1,43 @@
+﻿# NR: Sunday Rest (feature devout_sunday).
+
+# Enactment modifier while enacting Regulatory Bodies under the clergy's petition
+nr_devout_sunday_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+# Devout IG: the petition expired without Regulatory Bodies
+nr_devout_sunday_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Devout IG: the offer was declined
+nr_devout_sunday_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+# Enactment event nr_devout_sunday.1: "Production knows no days off" - faster enactment
+nr_devout_sunday_no_days_off = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+# Enactment event nr_devout_sunday.1: Sunday rest is written into the law - slower enactment
+nr_devout_sunday_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+# Devout IG: Sunday rest was kept out of the law being enacted
+nr_devout_sunday_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Industrialists IG: they were asked to decide
+nr_devout_sunday_industrialists_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}

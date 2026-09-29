@@ -161,6 +161,14 @@ nr_devout_officials.1 = {
 		}
 		custom_tooltip = nr_devout_officials_lore_calendar
 		nr_devout_officials_choose_form = { FORM = calendar }
+		hidden_effect = {
+			# NR devout_sunday: follow-up in 10 years
+			trigger_event = {
+				id = nr_devout_sunday.2
+				days = 3650
+				popup = yes
+			}
+		}
 		ai_chance = {
 			base = 10
 			modifier = {

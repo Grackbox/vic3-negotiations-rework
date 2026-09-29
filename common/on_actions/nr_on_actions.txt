@@ -8,6 +8,7 @@ on_law_checkpoint_debate = {
 		10 = nr_devout_chaplains.1
 		10 = nr_devout_synod.1
 		10 = nr_devout_church_tax.1
+		10 = nr_devout_sunday.1
 	}
 }
 

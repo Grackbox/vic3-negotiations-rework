@@ -35,3 +35,4 @@ concept_nr_seminarists = {}
 
 concept_nr_synod = {}
 
+concept_nr_sunday_rest = {}

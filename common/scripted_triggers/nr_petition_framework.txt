@@ -15,5 +15,9 @@ nr_devout_petition_for_enacting_law = {
 			has_journal_entry = je_nr_devout_censorship_petition
 			is_enacting_law = law_type:law_censorship
 		}
+		AND = {
+			has_journal_entry = je_nr_devout_sunday_petition
+			is_enacting_law = law_type:law_regulatory_bodies
+		}
 	}
 }

@@ -1,0 +1,168 @@
+﻿namespace = nr_devout_sunday
+
+# NR: Sunday Rest (feature devout_sunday), an instance of the "IG amendment pair" pattern.
+# .1 - enactment of Regulatory Bodies / Worker Protections: may attach amendment_nr_devout_sunday to the law being enacted.
+# .2 - 10 years after the Church Calendar form: no workers' rights -> petition for Regulatory Bodies;
+#      Regulatory Bodies / Worker Protections -> the amendment; decline -1; nothing to offer -> neutral close.
+
+nr_devout_sunday.1 = {
+	type = country_event
+	placement = root
+	title = nr_devout_sunday.1.t
+	desc = nr_devout_sunday.1.desc
+	flavor = nr_devout_sunday.1.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_regulatory_bodies
+			is_enacting_law = law_type:law_worker_protections
+		}
+		exists = ig:ig_devout
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_sunday }
+		}
+		NOT = { has_modifier = nr_devout_officials_calendar } # the calendar campaign is running: its follow-up offers the amendment
+		nr_devout_leader_not_against_law = { LAW = law_worker_protections } # parent law of the amendment
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_devout ?= { save_scope_as = devout_ig }
+		ig:ig_industrialists ?= { save_scope_as = industrialists_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # Production knows no days off
+		name = nr_devout_sunday.1.a
+		default_option = yes
+		custom_tooltip = nr_devout_sunday_lore_1a
+		add_enactment_modifier = {
+			name = nr_devout_sunday_no_days_off
+		}
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_sunday_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # The seventh day belongs to the Lord: attach the amendment
+		name = nr_devout_sunday.1.b
+		custom_tooltip = nr_devout_sunday_lore_1b
+		add_enactment_modifier = {
+			name = nr_devout_sunday_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_devout_sunday
+			IG = ig_devout
+		}
+	}
+
+	option = { # Let the industrialists decide
+		name = nr_devout_sunday.1.c
+		custom_tooltip = nr_devout_sunday_lore_1c
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_devout_sunday_industrialists_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_sunday_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_devout_sunday.2 = {
+	type = country_event
+	placement = root
+	title = nr_devout_sunday.2.t
+	desc = nr_devout_sunday.2.desc
+	flavor = nr_devout_sunday.2.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	trigger = {
+		exists = ig:ig_devout
+	}
+
+	immediate = {
+		ig:ig_devout ?= {
+			save_scope_as = ig
+			save_scope_as = devout_ig
+		}
+	}
+
+	option = { # Petition for Regulatory Bodies
+		name = nr_devout_sunday.2.a
+		trigger = {
+			nr_devout_sunday_petition_available = yes
+		}
+		custom_tooltip = nr_devout_sunday_lore_2a
+		custom_tooltip = nr_devout_sunday_petition_tt
+		add_journal_entry = { type = je_nr_devout_sunday_petition }
+	}
+
+	option = { # Sunday Rest amendment
+		name = nr_devout_sunday.2.b
+		trigger = {
+			nr_devout_sunday_amendment_available = yes
+		}
+		custom_tooltip = nr_devout_sunday_lore_2b
+		nr_devout_sunday_add_amendment = yes
+	}
+
+	option = { # Decline (only while there was something to offer)
+		name = nr_devout_sunday.2.c
+		default_option = yes
+		trigger = {
+			nr_devout_sunday_offer_available = yes
+		}
+		custom_tooltip = nr_devout_sunday_lore_2c
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_sunday_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Nothing to offer: neutral close
+		name = nr_devout_sunday.2.e
+		default_option = yes
+		trigger = {
+			nr_devout_sunday_offer_available = no
+		}
+	}
+}
