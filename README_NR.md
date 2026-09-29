@@ -225,10 +225,10 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 |---|---|
 | Ranks and Orders | none |
 | Crown Lands | Peasant Proprietorship / Homesteading / Commercialized Agriculture: petition for Tenant Farmers; Tenant Farmers / Serfdom / Manorialism / Latifundias: thanks |
-| Tax Exemptions | own amendment "Noble Privilege" on any taxation law (parent Land-Based Taxation): Landowners +2 approval, +5% political strength, agriculture self-investment +5%; agriculture and plantation taxes -10%, liberal support +5%; no authority cost |
+| Tax Exemptions | own amendment "Noble Privilege" on any taxation law (parent Land-Based Taxation): Landowners +2 approval, +5% political strength, agriculture self-investment +5%; agriculture and plantation taxes -10%, liberal support +5%; authority cost +50 |
 | Corn Laws | no Protectionism: petition for Protectionism; Protectionism: own amendment "Grain Tariff": agriculture throughput +5%, Landowners +1 approval; lower strata SoL -0.25, Industrialists -1 approval, liberal support +5% |
-| Noble Land Bank | own amendment "Noble Land Bank" on the economic system law (Traditionalism / Agrarianism / Interventionism / Laissez-Faire): agriculture self-investment +10%, loan interest +0.5% |
-| Corvee | Serfdom / Manorialism still in force: own amendment "Corvee Statute": agriculture throughput +5%; peasants SoL -0.5, land reform support +10% |
+| Noble Land Bank | own amendment "Noble Land Bank" on the economic system law (Traditionalism / Agrarianism / Interventionism / Laissez-Faire): agriculture self-investment +10%, Landowners +1 approval, +5% political strength; loan interest +0.5% |
+| Corvee | Serfdom / Manorialism still in force: own amendment "Corvee Statute": agriculture throughput +5%, aristocrats SoL +1, Landowners +1 approval; peasants SoL -0.5, land reform support +10% |
 | Redemption Operation | vanilla amendment_redemption_payments (allowed on Tenant Farmers / Commercialized / Homesteading / Peasant Proprietorship); otherwise thanks |
 | Return of Fugitives | own amendment "Fugitive Slave Law" on any slavery law (vanilla amendment_american_fugitive_slaves_act is limited to yankee / dixie cultures): Landowners +1 approval, +10% political strength, abolitionist support in free states +15% |
 | Slave Import | Slave Trade still in force: own amendment "Free Import": slave import +15%, plantation throughput +3%, abolitionist support +10%; pro-slavery radicalism -0.1 (movement modifier, refreshed yearly); no authority cost |

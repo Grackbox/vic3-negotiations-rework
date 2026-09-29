@@ -1,4 +1,4 @@
-﻿# NR: amendments of the landowners' grants follow-ups (feature landowners_grants). Sponsor Landowners, no authority cost.
+﻿# NR: amendments of the landowners' grants follow-ups (feature landowners_grants). Sponsor Landowners; only the Noble Privilege costs authority (+50).
 
 # Tax Exemptions follow-up
 amendment_nr_landowners_noble_privilege = {
@@ -19,6 +19,7 @@ amendment_nr_landowners_noble_privilege = {
 		building_group_bg_agriculture_tax_mult = -0.1
 		building_group_bg_plantations_tax_mult = -0.1
 		state_pop_support_movement_liberal_mult = 0.05
+		country_authority_cost_add = 50 # the crown pays for the nobility's loyalty
 	}
 
 	possible = {
@@ -84,6 +85,8 @@ amendment_nr_landowners_land_bank = {
 
 	modifier = {
 		building_group_bg_agriculture_self_investment_chance_add = 0.1
+		interest_group_ig_landowners_approval_add = 1 # the estates' own bank
+		interest_group_ig_landowners_pol_str_mult = 0.05 # creditors of the state, debtors of no one
 		country_loan_interest_rate_add = 0.005
 	}
 
@@ -115,6 +118,8 @@ amendment_nr_landowners_corvee_statute = {
 
 	modifier = {
 		building_group_bg_agriculture_throughput_add = 0.05
+		building_aristocrats_standard_of_living_add = 1 # the manor lives on the peasants' days
+		interest_group_ig_landowners_approval_add = 1
 		building_peasants_standard_of_living_add = -0.5
 		state_pop_support_movement_land_reform_mult = 0.1
 	}
