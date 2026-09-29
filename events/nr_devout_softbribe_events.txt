@@ -1,0 +1,363 @@
+﻿namespace = nr_devout_softbribe
+
+# NR: choosing where the Devout soft bribe money goes (negotiation option 1: funds for the church's needs).
+# Base expenses (nr_devout_softbribe_expenses x bribe amount) are already applied; forms rescale them.
+# All effects last 10 years and decay, like the vanilla bribe.
+# AI weights are situational (see each option's ai_chance).
+# Options shown: Church Propaganda (always) + 2 random of Asceticism / Enlightenment / Sisters of Mercy / Shelters
+# + Army Chaplains (Professional Army law) + Let the Parishes Pay (budget deficit)
+# + Colonial Missions (colonies or chartered companies with pops of another religion). 3-6 options.
+# Let the Parishes Pay: cost x0.25; legitimacy and Devout approval penalties scale with negotiation level (max -10 / -10).
+
+nr_devout_softbribe.1 = {
+	type = country_event
+	placement = root
+	title = nr_devout_softbribe.1.t
+	desc = nr_devout_softbribe.1.desc
+	flavor = nr_devout_softbribe.1.flavor
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+
+	immediate = {
+		ig:ig_devout ?= {
+			save_scope_as = ig
+			leader ?= { save_scope_as = ig_leader }
+		}
+		# Pick 2 of the 4 civil forms at random
+		random_list = {
+			1 = { set_variable = nr_devout_softbribe_offer_asceticism }
+			1 = { set_variable = nr_devout_softbribe_offer_enlightenment }
+			1 = { set_variable = nr_devout_softbribe_offer_sisters }
+			1 = { set_variable = nr_devout_softbribe_offer_shelters }
+		}
+		random_list = {
+			1 = {
+				trigger = { NOT = { has_variable = nr_devout_softbribe_offer_asceticism } }
+				set_variable = nr_devout_softbribe_offer_asceticism
+			}
+			1 = {
+				trigger = { NOT = { has_variable = nr_devout_softbribe_offer_enlightenment } }
+				set_variable = nr_devout_softbribe_offer_enlightenment
+			}
+			1 = {
+				trigger = { NOT = { has_variable = nr_devout_softbribe_offer_sisters } }
+				set_variable = nr_devout_softbribe_offer_sisters
+			}
+			1 = {
+				trigger = { NOT = { has_variable = nr_devout_softbribe_offer_shelters } }
+				set_variable = nr_devout_softbribe_offer_shelters
+			}
+		}
+	}
+
+	option = { # Church Propaganda: base effects only, cost x1
+		name = nr_devout_softbribe.1.a
+		default_option = yes
+		custom_tooltip = nr_devout_softbribe_lore_propaganda
+		custom_tooltip = nr_devout_softbribe_propaganda_tt
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_devout_softbribe.1.b
+		trigger = {
+			has_variable = nr_devout_softbribe_offer_asceticism
+		}
+		custom_tooltip = nr_devout_softbribe_lore_asceticism
+		add_modifier = {
+			name = nr_devout_softbribe_asceticism
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		nr_devout_softbribe_reset_expenses = yes
+		add_modifier = {
+			name = nr_devout_softbribe_expenses
+			multiplier = nr_devout_softbribe_cost_x050
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+				average_sol < 10
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+				net_total_income < 0
+				}
+				add = 10
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_softbribe.1.c
+		trigger = {
+			has_variable = nr_devout_softbribe_offer_enlightenment
+		}
+		custom_tooltip = nr_devout_softbribe_lore_enlightenment
+		add_modifier = {
+			name = nr_devout_softbribe_enlightenment
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		nr_devout_softbribe_reset_expenses = yes
+		add_modifier = {
+			name = nr_devout_softbribe_expenses
+			multiplier = nr_devout_softbribe_cost_x150
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		hidden_effect = {
+			# NR devout_schools: when the campaign has run its course, the clergy come back with an offer
+			trigger_event = {
+				id = nr_devout_schools.2
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+				any_scope_state = {
+					any_scope_pop = {
+						NOT = { religion = root.religion }
+						pop_acceptance < acceptance_status_4
+					}
+				}
+				}
+				add = 25
+			}
+			modifier = {
+				trigger = {
+				net_total_income < 0
+				}
+				add = -15
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_softbribe.1.d
+		trigger = {
+			has_variable = nr_devout_softbribe_offer_sisters
+		}
+		custom_tooltip = nr_devout_softbribe_lore_sisters
+		add_modifier = {
+			name = nr_devout_softbribe_sisters
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		nr_devout_softbribe_reset_expenses = yes
+		add_modifier = {
+			name = nr_devout_softbribe_expenses
+			multiplier = nr_devout_softbribe_cost_x125
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		hidden_effect = {
+			# NR devout_sisters: when the campaign has run its course, the orders ask to stay in the hospitals
+			trigger_event = {
+				id = nr_devout_sisters.2
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+				any_scope_state = {
+					state_region = { has_harvest_condition = disease_outbreak }
+				}
+				}
+				add = 30
+			}
+			modifier = {
+				trigger = {
+				net_total_income < 0
+				}
+				add = -5
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_softbribe.1.e
+		trigger = {
+			has_variable = nr_devout_softbribe_offer_shelters
+		}
+		custom_tooltip = nr_devout_softbribe_lore_shelters
+		add_modifier = {
+			name = nr_devout_softbribe_shelters
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		nr_devout_softbribe_reset_expenses = yes
+		add_modifier = {
+			name = nr_devout_softbribe_expenses
+			multiplier = nr_devout_softbribe_cost_x150
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+				has_law = law_type:law_no_migration_controls
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+				any_scope_state = {
+					any_scope_pop = {
+						pop_acceptance < acceptance_status_4
+					}
+				}
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+				net_total_income < 0
+				}
+				add = -15
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_softbribe.1.f
+		trigger = {
+			has_law = law_type:law_professional_army
+			nr_devout_chaplains_present = no
+		}
+		custom_tooltip = nr_devout_softbribe_lore_chaplains
+		add_modifier = {
+			name = nr_devout_softbribe_chaplains
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		hidden_effect = {
+			# NR devout_chaplains: when the campaign has run its course, offer to keep the chaplains (amendment)
+			trigger_event = {
+				id = nr_devout_chaplains.2
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = { base = 10 }
+	}
+
+	option = {
+		name = nr_devout_softbribe.1.g
+		trigger = {
+			net_total_income < 0
+		}
+		custom_tooltip = nr_devout_softbribe_lore_parish
+		add_modifier = {
+			name = nr_devout_softbribe_parish
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		add_modifier = {
+			name = nr_devout_softbribe_parish_shame
+			days = long_modifier_time
+			multiplier = root.var:nr_devout_softbribe_degree
+			is_decaying = yes
+		}
+		nr_devout_softbribe_reset_expenses = yes
+		add_modifier = {
+			name = nr_devout_softbribe_expenses
+			multiplier = nr_devout_softbribe_cost_x025
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_devout_softbribe_parish_burden
+				days = 730 # 2 years
+				multiplier = root.var:nr_devout_softbribe_degree
+			}
+		}
+		ai_chance = {
+			base = 20 # only offered in a budget deficit; saves money at a political price
+		}
+	}
+
+	option = { # Colonial Missions: conversion to the overlord's religion in colonies, cost x1.25
+		name = nr_devout_softbribe.1.h
+		trigger = {
+			nr_devout_softbribe_has_mission_targets = yes
+		}
+		custom_tooltip = nr_devout_softbribe_lore_missions
+		nr_devout_softbribe_mission_start = yes
+		nr_devout_softbribe_reset_expenses = yes
+		add_modifier = {
+			name = nr_devout_softbribe_expenses
+			multiplier = nr_devout_softbribe_cost_x125
+			days = long_modifier_time
+			is_decaying = yes
+		}
+		ai_chance = {
+			base = 15
+			modifier = {
+				trigger = {
+					net_total_income < 0
+				}
+				add = -10
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			remove_variable = nr_devout_softbribe_pending
+			remove_variable = nr_devout_softbribe_cost_amount
+			remove_variable = nr_devout_softbribe_degree
+			remove_variable = nr_devout_softbribe_offer_asceticism
+			remove_variable = nr_devout_softbribe_offer_enlightenment
+			remove_variable = nr_devout_softbribe_offer_sisters
+			remove_variable = nr_devout_softbribe_offer_shelters
+		}
+	}
+}
+
+# NR: colonial missions - one more year of conversion, repeats yearly while years remain.
+nr_devout_softbribe.2 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		nr_devout_softbribe_mission_convert = yes
+		change_variable = {
+			name = nr_devout_softbribe_mission_years_left
+			subtract = 1
+		}
+		if = {
+			limit = { var:nr_devout_softbribe_mission_years_left > 0 }
+			trigger_event = {
+				id = nr_devout_softbribe.2
+				days = 365
+			}
+		}
+		else = {
+			remove_variable = nr_devout_softbribe_mission_years_left
+		}
+	}
+}

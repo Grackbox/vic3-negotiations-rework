@@ -1,0 +1,25 @@
+﻿# NR: Sisters of Mercy (feature devout_sisters).
+
+# Devout IG: the hospitals were left to the state
+nr_devout_sisters_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+# Devout IG: the church already runs the hospitals
+nr_devout_sisters_content = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
+
+# Enactment modifier while enacting Charity Hospitals under the orders' petition
+nr_devout_sisters_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+# Devout IG: the petition expired without Charity Hospitals
+nr_devout_sisters_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}

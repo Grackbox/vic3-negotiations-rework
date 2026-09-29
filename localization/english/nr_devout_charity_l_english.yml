@@ -1,0 +1,10 @@
+﻿l_english:
+ # NR: Devout charity campaign (buttons in je_nr_devout_sol)
+ nr_devout_charity_start_button: "Launch a Charity Campaign"
+ nr_devout_charity_start_button_desc: "For a year we will work with the church to feed the poor: more food, more generous relief, and sermons that reach more ears. The campaign costs money every week and must be followed by a year of rest."
+ nr_devout_charity_stop_button: "Wind Down the Charity Campaign"
+ nr_devout_charity_stop_button_desc: "We end the campaign early. The clergy will not forgive us for abandoning the poor halfway. The next campaign can only begin in a year."
+ nr_devout_charity_rest_tt: "Enough time has passed since the last charity campaign"
+ nr_devout_charity_campaign: "Charity Campaign"
+ nr_devout_charity_campaign_expenses: "Charity Campaign Expenses"
+ nr_devout_charity_cancelled: "Abandoned Charity"

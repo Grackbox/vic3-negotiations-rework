@@ -1,0 +1,25 @@
+﻿# NR: Devout schools (feature devout_schools) - offer after the Enlightening the Lost campaign.
+
+# Enactment modifier while enacting Religious Schools under the clergy's petition
+nr_devout_schools_petition_speed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.25
+}
+
+# Devout IG: the petition expired without Religious Schools
+nr_devout_schools_petition_ignored = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Devout IG: the offer was declined
+nr_devout_schools_declined = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+# Devout IG: the church already runs the schools and is content
+nr_devout_schools_content = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}

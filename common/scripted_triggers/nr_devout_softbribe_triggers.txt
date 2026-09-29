@@ -1,0 +1,40 @@
+﻿# NR: Devout soft bribe - leader traits deciding between a bribe and funds for the church.
+
+# Devout leader refuses bribes - always a soft bribe (church charity) instead.
+nr_devout_softbribe_leader_refuses = {
+	OR = {
+		has_trait = honorable # Honorable
+		has_trait = pious # Pious
+		has_trait = cautious # Cautious
+		has_trait = reserved # Reserved
+	}
+}
+
+# Devout leader loves gifts - always a regular bribe (and +10 weight, see nr_devout_softbribe_leader_weight).
+nr_devout_softbribe_leader_loves = {
+	OR = {
+		has_trait = grifter # Grifter
+		has_trait = expensive_tastes # Expensive Tastes
+		has_trait = hedonist # Hedonist
+	}
+}
+
+# Colonial subject that missions can target. Scope: subject country; root = overlord.
+nr_devout_softbribe_is_mission_subject = {
+	OR = {
+		is_subject_type = subject_type_colony
+		is_subject_type = subject_type_chartered_company
+	}
+}
+
+# Does the country have colonial subjects with pops of another religion. Scope: country.
+nr_devout_softbribe_has_mission_targets = {
+	any_subject_or_below = {
+		nr_devout_softbribe_is_mission_subject = yes
+		any_scope_state = {
+			any_scope_pop = {
+				NOT = { religion = root.religion }
+			}
+		}
+	}
+}

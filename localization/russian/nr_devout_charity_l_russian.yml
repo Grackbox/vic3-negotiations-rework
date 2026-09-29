@@ -1,0 +1,10 @@
+﻿l_russian:
+ # NR: Devout charity campaign (buttons in je_nr_devout_sol)
+ nr_devout_charity_start_button: "Начать благотворительную кампанию"
+ nr_devout_charity_start_button_desc: "На год мы вместе с церковью накормим бедняков: больше продовольствия, щедрее пособия, а проповеди найдут больше слушателей. Кампания стоит денег каждую неделю. После неё нужен год передышки."
+ nr_devout_charity_stop_button: "Свернуть благотворительную кампанию"
+ nr_devout_charity_stop_button_desc: "Мы прекращаем кампанию досрочно. Духовенство не простит, что мы бросили бедняков на полпути. Следующую кампанию можно будет начать только через год."
+ nr_devout_charity_rest_tt: "С прошлой благотворительной кампании прошло достаточно времени"
+ nr_devout_charity_campaign: "Благотворительная кампания"
+ nr_devout_charity_campaign_expenses: "Расходы на благотворительную кампанию"
+ nr_devout_charity_cancelled: "Брошенная благотворительность"

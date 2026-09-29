@@ -1,0 +1,52 @@
+﻿# NR: triggers used by the hooks in vanilla negotiations.
+# New groups and tasks are added here; the vanilla copies stay untouched.
+
+# Option 9 (SoL): does this group use our commitment instead of vanilla je_negotiate_sol?
+nr_neg_option_9_is_custom = {
+	scope:ig = {
+		OR = {
+			is_interest_group_type = ig_devout
+		}
+	}
+}
+
+# Is any of our SoL commitments active (at most one at a time, like vanilla)
+nr_has_custom_sol_promise = {
+	OR = {
+		has_journal_entry = je_nr_devout_sol
+	}
+}
+
+# ---------- Option 1 (bribe) ----------
+# Soft bribe instead of a bribe in this negotiation? Decided in nr_negotiation_after_options.
+nr_neg_option_1_is_custom = {
+	scope:ig = {
+		has_variable = nr_soft_bribe
+	}
+}
+
+# Can option 1 be rolled at all. Scope: country.
+nr_neg_option_1_allowed = {
+	# Devout: no second option 1 while the previous soft bribe waits for its form event
+	NOT = {
+		AND = {
+			scope:ig = { is_interest_group_type = ig_devout }
+			has_variable = nr_devout_softbribe_pending
+		}
+	}
+}
+
+# ---------- Option 2 (places in the administration) ----------
+# Devout get their own version of option 2 (church officials, nr_devout_officials_*).
+nr_neg_option_2_is_custom = {
+	scope:ig = { is_interest_group_type = ig_devout }
+}
+
+# Can option 2 be rolled at all. Scope: country. Vanilla already blocks it while negotiation_bureaucracy is active.
+nr_neg_option_2_allowed = {
+	# Devout: never offered if the penalty would push the country into a bureaucracy deficit
+	OR = {
+		scope:ig = { NOT = { is_interest_group_type = ig_devout } }
+		nr_devout_officials_affordable = yes
+	}
+}

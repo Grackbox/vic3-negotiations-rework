@@ -1,0 +1,23 @@
+﻿# NR: additions to vanilla on_actions. Declared in our own file; the game merges on_action data across files
+# (see vanilla common/on_actions/_on_actions.md). Vanilla on_actions only get our own on_actions appended via
+# on_actions = { ... }; our effects live in our own nr_* on_actions, so nothing conflicts.
+
+# Law enactment debate pool (same pool as vanilla education_laws.2 "Prussian education", weight 10)
+on_law_checkpoint_debate = {
+	random_events = {
+		10 = nr_devout_chaplains.1
+	}
+}
+
+# Root = law, owner = its country. Vanilla has an effect block here, so we only append our own on_action.
+on_law_activated = {
+	on_actions = { nr_on_law_activated }
+}
+
+nr_on_law_activated = {
+	effect = {
+		owner = {
+			nr_devout_officials_check_censorship = yes # Censorship Committees end under Protected Speech
+		}
+	}
+}

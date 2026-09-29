@@ -1,0 +1,109 @@
+﻿# NR: regular bribe (negotiation option 1, all interest groups).
+
+# bribed_ig_benefits strength by negotiation level: amenability_level 1 / 2 / 4 -> 1 / 2 / 3,
+# so the bribe gives +10% / +20% / +30% political strength. Scope: interest group.
+nr_bribe_benefits_multiplier = {
+	value = amenability_level
+	max = 3
+}
+
+# ---------- Devout bribe: one-time payment instead of weekly expenses ----------
+# All values: scope country (root of negotiation.1), scope:ig = the Devout IG.
+
+# The vanilla bribe pays neg_bribe_amount every week, decaying linearly to 0 over long_modifier_time (3650 days):
+# on average half of it for 521 weeks = 260.7 full weeks in total.
+nr_bribe_slow_total_weeks = 260.7
+
+# How many times cheaper the one-time payment is than the full slow payment (2-3x by design).
+nr_bribe_lump_divisor = 2.5
+
+# Share of the max credit the payment may not exceed: 10% / 20% / 30% by negotiation level.
+nr_bribe_credit_share_per_level = 0.1
+
+# Full slow sum, as the vanilla bribe would pay it over 10 years.
+nr_devout_bribe_slow_total = {
+	value = neg_bribe_amount
+	multiply = nr_bribe_slow_total_weeks
+}
+
+# Cap 1: X% of the max credit (credit = max credit the country can take).
+nr_devout_bribe_credit_cap = {
+	value = credit
+	multiply = nr_bribe_credit_share_per_level
+	multiply = scope:ig.nr_bribe_benefits_multiplier
+}
+
+# Money left before the credit limit (gold reserves + unused credit). Can be negative.
+nr_devout_bribe_room = {
+	value = gold_reserves
+	add = credit
+	subtract = principal
+}
+
+# Money left after paying the bribe. Below 0 = the bribe would cause a default, so it is not offered
+# (see nr_devout_bribe_affordable).
+nr_devout_bribe_room_after = {
+	value = nr_devout_bribe_room
+	subtract = nr_devout_bribe_lump_sum
+}
+
+# One-time payment: slow total / divisor, but not above the credit cap. Rounded to 100.
+nr_devout_bribe_lump_sum = {
+	value = nr_devout_bribe_slow_total
+	divide = nr_bribe_lump_divisor
+	max = nr_devout_bribe_credit_cap
+	divide = 100
+	round = yes
+	multiply = 100
+	min = 0
+}
+
+# Amount actually paid, stored on the country at payment time (the payment itself depends on the treasury). Scope: country.
+nr_devout_bribe_paid_negative = {
+	value = 0
+	if = {
+		limit = { has_variable = nr_devout_bribe_paid }
+		value = var:nr_devout_bribe_paid
+		multiply = -1
+	}
+}
+
+# ---------- Refund when the bribe is exposed ----------
+# The bribe money is assumed to be spent evenly over 2 years; exposure (generic_laws.2) comes 300 days after the bribe,
+# so (730 - 300) / 730 = ~59% is still unspent and returns to the treasury. Scope: country.
+nr_bribe_spend_days = 730
+nr_bribe_exposure_days = 300
+
+nr_devout_bribe_refund = {
+	value = 0
+	if = {
+		limit = { has_variable = nr_devout_bribe_paid }
+		value = nr_bribe_spend_days
+		subtract = nr_bribe_exposure_days
+		divide = nr_bribe_spend_days
+		multiply = var:nr_devout_bribe_paid
+		divide = 100
+		round = yes
+		multiply = 100
+		min = 0
+	}
+}
+
+# ---------- AI ----------
+# Gold reserves left after the payment; below 0 = the bribe is partly paid with debt. Scope: country.
+nr_devout_bribe_reserves_after = {
+	value = gold_reserves
+	subtract = nr_devout_bribe_lump_sum
+}
+
+# Credit, never 0 (for division). Scope: country.
+nr_credit_nonzero = {
+	value = credit
+	min = 1
+}
+
+# Share of the max credit still free after the payment. Scope: country.
+nr_devout_bribe_room_after_share = {
+	value = nr_devout_bribe_room_after
+	divide = nr_credit_nonzero
+}

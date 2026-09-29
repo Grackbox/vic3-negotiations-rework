@@ -1,0 +1,318 @@
+﻿namespace = nr_devout_officials
+
+# NR: where the church officials go (negotiation option 2 for the Devout, see nr_devout_officials_effects.txt).
+# The base bureaucracy penalty (negotiation_bureaucracy x level) is already applied; forms rescale it
+# (x0.75 / x1 / x1.25 / x1.5). All effects last 10 years and decay.
+# Options shown: Clerical Advisers (always, default) + 2 random of the available forms:
+# Censorship Committees (Right of Assembly), Parish Registers, The Church and the Slaves (slavery legal),
+# Church Tax (state religion or freedom of conscience), Prisons, Calendar and Holidays (not state atheism),
+# Seminarists in the Chancelleries, Synodal Administration (state religion).
+# Forms that raise the penalty are only offered if they do not cause a bureaucracy deficit.
+
+nr_devout_officials.1 = {
+	type = country_event
+	placement = root
+	title = nr_devout_officials.1.t
+	desc = nr_devout_officials.1.desc
+	flavor = nr_devout_officials.1.flavor
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	duration = 3
+
+	immediate = {
+		ig:ig_devout ?= {
+			save_scope_as = ig
+			leader ?= { save_scope_as = ig_leader }
+		}
+		# Pick 2 of the available forms at random
+		random_list = {
+			1 = {
+				trigger = {
+					nr_devout_officials_censorship_available = yes
+				}
+				set_variable = nr_devout_officials_offer_censorship
+			}
+			1 = {
+				trigger = {
+					always = yes
+				}
+				set_variable = nr_devout_officials_offer_registers
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_slaves_available = yes
+				}
+				set_variable = nr_devout_officials_offer_slaves
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_church_tax_available = yes
+				}
+				set_variable = nr_devout_officials_offer_church_tax
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_not_state_atheism = yes
+				}
+				set_variable = nr_devout_officials_offer_prisons
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_not_state_atheism = yes
+				}
+				set_variable = nr_devout_officials_offer_calendar
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_seminarists_available = yes
+				}
+				set_variable = nr_devout_officials_offer_seminarists
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_synod_available = yes
+				}
+				set_variable = nr_devout_officials_offer_synod
+			}
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					nr_devout_officials_censorship_available = yes
+					NOT = { has_variable = nr_devout_officials_offer_censorship }
+				}
+				set_variable = nr_devout_officials_offer_censorship
+			}
+			1 = {
+				trigger = {
+					always = yes
+					NOT = { has_variable = nr_devout_officials_offer_registers }
+				}
+				set_variable = nr_devout_officials_offer_registers
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_slaves_available = yes
+					NOT = { has_variable = nr_devout_officials_offer_slaves }
+				}
+				set_variable = nr_devout_officials_offer_slaves
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_church_tax_available = yes
+					NOT = { has_variable = nr_devout_officials_offer_church_tax }
+				}
+				set_variable = nr_devout_officials_offer_church_tax
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_not_state_atheism = yes
+					NOT = { has_variable = nr_devout_officials_offer_prisons }
+				}
+				set_variable = nr_devout_officials_offer_prisons
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_not_state_atheism = yes
+					NOT = { has_variable = nr_devout_officials_offer_calendar }
+				}
+				set_variable = nr_devout_officials_offer_calendar
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_seminarists_available = yes
+					NOT = { has_variable = nr_devout_officials_offer_seminarists }
+				}
+				set_variable = nr_devout_officials_offer_seminarists
+			}
+			1 = {
+				trigger = {
+					nr_devout_officials_synod_available = yes
+					NOT = { has_variable = nr_devout_officials_offer_synod }
+				}
+				set_variable = nr_devout_officials_offer_synod
+			}
+		}
+	}
+
+	option = { # Clerical Advisers: base effects only, penalty x1
+		name = nr_devout_officials.1.a
+		default_option = yes
+		custom_tooltip = nr_devout_officials_lore_base
+		custom_tooltip = nr_devout_officials_base_tt
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { nr_devout_officials_spare_share_x100 < 0.10 }
+				add = 10
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_officials.1.b
+		trigger = {
+			has_variable = nr_devout_officials_offer_censorship
+		}
+		custom_tooltip = nr_devout_officials_lore_censorship
+		nr_devout_officials_add_form = { FORM = censorship }
+		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x125 }
+		hidden_effect = {
+			set_variable = {
+				name = nr_devout_officials_censorship_running # cleared if Protected Speech is enacted
+				days = long_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ig:ig_intelligentsia ?= { is_powerful = yes } }
+				add = 15
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_officials.1.c
+		trigger = {
+			has_variable = nr_devout_officials_offer_registers
+		}
+		custom_tooltip = nr_devout_officials_lore_registers
+		nr_devout_officials_add_form = { FORM = registers }
+		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x075 }
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { nr_devout_officials_spare_share_x100 < 0.10 }
+				add = 10 # the cheapest form
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_officials.1.d
+		trigger = {
+			has_variable = nr_devout_officials_offer_slaves
+		}
+		custom_tooltip = nr_devout_officials_lore_slaves
+		nr_devout_officials_add_form = { FORM = slaves }
+		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x075 }
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { any_political_movement = { is_political_movement_type = movement_slave_revolt } }
+				add = 15
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_officials.1.e
+		trigger = {
+			has_variable = nr_devout_officials_offer_church_tax
+		}
+		custom_tooltip = nr_devout_officials_lore_church_tax
+		nr_devout_officials_add_form = { FORM = church_tax }
+		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x125 }
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { authority < 100 }
+				add = 10
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_officials.1.f
+		trigger = {
+			has_variable = nr_devout_officials_offer_prisons
+		}
+		custom_tooltip = nr_devout_officials_lore_prisons
+		nr_devout_officials_add_form = { FORM = prisons }
+		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x100 }
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { country_turmoil > 0.15 }
+				add = 15
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_officials.1.g
+		trigger = {
+			has_variable = nr_devout_officials_offer_calendar
+		}
+		custom_tooltip = nr_devout_officials_lore_calendar
+		nr_devout_officials_add_form = { FORM = calendar }
+		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x100 }
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { government_legitimacy < 50 }
+				add = 15
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_officials.1.h
+		trigger = {
+			has_variable = nr_devout_officials_offer_seminarists
+		}
+		custom_tooltip = nr_devout_officials_lore_seminarists
+		nr_devout_officials_add_form = { FORM = seminarists }
+		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x150 }
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = { ig:ig_intelligentsia ?= { is_powerful = yes } }
+				add = 20
+			}
+			modifier = { # the most expensive form
+				trigger = { nr_devout_officials_spare_share_x100 < 0.20 }
+				add = -20
+			}
+		}
+	}
+
+	option = {
+		name = nr_devout_officials.1.i
+		trigger = {
+			has_variable = nr_devout_officials_offer_synod
+		}
+		custom_tooltip = nr_devout_officials_lore_synod
+		nr_devout_officials_add_form = { FORM = synod }
+		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x125 }
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { authority < 100 }
+				add = 15
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			remove_variable = nr_devout_officials_degree
+			remove_variable = nr_devout_officials_offer_censorship
+			remove_variable = nr_devout_officials_offer_registers
+			remove_variable = nr_devout_officials_offer_slaves
+			remove_variable = nr_devout_officials_offer_church_tax
+			remove_variable = nr_devout_officials_offer_prisons
+			remove_variable = nr_devout_officials_offer_calendar
+			remove_variable = nr_devout_officials_offer_seminarists
+			remove_variable = nr_devout_officials_offer_synod
+		}
+	}
+}

@@ -1,0 +1,34 @@
+﻿# NR: Army Chaplains amendment (feature devout_chaplains).
+# Attached by event nr_devout_chaplains.1 (enactment of Professional Army) or nr_devout_chaplains.2 (after the chaplains campaign).
+
+amendment_nr_devout_chaplains = {
+	parent = law_state_religion # IG stances follow their stance on State Religion
+
+	allowed_laws = {
+		law_professional_army
+	}
+
+	modifier = {
+		unit_morale_recovery_mult = 0.1
+		unit_morale_loss_mult = -0.05
+		interest_group_ig_devout_pop_attraction_mult = 0.1
+		interest_group_ig_armed_forces_pop_attraction_mult = -0.1
+		building_training_rate_mult = -0.05
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_devout
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}

@@ -1,0 +1,33 @@
+﻿# NR: vanilla SOL_commitment_duration has no entry for amenability_level = 1,
+# so the deadline shows empty in open (friendly) negotiations. Our version covers all three levels.
+# Durations match the timeout of je_nr_devout_sol: 7.5 years at levels 1 and 2, 10 years at level 4.
+
+NR_SOL_commitment_duration = {
+	type = interest_group
+	#log_loc_errors = no
+
+	text = {
+		trigger = {
+			root.amenability_level <= 2
+		}
+		localization_key = neg_sol_short_time_loc
+	}
+	text = {
+		trigger = {
+			root.amenability_level = 4
+		}
+		localization_key = neg_sol_long_time_loc
+	}
+}
+
+# Soft bribe (option 1) name per interest group.
+NR_SoftBribeLine = {
+	type = interest_group
+
+	text = {
+		trigger = {
+			is_interest_group_type = ig_devout
+		}
+		localization_key = nr_devout_softbribe_option
+	}
+}

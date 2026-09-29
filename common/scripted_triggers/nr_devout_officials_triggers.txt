@@ -1,0 +1,53 @@
+﻿# NR: Devout church officials (negotiation option 2). Scope: country unless noted.
+
+# The x1 penalty does not push the country into a bureaucracy deficit.
+nr_devout_officials_affordable = {
+	nr_devout_officials_spare_x100 >= 0
+}
+
+nr_devout_officials_affordable_x125 = {
+	nr_devout_officials_spare_x125 >= 0
+}
+
+nr_devout_officials_affordable_x150 = {
+	nr_devout_officials_spare_x150 >= 0
+}
+
+# Form availability (form event nr_devout_officials.1).
+nr_devout_officials_censorship_available = {
+	has_law = law_type:law_right_of_assembly
+	nr_ig_leader_not_against_law = { LAW = law_censorship }
+	nr_devout_officials_affordable_x125 = yes
+}
+
+nr_devout_officials_slaves_available = {
+	NOT = { has_law = law_type:law_slavery_banned }
+}
+
+nr_devout_officials_church_tax_available = {
+	OR = {
+		has_law = law_type:law_state_religion
+		has_law = law_type:law_millet_system
+		has_law = law_type:law_people_of_the_book
+		has_law = law_type:law_freedom_of_conscience
+	}
+	nr_devout_officials_affordable_x125 = yes
+}
+
+nr_devout_officials_not_state_atheism = {
+	NOT = { has_law = law_type:law_state_atheism }
+}
+
+nr_devout_officials_seminarists_available = {
+	nr_devout_officials_affordable_x150 = yes
+}
+
+nr_devout_officials_synod_available = {
+	OR = {
+		has_law = law_type:law_state_religion
+		has_law = law_type:law_millet_system
+		has_law = law_type:law_people_of_the_book
+	}
+	nr_ig_leader_not_against_law = { LAW = law_state_religion }
+	nr_devout_officials_affordable_x125 = yes
+}

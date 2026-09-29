@@ -1,0 +1,29 @@
+﻿namespace = nr_bribe
+
+# NR: regular bribe of the Devout.
+# .1 - hidden, 310 days after the bribe (the exposure event generic_laws.2 comes after 300 days):
+#      every character of the country who took a Devout bribe and was not exposed has a 20% chance of a vice trait.
+nr_bribe.1 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		every_scope_character = {
+			limit = {
+				has_variable = nr_bribe_taken
+				NOT = { has_variable = nr_bribe_exposed }
+				NOT = { has_variable = nr_bribe_checked }
+				is_character_alive = yes
+			}
+			# overlapping bribes of the same character: one roll per bribe, not two in one check
+			set_variable = {
+				name = nr_bribe_checked
+				days = 30
+			}
+			random = {
+				chance = 20
+				nr_bribe_add_vice_trait = yes
+			}
+		}
+	}
+}

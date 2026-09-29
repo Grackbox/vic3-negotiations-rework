@@ -1,0 +1,19 @@
+﻿# NR: values used by the hooks in vanilla negotiations.
+
+# Extra weight for option 1 (bribe, base 10) in set_neg_options. Like vanilla, option 1 is not guaranteed.
+nr_neg_option_1_modifier = {
+	value = 0
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_devout } }
+		add = scope:ig.nr_devout_softbribe_leader_weight
+	}
+}
+
+# Extra weight for option 2 (bureaucracy, base 10) in set_neg_options.
+nr_neg_option_2_modifier = {
+	value = 0
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_devout } }
+		add = scope:ig.nr_devout_officials_leader_weight
+	}
+}

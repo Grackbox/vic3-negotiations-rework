@@ -1,0 +1,21 @@
+﻿# NR: Devout charity campaign (buttons in je_nr_devout_sol).
+# Modifiers apply to all states: food security, welfare and conversion have no lower-strata-only versions in the game.
+
+nr_devout_charity_campaign = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_food_security_add = 0.05 # same as the Emergency Relief decree
+	state_welfare_payments_add = 0.1 # Poor Laws give +0.2
+	state_conversion_mult = 0.2 # same as the Establish Missions decree
+}
+
+# Weekly expenses; applied with multiplier nr_devout_charity_cost (fixed at launch)
+nr_devout_charity_campaign_expenses = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+# Devout IG when the campaign is ended early
+nr_devout_charity_cancelled = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	interest_group_approval_add = -2
+}

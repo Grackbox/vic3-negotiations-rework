@@ -1,0 +1,9 @@
+﻿# NR: reusable triggers for the "IG amendment pair" pattern. Scope: country.
+
+# The amendment is active on any law, or already attached to the law being enacted.
+nr_amendment_is_present = {
+	OR = {
+		any_active_law = { has_amendment = amendment_type:$AMENDMENT$ }
+		currently_enacting_law ?= { has_amendment = amendment_type:$AMENDMENT$ }
+	}
+}

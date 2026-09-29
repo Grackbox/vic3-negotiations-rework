@@ -1,0 +1,73 @@
+﻿# NR: Devout church officials (negotiation option 2, replaces vanilla "places in the administration" for the Devout).
+# The form (where the officials go) is chosen by event nr_devout_officials.1 a week later.
+
+# Negotiation option. Scope: country, scope:ig = Devout.
+nr_devout_officials_start = {
+	custom_tooltip = nr_devout_officials_tt
+	# vanilla penalty (-7.5% bureaucracy x level 1 / 2 / 4), rescaled by the form a week later
+	add_modifier = {
+		name = negotiation_bureaucracy
+		multiplier = scope:ig.amenability_level
+		days = long_modifier_time
+		is_decaying = yes
+	}
+	hidden_effect = {
+		set_variable = {
+			name = nr_devout_officials_degree
+			value = scope:ig.amenability_level
+		}
+	}
+	scope:ig = {
+		finish_negotiation = "negotiation.1.o2"
+		add_modifier = {
+			name = nr_devout_officials_benefits
+			days = long_modifier_time
+			multiplier = nr_bribe_benefits_multiplier # 1 / 2 / 3: +12 / 24 / 36% political strength
+			is_decaying = yes
+		}
+		improve_law_stance = yes
+	}
+	trigger_event = {
+		id = nr_devout_officials.1
+		days = 7 # delay of the form event
+		popup = yes
+	}
+}
+
+# Rescale the bureaucracy penalty for the chosen form. Scope: country. $MULT$ = nr_devout_officials_mult_x075 / x100 / x125 / x150.
+nr_devout_officials_rescale = {
+	if = {
+		limit = { has_modifier = negotiation_bureaucracy }
+		remove_modifier = negotiation_bureaucracy
+	}
+	add_modifier = {
+		name = negotiation_bureaucracy
+		multiplier = $MULT$
+		days = long_modifier_time
+		is_decaying = yes
+	}
+}
+
+# Form modifier for 10 years. Scope: country. $FORM$ = censorship / registers / ...
+nr_devout_officials_add_form = {
+	add_modifier = {
+		name = nr_devout_officials_$FORM$
+		days = long_modifier_time
+		is_decaying = yes
+	}
+}
+
+# Censorship Committees end when Protected Speech is enacted (called from nr_on_law_activated). Scope: country.
+nr_devout_officials_check_censorship = {
+	if = {
+		limit = {
+			has_modifier = nr_devout_officials_censorship
+			has_law = law_type:law_protected_speech
+		}
+		remove_modifier = nr_devout_officials_censorship
+		if = {
+			limit = { has_variable = nr_devout_officials_censorship_running }
+			remove_variable = nr_devout_officials_censorship_running
+		}
+	}
+}

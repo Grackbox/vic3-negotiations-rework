@@ -1,0 +1,50 @@
+﻿# NR: effects called by the hooks in vanilla negotiations. Only routing by interest group here;
+# the tasks themselves live in nr_<group>_<task>_*.txt files.
+
+# Called in the immediate of negotiation.1 after set_neg_options: overrides precomputed option values.
+nr_negotiation_after_options = {
+	# Option 1: bribe or soft bribe - decided once at the start of the negotiation
+	scope:ig = {
+		if = {
+			limit = { has_variable = nr_soft_bribe }
+			remove_variable = nr_soft_bribe
+		}
+	}
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_devout } }
+		nr_devout_softbribe_roll = yes
+	}
+	if = {
+		limit = {
+			scope:ig = {
+				is_interest_group_type = ig_devout
+				has_variable = promised_sol_level
+			}
+		}
+		nr_devout_sol_set_target = yes
+	}
+}
+
+# Option 9 (SoL) for groups in nr_neg_option_9_is_custom.
+nr_neg_option_9_custom = {
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_devout } }
+		nr_devout_sol_promise = yes
+	}
+}
+
+# Option 1: soft bribe for groups in nr_neg_option_1_is_custom.
+nr_neg_option_1_custom = {
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_devout } }
+		nr_devout_softbribe_start = yes
+	}
+}
+
+# Option 2: church officials for groups in nr_neg_option_2_is_custom.
+nr_neg_option_2_custom = {
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_devout } }
+		nr_devout_officials_start = yes
+	}
+}

@@ -1,0 +1,129 @@
+﻿# NR: Devout soft bribe - funds for the church's needs (negotiation option 1).
+# The form of spending is chosen by event nr_devout_softbribe.1 a week later.
+
+# Bribe or charity in this negotiation. Called from nr_negotiation_after_options.
+nr_devout_softbribe_roll = {
+	if = {
+		# a bribe that would cause a default is never offered: the church asks for charity instead
+		limit = { nr_devout_bribe_affordable = no }
+		scope:ig = { set_variable = nr_soft_bribe }
+	}
+	else_if = {
+		limit = { scope:ig = { leader ?= { nr_devout_softbribe_leader_refuses = yes } } }
+		scope:ig = { set_variable = nr_soft_bribe }
+	}
+	else_if = {
+		limit = { scope:ig = { leader ?= { nr_devout_softbribe_leader_loves = yes } } }
+		# regular bribe
+	}
+	else = {
+		random_list = {
+			60 = { # chance of charity when the leader has no relevant traits
+				scope:ig = { set_variable = nr_soft_bribe }
+			}
+			40 = {
+				# regular bribe
+			}
+		}
+	}
+}
+
+# Negotiation option. The base cost is shown right away; the campaign form is chosen by an event a week later.
+nr_devout_softbribe_start = {
+	custom_tooltip = nr_devout_softbribe_tt
+	add_modifier = {
+		name = nr_devout_softbribe_base
+		days = long_modifier_time
+		is_decaying = yes
+	}
+	add_modifier = {
+		name = nr_devout_softbribe_expenses
+		multiplier = nr_devout_softbribe_base_cost
+		days = long_modifier_time
+		is_decaying = yes
+	}
+	hidden_effect = {
+		# Blocks a second Devout option 1 until the form event fires (see nr_neg_option_1_allowed)
+		set_variable = {
+			name = nr_devout_softbribe_pending
+			days = 14
+		}
+		set_variable = {
+			name = nr_devout_softbribe_cost_amount
+			value = nr_devout_softbribe_base_cost
+		}
+	}
+	scope:ig = {
+		finish_negotiation = "negotiation.1.o1"
+		add_modifier = {
+			name = nr_devout_softbribe_patronage
+			days = long_modifier_time
+			multiplier = nr_devout_softbribe_patronage_multiplier
+			is_decaying = yes
+		}
+		improve_law_stance = yes
+	}
+	hidden_effect = {
+		set_variable = {
+			name = nr_devout_softbribe_degree
+			value = scope:ig.amenability_level
+		}
+	}
+	trigger_event = {
+		id = nr_devout_softbribe.1
+		days = 7 # delay of the campaign form event
+		popup = yes
+	}
+}
+
+# Rescales expenses for the campaign form (removes the base modifier). Scope: country.
+nr_devout_softbribe_reset_expenses = {
+	if = {
+		limit = { has_modifier = nr_devout_softbribe_expenses }
+		remove_modifier = nr_devout_softbribe_expenses
+	}
+}
+
+# Colonial missions: one year of conversion in every colonial subject state. Scope: overlord country.
+nr_devout_softbribe_mission_convert = {
+	religion = { save_scope_as = nr_devout_softbribe_overlord_religion }
+	every_subject_or_below = {
+		limit = { nr_devout_softbribe_is_mission_subject = yes }
+		every_scope_state = {
+			convert_population = {
+				target = scope:nr_devout_softbribe_overlord_religion
+				value = nr_devout_softbribe_mission_share
+			}
+		}
+	}
+}
+
+# Colonial missions: start. Converts right away, then yearly via hidden event nr_devout_softbribe.2.
+nr_devout_softbribe_mission_start = {
+	custom_tooltip = nr_devout_softbribe_missions_tt
+	every_subject_or_below = {
+		limit = {
+			nr_devout_softbribe_is_mission_subject = yes
+			NOT = { religion = root.religion } # same state religion: converting its pops is no imposition
+		}
+		add_modifier = {
+			name = nr_devout_softbribe_mission_pressure
+			days = long_modifier_time
+			is_decaying = yes
+		}
+	}
+	hidden_effect = {
+		nr_devout_softbribe_mission_convert = yes
+		set_variable = {
+			name = nr_devout_softbribe_mission_years_left
+			value = {
+				value = nr_devout_softbribe_mission_years
+				subtract = 1
+			}
+		}
+		trigger_event = {
+			id = nr_devout_softbribe.2
+			days = 365
+		}
+	}
+}

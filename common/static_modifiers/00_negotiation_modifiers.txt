@@ -1,0 +1,81 @@
+﻿# NR (Negotiations Rework): copy of the vanilla file. Only bribed_ig_benefits is changed (search "NR").
+negotiation_completed_quest = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	interest_group_approval_add = 1
+}
+
+negotiation_failed_quest = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_approval_add = -5
+	interest_group_amenability_add = -10
+}
+
+negotiation_extended_quest = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_approval_add = -1
+}
+
+negotiation_failed_quest_legit = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	country_legitimacy_base_add = -5
+	country_amenability_add = -5
+}
+
+
+negotiation_bribes = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+negotiation_bureaucracy = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_bureaucracy_mult = -0.075
+}
+
+private_construction_contracts = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_private_construction_allocation_mult = -0.10
+	building_construction_sector_throughput_add = -0.15
+}
+
+bureaucracy_ig_benefits = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_pol_str_mult = 0.10
+	interest_group_pop_attraction_mult = 0.10
+}
+
+heroes_of_the_people = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	interest_group_pop_attraction_mult = 0.15
+}
+
+hero_of_the_people = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	character_popularity_add = 5
+}
+
+# NR: the bribe no longer attracts new pops, it only strengthens the group: +10% political strength
+# x nr_bribe_benefits_multiplier (1 / 2 / 3 by negotiation level). Vanilla: +25% attraction, +5% strength x 1 / 2 / 4.
+# The name must stay: generic_laws.2 (corruption exposed) looks for this modifier.
+bribed_ig_benefits = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_pol_str_mult = 0.1
+}
+
+
+failed_negotiations_ig = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_approval_add = -1
+	interest_group_amenability_add = -10
+}
+
+active_ig_promise = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	interest_group_amenability_add = -100
+}
+
+active_ig_promise_country = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	country_amenability_add = -3
+}
+

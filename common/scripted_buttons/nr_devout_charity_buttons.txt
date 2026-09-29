@@ -1,0 +1,76 @@
+﻿# NR: Devout charity campaign. Buttons are shown in the je_nr_devout_sol journal entry.
+# The campaign lasts nr_devout_charity_duration, followed by a rest period of nr_devout_charity_rest.
+# Ending early: -2 Devout approval for 2 years (nr_devout_charity_cancel_penalty_time); the rest period starts when it is ended.
+
+nr_devout_charity_start_button = {
+	name = "nr_devout_charity_start_button"
+	desc = "nr_devout_charity_start_button_desc"
+
+	visible = {
+		NOT = { has_modifier = nr_devout_charity_campaign }
+	}
+
+	possible = {
+		custom_tooltip = {
+			text = nr_devout_charity_rest_tt
+			NOT = { has_variable = nr_devout_charity_cooldown }
+		}
+	}
+
+	effect = {
+		add_modifier = {
+			name = nr_devout_charity_campaign
+			days = nr_devout_charity_duration
+		}
+		add_modifier = {
+			name = nr_devout_charity_campaign_expenses
+			days = nr_devout_charity_duration
+			multiplier = nr_devout_charity_cost
+		}
+		hidden_effect = {
+			# The rest period counts from the end of the campaign: campaign + rest
+			set_variable = {
+				name = nr_devout_charity_cooldown
+				days = nr_devout_charity_cooldown_total
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 0
+	}
+}
+
+nr_devout_charity_stop_button = {
+	name = "nr_devout_charity_stop_button"
+	desc = "nr_devout_charity_stop_button_desc"
+
+	visible = {
+		has_modifier = nr_devout_charity_campaign
+	}
+
+	possible = {
+		always = yes
+	}
+
+	effect = {
+		scope:ig = {
+			add_modifier = {
+				name = nr_devout_charity_cancelled
+				days = nr_devout_charity_cancel_penalty_time
+			}
+		}
+		remove_modifier = nr_devout_charity_campaign
+		remove_modifier = nr_devout_charity_campaign_expenses
+		hidden_effect = {
+			set_variable = {
+				name = nr_devout_charity_cooldown
+				days = nr_devout_charity_rest
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 0
+	}
+}

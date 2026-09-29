@@ -1,0 +1,38 @@
+﻿# NR: Devout schools (feature devout_schools).
+
+# The church already runs the schools: Religious Schools law, or Church-Organized Schools amendment. Scope: country.
+nr_devout_schools_church_runs_schools = {
+	OR = {
+		has_law = law_type:law_religious_schools
+		nr_amendment_is_present = { AMENDMENT = amendment_church_organised_schools }
+	}
+}
+
+# Petition for Religious Schools can be offered: unlocked by rationalism, not blocked by the laws that disallow
+# Religious Schools, not yet passed, not already running. Scope: country.
+nr_devout_schools_petition_available = {
+	has_technology_researched = rationalism
+	NOT = { has_law = law_type:law_religious_schools }
+	NOR = {
+		has_law = law_type:law_total_separation
+		has_law = law_type:law_state_atheism
+		has_law = law_type:law_serfdom
+	}
+	NOT = { has_journal_entry = je_nr_devout_schools_petition }
+}
+
+# Church-Organized Schools amendment can be attached to the active Public Schools. Scope: country.
+nr_devout_schools_amendment_available = {
+	has_law = law_type:law_public_schools
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_church_organised_schools }
+	}
+}
+
+# Anything to offer the church at all. Without it the event has nothing to ask, so declining is a neutral close. Scope: country.
+nr_devout_schools_offer_available = {
+	OR = {
+		nr_devout_schools_petition_available = yes
+		nr_devout_schools_amendment_available = yes
+	}
+}

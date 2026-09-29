@@ -1,0 +1,123 @@
+﻿# NR: regular bribe (negotiation option 1). Called from negotiation.1 option negotiation.1.o1. Scope: country, scope:ig set.
+# Devout: one-time payment, a trait roll for the leader who took the money. Other groups: vanilla behaviour.
+
+# Payment
+nr_bribe_pay = {
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_devout } }
+		# stored before paying: the amount depends on the treasury; also used for the refund in generic_laws.2
+		set_variable = {
+			name = nr_devout_bribe_paid
+			value = nr_devout_bribe_lump_sum
+			days = 330
+		}
+		add_treasury = nr_devout_bribe_paid_negative
+	}
+	else = {
+		# vanilla
+		add_modifier = {
+			name = negotiation_bribes
+			multiplier = neg_bribe_amount
+			days = long_modifier_time
+			is_decaying = yes
+		}
+	}
+}
+
+# Exposure roll: same chances and delay as vanilla (10%, 20% under Protected Speech; generic_laws.2 in 300 days).
+# Devout: the leader who took the money is marked; 310 days later nr_bribe.1 rolls a trait if the bribe was not exposed.
+nr_bribe_exposure_roll = {
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_devout } }
+		scope:ig = {
+			leader ?= {
+				set_variable = {
+					name = nr_bribe_taken
+					days = 330
+				}
+			}
+		}
+		trigger_event = {
+			id = nr_bribe.1
+			days = 310
+		}
+	}
+	if = {
+		limit = { has_law = law_type:law_protected_speech }
+		random_list = {
+			80 = {
+				#DO NOTHING
+			}
+			20 = {
+				nr_bribe_expose = yes
+			}
+		}
+	}
+	else = {
+		random_list = {
+			90 = {
+				#DO NOTHING
+			}
+			10 = {
+				nr_bribe_expose = yes
+			}
+		}
+	}
+}
+
+nr_bribe_expose = {
+	trigger_event = {
+		id = generic_laws.2
+		popup = yes
+		days = 300
+	}
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_devout } }
+		scope:ig = {
+			leader ?= {
+				set_variable = {
+					name = nr_bribe_exposed
+					days = 330
+				}
+			}
+		}
+	}
+}
+
+# Refund of the unspent Devout bribe money when the bribe is exposed. Scope: country; scope:corrupt_ig_scope from generic_laws.2.
+nr_bribe_refund = {
+	if = {
+		limit = {
+			scope:corrupt_ig_scope = { is_interest_group_type = ig_devout }
+			has_variable = nr_devout_bribe_paid
+		}
+		add_treasury = nr_devout_bribe_refund
+		remove_variable = nr_devout_bribe_paid
+	}
+}
+
+# Trait for a character who kept the money quietly. Scope: character. Nothing if he already has all of them.
+nr_bribe_add_vice_trait = {
+	random_list = {
+		25 = {
+			trigger = { NOT = { has_trait = grifter } }
+			add_trait = grifter
+		}
+		25 = {
+			trigger = { NOT = { has_trait = expensive_tastes } }
+			add_trait = expensive_tastes
+		}
+		20 = {
+			trigger = { NOT = { has_trait = alcoholic } }
+			add_trait = alcoholic
+		}
+		15 = {
+			trigger = { NOT = { has_trait = opium_addiction } }
+			add_trait = opium_addiction
+		}
+		15 = {
+			trigger = { NOT = { has_trait = syphilis } }
+			add_trait = syphilis
+		}
+	}
+}

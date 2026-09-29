@@ -1,0 +1,35 @@
+﻿# NR: Sisters of Mercy in the Hospitals (feature devout_sisters).
+# Unlike the chaplains amendment, this one is never offered during enactment - only after the Sisters of Mercy campaign.
+
+amendment_nr_devout_sisters = {
+	parent = law_charitable_health_system # IG stances follow their stance on a church-run health system
+
+	allowed_laws = {
+		law_public_health_insurance
+	}
+
+	modifier = {
+		state_birth_rate_mult = 0.02 # maternity wards and foundling homes (no infant mortality modifier exists, birth rate is the closest)
+		interest_group_ig_devout_pol_str_mult = 0.1 # the church gains a foothold in a state institution (vanilla Charity Hospitals gives the same)
+		country_institution_cost_institution_health_system_mult = 0.1 # the orders bring their own statutes and oversight (vanilla: Charity Hospitals -20%, Private -40%)
+		country_influence_mult = 0.05 # nursing orders as an instrument of soft power abroad
+		battle_casualties_mult = -0.1 # field hospitals and nursing at the front
+		country_authority_cost_add = 100 # political_concession_level_2_auth_cost, same as vanilla concession amendments (levels 50 / 100 / 150)
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_devout
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}

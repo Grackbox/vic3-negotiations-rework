@@ -1,0 +1,97 @@
+﻿# NR: numbers for the Devout soft bribe - funds for the church's needs (negotiation option 1).
+
+# Base weekly cost = vanilla bribe amount (neg_bribe_amount). Requires scope:ig.
+nr_devout_softbribe_base_cost = {
+	value = neg_bribe_amount
+}
+
+# Campaign form cost: base amount fixed at the negotiation x form factor. Scope: country.
+# Guarded by has_variable: the event can be inspected or fired by console without the variable.
+nr_devout_softbribe_cost_x025 = {
+	value = 0
+	if = {
+		limit = { has_variable = nr_devout_softbribe_cost_amount }
+		value = var:nr_devout_softbribe_cost_amount
+		multiply = 0.25
+	}
+}
+
+nr_devout_softbribe_cost_x050 = {
+	value = 0
+	if = {
+		limit = { has_variable = nr_devout_softbribe_cost_amount }
+		value = var:nr_devout_softbribe_cost_amount
+		multiply = 0.5
+	}
+}
+
+nr_devout_softbribe_cost_x125 = {
+	value = 0
+	if = {
+		limit = { has_variable = nr_devout_softbribe_cost_amount }
+		value = var:nr_devout_softbribe_cost_amount
+		multiply = 1.25
+	}
+}
+
+nr_devout_softbribe_cost_x150 = {
+	value = 0
+	if = {
+		limit = { has_variable = nr_devout_softbribe_cost_amount }
+		value = var:nr_devout_softbribe_cost_amount
+		multiply = 1.5
+	}
+}
+
+# Weight change of negotiation option 1 (base 10) from the Devout leader. Scope: interest group.
+# Bold, prominent leaders raise money matters more often; modest, careful ones less often. Total never drops below 0.
+nr_devout_softbribe_leader_weight = {
+	value = 0
+	if = {
+		limit = { leader ?= { nr_devout_softbribe_leader_loves = yes } }
+		add = 10 # Grifter / Expensive Tastes / Hedonist
+	}
+	if = {
+		limit = { leader ?= { has_trait = ambitious } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { has_trait = charismatic } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { has_trait = arrogant } }
+		add = 5
+	}
+	if = {
+		limit = { leader ?= { prominence >= define:NCharacters|PROMINENCE_IMPORTANT_THRESHOLD } }
+		add = 10 # prominence 50+
+	}
+	if = {
+		limit = { leader ?= { has_trait = reserved } }
+		add = -5
+	}
+	if = {
+		limit = { leader ?= { has_trait = cautious } }
+		add = -5
+	}
+	min = -10 # base weight 10 + this >= 0
+}
+
+# Colonial missions: yearly share of each colonial subject state's population converted to the overlord's religion,
+# and how many years it runs (same 10 years as the other forms).
+nr_devout_softbribe_mission_share = 0.03
+nr_devout_softbribe_mission_years = 10
+
+# Patronage strength by negotiation level (1 / 2 / 4): 1x / 2x / 3x instead of the raw level. Scope: interest group.
+nr_devout_softbribe_patronage_multiplier = {
+	value = 1
+	if = {
+		limit = { var:promise_quest_degree ?= 2 }
+		value = 2
+	}
+	else_if = {
+		limit = { var:promise_quest_degree ?= 4 }
+		value = 3
+	}
+}

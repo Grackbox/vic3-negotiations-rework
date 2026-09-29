@@ -1,0 +1,80 @@
+﻿# NR: Devout church officials (negotiation option 2). All last 10 years and decay.
+
+# Devout IG: posts in the administration give power, not new followers (x nr_bribe_benefits_multiplier = 1 / 2 / 3: +12 / 24 / 36%)
+nr_devout_officials_benefits = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_pol_str_mult = 0.12
+}
+
+# Censorship Committees, bureaucracy penalty x1.25 (Right of Assembly only)
+nr_devout_officials_censorship = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	political_movement_pop_attraction_mult = -0.1
+	state_conversion_mult = 0.1
+	interest_group_ig_intelligentsia_pol_str_mult = -0.1
+	interest_group_ig_intelligentsia_approval_add = -2
+	country_leverage_resistance_mult = 0.15
+	country_tech_spread_mult = -0.05 # half of the Censorship law
+}
+
+# Parish Registers, x0.75
+nr_devout_officials_registers = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_bureaucracy_population_base_cost_factor_mult = -0.05 # the parish keeps the population records
+	state_conscription_rate_mult = 0.05
+	state_incorporation_speed_mult = 0.1
+	country_acceptance_no_shared_religious_trait_add = -5 # whoever is not in the church books does not exist
+}
+
+# The Church and the Slaves, x0.75 (slavery legal)
+nr_devout_officials_slaves = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_pop_support_movement_slave_revolt_mult = -0.15
+	state_slaves_mortality_mult = -0.1
+	state_free_state_pop_support_movement_anti_slavery_mult = 0.1 # free states hear of baptised brothers in chains
+}
+
+# Church Tax, x1.25
+nr_devout_officials_church_tax = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	building_clergymen_standard_of_living_add = 2
+	country_authority_add = 50
+	state_tax_collection_mult = -0.03 # double taxation, more evasion
+	state_conversion_mult = -0.05 # some leave the church to stop paying
+}
+
+# Prisons, x1
+nr_devout_officials_prisons = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_radicals_from_political_movements_mult = -0.05
+	state_loyalists_from_political_movements_mult = 0.05
+	state_turmoil_effects_mult = -0.05
+	state_mortality_turmoil_mult = 0.002 # half of Militarized Police
+}
+
+# Calendar and Holidays, x1
+nr_devout_officials_calendar = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_legitimacy_base_add = 5
+	country_prestige_mult = 0.05
+	state_standard_of_living_add = 0.5
+	building_throughput_add = -0.02
+}
+
+# Seminarists in the Chancelleries, x1.5
+nr_devout_officials_seminarists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_authority_add = 100
+	country_legitimacy_base_add = 5
+	interest_group_ig_intelligentsia_pol_str_mult = -0.2
+	interest_group_ig_intelligentsia_pop_attraction_mult = -0.1
+	interest_group_ig_intelligentsia_approval_add = -3
+}
+
+# Synodal Administration, x1.25 (state religion)
+nr_devout_officials_synod = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_authority_add = 50
+	country_acceptance_state_religion_add = 5
+	interest_group_ig_devout_pop_attraction_mult = -0.1 # the "priest-official" repels the faithful
+}

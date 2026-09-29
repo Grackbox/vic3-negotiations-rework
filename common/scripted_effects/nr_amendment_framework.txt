@@ -1,0 +1,26 @@
+﻿# NR: reusable helpers for the "IG amendment pair" pattern:
+#   1) an enactment event (in the on_law_checkpoint_debate pool) can attach the amendment to the law being enacted;
+#   2) after the IG's campaign ends, a popup offers to attach it to the already active law.
+# Parameters: AMENDMENT = amendment key, LAW = law key, IG = interest group type. Scope: country.
+
+# Attach an amendment to the law currently being enacted (same as vanilla education_laws.2).
+nr_amendment_add_to_enacting_law = {
+	currently_enacting_law = {
+		add_amendment = {
+			type = $AMENDMENT$
+			sponsor = root.ig:$IG$
+			cooldown = 120
+		}
+	}
+}
+
+# Attach an amendment to an already active law (vanilla does this with active_law:<group>).
+nr_amendment_add_to_active_law = {
+	random_active_law = {
+		limit = { type = law_type:$LAW$ }
+		add_amendment = {
+			type = $AMENDMENT$
+			sponsor = root.ig:$IG$
+		}
+	}
+}

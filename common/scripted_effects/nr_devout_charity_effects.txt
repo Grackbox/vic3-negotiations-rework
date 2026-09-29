@@ -1,0 +1,13 @@
+﻿# NR: Devout charity campaign (buttons in je_nr_devout_sol).
+
+# Called from nr_devout_sol_cleanup: the campaign ends together with the commitment; the rest period is kept.
+nr_devout_charity_end_with_commitment = {
+	if = {
+		limit = { has_modifier = nr_devout_charity_campaign }
+		remove_modifier = nr_devout_charity_campaign
+	}
+	if = {
+		limit = { has_modifier = nr_devout_charity_campaign_expenses }
+		remove_modifier = nr_devout_charity_campaign_expenses
+	}
+}

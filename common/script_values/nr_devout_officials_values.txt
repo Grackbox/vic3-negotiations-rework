@@ -1,0 +1,164 @@
+﻿# NR: numbers for Devout church officials (negotiation option 2, "places in the administration").
+# The state bureaucracy penalty is the vanilla modifier negotiation_bureaucracy (-7.5% bureaucracy x multiplier):
+# the option applies it with multiplier = negotiation level (1 / 2 / 4, as vanilla), the form event rescales it by the form factor.
+
+# Vanilla negotiation_bureaucracy: country_bureaucracy_mult = -0.075 per multiplier point.
+nr_neg_bureaucracy_penalty_share = 0.075
+
+# Negotiation level (amenability_level 1 / 2 / 4): stored at the option, otherwise read from scope:ig. Scope: country.
+nr_devout_officials_level = {
+	value = 1
+	if = {
+		limit = { exists = scope:ig }
+		value = scope:ig.amenability_level
+	}
+	if = {
+		limit = { has_variable = nr_devout_officials_degree }
+		value = var:nr_devout_officials_degree
+	}
+}
+
+# Bureaucracy production without our base penalty (it is already applied while the form event is pending). Scope: country.
+# Approximation: bureaucracy multipliers stack additively in the game, the error is small at these values.
+nr_devout_officials_base_production = {
+	value = produced_bureaucracy
+	if = {
+		limit = {
+			has_variable = nr_devout_officials_degree
+			has_modifier = negotiation_bureaucracy
+		}
+		divide = {
+			value = 1
+			subtract = {
+				value = nr_neg_bureaucracy_penalty_share
+				multiply = var:nr_devout_officials_degree
+			}
+		}
+	}
+}
+
+# Spare bureaucracy after the penalty with a given form factor (x1 / x1.25 / x1.5). Below 0 = deficit. Scope: country.
+nr_devout_officials_spare_x100 = {
+	value = nr_devout_officials_base_production
+	multiply = {
+		value = 1
+		subtract = {
+			value = nr_neg_bureaucracy_penalty_share
+			multiply = nr_devout_officials_level
+		}
+	}
+	subtract = bureaucracy_usage
+}
+
+nr_devout_officials_spare_x125 = {
+	value = nr_devout_officials_base_production
+	multiply = {
+		value = 1
+		subtract = {
+			value = nr_neg_bureaucracy_penalty_share
+			multiply = nr_devout_officials_level
+			multiply = 1.25
+		}
+	}
+	subtract = bureaucracy_usage
+}
+
+nr_devout_officials_spare_x150 = {
+	value = nr_devout_officials_base_production
+	multiply = {
+		value = 1
+		subtract = {
+			value = nr_neg_bureaucracy_penalty_share
+			multiply = nr_devout_officials_level
+			multiply = 1.5
+		}
+	}
+	subtract = bureaucracy_usage
+}
+
+# Spare bureaucracy at x1 as a share of usage (for AI weights). Scope: country.
+nr_devout_officials_spare_share_x100 = {
+	value = nr_devout_officials_spare_x100
+	divide = {
+		value = bureaucracy_usage
+		min = 1
+	}
+}
+
+# Penalty multiplier for negotiation_bureaucracy by form factor: level x factor. Scope: country.
+nr_devout_officials_mult_x075 = {
+	value = nr_devout_officials_level
+	multiply = 0.75
+}
+
+nr_devout_officials_mult_x100 = {
+	value = nr_devout_officials_level
+}
+
+nr_devout_officials_mult_x125 = {
+	value = nr_devout_officials_level
+	multiply = 1.25
+}
+
+nr_devout_officials_mult_x150 = {
+	value = nr_devout_officials_level
+	multiply = 1.5
+}
+
+# Chance of option 2 by the Devout leader (added to the base weight 10 in set_neg_options). Scope: interest group.
+nr_devout_officials_leader_weight = {
+	value = 0
+	if = {
+		limit = { leader ?= { has_trait = ambitious } }
+		add = 10 # wants levers of power
+	}
+	if = {
+		limit = { leader ?= { has_trait = imperious } }
+		add = 10 # likes control
+	}
+	if = {
+		limit = { leader ?= { has_trait = master_bureaucrat } }
+		add = 10 # knows the apparatus from inside
+	}
+	if = {
+		limit = { leader ?= { has_trait = political_appointee } }
+		add = 10 # an appointee himself
+	}
+	if = {
+		limit = { leader ?= { has_trait = basic_political_operator } }
+		add = 5
+	}
+	if = {
+		limit = { leader ?= { has_trait = experienced_political_operator } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { has_trait = expert_political_operator } }
+		add = 15
+	}
+	if = {
+		limit = { leader ?= { has_trait = pious } }
+		add = 5 # money is a sin, serving in the state is a mission
+	}
+	if = {
+		limit = { leader ?= { has_trait = bigoted } }
+		add = 5
+	}
+	if = {
+		limit = { leader ?= { prominence >= define:NCharacters|PROMINENCE_IMPORTANT_THRESHOLD } }
+		add = 5
+	}
+	if = {
+		limit = { leader ?= { has_trait = honorable } }
+		add = -10 # patronage is nepotism to him
+	}
+	if = {
+		limit = { leader ?= { has_trait = reserved } }
+		add = -5
+	}
+	if = {
+		limit = { leader ?= { nr_devout_softbribe_leader_loves = yes } }
+		add = -5 # Grifter / Expensive Tastes / Hedonist want money, not posts
+	}
+	min = -10 # base weight 10 + this >= 0
+}

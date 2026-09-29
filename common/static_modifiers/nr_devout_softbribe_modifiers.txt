@@ -1,0 +1,92 @@
+﻿# NR: Devout soft bribe - funds for the church's needs (negotiation option 1).
+# Everything lasts 10 years and decays, like the vanilla bribe.
+
+# Everything lasts 10 years and decays, like the vanilla bribe.
+
+# Weekly expenses (x vanilla bribe amount, then x campaign form factor)
+nr_devout_softbribe_expenses = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+# Base effect of every campaign, applied at the negotiation
+nr_devout_softbribe_base = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_conversion_mult = 0.1
+}
+
+# Devout IG (x nr_devout_softbribe_patronage_multiplier = 1 / 2 / 3): charity attracts new followers,
+# the bribe (bribed_ig_benefits) does not, but the bribe gives twice the political strength (10% vs 5% per level).
+nr_devout_softbribe_patronage = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	interest_group_pop_attraction_mult = 0.35
+	interest_group_pol_str_mult = 0.05
+}
+
+# Asceticism, cost x0.5
+nr_devout_softbribe_asceticism = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_lower_strata_expected_sol_add = -1
+	state_food_security_add = 0.1
+	state_birth_rate_mult = -0.1
+	state_peasants_consumption_multiplier_add = -0.1 # no generic goods consumption modifier exists; peasants only
+}
+
+# Enlightening the Lost, cost x1.5
+nr_devout_softbribe_enlightenment = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_conversion_mult = 0.3
+	state_peasants_education_access_add = 0.15 # peasants only; no generic lower-strata education modifier exists
+	state_literacy_growth_add = 0.0005 # state-wide; cannot be limited to a stratum
+}
+
+# Sisters of Mercy, cost x1.25
+nr_devout_softbribe_sisters = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_mortality_mult = -0.05
+	state_harvest_condition_disease_outbreak_impact_mult = -0.25
+	battle_casualties_mult = -0.15 # field hospitals and nursing at the front (amendment: -0.1; decays over time)
+}
+
+# Shelters for Newcomers, cost x1.5
+nr_devout_softbribe_shelters = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_assimilation_mult = 0.2
+	state_migration_pull_mult = 0.1
+}
+
+# Army Chaplains, cost x1. No per-profession IG attraction exists; Armed Forces is mostly soldiers and officers.
+nr_devout_softbribe_chaplains = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	interest_group_ig_armed_forces_pop_attraction_mult = -0.15
+	interest_group_ig_devout_pop_attraction_mult = 0.15
+	unit_morale_recovery_mult = 0.15
+	unit_morale_loss_mult = -0.1
+	building_training_rate_mult = -0.1 # chaplains slow down drill in military buildings
+}
+
+# Let the Parishes Pay, cost x0.25. Deliberately a bad option for the state.
+nr_devout_softbribe_parish = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	state_food_security_add = 0.05
+	country_acceptance_no_shared_religious_trait_add = -5
+	country_clergymen_pol_str_mult = 0.1
+}
+
+# Legitimacy loss from Let the Parishes Pay (x negotiation level 1/2/4: -2.5 / -5 / -10)
+nr_devout_softbribe_parish_shame = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	country_legitimacy_base_add = -2.5
+}
+
+# Devout IG when the parishes are made to pay (x negotiation level 1/2/4: -2.5 / -5 / -10)
+nr_devout_softbribe_parish_burden = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	interest_group_approval_add = -2.5
+}
+
+# Colonial missions, cost x1.25: on each colonial subject - resentment against conversion from above
+nr_devout_softbribe_mission_pressure = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	country_liberty_desire_add = 0.1
+}

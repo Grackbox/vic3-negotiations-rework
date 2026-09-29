@@ -1,0 +1,96 @@
+﻿namespace = nr_devout_sisters
+
+# NR: Sisters of Mercy (feature devout_sisters). Post-campaign only: unlike the chaplains, this amendment
+# is never offered while a law is being enacted, so there is no entry in the on_law_checkpoint_debate pool.
+# .2 - 10 years after the Sisters of Mercy campaign form: amendment on Public Health Insurance, petition for
+#      Charity Hospitals (journal entry, +25% enactment speed), or thanks/decline (default).
+#      If there is nothing to offer (no petition, no amendment possible) and the church runs nothing, decline becomes a neutral close (.e).
+
+nr_devout_sisters.2 = {
+	type = country_event
+	placement = root
+	title = nr_devout_sisters.2.t
+	desc = nr_devout_sisters.2.desc
+	flavor = nr_devout_sisters.2.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	trigger = {
+		exists = ig:ig_devout
+	}
+
+	immediate = {
+		ig:ig_devout ?= { save_scope_as = devout_ig }
+	}
+
+	option = { # Send the sisters to the state hospitals
+		name = nr_devout_sisters.2.a
+		trigger = {
+			nr_devout_sisters_amendment_available = yes
+		}
+		custom_tooltip = nr_devout_sisters_lore_2a
+		nr_amendment_add_to_active_law = {
+			AMENDMENT = amendment_nr_devout_sisters
+			LAW = law_public_health_insurance
+			IG = ig_devout
+		}
+	}
+
+	option = { # Petition for Charity Hospitals (unlocked by medical_degrees)
+		name = nr_devout_sisters.2.b
+		trigger = {
+			nr_devout_sisters_petition_available = yes
+		}
+		custom_tooltip = nr_devout_sisters_lore_2b
+		custom_tooltip = nr_devout_sisters_petition_tt
+		add_journal_entry = { type = je_nr_devout_sisters_petition }
+	}
+
+	option = { # The church already runs the hospitals
+		name = nr_devout_sisters.2.d
+		default_option = yes
+		trigger = {
+			nr_devout_sisters_church_runs_hospitals = yes
+		}
+		custom_tooltip = nr_devout_sisters_lore_2d
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_sisters_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Thank them and send them home (only while there was something to offer)
+		name = nr_devout_sisters.2.c
+		default_option = yes
+		trigger = {
+			nr_devout_sisters_church_runs_hospitals = no
+			nr_devout_sisters_offer_available = yes
+		}
+		custom_tooltip = nr_devout_sisters_lore_2c
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_sisters_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Nothing to offer and the church runs nothing: neutral close, no penalty
+		name = nr_devout_sisters.2.e
+		default_option = yes
+		trigger = {
+			nr_devout_sisters_church_runs_hospitals = no
+			nr_devout_sisters_offer_available = no
+		}
+	}
+}

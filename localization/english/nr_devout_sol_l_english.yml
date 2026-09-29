@@ -1,0 +1,17 @@
+﻿l_english:
+ # NR: Devout "Flock's Welfare" commitment (task devout_sol)
+ je_nr_devout_sol: "Commitment: The Flock's Welfare"
+ je_nr_devout_sol_reason: "We have sworn to the [SCOPE.gsInterestGroup('ig').GetName] that the common people will live better. A single good year will not convince them: the clergy will judge us by how long the flock lives in comfort."
+ je_nr_devout_sol_status_filling: "Average [concept_sol] is [ROOT.GetCountry.GetAverageSoLByPopulation|v1] / [SCOPE.gsInterestGroup('ig').MakeScope.Var('promised_sol_level').GetValue|v1]. #g The bar is filling.#!"
+ je_nr_devout_sol_status_slow: "Average [concept_sol] is [ROOT.GetCountry.GetAverageSoLByPopulation|v1] / [SCOPE.gsInterestGroup('ig').MakeScope.Var('promised_sol_level').GetValue|v1]. #gold_value The bar is filling slowly.#!"
+ je_nr_devout_sol_status_draining: "Average [concept_sol] is [ROOT.GetCountry.GetAverageSoLByPopulation|v1] / [SCOPE.gsInterestGroup('ig').MakeScope.Var('promised_sol_level').GetValue|v1]. #r Worse than when we promised: the bar is draining.#!"
+ je_nr_devout_sol_status_stalled: "Average [concept_sol] is [ROOT.GetCountry.GetAverageSoLByPopulation|v1] / [SCOPE.gsInterestGroup('ig').MakeScope.Var('promised_sol_level').GetValue|v1]. #r The bar has stalled.#!"
+ nr_devout_sol_bar: "The Flock's Welfare"
+ nr_devout_sol_bar_desc: "Bar: #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|1]#!/36. Empty means failure, full means success."
+ nr_devout_sol_bar_progress_sol_ok: "Average [concept_sol] at or above the promised level"
+ nr_devout_sol_bar_progress_sol_near: "Average [concept_sol] slightly below the promised level"
+ nr_devout_sol_bar_progress_sol_drop: "Average [concept_sol] below its level when we made the promise"
+ nr_devout_sol_bar_progress_sol_stalled: "Average [concept_sol] below the promised level, but not noticeably lower than when we made the promise"
+ nr_devout_sol_bar_full_tt: "The commitment bar is full"
+ nr_devout_sol_bar_empty_tt: "The commitment bar is empty"
+ nr_promise_devout_sol_tt: "We will commit to keeping the average [concept_sol] of [ROOT.GetCountry.GetNameNoFlag] at or above #v [SCOPE.gsInterestGroup('ig').MakeScope.Var('promised_sol_level').GetValue|v1]#!. The commitment bar will start at #v [SCOPE.gsInterestGroup('ig').MakeScope.ScriptValue('nr_devout_sol_bar_start')|0]#! of #v 36#!. Every month at the target it grows by #v 1#!, or by #v 0.5#! if we fall short by no more than #v 0.25#!. If the standard of living drops below its current level (#v [ROOT.GetCountry.GetAverageSoLByPopulation|v1]#!), the bar will drain by #v 0.5#! for every 0.5 of decline, up to #v 2#! per month. A full bar fulfils the commitment, an empty one breaks it. We have #v [SCOPE.gsInterestGroup('ig').GetCustom('NR_SOL_commitment_duration')] years#! [SCOPE.gsInterestGroup('ig').GetCustom('FailurePromiseLine')]"

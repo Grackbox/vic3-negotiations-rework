@@ -1,0 +1,9 @@
+﻿# NR: Army Chaplains (feature devout_chaplains).
+
+# Chaplains are already in the army: the amendment, or the running chaplains campaign. Scope: country.
+nr_devout_chaplains_present = {
+	OR = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_chaplains }
+		has_modifier = nr_devout_softbribe_chaplains
+	}
+}

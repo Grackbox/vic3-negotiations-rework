@@ -1,0 +1,12 @@
+{
+  "name" : "Negotiations Rework",
+  "id" : "negotiations_rework",
+  "version" : "0.1",
+  "supported_game_version" : "",
+  "short_description" : "Rework of interest group negotiation commitments",
+  "tags" : [],
+  "relationships" : [],
+  "game_custom_data" : {
+    "multiplayer_synchronized" : true
+  }
+}

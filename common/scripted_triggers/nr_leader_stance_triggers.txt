@@ -1,0 +1,14 @@
+﻿# NR: general rule of the mod - an interest group never offers a form, petition or amendment
+# that its leader is against. Scope: country, scope:ig = the interest group.
+
+# The leader's own stance on the law is not below neutral (true when there is no leader).
+nr_ig_leader_not_against_law = {
+	NOT = {
+		scope:ig.leader ?= {
+			law_stance = {
+				law = law_type:$LAW$
+				value < neutral
+			}
+		}
+	}
+}

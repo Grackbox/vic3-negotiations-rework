@@ -1,0 +1,3 @@
+﻿l_english:
+ # NR: shared texts of the negotiation hooks
+ negotiation.1.nr_o1_soft: "[SCOPE.gsInterestGroup('negotiating_interest_group').GetCustom('NR_SoftBribeLine')]"

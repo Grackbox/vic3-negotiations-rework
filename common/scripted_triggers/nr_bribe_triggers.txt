@@ -1,0 +1,6 @@
+﻿# NR: regular bribe (negotiation option 1).
+
+# Devout bribe can be paid without reaching the credit limit. Scope: country, scope:ig = Devout IG.
+nr_devout_bribe_affordable = {
+	nr_devout_bribe_room_after >= 0
+}

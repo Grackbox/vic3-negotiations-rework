@@ -1,0 +1,32 @@
+﻿# NR: Sisters of Mercy (feature devout_sisters).
+
+# The church already runs the hospitals: charitable health system, or our amendment on public health insurance. Scope: country.
+nr_devout_sisters_church_runs_hospitals = {
+	OR = {
+		has_law = law_type:law_charitable_health_system
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_sisters }
+	}
+}
+
+# Petition for Charity Hospitals can be offered: unlocked by medical_degrees, not yet passed, not already running. Scope: country.
+nr_devout_sisters_petition_available = {
+	has_technology_researched = medical_degrees
+	NOT = { has_law = law_type:law_charitable_health_system }
+	NOT = { has_journal_entry = je_nr_devout_sisters_petition }
+}
+
+# Sisters of Mercy amendment can be attached to the active Public Health Insurance. Scope: country.
+nr_devout_sisters_amendment_available = {
+	has_law = law_type:law_public_health_insurance
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_sisters }
+	}
+}
+
+# Anything to offer the church at all. Without it the event has nothing to ask, so declining is a neutral close. Scope: country.
+nr_devout_sisters_offer_available = {
+	OR = {
+		nr_devout_sisters_petition_available = yes
+		nr_devout_sisters_amendment_available = yes
+	}
+}

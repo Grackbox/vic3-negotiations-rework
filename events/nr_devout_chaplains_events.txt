@@ -1,0 +1,130 @@
+﻿namespace = nr_devout_chaplains
+
+# NR: Army Chaplains (feature devout_chaplains), an instance of the "IG amendment pair" pattern.
+# .1 - enactment of Professional Army: may attach amendment_nr_devout_chaplains to the law being enacted.
+# .2 - after the chaplains soft bribe campaign (10 years): offer to attach it to the active Professional Army law.
+
+nr_devout_chaplains.1 = {
+	type = country_event
+	placement = root
+	title = nr_devout_chaplains.1.t
+	desc = nr_devout_chaplains.1.desc
+	flavor = nr_devout_chaplains.1.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "middleeast_battlefield_trenches"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		is_enacting_law = law_type:law_professional_army
+		exists = ig:ig_devout
+		nr_devout_chaplains_present = no
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_devout ?= { save_scope_as = devout_ig }
+		ig:ig_armed_forces ?= { save_scope_as = armed_forces_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # The army serves the regulations, not the altar
+		name = nr_devout_chaplains.1.a
+		default_option = yes
+		custom_tooltip = nr_devout_chaplains_lore_1a
+		add_enactment_modifier = {
+			name = nr_devout_chaplains_regulations
+		}
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_chaplains_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # A chaplain in every regiment: attach the amendment
+		name = nr_devout_chaplains.1.b
+		custom_tooltip = nr_devout_chaplains_lore_1b
+		add_enactment_modifier = {
+			name = nr_devout_chaplains_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_devout_chaplains
+			IG = ig_devout
+		}
+	}
+
+	option = { # Let the officers' assembly decide
+		name = nr_devout_chaplains.1.c
+		custom_tooltip = nr_devout_chaplains_lore_1c
+		scope:armed_forces_ig ?= {
+			add_modifier = {
+				name = nr_devout_chaplains_officers_trusted
+				days = normal_modifier_time
+			}
+		}
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_chaplains_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_devout_chaplains.2 = {
+	type = country_event
+	placement = root
+	title = nr_devout_chaplains.2.t
+	desc = nr_devout_chaplains.2.desc
+	flavor = nr_devout_chaplains.2.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "middleeast_battlefield_trenches"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	trigger = {
+		has_law = law_type:law_professional_army
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_chaplains }
+		}
+	}
+
+	option = { # Keep the chaplains: attach the amendment to the active law
+		name = nr_devout_chaplains.2.a
+		custom_tooltip = nr_devout_chaplains_lore_2a
+		nr_amendment_add_to_active_law = {
+			AMENDMENT = amendment_nr_devout_chaplains
+			LAW = law_professional_army
+			IG = ig_devout
+		}
+	}
+
+	option = { # That is enough
+		name = nr_devout_chaplains.2.b
+		default_option = yes
+		custom_tooltip = nr_devout_chaplains_lore_2b
+	}
+}

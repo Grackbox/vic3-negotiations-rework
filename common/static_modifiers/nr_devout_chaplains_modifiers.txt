@@ -1,0 +1,25 @@
+﻿# NR: Army Chaplains (feature devout_chaplains) - enactment event modifiers.
+
+# "The army serves the regulations, not the altar" - faster enactment
+nr_devout_chaplains_regulations = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+# "A chaplain in every regiment" - slower enactment (like vanilla discipline_focus)
+nr_devout_chaplains_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+# Devout IG: the church was kept out of the army
+nr_devout_chaplains_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Armed Forces IG: the officers decided for themselves
+nr_devout_chaplains_officers_trusted = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}

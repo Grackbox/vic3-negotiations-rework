@@ -1,0 +1,97 @@
+﻿namespace = nr_devout_schools
+
+# NR: Devout schools (feature devout_schools), post-campaign part of the "IG amendment pair" pattern.
+# .1 is reserved for a possible enactment event.
+# .2 - 10 years after the Enlightening the Lost campaign form: petition for Religious Schools,
+#      the vanilla Church-Organized Schools amendment on Public Schools, or decline (default).
+#      If the church already runs the schools (Religious Schools or Church-Organized Schools), decline becomes thanks: +2 approval.
+#      If there is nothing to offer (no petition, no amendment possible) and the church runs nothing, decline becomes a neutral close (.e).
+
+nr_devout_schools.2 = {
+	type = country_event
+	placement = root
+	title = nr_devout_schools.2.t
+	desc = nr_devout_schools.2.desc
+	flavor = nr_devout_schools.2.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	trigger = {
+		exists = ig:ig_devout
+	}
+
+	immediate = {
+		ig:ig_devout ?= { save_scope_as = devout_ig }
+	}
+
+	option = { # Petition for Religious Schools (unlocked by rationalism)
+		name = nr_devout_schools.2.a
+		trigger = {
+			nr_devout_schools_petition_available = yes
+		}
+		custom_tooltip = nr_devout_schools_lore_2a
+		custom_tooltip = nr_devout_schools_petition_tt
+		add_journal_entry = { type = je_nr_devout_schools_petition }
+	}
+
+	option = { # Church-Organized Schools amendment on Public Schools
+		name = nr_devout_schools.2.b
+		trigger = {
+			nr_devout_schools_amendment_available = yes
+		}
+		custom_tooltip = nr_devout_schools_lore_2b
+		nr_amendment_add_to_active_law = {
+			AMENDMENT = amendment_church_organised_schools
+			LAW = law_public_schools
+			IG = ig_devout
+		}
+	}
+
+	option = { # Schools are already in church hands: thanks instead of a request
+		name = nr_devout_schools.2.d
+		default_option = yes
+		trigger = {
+			nr_devout_schools_church_runs_schools = yes
+		}
+		custom_tooltip = nr_devout_schools_lore_2d
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_schools_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # No, thank you (only while there was something to offer)
+		name = nr_devout_schools.2.c
+		default_option = yes
+		trigger = {
+			nr_devout_schools_church_runs_schools = no
+			nr_devout_schools_offer_available = yes
+		}
+		custom_tooltip = nr_devout_schools_lore_2c
+		scope:devout_ig ?= {
+			add_modifier = {
+				name = nr_devout_schools_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # Nothing to offer and the church runs nothing: neutral close, no penalty
+		name = nr_devout_schools.2.e
+		default_option = yes
+		trigger = {
+			nr_devout_schools_church_runs_schools = no
+			nr_devout_schools_offer_available = no
+		}
+	}
+}
