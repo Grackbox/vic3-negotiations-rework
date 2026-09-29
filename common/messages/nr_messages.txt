@@ -1,0 +1,15 @@
+﻿# NR: notifications of the mod.
+
+# Election promise kept (je_nr_election_promise_<group>, on_complete). Vanilla has a toast only for a broken promise.
+nr_election_promise_kept_toast = {
+	type = country
+	texture = "gfx/interface/icons/notification_icons/influence.dds"
+	notification_type = toast
+}
+
+# Election promise withdrawn without penalty: the group was in no party at the election.
+nr_election_promise_void_toast = {
+	type = country
+	texture = "gfx/interface/icons/notification_icons/elections.dds"
+	notification_type = toast
+}
