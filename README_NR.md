@@ -175,6 +175,30 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - `event nr_debug.4` - Devout regular bribe without a negotiation: pay it exactly as option `negotiation.1.o1` (payment, `bribed_ig_benefits`, exposure roll, vice check in 310 days), give the Devout leader a vice now (100%), or expose it now (`generic_laws.2`, needs a law being enacted).
 - New follow-ups and enactment events should be added to these menus.
 
+## Feature landowners_grants - grants instead of money (negotiation option 1) - agreed design, not implemented
+- Roll (`nr_softbribe_roll`): 50 / 50 money or grant. Always a grant: leader Honorable, Ambitious, Imperious or Arrogant (status and land matter more than cash), or the bribe is unaffordable. Always money: Grifter / Expensive Tastes / Hedonist, or no free grant slot.
+- Option: Landowners +10 / 20 / 30% political strength by level (like the bribe), no attraction; expenses = vanilla bribe amount (`neg_bribe_amount`) weekly, decaying over 10 years, x form factor; form event a week later: default form + 2 random of the available ones. Slots 1 / 2 / 3 by clout; a running form is not offered again.
+- Forms (10 years, decaying; effects are drafts):
+
+| Form | Cost | Plus | Minus | Movements | Available |
+|---|---|---|---|---|---|
+| Ranks and Orders (default, base effects only) | x1 | - | - | - | always |
+| Crown Lands | x0.5 | agriculture self-investment +10%, aristocrats' shares + | subsistence peasants SoL -1 | land reform support +10% | always |
+| Tax Exemptions for Estates | x0.25 | aristocrats SoL +1 | agriculture and plantation taxes -20% | liberal support +10% | always |
+| Corn Laws | x0.25 | agriculture throughput +10% | lower strata SoL -0.5, Industrialists -2 approval | liberal support +15% | not Free Trade |
+| Noble Land Bank | x1.25 | agriculture self-investment +20% | loan interest +1% | - | always |
+| Corvee | x0.25 | agriculture throughput +10%, aristocrats SoL +1 | peasants SoL -1, peasants political strength -10% | land reform support +15%, radicalism +0.1 | Serfdom or Manorialism |
+| Redemption Operation | x1.5 | aristocrats SoL +1, agriculture self-investment +10% | peasants SoL -1 | land reform radicalism -0.15 | no Serfdom / Manorialism, landlord farming (not Homesteading, not collectivized) |
+| Return of Fugitives | x0.75 | slave revolt support -15%, plantation slave mortality -5% | abolitionist support in free states +15% | abolitionists radicalism +0.15, pro-slavery radicalism -0.15 | slavery legal |
+| Slave Import | x0.25 | slave import +30%, plantation throughput +5% | abolitionist support +10% | abolitionists radicalism +0.1, pro-slavery radicalism -0.1 | Slave Trade law |
+
+- Movement radicalism is a modifier on the movement itself, applied when the form is chosen and refreshed yearly while the form runs (movements that appear later get it too); support is a country modifier.
+- Interruption (like Censorship Committees): Corn Laws end with Free Trade; Corvee ends when Serfdom / Manorialism is replaced; Return of Fugitives ends with Slavery Banned; Slave Import ends with Slavery Banned or when the Slave Trade law is replaced. The form modifier is removed, its expenses stop, its slot is freed (each form remembers its slot), no follow-up event.
+- Interruption penalty: Landowners in government ("gave it up themselves"): -1 approval for 5 years. Landowners in opposition ("the order was broken over their heads", e.g. a revolutionary government): -5 approval for 5 years, -15% political strength decaying over 5 years, and a backlash - Corn Laws / Corvee: reactionary movement support +10% for 5 years; Return of Fugitives / Slave Import: pro-slavery radicalism +0.2 for a year. Historical notes: repeal of the Corn Laws 1846 split the Tories; emancipation from above in Russia 1861; Brazil's Golden Law 1888, the monarchy fell a year later.
+- Every form: lore line + historical concept (Table of Ranks 1722; Bashkir lands scandal 1870s-1881; Prussian knightly estates exempt from land tax until 1861; Corn Laws 1815-1846, Anti-Corn Law League 1838, German tariff 1879; Silesian Landschaft 1770, Russian Noble Land Bank 1885; Prussian regulation edicts 1811 / 1816, Russian 1822 right to exile serfs to Siberia; Prussian Rentenbanken 1850, Russian redemption after 1861 over 49 years; US Fugitive Slave Act 1850; Brazilian slave trade 1831-1850, Eusebio de Queiros law). Dates to be re-checked before writing.
+- Landowner law stances (vanilla ideologies, for follow-ups): hierarchic - Serfdom strongly approve, Tenant Farmers approve, Peasant Proprietorship strongly disapprove, land-based / consumption taxation approve, proportional disapprove; paternalistic - Traditionalism strongly approve, Agrarianism approve, Hereditary Bureaucrats approve, Local Police approve, Landed Voting strongly approve.
+- Follow-ups after 10 years: to be designed.
+
 ## Negotiation difficulty (reference)
 - Amenability (0-100) is computed in code; factor weights are not exposed.
 - Level thresholds: `NPolitics` in `common/defines/00_defines.txt` — MIN_AMENABILITY_TENSE/NORMAL/FRIENDLY_NEGOTIATION = 25/50/75 → levels 4/2/1.
