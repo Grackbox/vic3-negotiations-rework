@@ -515,6 +515,12 @@ nr_ruler_pressure_leader_disloyal = {
 	character_loyalty_add = -15
 }
 
+# A monarch or theocrat with an elected parliament meddled in its affairs (country)
+nr_ruler_pressure_constitutional = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	country_legitimacy_base_add = -5
+}
+
 # The ruler struck at their own group (character)
 nr_ruler_pressure_betrayal = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds

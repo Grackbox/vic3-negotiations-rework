@@ -4,6 +4,10 @@
 nr_ruler_pressure_apply = {
 	nr_ruler_pressure_lore = yes
 	nr_authority_cost_add = { COST = 400 }
+	if = { # a monarch or theocrat with an elected parliament meddles in its affairs
+		limit = { nr_ruler_pressure_constitutional = yes }
+		add_modifier = { name = nr_ruler_pressure_constitutional days = normal_modifier_time }
+	}
 	if = {
 		limit = { nr_ruler_pressure_own_group = yes }
 		nr_ruler_pressure_own = yes
@@ -63,10 +67,10 @@ nr_ruler_pressure_army = {
 	}
 	else_if = {
 		limit = { nr_ruler_pressure_army_wary = yes }
-		add_modifier = { name = nr_ruler_pressure_army_wary days = normal_modifier_time }
+		add_modifier = { name = nr_ruler_pressure_army_wary days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 	}
 	else = {
-		add_modifier = { name = nr_ruler_pressure_army_disloyal days = normal_modifier_time }
+		add_modifier = { name = nr_ruler_pressure_army_disloyal days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		scope:ig.leader ?= {
 			add_modifier = { name = nr_ruler_pressure_leader_disloyal days = normal_modifier_time }
 		}
@@ -83,149 +87,149 @@ nr_ruler_pressure_other = {
 		limit = { scope:ig = { is_interest_group_type = ig_devout } }
 		if = {
 			limit = { nr_ruler_is_monarch = yes }
-			add_modifier = { name = nr_ruler_pressure_monarch_devout days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_monarch_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_theocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_theocrat_devout days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_theocrat_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_autocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_autocrat_devout days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_autocrat_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_oligarchs = yes }
-			add_modifier = { name = nr_ruler_pressure_oligarchs_devout days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_oligarchs_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }
-			add_modifier = { name = nr_ruler_pressure_technocrats_devout days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_technocrats_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 	}
 	else_if = {
 		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
 		if = {
 			limit = { nr_ruler_is_monarch = yes }
-			add_modifier = { name = nr_ruler_pressure_monarch_landowners days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_monarch_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_theocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_theocrat_landowners days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_theocrat_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_autocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_autocrat_landowners days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_autocrat_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_oligarchs = yes }
-			add_modifier = { name = nr_ruler_pressure_oligarchs_landowners days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_oligarchs_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }
-			add_modifier = { name = nr_ruler_pressure_technocrats_landowners days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_technocrats_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 	}
 	else_if = {
 		limit = { scope:ig = { is_interest_group_type = ig_industrialists } }
 		if = {
 			limit = { nr_ruler_is_monarch = yes }
-			add_modifier = { name = nr_ruler_pressure_monarch_industrialists days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_monarch_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_theocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_theocrat_industrialists days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_theocrat_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_autocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_autocrat_industrialists days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_autocrat_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_oligarchs = yes }
-			add_modifier = { name = nr_ruler_pressure_oligarchs_industrialists days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_oligarchs_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }
-			add_modifier = { name = nr_ruler_pressure_technocrats_industrialists days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_technocrats_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 	}
 	else_if = {
 		limit = { scope:ig = { is_interest_group_type = ig_petty_bourgeoisie } }
 		if = {
 			limit = { nr_ruler_is_monarch = yes }
-			add_modifier = { name = nr_ruler_pressure_monarch_petty_bourgeoisie days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_monarch_petty_bourgeoisie days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_theocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_theocrat_petty_bourgeoisie days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_theocrat_petty_bourgeoisie days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_autocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_autocrat_petty_bourgeoisie days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_autocrat_petty_bourgeoisie days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_oligarchs = yes }
-			add_modifier = { name = nr_ruler_pressure_oligarchs_petty_bourgeoisie days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_oligarchs_petty_bourgeoisie days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }
-			add_modifier = { name = nr_ruler_pressure_technocrats_petty_bourgeoisie days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_technocrats_petty_bourgeoisie days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 	}
 	else_if = {
 		limit = { scope:ig = { is_interest_group_type = ig_intelligentsia } }
 		if = {
 			limit = { nr_ruler_is_monarch = yes }
-			add_modifier = { name = nr_ruler_pressure_monarch_intelligentsia days = normal_modifier_time }
-			add_infamy = 10
+			add_modifier = { name = nr_ruler_pressure_monarch_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_infamy = { value = 10 multiply = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_theocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_theocrat_intelligentsia days = normal_modifier_time }
-			add_infamy = 10
+			add_modifier = { name = nr_ruler_pressure_theocrat_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_infamy = { value = 10 multiply = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_autocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_autocrat_intelligentsia days = normal_modifier_time }
-			add_infamy = 5
+			add_modifier = { name = nr_ruler_pressure_autocrat_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_infamy = { value = 5 multiply = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_oligarchs = yes }
-			add_modifier = { name = nr_ruler_pressure_oligarchs_intelligentsia days = normal_modifier_time }
-			add_infamy = 5
+			add_modifier = { name = nr_ruler_pressure_oligarchs_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
+			add_infamy = { value = 5 multiply = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }
-			add_modifier = { name = nr_ruler_pressure_technocrats_intelligentsia days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_technocrats_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 	}
 	else_if = {
 		limit = { scope:ig = { is_interest_group_type = ig_trade_unions } }
 		if = {
 			limit = { nr_ruler_is_monarch = yes }
-			add_modifier = { name = nr_ruler_pressure_monarch_trade_unions days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_monarch_trade_unions days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_theocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_theocrat_trade_unions days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_theocrat_trade_unions days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_autocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_autocrat_trade_unions days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_autocrat_trade_unions days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_oligarchs = yes }
-			add_modifier = { name = nr_ruler_pressure_oligarchs_trade_unions days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_oligarchs_trade_unions days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }
-			add_modifier = { name = nr_ruler_pressure_technocrats_trade_unions days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_technocrats_trade_unions days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 	}
 	else_if = {
 		limit = { scope:ig = { is_interest_group_type = ig_rural_folk } }
 		if = {
 			limit = { nr_ruler_is_monarch = yes }
-			add_modifier = { name = nr_ruler_pressure_monarch_rural_folk days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_monarch_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_theocrat = yes }
@@ -233,15 +237,15 @@ nr_ruler_pressure_other = {
 		}
 		else_if = {
 			limit = { nr_ruler_is_autocrat = yes }
-			add_modifier = { name = nr_ruler_pressure_autocrat_rural_folk days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_autocrat_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_oligarchs = yes }
-			add_modifier = { name = nr_ruler_pressure_oligarchs_rural_folk days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_oligarchs_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 		else_if = {
 			limit = { nr_ruler_is_technocrats = yes }
-			add_modifier = { name = nr_ruler_pressure_technocrats_rural_folk days = normal_modifier_time }
+			add_modifier = { name = nr_ruler_pressure_technocrats_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 		}
 	}
 }
@@ -274,184 +278,184 @@ nr_ruler_pressure_own = {
 			limit = { scope:ig = { is_interest_group_type = ig_armed_forces } }
 			if = {
 				limit = { nr_ruler_is_monarch = yes }
-				add_modifier = { name = nr_ruler_pressure_own_monarch_armed_forces days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_monarch_armed_forces days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_theocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_theocrat_armed_forces days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_theocrat_armed_forces days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_autocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_autocrat_armed_forces days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_autocrat_armed_forces days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_oligarchs = yes }
-				add_modifier = { name = nr_ruler_pressure_own_oligarchs_armed_forces days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_oligarchs_armed_forces days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
-				add_modifier = { name = nr_ruler_pressure_own_technocrats_armed_forces days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_armed_forces days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 		}
 		else_if= {
 			limit = { scope:ig = { is_interest_group_type = ig_devout } }
 			if = {
 				limit = { nr_ruler_is_monarch = yes }
-				add_modifier = { name = nr_ruler_pressure_own_monarch_devout days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_monarch_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_theocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_theocrat_devout days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_theocrat_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_autocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_autocrat_devout days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_autocrat_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_oligarchs = yes }
-				add_modifier = { name = nr_ruler_pressure_own_oligarchs_devout days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_oligarchs_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
-				add_modifier = { name = nr_ruler_pressure_own_technocrats_devout days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_devout days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 		}
 		else_if= {
 			limit = { scope:ig = { is_interest_group_type = ig_landowners } }
 			if = {
 				limit = { nr_ruler_is_monarch = yes }
-				add_modifier = { name = nr_ruler_pressure_own_monarch_landowners days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_monarch_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_theocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_theocrat_landowners days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_theocrat_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_autocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_autocrat_landowners days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_autocrat_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_oligarchs = yes }
-				add_modifier = { name = nr_ruler_pressure_own_oligarchs_landowners days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_oligarchs_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
-				add_modifier = { name = nr_ruler_pressure_own_technocrats_landowners days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_landowners days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 		}
 		else_if= {
 			limit = { scope:ig = { is_interest_group_type = ig_industrialists } }
 			if = {
 				limit = { nr_ruler_is_monarch = yes }
-				add_modifier = { name = nr_ruler_pressure_own_monarch_industrialists days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_monarch_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_theocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_theocrat_industrialists days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_theocrat_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_autocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_autocrat_industrialists days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_autocrat_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_oligarchs = yes }
-				add_modifier = { name = nr_ruler_pressure_own_oligarchs_industrialists days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_oligarchs_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
-				add_modifier = { name = nr_ruler_pressure_own_technocrats_industrialists days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_industrialists days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 		}
 		else_if= {
 			limit = { scope:ig = { is_interest_group_type = ig_petty_bourgeoisie } }
 			if = {
 				limit = { nr_ruler_is_monarch = yes }
-				add_modifier = { name = nr_ruler_pressure_own_monarch_petty_bourgeoisie days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_monarch_petty_bourgeoisie days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_theocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_theocrat_petty_bourgeoisie days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_theocrat_petty_bourgeoisie days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_autocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_autocrat_petty_bourgeoisie days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_autocrat_petty_bourgeoisie days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_oligarchs = yes }
-				add_modifier = { name = nr_ruler_pressure_own_oligarchs_petty_bourgeoisie days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_oligarchs_petty_bourgeoisie days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
-				add_modifier = { name = nr_ruler_pressure_own_technocrats_petty_bourgeoisie days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_petty_bourgeoisie days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 		}
 		else_if= {
 			limit = { scope:ig = { is_interest_group_type = ig_intelligentsia } }
 			if = {
 				limit = { nr_ruler_is_monarch = yes }
-				add_modifier = { name = nr_ruler_pressure_own_monarch_intelligentsia days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_monarch_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_theocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_theocrat_intelligentsia days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_theocrat_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_autocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_autocrat_intelligentsia days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_autocrat_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_oligarchs = yes }
-				add_modifier = { name = nr_ruler_pressure_own_oligarchs_intelligentsia days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_oligarchs_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
-				add_modifier = { name = nr_ruler_pressure_own_technocrats_intelligentsia days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_intelligentsia days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 		}
 		else_if= {
 			limit = { scope:ig = { is_interest_group_type = ig_trade_unions } }
 			if = {
 				limit = { nr_ruler_is_monarch = yes }
-				add_modifier = { name = nr_ruler_pressure_own_monarch_trade_unions days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_monarch_trade_unions days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_theocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_theocrat_trade_unions days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_theocrat_trade_unions days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_autocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_autocrat_trade_unions days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_autocrat_trade_unions days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_oligarchs = yes }
-				add_modifier = { name = nr_ruler_pressure_own_oligarchs_trade_unions days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_oligarchs_trade_unions days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
-				add_modifier = { name = nr_ruler_pressure_own_technocrats_trade_unions days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_trade_unions days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 		}
 		else_if= {
 			limit = { scope:ig = { is_interest_group_type = ig_rural_folk } }
 			if = {
 				limit = { nr_ruler_is_monarch = yes }
-				add_modifier = { name = nr_ruler_pressure_own_monarch_rural_folk days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_monarch_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_theocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_theocrat_rural_folk days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_theocrat_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_autocrat = yes }
-				add_modifier = { name = nr_ruler_pressure_own_autocrat_rural_folk days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_autocrat_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_oligarchs = yes }
-				add_modifier = { name = nr_ruler_pressure_own_oligarchs_rural_folk days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_oligarchs_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 			else_if = {
 				limit = { nr_ruler_is_technocrats = yes }
-				add_modifier = { name = nr_ruler_pressure_own_technocrats_rural_folk days = normal_modifier_time }
+				add_modifier = { name = nr_ruler_pressure_own_technocrats_rural_folk days = normal_modifier_time multiplier = nr_ruler_pressure_scale }
 			}
 		}
 	}

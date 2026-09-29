@@ -1,0 +1,10 @@
+﻿# NR: the ruler presses the group (feature ruler_pressure). Scope: country.
+
+# Multiplier of the effects: x1.5 for a monarch or theocrat with an elected parliament.
+nr_ruler_pressure_scale = {
+	value = 1
+	if = {
+		limit = { nr_ruler_pressure_constitutional = yes }
+		value = 1.5
+	}
+}

@@ -25,6 +25,7 @@
  nr_election_promise_free_elections_tt: "The Tradition of Free Elections forbids backing any party"
  nr_ruler_pressure_leader_disloyal: "Resents the Order"
  nr_ruler_pressure_betrayal: "Struck at His Own"
+ nr_ruler_pressure_constitutional: "The Crown Meddled with Parliament"
  nr_ruler_pressure_army_loyal_monarch: "For King and Country"
  nr_ruler_pressure_army_loyal_autocrat: "The Army Obeys"
  nr_ruler_pressure_army_wary: "The Army Grumbles"

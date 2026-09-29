@@ -39,6 +39,15 @@ nr_ruler_is_technocrats = {
 	has_law_or_variant = law_type:law_technocracy
 }
 
+# A monarchy or theocracy with elections: the ruler's pressure costs more (effects x1.5, legitimacy -5).
+nr_ruler_pressure_constitutional = {
+	OR = {
+		nr_ruler_is_monarch = yes
+		nr_ruler_is_theocrat = yes
+	}
+	country_has_voting_franchise = yes
+}
+
 # The ruler is not against the law being enacted.
 nr_ruler_not_against_law = {
 	exists = ruler

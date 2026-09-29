@@ -25,6 +25,7 @@
  nr_election_promise_free_elections_tt: "Традиция свободных выборов не позволяет поддержать ни одну партию"
  nr_ruler_pressure_leader_disloyal: "Недоволен приказом"
  nr_ruler_pressure_betrayal: "Ударил по своим"
+ nr_ruler_pressure_constitutional: "Вмешательство в дела парламента"
  nr_ruler_pressure_army_loyal_monarch: "За царя и отечество"
  nr_ruler_pressure_army_loyal_autocrat: "Армия повинуется"
  nr_ruler_pressure_army_wary: "Армия ропщет"
