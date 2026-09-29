@@ -233,6 +233,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 | Return of Fugitives | own amendment "Fugitive Slave Law" on any slavery law (vanilla amendment_american_fugitive_slaves_act is limited to yankee / dixie cultures): Landowners +1 approval, +10% political strength, abolitionist support in free states +15% |
 | Slave Import | Slave Trade still in force: own amendment "Free Import": slave import +15%, plantation throughput +3%, abolitionist support +10%; pro-slavery radicalism -0.1 (movement modifier, refreshed yearly); no authority cost |
 
+- Tested in game: the Corvee Statute follow-up (via `nr_debug.6`) attaches the amendment; Corn Laws interruption with its popup.
 - Enactment events for the six amendments: `nr_landowners_enact.1` - `.6` (`events/nr_landowners_enact_events.txt`), the Devout .1 pattern applied to the Landowners: in the `on_law_checkpoint_debate` pool (weight 10), cooldown 5 years; not if the amendment is present, not while the grant whose follow-up offers it is running, not if the Landowners leader is against the amendment's parent law (`nr_landowners_leader_not_against_law`). Options: a (default) +15% enactment speed, Landowners -2 approval 5 years; b attach the amendment, -15% speed; c the other group +2, Landowners -2.
 
 | Event | Amendment | While enacting | c: who decides |
