@@ -105,6 +105,7 @@ Vanilla: 1 army, 2 law, 3 buildings, 4 taxes, 5 SoL. Ours start at 101.
 An IG-themed amendment reaches a law in two ways:
 1. **Enactment event** in the vanilla `on_law_checkpoint_debate` random pool (like vanilla `education_laws.2`, Prussian Education). Added in `common/on_actions/nr_on_actions.txt` - on_action data merges across files, no vanilla override. One non-default option calls `nr_amendment_add_to_enacting_law = { AMENDMENT = ... IG = ... }`.
 2. **After the IG's soft-bribe campaign**: the campaign option schedules a popup (`trigger_event days = 3650`) that offers `nr_amendment_add_to_active_law = { AMENDMENT = ... LAW = ... IG = ... }` (default: decline). Vanilla attaches amendments to active laws the same way (`active_law:<group> = { add_amendment }`).
+3. **Vanilla negotiation option 8** ("add the amendment in fine print"): because the amendment has `would_sponsor` for its group, vanilla `neg_option_8_effects` can pick it when the player negotiates with that group during the enactment of an allowed law. Accepted as is (checked in game with Prison Ministry): this is how vanilla treats every IG-sponsored amendment.
 - Guard: `nr_amendment_is_present = { AMENDMENT = ... }` (active on any law, or on the law being enacted).
 - New instance checklist: amendment in `common/amendments/nr_<group>_<topic>_amendments.txt`; events `nr_<group>_<topic>.1` (enactment, 3 options) and `.2` (post-campaign); pool entry in `nr_on_actions.txt`; schedule `.2` from the campaign form; localization `nr_<group>_<topic>_l_*.yml`.
 
