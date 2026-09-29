@@ -1,12 +1,5 @@
 ﻿# NR: regular bribe (negotiation option 1, all interest groups).
 
-# bribed_ig_benefits strength by negotiation level: amenability_level 1 / 2 / 4 -> 1 / 2 / 3,
-# so the bribe gives +10% / +20% / +30% political strength. Scope: interest group.
-nr_bribe_benefits_multiplier = {
-	value = amenability_level
-	max = 3
-}
-
 # ---------- Devout bribe: one-time payment instead of weekly expenses ----------
 # All values: scope country (root of negotiation.1), scope:ig = the Devout IG.
 
@@ -30,7 +23,7 @@ nr_devout_bribe_slow_total = {
 nr_devout_bribe_credit_cap = {
 	value = credit
 	multiply = nr_bribe_credit_share_per_level
-	multiply = scope:ig.nr_bribe_benefits_multiplier
+	multiply = scope:ig.nr_neg_level_scale
 }
 
 # Money left before the credit limit (gold reserves + unused credit). Can be negative.

@@ -32,114 +32,8 @@ nr_devout_officials.1 = {
 			leader ?= { save_scope_as = ig_leader }
 		}
 		# Pick 2 of the available forms at random
-		random_list = {
-			1 = {
-				trigger = {
-					nr_devout_officials_censorship_available = yes
-				}
-				set_variable = nr_devout_officials_offer_censorship
-			}
-			1 = {
-				trigger = {
-					always = yes
-				}
-				set_variable = nr_devout_officials_offer_registers
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_slaves_available = yes
-				}
-				set_variable = nr_devout_officials_offer_slaves
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_church_tax_available = yes
-				}
-				set_variable = nr_devout_officials_offer_church_tax
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_not_state_atheism = yes
-				}
-				set_variable = nr_devout_officials_offer_prisons
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_not_state_atheism = yes
-				}
-				set_variable = nr_devout_officials_offer_calendar
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_seminarists_available = yes
-				}
-				set_variable = nr_devout_officials_offer_seminarists
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_synod_available = yes
-				}
-				set_variable = nr_devout_officials_offer_synod
-			}
-		}
-		random_list = {
-			1 = {
-				trigger = {
-					nr_devout_officials_censorship_available = yes
-					NOT = { has_variable = nr_devout_officials_offer_censorship }
-				}
-				set_variable = nr_devout_officials_offer_censorship
-			}
-			1 = {
-				trigger = {
-					always = yes
-					NOT = { has_variable = nr_devout_officials_offer_registers }
-				}
-				set_variable = nr_devout_officials_offer_registers
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_slaves_available = yes
-					NOT = { has_variable = nr_devout_officials_offer_slaves }
-				}
-				set_variable = nr_devout_officials_offer_slaves
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_church_tax_available = yes
-					NOT = { has_variable = nr_devout_officials_offer_church_tax }
-				}
-				set_variable = nr_devout_officials_offer_church_tax
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_not_state_atheism = yes
-					NOT = { has_variable = nr_devout_officials_offer_prisons }
-				}
-				set_variable = nr_devout_officials_offer_prisons
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_not_state_atheism = yes
-					NOT = { has_variable = nr_devout_officials_offer_calendar }
-				}
-				set_variable = nr_devout_officials_offer_calendar
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_seminarists_available = yes
-					NOT = { has_variable = nr_devout_officials_offer_seminarists }
-				}
-				set_variable = nr_devout_officials_offer_seminarists
-			}
-			1 = {
-				trigger = {
-					nr_devout_officials_synod_available = yes
-					NOT = { has_variable = nr_devout_officials_offer_synod }
-				}
-				set_variable = nr_devout_officials_offer_synod
-			}
-		}
+		nr_devout_officials_offer_random_form = yes
+		nr_devout_officials_offer_random_form = yes
 	}
 
 	option = { # Clerical Advisers: base effects only, penalty x1
@@ -150,7 +44,7 @@ nr_devout_officials.1 = {
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { nr_devout_officials_spare_share_x100 < 0.10 }
+				trigger = { nr_devout_officials_spare_share < 0.10 }
 				add = 10
 			}
 		}
@@ -162,14 +56,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_censorship
 		}
 		custom_tooltip = nr_devout_officials_lore_censorship
-		nr_devout_officials_add_form = { FORM = censorship }
-		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x125 }
-		hidden_effect = {
-			set_variable = {
-				name = nr_devout_officials_censorship_running # cleared if Protected Speech is enacted
-				days = long_modifier_time
-			}
-		}
+		nr_devout_officials_choose_form = { FORM = censorship FACTOR = 1.25 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -185,12 +72,11 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_registers
 		}
 		custom_tooltip = nr_devout_officials_lore_registers
-		nr_devout_officials_add_form = { FORM = registers }
-		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x075 }
+		nr_devout_officials_choose_form = { FORM = registers FACTOR = 0.75 }
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { nr_devout_officials_spare_share_x100 < 0.10 }
+				trigger = { nr_devout_officials_spare_share < 0.10 }
 				add = 10 # the cheapest form
 			}
 		}
@@ -202,8 +88,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_slaves
 		}
 		custom_tooltip = nr_devout_officials_lore_slaves
-		nr_devout_officials_add_form = { FORM = slaves }
-		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x075 }
+		nr_devout_officials_choose_form = { FORM = slaves FACTOR = 0.75 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -219,8 +104,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_church_tax
 		}
 		custom_tooltip = nr_devout_officials_lore_church_tax
-		nr_devout_officials_add_form = { FORM = church_tax }
-		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x125 }
+		nr_devout_officials_choose_form = { FORM = church_tax FACTOR = 1.25 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -236,8 +120,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_prisons
 		}
 		custom_tooltip = nr_devout_officials_lore_prisons
-		nr_devout_officials_add_form = { FORM = prisons }
-		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x100 }
+		nr_devout_officials_choose_form = { FORM = prisons FACTOR = 1 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -253,8 +136,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_calendar
 		}
 		custom_tooltip = nr_devout_officials_lore_calendar
-		nr_devout_officials_add_form = { FORM = calendar }
-		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x100 }
+		nr_devout_officials_choose_form = { FORM = calendar FACTOR = 1 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -270,8 +152,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_seminarists
 		}
 		custom_tooltip = nr_devout_officials_lore_seminarists
-		nr_devout_officials_add_form = { FORM = seminarists }
-		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x150 }
+		nr_devout_officials_choose_form = { FORM = seminarists FACTOR = 1.5 }
 		ai_chance = {
 			base = 5
 			modifier = {
@@ -279,7 +160,7 @@ nr_devout_officials.1 = {
 				add = 20
 			}
 			modifier = { # the most expensive form
-				trigger = { nr_devout_officials_spare_share_x100 < 0.20 }
+				trigger = { nr_devout_officials_spare_share < 0.20 }
 				add = -20
 			}
 		}
@@ -291,8 +172,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_synod
 		}
 		custom_tooltip = nr_devout_officials_lore_synod
-		nr_devout_officials_add_form = { FORM = synod }
-		nr_devout_officials_rescale = { MULT = nr_devout_officials_mult_x125 }
+		nr_devout_officials_choose_form = { FORM = synod FACTOR = 1.25 }
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -304,15 +184,7 @@ nr_devout_officials.1 = {
 
 	after = {
 		hidden_effect = {
-			remove_variable = nr_devout_officials_degree
-			remove_variable = nr_devout_officials_offer_censorship
-			remove_variable = nr_devout_officials_offer_registers
-			remove_variable = nr_devout_officials_offer_slaves
-			remove_variable = nr_devout_officials_offer_church_tax
-			remove_variable = nr_devout_officials_offer_prisons
-			remove_variable = nr_devout_officials_offer_calendar
-			remove_variable = nr_devout_officials_offer_seminarists
-			remove_variable = nr_devout_officials_offer_synod
+			nr_devout_officials_cleanup = yes
 		}
 	}
 }

@@ -58,7 +58,7 @@ nr_devout_softbribe_start = {
 		add_modifier = {
 			name = nr_devout_softbribe_patronage
 			days = long_modifier_time
-			multiplier = nr_devout_softbribe_patronage_multiplier
+			multiplier = nr_neg_level_scale
 			is_decaying = yes
 		}
 		improve_law_stance = yes
@@ -76,12 +76,67 @@ nr_devout_softbribe_start = {
 	}
 }
 
-# Rescales expenses for the campaign form (removes the base modifier). Scope: country.
-nr_devout_softbribe_reset_expenses = {
+# Offers one more random civil form in event nr_devout_softbribe.1 (sets nr_devout_softbribe_offer_<form>). Scope: country.
+nr_devout_softbribe_offer_random_form = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_variable = nr_devout_softbribe_offer_asceticism } }
+			set_variable = nr_devout_softbribe_offer_asceticism
+		}
+		1 = {
+			trigger = { NOT = { has_variable = nr_devout_softbribe_offer_enlightenment } }
+			set_variable = nr_devout_softbribe_offer_enlightenment
+		}
+		1 = {
+			trigger = { NOT = { has_variable = nr_devout_softbribe_offer_sisters } }
+			set_variable = nr_devout_softbribe_offer_sisters
+		}
+		1 = {
+			trigger = { NOT = { has_variable = nr_devout_softbribe_offer_shelters } }
+			set_variable = nr_devout_softbribe_offer_shelters
+		}
+	}
+}
+
+# Form modifier for 10 years, decaying. Scope: country. $FORM$ = asceticism / enlightenment / ...
+nr_devout_softbribe_add_form = {
+	add_modifier = {
+		name = nr_devout_softbribe_$FORM$
+		days = long_modifier_time
+		is_decaying = yes
+	}
+}
+
+# Rescales the campaign expenses to the base amount (fixed at the negotiation) x $FACTOR$ (0.25 / 0.5 / 1.25 / 1.5).
+# Guarded by has_variable: the event can be inspected or fired by console without the variable. Scope: country.
+nr_devout_softbribe_set_cost = {
 	if = {
 		limit = { has_modifier = nr_devout_softbribe_expenses }
 		remove_modifier = nr_devout_softbribe_expenses
 	}
+	if = {
+		limit = { has_variable = nr_devout_softbribe_cost_amount }
+		add_modifier = {
+			name = nr_devout_softbribe_expenses
+			multiplier = {
+				value = var:nr_devout_softbribe_cost_amount
+				multiply = $FACTOR$
+			}
+			days = long_modifier_time
+			is_decaying = yes
+		}
+	}
+}
+
+# Clears the data of event nr_devout_softbribe.1. Scope: country.
+nr_devout_softbribe_cleanup = {
+	remove_variable = nr_devout_softbribe_pending
+	remove_variable = nr_devout_softbribe_cost_amount
+	remove_variable = nr_devout_softbribe_degree
+	remove_variable = nr_devout_softbribe_offer_asceticism
+	remove_variable = nr_devout_softbribe_offer_enlightenment
+	remove_variable = nr_devout_softbribe_offer_sisters
+	remove_variable = nr_devout_softbribe_offer_shelters
 }
 
 # Colonial missions: one year of conversion in every colonial subject state. Scope: overlord country.

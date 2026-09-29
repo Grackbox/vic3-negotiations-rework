@@ -1,5 +1,12 @@
 ﻿# NR: values used by the hooks in vanilla negotiations.
 
+# Negotiation level (amenability_level 1 / 2 / 4) scaled down to 1 / 2 / 3. Used instead of the raw level for
+# rewards to the group: the bribe (bribed_ig_benefits), soft bribe patronage, church officials. Scope: interest group.
+nr_neg_level_scale = {
+	value = amenability_level
+	max = 3
+}
+
 # Extra weight for option 1 (bribe, base 10) in set_neg_options. Like vanilla, option 1 is not guaranteed.
 nr_neg_option_1_modifier = {
 	value = 0

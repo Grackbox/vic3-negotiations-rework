@@ -5,44 +5,6 @@ nr_devout_softbribe_base_cost = {
 	value = neg_bribe_amount
 }
 
-# Campaign form cost: base amount fixed at the negotiation x form factor. Scope: country.
-# Guarded by has_variable: the event can be inspected or fired by console without the variable.
-nr_devout_softbribe_cost_x025 = {
-	value = 0
-	if = {
-		limit = { has_variable = nr_devout_softbribe_cost_amount }
-		value = var:nr_devout_softbribe_cost_amount
-		multiply = 0.25
-	}
-}
-
-nr_devout_softbribe_cost_x050 = {
-	value = 0
-	if = {
-		limit = { has_variable = nr_devout_softbribe_cost_amount }
-		value = var:nr_devout_softbribe_cost_amount
-		multiply = 0.5
-	}
-}
-
-nr_devout_softbribe_cost_x125 = {
-	value = 0
-	if = {
-		limit = { has_variable = nr_devout_softbribe_cost_amount }
-		value = var:nr_devout_softbribe_cost_amount
-		multiply = 1.25
-	}
-}
-
-nr_devout_softbribe_cost_x150 = {
-	value = 0
-	if = {
-		limit = { has_variable = nr_devout_softbribe_cost_amount }
-		value = var:nr_devout_softbribe_cost_amount
-		multiply = 1.5
-	}
-}
-
 # Weight change of negotiation option 1 (base 10) from the Devout leader. Scope: interest group.
 # Bold, prominent leaders raise money matters more often; modest, careful ones less often. Total never drops below 0.
 nr_devout_softbribe_leader_weight = {
@@ -82,16 +44,3 @@ nr_devout_softbribe_leader_weight = {
 # and how many years it runs (same 10 years as the other forms).
 nr_devout_softbribe_mission_share = 0.03
 nr_devout_softbribe_mission_years = 10
-
-# Patronage strength by negotiation level (1 / 2 / 4): 1x / 2x / 3x instead of the raw level. Scope: interest group.
-nr_devout_softbribe_patronage_multiplier = {
-	value = 1
-	if = {
-		limit = { var:promise_quest_degree ?= 2 }
-		value = 2
-	}
-	else_if = {
-		limit = { var:promise_quest_degree ?= 4 }
-		value = 3
-	}
-}

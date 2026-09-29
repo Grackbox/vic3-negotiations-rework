@@ -22,7 +22,7 @@ nr_devout_officials_start = {
 		add_modifier = {
 			name = nr_devout_officials_benefits
 			days = long_modifier_time
-			multiplier = nr_bribe_benefits_multiplier # 1 / 2 / 3: +12 / 24 / 36% political strength
+			multiplier = nr_neg_level_scale # 1 / 2 / 3: +12 / 24 / 36% political strength
 			is_decaying = yes
 		}
 		improve_law_stance = yes
@@ -34,27 +34,78 @@ nr_devout_officials_start = {
 	}
 }
 
-# Rescale the bureaucracy penalty for the chosen form. Scope: country. $MULT$ = nr_devout_officials_mult_x075 / x100 / x125 / x150.
-nr_devout_officials_rescale = {
+# Offers one more random form in event nr_devout_officials.1 (sets nr_devout_officials_offer_<form>). Scope: country.
+nr_devout_officials_offer_random_form = {
+	random_list = {
+		1 = {
+			trigger = { nr_devout_officials_can_offer = { FORM = censorship } }
+			set_variable = nr_devout_officials_offer_censorship
+		}
+		1 = {
+			trigger = { nr_devout_officials_can_offer = { FORM = registers } }
+			set_variable = nr_devout_officials_offer_registers
+		}
+		1 = {
+			trigger = { nr_devout_officials_can_offer = { FORM = slaves } }
+			set_variable = nr_devout_officials_offer_slaves
+		}
+		1 = {
+			trigger = { nr_devout_officials_can_offer = { FORM = church_tax } }
+			set_variable = nr_devout_officials_offer_church_tax
+		}
+		1 = {
+			trigger = { nr_devout_officials_can_offer = { FORM = prisons } }
+			set_variable = nr_devout_officials_offer_prisons
+		}
+		1 = {
+			trigger = { nr_devout_officials_can_offer = { FORM = calendar } }
+			set_variable = nr_devout_officials_offer_calendar
+		}
+		1 = {
+			trigger = { nr_devout_officials_can_offer = { FORM = seminarists } }
+			set_variable = nr_devout_officials_offer_seminarists
+		}
+		1 = {
+			trigger = { nr_devout_officials_can_offer = { FORM = synod } }
+			set_variable = nr_devout_officials_offer_synod
+		}
+	}
+}
+
+# Chosen form: its modifier for 10 years, and the bureaucracy penalty rescaled to level x $FACTOR$ (0.75 / 1.25 / 1.5).
+# Scope: country. $FORM$ = censorship / registers / ...
+nr_devout_officials_choose_form = {
+	add_modifier = {
+		name = nr_devout_officials_$FORM$
+		days = long_modifier_time
+		is_decaying = yes
+	}
 	if = {
 		limit = { has_modifier = negotiation_bureaucracy }
 		remove_modifier = negotiation_bureaucracy
 	}
 	add_modifier = {
 		name = negotiation_bureaucracy
-		multiplier = $MULT$
+		multiplier = {
+			value = nr_devout_officials_level
+			multiply = $FACTOR$
+		}
 		days = long_modifier_time
 		is_decaying = yes
 	}
 }
 
-# Form modifier for 10 years. Scope: country. $FORM$ = censorship / registers / ...
-nr_devout_officials_add_form = {
-	add_modifier = {
-		name = nr_devout_officials_$FORM$
-		days = long_modifier_time
-		is_decaying = yes
-	}
+# Clears the data of event nr_devout_officials.1. Scope: country.
+nr_devout_officials_cleanup = {
+	remove_variable = nr_devout_officials_degree
+	remove_variable = nr_devout_officials_offer_censorship
+	remove_variable = nr_devout_officials_offer_registers
+	remove_variable = nr_devout_officials_offer_slaves
+	remove_variable = nr_devout_officials_offer_church_tax
+	remove_variable = nr_devout_officials_offer_prisons
+	remove_variable = nr_devout_officials_offer_calendar
+	remove_variable = nr_devout_officials_offer_seminarists
+	remove_variable = nr_devout_officials_offer_synod
 }
 
 # Censorship Committees end when Protected Speech is enacted (called from nr_on_law_activated). Scope: country.
@@ -65,9 +116,5 @@ nr_devout_officials_check_censorship = {
 			has_law = law_type:law_protected_speech
 		}
 		remove_modifier = nr_devout_officials_censorship
-		if = {
-			limit = { has_variable = nr_devout_officials_censorship_running }
-			remove_variable = nr_devout_officials_censorship_running
-		}
 	}
 }

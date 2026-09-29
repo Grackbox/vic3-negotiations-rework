@@ -1,8 +1,6 @@
 ﻿# NR: Devout soft bribe - funds for the church's needs (negotiation option 1).
 # Everything lasts 10 years and decays, like the vanilla bribe.
 
-# Everything lasts 10 years and decays, like the vanilla bribe.
-
 # Weekly expenses (x vanilla bribe amount, then x campaign form factor)
 nr_devout_softbribe_expenses = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
@@ -15,7 +13,7 @@ nr_devout_softbribe_base = {
 	state_conversion_mult = 0.1
 }
 
-# Devout IG (x nr_devout_softbribe_patronage_multiplier = 1 / 2 / 3): charity attracts new followers,
+# Devout IG (x nr_neg_level_scale = 1 / 2 / 3): charity attracts new followers,
 # the bribe (bribed_ig_benefits) does not, but the bribe gives twice the political strength (10% vs 5% per level).
 nr_devout_softbribe_patronage = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds

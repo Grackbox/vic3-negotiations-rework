@@ -1,23 +1,38 @@
 ﻿# NR: Devout church officials (negotiation option 2). Scope: country unless noted.
 
-# The x1 penalty does not push the country into a bureaucracy deficit.
+# The penalty x $FACTOR$ (1 / 1.25 / 1.5) does not push the country into a bureaucracy deficit.
 nr_devout_officials_affordable = {
-	nr_devout_officials_spare_x100 >= 0
+	nr_devout_officials_max_factor >= $FACTOR$
 }
 
-nr_devout_officials_affordable_x125 = {
-	nr_devout_officials_spare_x125 >= 0
+# AI (option negotiation.1.nr_o2_devout, via nr_neg_option_2_ai_*).
+# Plenty of spare bureaucracy after the penalty.
+nr_devout_officials_ai_good = {
+	nr_devout_officials_spare_share >= 0.25
 }
 
-nr_devout_officials_affordable_x150 = {
-	nr_devout_officials_spare_x150 >= 0
+# Almost no spare bureaucracy left after the penalty.
+nr_devout_officials_ai_bad = {
+	nr_devout_officials_spare_share < 0.10
 }
 
-# Form availability (form event nr_devout_officials.1).
+# ---------- Forms (event nr_devout_officials.1) ----------
+# Every form has nr_devout_officials_<form>_available; forms with a penalty above x1 check it fits.
+
+# The form is available and not offered yet in this event. $FORM$ = censorship / registers / ...
+nr_devout_officials_can_offer = {
+	nr_devout_officials_$FORM$_available = yes
+	NOT = { has_variable = nr_devout_officials_offer_$FORM$ }
+}
+
 nr_devout_officials_censorship_available = {
 	has_law = law_type:law_right_of_assembly
 	nr_ig_leader_not_against_law = { LAW = law_censorship }
-	nr_devout_officials_affordable_x125 = yes
+	nr_devout_officials_affordable = { FACTOR = 1.25 }
+}
+
+nr_devout_officials_registers_available = {
+	always = yes
 }
 
 nr_devout_officials_slaves_available = {
@@ -31,15 +46,19 @@ nr_devout_officials_church_tax_available = {
 		has_law = law_type:law_people_of_the_book
 		has_law = law_type:law_freedom_of_conscience
 	}
-	nr_devout_officials_affordable_x125 = yes
+	nr_devout_officials_affordable = { FACTOR = 1.25 }
 }
 
-nr_devout_officials_not_state_atheism = {
+nr_devout_officials_prisons_available = {
+	NOT = { has_law = law_type:law_state_atheism }
+}
+
+nr_devout_officials_calendar_available = {
 	NOT = { has_law = law_type:law_state_atheism }
 }
 
 nr_devout_officials_seminarists_available = {
-	nr_devout_officials_affordable_x150 = yes
+	nr_devout_officials_affordable = { FACTOR = 1.5 }
 }
 
 nr_devout_officials_synod_available = {
@@ -49,5 +68,5 @@ nr_devout_officials_synod_available = {
 		has_law = law_type:law_people_of_the_book
 	}
 	nr_ig_leader_not_against_law = { LAW = law_state_religion }
-	nr_devout_officials_affordable_x125 = yes
+	nr_devout_officials_affordable = { FACTOR = 1.25 }
 }

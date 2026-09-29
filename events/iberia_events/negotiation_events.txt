@@ -288,16 +288,13 @@ negotiation.1 = {
 				var:negotiation_option_c = 1
 			}
 			nr_neg_option_1_is_custom = no # NR: some leaders get a soft bribe instead of a bribe
-			OR = { # NR: a Devout bribe that would cause a default is not offered (the treasury may change during the negotiation)
-				scope:ig = { NOT = { is_interest_group_type = ig_devout } }
-				nr_devout_bribe_affordable = yes
-			}
+			nr_neg_option_1_affordable = yes # NR: the treasury may change during the negotiation
 		}
 		ai_chance = {
 			base = 10
 			modifier = {
 				trigger = {
-					scope:ig = { NOT = { is_interest_group_type = ig_devout } } # NR: Devout pay once, see below
+					nr_neg_option_1_vanilla_ai = yes # NR
 					OR = {
 						tax_level < high
 						net_total_income > neg_bribe_amount
@@ -307,7 +304,7 @@ negotiation.1 = {
 			}
 			modifier = { #don't do if broke
 				trigger = {
-					scope:ig = { NOT = { is_interest_group_type = ig_devout } } # NR
+					nr_neg_option_1_vanilla_ai = yes # NR
 					AND = {
 						net_total_income < 0
 						tax_level >= high
@@ -315,31 +312,17 @@ negotiation.1 = {
 				}
 				add = -50
 			}
-			# NR: Devout one-time bribe
-			modifier = { # paid from gold reserves, no new debt
-				trigger = {
-					scope:ig = { is_interest_group_type = ig_devout }
-					nr_devout_bribe_reserves_after >= 0
-				}
+			# NR: hooks for groups with their own bribe (nr_negotiation_hooks.txt)
+			modifier = {
+				trigger = { nr_neg_option_1_ai_good = yes }
 				add = 35
 			}
-			modifier = { # partly on credit, but at least half of the credit stays free
-				trigger = {
-					scope:ig = { is_interest_group_type = ig_devout }
-					nr_devout_bribe_reserves_after < 0
-					nr_devout_bribe_room_after_share >= 0.5
-				}
+			modifier = {
+				trigger = { nr_neg_option_1_ai_fair = yes }
 				add = 15
 			}
-			modifier = { # on credit while in deficit, or less than a quarter of the credit left
-				trigger = {
-					scope:ig = { is_interest_group_type = ig_devout }
-					nr_devout_bribe_reserves_after < 0
-					OR = {
-						net_total_income < 0
-						nr_devout_bribe_room_after_share < 0.25
-					}
-				}
+			modifier = {
+				trigger = { nr_neg_option_1_ai_bad = yes }
 				add = -50
 			}
 		}
@@ -350,7 +333,7 @@ negotiation.1 = {
 			add_modifier = {
 				name = bribed_ig_benefits
 				days = long_modifier_time
-				multiplier = nr_bribe_benefits_multiplier # NR: 1 / 2 / 3 instead of amenability_level 1 / 2 / 4
+				multiplier = nr_neg_level_scale # NR: 1 / 2 / 3 instead of amenability_level 1 / 2 / 4
 				is_decaying = yes
 			}
 			improve_law_stance = yes
@@ -430,7 +413,7 @@ negotiation.1 = {
 		}
 	}
 
-	option = { # NR: church officials instead of places in the administration - logic in common/scripted_effects/nr_devout_officials_effects.txt
+	option = { # NR: custom option 2 (Devout: church officials) - logic in common/scripted_effects/nr_negotiation_hooks.txt
 		name = negotiation.1.nr_o2_devout
 		trigger = {
 			OR = {
@@ -439,16 +422,16 @@ negotiation.1 = {
 				var:negotiation_option_c = 2
 			}
 			nr_neg_option_2_is_custom = yes
-			nr_devout_officials_affordable = yes # the bureaucracy may have changed during the negotiation
+			nr_neg_option_2_allowed = yes # the bureaucracy may have changed during the negotiation
 		}
 		ai_chance = {
 			base = 5
-			modifier = { # plenty of spare bureaucracy
-				trigger = { nr_devout_officials_spare_share_x100 >= 0.25 }
+			modifier = {
+				trigger = { nr_neg_option_2_ai_good = yes }
 				add = 25
 			}
-			modifier = { # almost no spare bureaucracy left after the penalty
-				trigger = { nr_devout_officials_spare_share_x100 < 0.10 }
+			modifier = {
+				trigger = { nr_neg_option_2_ai_bad = yes }
 				add = -30
 			}
 		}

@@ -1,0 +1,41 @@
+﻿# NR: reusable helpers for the "IG petition" pattern: a journal entry asks for a law for 4 years; while that law
+# is being enacted it gets an enactment speed bonus once per attempt; timeout without the law upsets the group.
+# Parameters: PETITION = key prefix (modifiers <PETITION>_speed and <PETITION>_ignored, variable <PETITION>_boosted),
+# LAW = law key. Scope: country; the journal entry saves the group as scope:ig.
+
+# Gives the enactment of the law the speed bonus once per enactment attempt. Called on creation and monthly.
+nr_petition_boost = {
+	if = {
+		limit = {
+			is_enacting_law = law_type:$LAW$
+			NOT = { has_variable = $PETITION$_boosted }
+		}
+		add_enactment_modifier = {
+			name = $PETITION$_speed
+		}
+		set_variable = $PETITION$_boosted
+	}
+	else_if = {
+		limit = {
+			NOT = { is_enacting_law = law_type:$LAW$ }
+			has_variable = $PETITION$_boosted
+		}
+		remove_variable = $PETITION$_boosted # enactment ended or failed: boost the next attempt again
+	}
+}
+
+# The petition is over (law passed or timed out).
+nr_petition_end = {
+	hidden_effect = { remove_variable = $PETITION$_boosted }
+}
+
+# Timeout without the law: the group is upset for 5 years.
+nr_petition_timeout = {
+	scope:ig ?= {
+		add_modifier = {
+			name = $PETITION$_ignored
+			days = normal_modifier_time
+		}
+	}
+	nr_petition_end = { PETITION = $PETITION$ }
+}

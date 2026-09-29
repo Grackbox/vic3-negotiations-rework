@@ -11,9 +11,12 @@ Copied vanilla files contain only hooks; all mod logic lives in the mod's own fi
 | `negotiation.1.o9` | `nr_neg_option_9_is_custom` → `nr_neg_option_9_custom`, otherwise vanilla |
 | `neg_option_9_trigger` | `nr_has_custom_sol_promise = no` |
 | `set_neg_options`, option 1 (bribe) in all three lists | `nr_neg_option_1_allowed` (condition) and `nr_neg_option_1_modifier` (weight) |
-| `negotiation.1.o1` | `nr_neg_option_1_is_custom = no`; otherwise option `negotiation.1.nr_o1_soft` → `nr_neg_option_1_custom` |
+| `set_neg_options`, option 2 (bureaucracy) in all three lists | `nr_neg_option_2_allowed` (condition) and `nr_neg_option_2_modifier` (weight) |
+| `negotiation.1.o1` | `nr_neg_option_1_is_custom = no`, `nr_neg_option_1_affordable`; AI: `nr_neg_option_1_vanilla_ai` gates the vanilla income checks, `nr_neg_option_1_ai_good` / `_fair` / `_bad` (+35 / +15 / -50) for groups with their own bribe. Otherwise option `negotiation.1.nr_o1_soft` → `nr_neg_option_1_custom` |
+| `negotiation.1.o2` | `nr_neg_option_2_is_custom = no`; otherwise option `negotiation.1.nr_o2_devout` (`nr_neg_option_2_allowed`, AI `nr_neg_option_2_ai_good` / `_bad`) → `nr_neg_option_2_custom` |
+| `negotiation.1.o1`, `bribed_ig_benefits` | multiplier `nr_neg_level_scale` (level 1 / 2 / 4 → 1 / 2 / 3); the same value scales soft bribe patronage and church officials |
 
-Routing by interest group: `common/scripted_effects/nr_negotiation_hooks.txt`, `common/scripted_triggers/nr_negotiation_hooks.txt`, `common/script_values/nr_negotiation_hooks_values.txt`.
+No interest group is named in the copied vanilla files; every group-specific check sits behind a hook. Routing by interest group: `common/scripted_effects/nr_negotiation_hooks.txt`, `common/scripted_triggers/nr_negotiation_hooks.txt`, `common/script_values/nr_negotiation_hooks_values.txt`.
 
 ## Overridden vanilla files (after every game patch: take the new vanilla file and re-add the hooks)
 - `events/iberia_events/negotiation_events.txt`
@@ -34,8 +37,9 @@ Routing by interest group: `common/scripted_effects/nr_negotiation_hooks.txt`, `
 | devout_sol | `common/journal_entries/nr_devout_sol_je.txt`, `common/scripted_progress_bars/nr_devout_sol_bars.txt`, `common/scripted_effects/nr_devout_sol_effects.txt`, `common/script_values/nr_devout_sol_values.txt`, `localization/*/nr_devout_sol_l_*.yml` |
 | devout_charity | `common/scripted_buttons/nr_devout_charity_buttons.txt`, `common/scripted_effects/nr_devout_charity_effects.txt`, `common/script_values/nr_devout_charity_values.txt`, `common/static_modifiers/nr_devout_charity_modifiers.txt`, `localization/*/nr_devout_charity_l_*.yml` |
 | amendment framework | `common/scripted_effects/nr_amendment_framework.txt`, `common/scripted_triggers/nr_amendment_framework.txt`, `common/on_actions/nr_on_actions.txt` |
-| devout_schools | `events/nr_devout_schools_events.txt`, `common/journal_entries/nr_devout_schools_je.txt`, `common/scripted_effects/nr_devout_schools_effects.txt`, `common/scripted_triggers/nr_devout_schools_triggers.txt`, `common/static_modifiers/nr_devout_schools_modifiers.txt`, `localization/*/nr_devout_schools_l_*.yml` |
-| devout_sisters | `common/amendments/nr_devout_sisters_amendments.txt`, `events/nr_devout_sisters_events.txt`, `common/journal_entries/nr_devout_sisters_je.txt`, `common/scripted_effects/nr_devout_sisters_effects.txt`, `common/scripted_triggers/nr_devout_sisters_triggers.txt`, `common/static_modifiers/nr_devout_sisters_modifiers.txt`, `localization/*/nr_devout_sisters_l_*.yml` |
+| petition framework | `common/scripted_effects/nr_petition_framework.txt` |
+| devout_schools | `events/nr_devout_schools_events.txt`, `common/journal_entries/nr_devout_schools_je.txt`, `common/scripted_triggers/nr_devout_schools_triggers.txt`, `common/static_modifiers/nr_devout_schools_modifiers.txt`, `localization/*/nr_devout_schools_l_*.yml` |
+| devout_sisters | `common/amendments/nr_devout_sisters_amendments.txt`, `events/nr_devout_sisters_events.txt`, `common/journal_entries/nr_devout_sisters_je.txt`, `common/scripted_triggers/nr_devout_sisters_triggers.txt`, `common/static_modifiers/nr_devout_sisters_modifiers.txt`, `localization/*/nr_devout_sisters_l_*.yml` |
 | devout_chaplains | `common/amendments/nr_devout_chaplains_amendments.txt`, `events/nr_devout_chaplains_events.txt`, `common/scripted_triggers/nr_devout_chaplains_triggers.txt`, `common/static_modifiers/nr_devout_chaplains_modifiers.txt`, `localization/*/nr_devout_chaplains_l_*.yml` |
 | devout_softbribe | `events/nr_devout_softbribe_events.txt`, `common/game_concepts/nr_game_concepts.txt`, `common/scripted_effects/nr_devout_softbribe_effects.txt`, `common/scripted_triggers/nr_devout_softbribe_triggers.txt`, `common/script_values/nr_devout_softbribe_values.txt`, `common/static_modifiers/nr_devout_softbribe_modifiers.txt`, `localization/*/nr_devout_softbribe_l_*.yml` |
 
@@ -63,7 +67,7 @@ Vanilla: 1 army, 2 law, 3 buildings, 4 taxes, 5 SoL. Ours start at 101.
 ### Feature devout_softbribe — funds for the church's needs (negotiation option 1)
 - Rolled once at the start of the negotiation (`nr_devout_softbribe_roll`): bribe unaffordable (would cause a default) → always charity; leader with Honorable, Pious, Cautious or Reserved → always charity; with Grifter, Expensive Tastes or Hedonist → always a regular bribe; otherwise 60% charity / 40% bribe. Flag `nr_soft_bribe` on the IG.
 - Chance of option 1 (base weight 10) by Devout leader (`nr_devout_softbribe_leader_weight`): Grifter/Expensive Tastes/Hedonist +10, Ambitious +10, Charismatic +10, Arrogant +5, prominence 50+ +10, Reserved -5, Cautious -5 (total never below 0). Not guaranteed, like vanilla.
-- Negotiation option "Allocate funds for the church's needs." (`nr_devout_softbribe_start`): expenses `nr_devout_softbribe_expenses` = vanilla bribe amount (`neg_bribe_amount`); +10% conversion (`nr_devout_softbribe_base`); Devout get `nr_devout_softbribe_patronage` (+35% attraction, +5% political strength x `nr_devout_softbribe_patronage_multiplier` = 1 / 2 / 3 by level, i.e. 5/10/15%; the regular bribe gives no attraction and +10/20/30% strength, see "Regular bribe"); law stance improves. Everything lasts 10 years and decays.
+- Negotiation option "Allocate funds for the church's needs." (`nr_devout_softbribe_start`): expenses `nr_devout_softbribe_expenses` = vanilla bribe amount (`neg_bribe_amount`); +10% conversion (`nr_devout_softbribe_base`); Devout get `nr_devout_softbribe_patronage` (+35% attraction, +5% political strength x `nr_neg_level_scale` = 1 / 2 / 3 by level, i.e. 5/10/15%; the regular bribe gives no attraction and +10/20/30% strength, see "Regular bribe"); law stance improves. Everything lasts 10 years and decays.
 - 7 days later event `nr_devout_softbribe.1` picks the campaign form; all forms last 10 years and decay:
 
 | Form | Effects | Cost | Shown |
@@ -90,6 +94,14 @@ An IG-themed amendment reaches a law in two ways:
 2. **After the IG's soft-bribe campaign**: the campaign option schedules a popup (`trigger_event days = 3650`) that offers `nr_amendment_add_to_active_law = { AMENDMENT = ... LAW = ... IG = ... }` (default: decline). Vanilla attaches amendments to active laws the same way (`active_law:<group> = { add_amendment }`).
 - Guard: `nr_amendment_is_present = { AMENDMENT = ... }` (active on any law, or on the law being enacted).
 - New instance checklist: amendment in `common/amendments/nr_<group>_<topic>_amendments.txt`; events `nr_<group>_<topic>.1` (enactment, 3 options) and `.2` (post-campaign); pool entry in `nr_on_actions.txt`; schedule `.2` from the campaign form; localization `nr_<group>_<topic>_l_*.yml`.
+
+## Pattern: IG petition (reusable)
+A post-campaign offer can open a 4-year journal entry asking for a law (schools, sisters).
+- Helpers in `common/scripted_effects/nr_petition_framework.txt`, parameters `PETITION` (key prefix) and `LAW`: `nr_petition_boost` (JE `immediate` and monthly pulse: +enactment speed once per enactment attempt), `nr_petition_end` (`on_complete`), `nr_petition_timeout` (`on_timeout`: approval penalty on `scope:ig`).
+- New instance checklist: journal entry `je_<PETITION>` saving the group as `scope:ig`; static modifiers `<PETITION>_speed` (enactment speed) and `<PETITION>_ignored` (approval); availability trigger `nr_<group>_<topic>_petition_available`.
+
+## Pattern: random forms in a choice event
+Soft bribe and church officials offer a default form plus 2 random ones. Each feature has `nr_<feature>_offer_random_form` (one `random_list` that sets `nr_<feature>_offer_<form>`; called twice), `nr_<feature>_cleanup` (in the event's `after`), and per-form helpers: `nr_devout_softbribe_add_form = { FORM }` + `nr_devout_softbribe_set_cost = { FACTOR }`; `nr_devout_officials_choose_form = { FORM FACTOR }` with availability `nr_devout_officials_<form>_available` checked through `nr_devout_officials_can_offer = { FORM }`.
 
 ## Feature devout_chaplains - Army Chaplains amendment
 - `amendment_nr_devout_chaplains` (parent `law_state_religion`, allowed on `law_professional_army`): +10% morale recovery, -5% morale loss, +10% Devout attraction, -10% Armed Forces attraction, -5% training rate. Sponsor: Devout.
@@ -124,7 +136,7 @@ An IG-themed amendment reaches a law in two ways:
 
 ## Regular bribe (negotiation option 1, all interest groups)
 - `bribed_ig_benefits` is overridden in `common/static_modifiers/00_negotiation_modifiers.txt` (copy of the vanilla file): no pop attraction, +10% political strength (vanilla: +25% attraction, +5% strength).
-- Multiplier `nr_bribe_benefits_multiplier` (`common/script_values/nr_bribe_values.txt`): amenability_level 1 / 2 / 4 -> 1 / 2 / 3, i.e. +10% / +20% / +30% political strength, decaying over 10 years. Hooked in `events/iberia_events/negotiation_events.txt`, option `negotiation.1.o1`.
+- Multiplier `nr_neg_level_scale` (`common/script_values/nr_negotiation_hooks_values.txt`): amenability_level 1 / 2 / 4 -> 1 / 2 / 3, i.e. +10% / +20% / +30% political strength, decaying over 10 years. Hooked in `events/iberia_events/negotiation_events.txt`, option `negotiation.1.o1`.
 - The modifier name is kept: vanilla `generic_laws.2` (corruption exposed) triggers on it.
 
 ### Devout: one-time bribe and the leader's vices
@@ -134,15 +146,15 @@ An IG-themed amendment reaches a law in two ways:
 - `generic_laws.2` option c ("corruption is good") needs `negotiation_bribes`, so it is not shown for a Devout bribe (the money is already paid).
 - Exposure: vanilla chances (10%, 20% under Protected Speech), `generic_laws.2` in 300 days. The Devout leader gets `nr_bribe_taken` (and `nr_bribe_exposed` if the roll hit), 330 days.
 - 310 days after the bribe, hidden `nr_bribe.1`: every character of the country with `nr_bribe_taken` and without `nr_bribe_exposed` has a 20% chance of a trait (`nr_bribe_add_vice_trait`): Grifter 25, Expensive Tastes 25, Alcoholic 20, Opium Addiction 15, Syphilis 15 (only traits he does not have). Grifter and Expensive Tastes make the leader always take a regular bribe afterwards (`nr_devout_softbribe_leader_loves`).
-- AI (option `negotiation.1.o1`, Devout only; vanilla income checks kept for other groups): +35 if the payment fits in gold reserves (`nr_devout_bribe_reserves_after >= 0`); +15 if partly on credit but at least 50% of the credit stays free; -50 if on credit while in deficit or with less than 25% of the credit left (`nr_devout_bribe_room_after_share`).
+- AI (option `negotiation.1.o1`, Devout only; vanilla income checks kept for other groups): +35 if the payment fits in gold reserves (`nr_devout_bribe_ai_good`); +15 if partly on credit but at least 50% of the credit stays free (`nr_devout_bribe_ai_fair`); -50 if on credit while in deficit or with less than 25% of the credit left (`nr_devout_bribe_ai_bad`). Triggers in `common/scripted_triggers/nr_bribe_triggers.txt`, routed through `nr_neg_option_1_ai_*`.
 - Refund: the paid amount is stored on the country (`nr_devout_bribe_paid`, 330 days) before paying. The money is assumed to be spent evenly over 2 years (`nr_bribe_spend_days` = 730), exposure comes after 300 days, so ~59% is unspent (`nr_devout_bribe_refund`). Returned in `generic_laws.2` option b ("deal with it", overridden in `events/law_events/law_events_01.txt`, copy of the vanilla file) when the exposed group is the Devout (`nr_bribe_refund`). Option a (ignore) returns nothing.
 
 ## Feature devout_officials (negotiation option 2: church officials instead of places in the administration)
 - Files: `events/nr_devout_officials_events.txt`, `common/scripted_effects/nr_devout_officials_effects.txt`, `common/scripted_triggers/nr_devout_officials_triggers.txt`, `common/script_values/nr_devout_officials_values.txt`, `common/static_modifiers/nr_devout_officials_modifiers.txt`, localization `nr_devout_officials_l_*.yml`, concepts in `nr_game_concepts.txt`.
 - Hooks: `set_neg_options` option 2 gets `nr_neg_option_2_allowed` (Devout: no bureaucracy deficit) and weight `nr_neg_option_2_modifier` (Devout leader traits, `nr_devout_officials_leader_weight`). In `negotiation.1` the vanilla option 2 is hidden for the Devout (`nr_neg_option_2_is_custom`), they get `negotiation.1.nr_o2_devout` -> `nr_neg_option_2_custom` -> `nr_devout_officials_start`.
 - Option: vanilla `negotiation_bureaucracy` x negotiation level (1 / 2 / 4, -7.5% bureaucracy per point, decaying 10 years); Devout get `nr_devout_officials_benefits` (+12% political strength x 1 / 2 / 3, no attraction); form event `nr_devout_officials.1` in 7 days.
-- Never offered if the x1 penalty would cause a bureaucracy deficit (`nr_devout_officials_affordable`: produced x (1 - 0.075 x level) - usage >= 0; approximation, multipliers stack additively in the game). Forms with x1.25 / x1.5 are only shown if they fit too.
-- AI (option): base 5, +25 if spare bureaucracy after the penalty >= 25% of usage, -30 if < 10%.
+- Never offered if the x1 penalty would cause a bureaucracy deficit (`nr_devout_officials_affordable = { FACTOR = 1 }`: produced x (1 - 0.075 x level x factor) >= usage, computed as `nr_devout_officials_max_factor >= factor`; approximation, multipliers stack additively in the game). Forms with x1.25 / x1.5 are only shown if they fit too.
+- AI (option): base 5, +25 if spare bureaucracy after the penalty >= 25% of usage (`nr_devout_officials_ai_good`), -30 if < 10% (`nr_devout_officials_ai_bad`); spare share is `nr_devout_officials_spare_share`.
 - Leader weight for option 2: Ambitious / Imperious / Master Bureaucrat / Political Appointee +10, political operator +5 / 10 / 15, Pious / Bigoted / prominent +5; Honorable -10, Reserved -5, Grifter / Expensive Tastes / Hedonist -5.
 - Form event: Clerical Advisers (always, default, base effects only) + 2 random of the available forms. The form rescales `negotiation_bureaucracy` (x0.75 / x1 / x1.25 / x1.5) and adds its modifier for 10 years:
 

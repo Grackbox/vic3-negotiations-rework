@@ -28,12 +28,40 @@ nr_neg_option_1_is_custom = {
 # Can option 1 be rolled at all. Scope: country.
 nr_neg_option_1_allowed = {
 	# Devout: no second option 1 while the previous soft bribe waits for its form event
-	NOT = {
-		AND = {
-			scope:ig = { is_interest_group_type = ig_devout }
-			has_variable = nr_devout_softbribe_pending
-		}
+	OR = {
+		scope:ig = { NOT = { is_interest_group_type = ig_devout } }
+		NOT = { has_variable = nr_devout_softbribe_pending }
 	}
+}
+
+# Can the regular bribe (negotiation.1.o1) still be chosen. Scope: country.
+nr_neg_option_1_affordable = {
+	# Devout: a bribe that would cause a default is not offered
+	OR = {
+		scope:ig = { NOT = { is_interest_group_type = ig_devout } }
+		nr_devout_bribe_affordable = yes
+	}
+}
+
+# AI weights of the regular bribe. Vanilla income checks apply to groups that pay the vanilla weekly bribe;
+# groups with their own payment get the good / fair / bad weights instead (+35 / +15 / -50).
+nr_neg_option_1_vanilla_ai = {
+	scope:ig = { NOT = { is_interest_group_type = ig_devout } }
+}
+
+nr_neg_option_1_ai_good = {
+	scope:ig = { is_interest_group_type = ig_devout }
+	nr_devout_bribe_ai_good = yes
+}
+
+nr_neg_option_1_ai_fair = {
+	scope:ig = { is_interest_group_type = ig_devout }
+	nr_devout_bribe_ai_fair = yes
+}
+
+nr_neg_option_1_ai_bad = {
+	scope:ig = { is_interest_group_type = ig_devout }
+	nr_devout_bribe_ai_bad = yes
 }
 
 # ---------- Option 2 (places in the administration) ----------
@@ -47,6 +75,17 @@ nr_neg_option_2_allowed = {
 	# Devout: never offered if the penalty would push the country into a bureaucracy deficit
 	OR = {
 		scope:ig = { NOT = { is_interest_group_type = ig_devout } }
-		nr_devout_officials_affordable = yes
+		nr_devout_officials_affordable = { FACTOR = 1 }
 	}
+}
+
+# AI weights of the custom option 2 (+25 / -30).
+nr_neg_option_2_ai_good = {
+	scope:ig = { is_interest_group_type = ig_devout }
+	nr_devout_officials_ai_good = yes
+}
+
+nr_neg_option_2_ai_bad = {
+	scope:ig = { is_interest_group_type = ig_devout }
+	nr_devout_officials_ai_bad = yes
 }

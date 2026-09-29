@@ -37,8 +37,8 @@ nr_devout_officials_base_production = {
 	}
 }
 
-# Spare bureaucracy after the penalty with a given form factor (x1 / x1.25 / x1.5). Below 0 = deficit. Scope: country.
-nr_devout_officials_spare_x100 = {
+# Spare bureaucracy after the x1 penalty. Below 0 = deficit. Scope: country.
+nr_devout_officials_spare = {
 	value = nr_devout_officials_base_production
 	multiply = {
 		value = 1
@@ -50,59 +50,27 @@ nr_devout_officials_spare_x100 = {
 	subtract = bureaucracy_usage
 }
 
-nr_devout_officials_spare_x125 = {
-	value = nr_devout_officials_base_production
-	multiply = {
-		value = 1
-		subtract = {
-			value = nr_neg_bureaucracy_penalty_share
-			multiply = nr_devout_officials_level
-			multiply = 1.25
-		}
-	}
-	subtract = bureaucracy_usage
-}
-
-nr_devout_officials_spare_x150 = {
-	value = nr_devout_officials_base_production
-	multiply = {
-		value = 1
-		subtract = {
-			value = nr_neg_bureaucracy_penalty_share
-			multiply = nr_devout_officials_level
-			multiply = 1.5
-		}
-	}
-	subtract = bureaucracy_usage
-}
-
-# Spare bureaucracy at x1 as a share of usage (for AI weights). Scope: country.
-nr_devout_officials_spare_share_x100 = {
-	value = nr_devout_officials_spare_x100
+# Spare bureaucracy after the x1 penalty as a share of usage (for AI weights). Scope: country.
+nr_devout_officials_spare_share = {
+	value = nr_devout_officials_spare
 	divide = {
 		value = bureaucracy_usage
 		min = 1
 	}
 }
 
-# Penalty multiplier for negotiation_bureaucracy by form factor: level x factor. Scope: country.
-nr_devout_officials_mult_x075 = {
-	value = nr_devout_officials_level
-	multiply = 0.75
-}
-
-nr_devout_officials_mult_x100 = {
-	value = nr_devout_officials_level
-}
-
-nr_devout_officials_mult_x125 = {
-	value = nr_devout_officials_level
-	multiply = 1.25
-}
-
-nr_devout_officials_mult_x150 = {
-	value = nr_devout_officials_level
-	multiply = 1.5
+# Largest form factor the country can take without a bureaucracy deficit:
+# production x (1 - share x level x factor) >= usage  <=>  factor <= (production - usage) / (production x share x level).
+# Compared with the form factor in nr_devout_officials_affordable. Scope: country.
+nr_devout_officials_max_factor = {
+	value = nr_devout_officials_base_production
+	subtract = bureaucracy_usage
+	divide = {
+		value = nr_devout_officials_base_production
+		multiply = nr_neg_bureaucracy_penalty_share
+		multiply = nr_devout_officials_level
+		min = 0.001
+	}
 }
 
 # Chance of option 2 by the Devout leader (added to the base weight 10 in set_neg_options). Scope: interest group.

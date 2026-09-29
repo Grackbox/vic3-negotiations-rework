@@ -55,7 +55,7 @@ hero_of_the_people = {
 }
 
 # NR: the bribe no longer attracts new pops, it only strengthens the group: +10% political strength
-# x nr_bribe_benefits_multiplier (1 / 2 / 3 by negotiation level). Vanilla: +25% attraction, +5% strength x 1 / 2 / 4.
+# x nr_neg_level_scale (1 / 2 / 3 by negotiation level). Vanilla: +25% attraction, +5% strength x 1 / 2 / 4.
 # The name must stay: generic_laws.2 (corruption exposed) looks for this modifier.
 bribed_ig_benefits = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds

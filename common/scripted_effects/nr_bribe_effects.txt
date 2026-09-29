@@ -44,23 +44,15 @@ nr_bribe_exposure_roll = {
 	}
 	if = {
 		limit = { has_law = law_type:law_protected_speech }
-		random_list = {
-			80 = {
-				#DO NOTHING
-			}
-			20 = {
-				nr_bribe_expose = yes
-			}
+		random = {
+			chance = 20
+			nr_bribe_expose = yes
 		}
 	}
 	else = {
-		random_list = {
-			90 = {
-				#DO NOTHING
-			}
-			10 = {
-				nr_bribe_expose = yes
-			}
+		random = {
+			chance = 10
+			nr_bribe_expose = yes
 		}
 	}
 }
