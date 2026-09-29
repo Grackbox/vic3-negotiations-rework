@@ -175,7 +175,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - `event nr_debug.4` - Devout regular bribe without a negotiation: pay it exactly as option `negotiation.1.o1` (payment, `bribed_ig_benefits`, exposure roll, vice check in 310 days), give the Devout leader a vice now (100%), or expose it now (`generic_laws.2`, needs a law being enacted).
 - New follow-ups and enactment events should be added to these menus.
 
-## Feature landowners_grants - grants instead of money (negotiation option 1) - agreed design, not implemented
+## Feature landowners_grants - grants instead of money (negotiation option 1) - agreed design, in implementation
 - Roll (`nr_softbribe_roll`): 50 / 50 money or grant. Always a grant: leader Honorable, Ambitious, Imperious or Arrogant (status and land matter more than cash), or the bribe is unaffordable. Always money: Grifter / Expensive Tastes / Hedonist, or no free grant slot.
 - Option: Landowners +10 / 20 / 30% political strength by level (like the bribe), no attraction; expenses = vanilla bribe amount (`neg_bribe_amount`) weekly, decaying over 10 years, x form factor; form event a week later: default form + 2 random of the available ones. Slots 1 / 2 / 3 by clout; a running form is not offered again.
 - Forms (10 years, decaying; effects are drafts):
@@ -197,7 +197,21 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - Interruption penalty: Landowners in government ("gave it up themselves"): -1 approval for 5 years. Landowners in opposition ("the order was broken over their heads", e.g. a revolutionary government): -5 approval for 5 years, -15% political strength decaying over 5 years, and a backlash - Corn Laws / Corvee: reactionary movement support +10% for 5 years; Return of Fugitives / Slave Import: pro-slavery radicalism +0.2 for a year. Historical notes: repeal of the Corn Laws 1846 split the Tories; emancipation from above in Russia 1861; Brazil's Golden Law 1888, the monarchy fell a year later.
 - Every form: lore line + historical concept (Table of Ranks 1722; Bashkir lands scandal 1870s-1881; Prussian knightly estates exempt from land tax until 1861; Corn Laws 1815-1846, Anti-Corn Law League 1838, German tariff 1879; Silesian Landschaft 1770, Russian Noble Land Bank 1885; Prussian regulation edicts 1811 / 1816, Russian 1822 right to exile serfs to Siberia; Prussian Rentenbanken 1850, Russian redemption after 1861 over 49 years; US Fugitive Slave Act 1850; Brazilian slave trade 1831-1850, Eusebio de Queiros law). Dates to be re-checked before writing.
 - Landowner law stances (vanilla ideologies, for follow-ups): hierarchic - Serfdom strongly approve, Tenant Farmers approve, Peasant Proprietorship strongly disapprove, land-based / consumption taxation approve, proportional disapprove; paternalistic - Traditionalism strongly approve, Agrarianism approve, Hereditary Bureaucrats approve, Local Police approve, Landed Voting strongly approve.
-- Follow-ups after 10 years: to be designed.
+- Follow-ups after 10 years (only if the form was not interrupted; petitions use the petition framework, decline -1, thanks +2; the leader rule applies):
+
+| Form | Follow-up |
+|---|---|
+| Ranks and Orders | none |
+| Crown Lands | Peasant Proprietorship / Homesteading / Commercialized Agriculture: petition for Tenant Farmers; Tenant Farmers / Serfdom / Manorialism / Latifundias: thanks |
+| Tax Exemptions | own amendment "Noble Privilege" on any taxation law (parent Land-Based Taxation): Landowners +2 approval, +5% political strength, agriculture self-investment +5%; agriculture and plantation taxes -10%, liberal support +5%; no authority cost |
+| Corn Laws | no Protectionism: petition for Protectionism; Protectionism: own amendment "Grain Tariff": agriculture throughput +5%, Landowners +1 approval; lower strata SoL -0.25, Industrialists -1 approval, liberal support +5% |
+| Noble Land Bank | own amendment "Noble Land Bank" on the economic system law (Traditionalism / Agrarianism / Interventionism / Laissez-Faire): agriculture self-investment +10%, loan interest +0.5% |
+| Corvee | Serfdom / Manorialism still in force: own amendment "Corvee Statute": agriculture throughput +5%; peasants SoL -0.5, land reform support +10% |
+| Redemption Operation | vanilla amendment_redemption_payments (allowed on Tenant Farmers / Commercialized / Homesteading / Peasant Proprietorship); otherwise thanks |
+| Return of Fugitives | own amendment "Fugitive Slave Law" on any slavery law (vanilla amendment_american_fugitive_slaves_act is limited to yankee / dixie cultures): Landowners +1 approval, +10% political strength, abolitionist support in free states +15% |
+| Slave Import | Slave Trade still in force: own amendment "Free Import": slave import +15%, plantation throughput +3%, abolitionist support +10%; pro-slavery radicalism -0.1 (movement modifier, refreshed yearly); no authority cost |
+
+- Enactment events (.1) for the new amendments: later, as a separate step.
 
 ## Negotiation difficulty (reference)
 - Amenability (0-100) is computed in code; factor weights are not exposed.
