@@ -1,6 +1,6 @@
 ﻿# NR: Devout church officials (negotiation option 2). Scope: country unless noted.
 
-# AI (option negotiation.1.nr_o2_devout, via nr_neg_option_2_ai_*).
+# AI (option negotiation.1.nr_o2_custom, via nr_neg_option_2_ai_*).
 # Plenty of spare bureaucracy after the penalty.
 nr_devout_officials_ai_good = {
 	nr_devout_officials_spare_share >= 0.25
