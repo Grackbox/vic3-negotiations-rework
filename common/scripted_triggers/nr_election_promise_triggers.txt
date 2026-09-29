@@ -1,0 +1,145 @@
+﻿# NR: promise to back the group's party at the next election (feature election_promise).
+# Scope: country; in negotiation.1 scope:ig = the group, scope:law = the law being enacted.
+
+nr_election_promise_available = {
+	country_has_voting_franchise = yes
+	NOT = { has_law_or_variant = law_type:law_single_party_state }
+	modifier:country_forbid_electoral_fraud_bool = no # no Tradition of Free Elections
+	scope:ig = { NOT = { has_variable = nr_election_promise } }
+	nr_ruler_not_against_law = yes
+	authority >= 50
+	nr_authority_cost_slot_free = yes
+}
+
+
+# Rigging events (caciquismo.1 / .2), extra option for the devout: their promise waits for this campaign and their party
+# (saved in nr_election_rigging_immediate) is neither listed by the event nor backed by an earlier extra option.
+nr_election_promise_party_unlisted_devout = {
+	exists = scope:nr_promised_party_devout
+	NOR = {
+		scope:party_1_scope ?= scope:nr_promised_party_devout
+		scope:party_2_scope ?= scope:nr_promised_party_devout
+		scope:party_3_scope ?= scope:nr_promised_party_devout
+		scope:party_4_scope ?= scope:nr_promised_party_devout
+		scope:party_5_scope ?= scope:nr_promised_party_devout
+	}
+}
+
+# Rigging events (caciquismo.1 / .2), extra option for the landowners: their promise waits for this campaign and their party
+# (saved in nr_election_rigging_immediate) is neither listed by the event nor backed by an earlier extra option.
+nr_election_promise_party_unlisted_landowners = {
+	exists = scope:nr_promised_party_landowners
+	NOR = {
+		scope:party_1_scope ?= scope:nr_promised_party_landowners
+		scope:party_2_scope ?= scope:nr_promised_party_landowners
+		scope:party_3_scope ?= scope:nr_promised_party_landowners
+		scope:party_4_scope ?= scope:nr_promised_party_landowners
+		scope:party_5_scope ?= scope:nr_promised_party_landowners
+		scope:nr_promised_party_devout ?= scope:nr_promised_party_landowners
+	}
+}
+
+# Rigging events (caciquismo.1 / .2), extra option for the industrialists: their promise waits for this campaign and their party
+# (saved in nr_election_rigging_immediate) is neither listed by the event nor backed by an earlier extra option.
+nr_election_promise_party_unlisted_industrialists = {
+	exists = scope:nr_promised_party_industrialists
+	NOR = {
+		scope:party_1_scope ?= scope:nr_promised_party_industrialists
+		scope:party_2_scope ?= scope:nr_promised_party_industrialists
+		scope:party_3_scope ?= scope:nr_promised_party_industrialists
+		scope:party_4_scope ?= scope:nr_promised_party_industrialists
+		scope:party_5_scope ?= scope:nr_promised_party_industrialists
+		scope:nr_promised_party_devout ?= scope:nr_promised_party_industrialists
+		scope:nr_promised_party_landowners ?= scope:nr_promised_party_industrialists
+	}
+}
+
+# Rigging events (caciquismo.1 / .2), extra option for the petty_bourgeoisie: their promise waits for this campaign and their party
+# (saved in nr_election_rigging_immediate) is neither listed by the event nor backed by an earlier extra option.
+nr_election_promise_party_unlisted_petty_bourgeoisie = {
+	exists = scope:nr_promised_party_petty_bourgeoisie
+	NOR = {
+		scope:party_1_scope ?= scope:nr_promised_party_petty_bourgeoisie
+		scope:party_2_scope ?= scope:nr_promised_party_petty_bourgeoisie
+		scope:party_3_scope ?= scope:nr_promised_party_petty_bourgeoisie
+		scope:party_4_scope ?= scope:nr_promised_party_petty_bourgeoisie
+		scope:party_5_scope ?= scope:nr_promised_party_petty_bourgeoisie
+		scope:nr_promised_party_devout ?= scope:nr_promised_party_petty_bourgeoisie
+		scope:nr_promised_party_landowners ?= scope:nr_promised_party_petty_bourgeoisie
+		scope:nr_promised_party_industrialists ?= scope:nr_promised_party_petty_bourgeoisie
+	}
+}
+
+# Rigging events (caciquismo.1 / .2), extra option for the intelligentsia: their promise waits for this campaign and their party
+# (saved in nr_election_rigging_immediate) is neither listed by the event nor backed by an earlier extra option.
+nr_election_promise_party_unlisted_intelligentsia = {
+	exists = scope:nr_promised_party_intelligentsia
+	NOR = {
+		scope:party_1_scope ?= scope:nr_promised_party_intelligentsia
+		scope:party_2_scope ?= scope:nr_promised_party_intelligentsia
+		scope:party_3_scope ?= scope:nr_promised_party_intelligentsia
+		scope:party_4_scope ?= scope:nr_promised_party_intelligentsia
+		scope:party_5_scope ?= scope:nr_promised_party_intelligentsia
+		scope:nr_promised_party_devout ?= scope:nr_promised_party_intelligentsia
+		scope:nr_promised_party_landowners ?= scope:nr_promised_party_intelligentsia
+		scope:nr_promised_party_industrialists ?= scope:nr_promised_party_intelligentsia
+		scope:nr_promised_party_petty_bourgeoisie ?= scope:nr_promised_party_intelligentsia
+	}
+}
+
+# Rigging events (caciquismo.1 / .2), extra option for the trade_unions: their promise waits for this campaign and their party
+# (saved in nr_election_rigging_immediate) is neither listed by the event nor backed by an earlier extra option.
+nr_election_promise_party_unlisted_trade_unions = {
+	exists = scope:nr_promised_party_trade_unions
+	NOR = {
+		scope:party_1_scope ?= scope:nr_promised_party_trade_unions
+		scope:party_2_scope ?= scope:nr_promised_party_trade_unions
+		scope:party_3_scope ?= scope:nr_promised_party_trade_unions
+		scope:party_4_scope ?= scope:nr_promised_party_trade_unions
+		scope:party_5_scope ?= scope:nr_promised_party_trade_unions
+		scope:nr_promised_party_devout ?= scope:nr_promised_party_trade_unions
+		scope:nr_promised_party_landowners ?= scope:nr_promised_party_trade_unions
+		scope:nr_promised_party_industrialists ?= scope:nr_promised_party_trade_unions
+		scope:nr_promised_party_petty_bourgeoisie ?= scope:nr_promised_party_trade_unions
+		scope:nr_promised_party_intelligentsia ?= scope:nr_promised_party_trade_unions
+	}
+}
+
+# Rigging events (caciquismo.1 / .2), extra option for the rural_folk: their promise waits for this campaign and their party
+# (saved in nr_election_rigging_immediate) is neither listed by the event nor backed by an earlier extra option.
+nr_election_promise_party_unlisted_rural_folk = {
+	exists = scope:nr_promised_party_rural_folk
+	NOR = {
+		scope:party_1_scope ?= scope:nr_promised_party_rural_folk
+		scope:party_2_scope ?= scope:nr_promised_party_rural_folk
+		scope:party_3_scope ?= scope:nr_promised_party_rural_folk
+		scope:party_4_scope ?= scope:nr_promised_party_rural_folk
+		scope:party_5_scope ?= scope:nr_promised_party_rural_folk
+		scope:nr_promised_party_devout ?= scope:nr_promised_party_rural_folk
+		scope:nr_promised_party_landowners ?= scope:nr_promised_party_rural_folk
+		scope:nr_promised_party_industrialists ?= scope:nr_promised_party_rural_folk
+		scope:nr_promised_party_petty_bourgeoisie ?= scope:nr_promised_party_rural_folk
+		scope:nr_promised_party_intelligentsia ?= scope:nr_promised_party_rural_folk
+		scope:nr_promised_party_trade_unions ?= scope:nr_promised_party_rural_folk
+	}
+}
+
+# Rigging events (caciquismo.1 / .2), extra option for the armed_forces: their promise waits for this campaign and their party
+# (saved in nr_election_rigging_immediate) is neither listed by the event nor backed by an earlier extra option.
+nr_election_promise_party_unlisted_armed_forces = {
+	exists = scope:nr_promised_party_armed_forces
+	NOR = {
+		scope:party_1_scope ?= scope:nr_promised_party_armed_forces
+		scope:party_2_scope ?= scope:nr_promised_party_armed_forces
+		scope:party_3_scope ?= scope:nr_promised_party_armed_forces
+		scope:party_4_scope ?= scope:nr_promised_party_armed_forces
+		scope:party_5_scope ?= scope:nr_promised_party_armed_forces
+		scope:nr_promised_party_devout ?= scope:nr_promised_party_armed_forces
+		scope:nr_promised_party_landowners ?= scope:nr_promised_party_armed_forces
+		scope:nr_promised_party_industrialists ?= scope:nr_promised_party_armed_forces
+		scope:nr_promised_party_petty_bourgeoisie ?= scope:nr_promised_party_armed_forces
+		scope:nr_promised_party_intelligentsia ?= scope:nr_promised_party_armed_forces
+		scope:nr_promised_party_trade_unions ?= scope:nr_promised_party_armed_forces
+		scope:nr_promised_party_rural_folk ?= scope:nr_promised_party_armed_forces
+	}
+}

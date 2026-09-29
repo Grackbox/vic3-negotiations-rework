@@ -1,0 +1,51 @@
+﻿# NR: authority spent on our negotiation options, applied with multiplier = cost (nr_authority_cost.txt).
+
+nr_authority_cost_1 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_add = -1
+}
+
+nr_authority_cost_2 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_add = -1
+}
+
+nr_authority_cost_3 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_add = -1
+}
+
+nr_authority_cost_4 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_add = -1
+}
+
+nr_authority_cost_5 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_add = -1
+}
+
+nr_authority_cost_6 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_add = -1
+}
+
+nr_authority_cost_7 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_add = -1
+}
+
+nr_authority_cost_8 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_add = -1
+}
+
+nr_authority_cost_9 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_add = -1
+}
+
+nr_authority_cost_10 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_add = -1
+}

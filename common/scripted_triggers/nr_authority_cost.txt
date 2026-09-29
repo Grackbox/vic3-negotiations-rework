@@ -1,0 +1,15 @@
+﻿# NR: a slot for a timed authority cost is free (see scripted_effects/nr_authority_cost.txt). Scope: country.
+nr_authority_cost_slot_free = {
+	NOT = { # not all slots are busy
+		has_modifier = nr_authority_cost_1
+		has_modifier = nr_authority_cost_2
+		has_modifier = nr_authority_cost_3
+		has_modifier = nr_authority_cost_4
+		has_modifier = nr_authority_cost_5
+		has_modifier = nr_authority_cost_6
+		has_modifier = nr_authority_cost_7
+		has_modifier = nr_authority_cost_8
+		has_modifier = nr_authority_cost_9
+		has_modifier = nr_authority_cost_10
+	}
+}

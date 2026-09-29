@@ -1,0 +1,1025 @@
+﻿# NR (Negotiations Rework): copy of the vanilla file with hooks for the election promise (search "NR").
+namespace = caciquismo
+
+caciquismo.1 = { # For Electoral Clientelism
+	type = country_event
+	placement = ROOT
+
+	title = caciquismo.1.t
+	desc = caciquismo.1.d
+	flavor = caciquismo.1.f
+
+	event_image = {
+		video = "southamerica_election"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	duration = 3
+
+	trigger = {
+		NOT = { has_journal_entry = je_coffee_with_milk }
+		in_election_campaign = yes
+		NOT = { has_law_or_variant = law_type:law_single_party_state }
+		any_active_party = {
+			party_has_members = yes
+			count > 1
+		}
+		modifier:country_forbid_electoral_fraud_bool = no
+		owner.active_law:lawgroup_distribution_of_power ?= {
+			has_amendment = amendment_type:amendment_electoral_clientelism
+		}
+	}
+
+	immediate = {
+		handle_possible_absent_caciquismo_variables = yes
+		active_law:lawgroup_distribution_of_power ?= {
+			save_scope_as = election_law_scope
+		}
+		ordered_active_party = {
+			limit = {
+				party_has_members = yes
+			}
+			order_by = momentum
+			position = 0
+			save_scope_as = party_1_scope
+		}
+		ordered_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_1_scope ?= this
+				}
+			}
+			order_by = momentum
+			position = 0
+			check_range_bounds = no
+			save_scope_as = party_2_scope
+		}
+		ordered_active_party = {
+			limit = {
+				party_has_members = yes
+				NOR = {
+					scope:party_1_scope ?= this
+					scope:party_2_scope ?= this
+				}
+			}
+			order_by = momentum
+			position = 0
+			check_range_bounds = no
+			save_scope_as = party_3_scope
+		}
+		ordered_active_party = {
+			limit = {
+				party_has_members = yes
+				NOR = {
+					scope:party_1_scope ?= this
+					scope:party_2_scope ?= this
+					scope:party_3_scope ?= this
+				}
+			}
+			order_by = momentum
+			position = 0
+			check_range_bounds = no
+			save_scope_as = party_4_scope
+		}
+		nr_election_rigging_immediate = yes # NR: hook (common/scripted_effects/nr_election_promise_effects.txt)
+	}
+
+	cancellation_trigger = {
+		OR = {
+			in_election_campaign = no
+			NOT = {
+				modifier:country_forbid_electoral_fraud_bool = no
+			}
+		}
+	}
+
+	option = {
+		name = caciquismo.1.a
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.50
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.40
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.30
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.20
+				}
+				add = -1
+			}
+		}
+		scope:party_1_scope ?= {
+			add_momentum = momentum_utterly_fraudulent
+		}
+		every_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_1_scope ?= this
+				}
+			}
+			add_momentum = momentum_very_large_decrease
+		}
+		add_caciquismo_effect = yes
+		custom_tooltip = {
+			text = mutes_all_election_events_tt
+			set_variable = {
+				name = mute_election_events
+				months = 12
+			}
+		}
+		nr_election_rigged = { PARTY = scope:party_1_scope } # NR: election promise hook
+	}
+
+	option = {
+		name = caciquismo.1.b
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.50
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.40
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.30
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.20
+				}
+				add = -1
+			}
+		}
+		trigger = {
+			exists = scope:party_2_scope
+		}
+		scope:party_2_scope ?= {
+			add_momentum = momentum_utterly_fraudulent
+		}
+		every_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_2_scope ?= this
+				}
+			}
+			add_momentum = momentum_very_large_decrease
+		}
+		add_caciquismo_effect = yes
+		custom_tooltip = {
+			text = mutes_all_election_events_tt
+			set_variable = {
+				name = mute_election_events
+				months = 12
+			}
+		}
+		nr_election_rigged = { PARTY = scope:party_2_scope } # NR: election promise hook
+	}
+
+	option = {
+		name = caciquismo.1.c
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.50
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.40
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.30
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.20
+				}
+				add = -1
+			}
+		}
+		trigger = {
+			exists = scope:party_3_scope
+		}
+		scope:party_3_scope ?= {
+			add_momentum = momentum_utterly_fraudulent
+		}
+		every_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_3_scope ?= this
+				}
+			}
+			add_momentum = momentum_very_large_decrease
+		}
+		add_caciquismo_effect = yes
+		custom_tooltip = {
+			text = mutes_all_election_events_tt
+			set_variable = {
+				name = mute_election_events
+				months = 12
+			}
+		}
+		nr_election_rigged = { PARTY = scope:party_3_scope } # NR: election promise hook
+	}
+
+	option = {
+		name = caciquismo.1.e
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.50
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.40
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.30
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.20
+				}
+				add = -1
+			}
+		}
+		trigger = {
+			exists = scope:party_4_scope
+		}
+		scope:party_4_scope ?= {
+			add_momentum = momentum_utterly_fraudulent
+		}
+		every_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_4_scope ?= this
+				}
+			}
+			add_momentum = momentum_very_large_decrease
+		}
+		add_caciquismo_effect = yes
+		custom_tooltip = {
+			text = mutes_all_election_events_tt
+			set_variable = {
+				name = mute_election_events
+				months = 12
+			}
+		}
+		nr_election_rigged = { PARTY = scope:party_4_scope } # NR: election promise hook
+	}
+
+	option = { # NR: the promised party of the devout is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_devout
+		trigger = {
+			nr_election_promise_party_unlisted_devout = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_devout }
+	}
+
+	option = { # NR: the promised party of the landowners is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_landowners
+		trigger = {
+			nr_election_promise_party_unlisted_landowners = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_landowners }
+	}
+
+	option = { # NR: the promised party of the industrialists is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_industrialists
+		trigger = {
+			nr_election_promise_party_unlisted_industrialists = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_industrialists }
+	}
+
+	option = { # NR: the promised party of the petty_bourgeoisie is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_petty_bourgeoisie
+		trigger = {
+			nr_election_promise_party_unlisted_petty_bourgeoisie = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_petty_bourgeoisie }
+	}
+
+	option = { # NR: the promised party of the intelligentsia is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_intelligentsia
+		trigger = {
+			nr_election_promise_party_unlisted_intelligentsia = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_intelligentsia }
+	}
+
+	option = { # NR: the promised party of the trade_unions is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_trade_unions
+		trigger = {
+			nr_election_promise_party_unlisted_trade_unions = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_trade_unions }
+	}
+
+	option = { # NR: the promised party of the rural_folk is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_rural_folk
+		trigger = {
+			nr_election_promise_party_unlisted_rural_folk = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_rural_folk }
+	}
+
+	option = { # NR: the promised party of the armed_forces is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_armed_forces
+		trigger = {
+			nr_election_promise_party_unlisted_armed_forces = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_armed_forces }
+	}
+
+	option = { # Let's not do this
+		name = caciquismo.1.g
+		ai_chance = { # The AI will try to avoid a legitimacy death spiral
+			base = 20
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence > 0.90
+				}
+				add = -2
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence > 0.70
+				}
+				add = -2
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence > 0.50
+				}
+				add = -2
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence > 0.30
+				}
+				add = -2
+			}
+		}
+		trigger = {
+			custom_tooltip = {
+				text = caciquismo_cannot_be_abolished_tt
+				var:electoral_fraud_abolish_var < 5
+			}
+		}
+		highlighted_option = yes
+		default_option = yes
+		if = {
+			limit = {
+				var:electoral_fraud_abolish_var = 4
+			}
+			custom_tooltip = can_abolish_caciquismo_next_election_tt
+		}
+		subtract_caciquismo_effect = yes
+		nr_election_not_rigged = yes # NR: election promise hook
+	}
+
+	option = { # Let's not do this - abolish
+		name = caciquismo.1.h
+		ai_chance = {
+			base = 20
+		}
+		trigger = {
+			custom_tooltip = {
+				text = caciquismo_can_be_abolished_tt
+				var:electoral_fraud_abolish_var >= 5
+			}
+		}
+		highlighted_option = yes
+		default_option = yes
+		remove_electoral_fraud_effect = yes
+		nr_election_not_rigged = yes # NR: election promise hook
+	}
+}
+
+caciquismo.2 = { # Generic electoral fraud
+	type = country_event
+	placement = ROOT
+
+	title = caciquismo.2.t
+	desc = caciquismo.2.d
+	flavor = caciquismo.2.f
+
+	event_image = {
+		video = "southamerica_election"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	duration = 3
+
+	trigger = {
+		NOT = { has_journal_entry = je_coffee_with_milk }
+		in_election_campaign = yes
+		NOT = { has_law_or_variant = law_type:law_single_party_state }
+		any_active_party = {
+			party_has_members = yes
+			count > 1
+		}
+		modifier:country_forbid_electoral_fraud_bool = no
+		NOT = {
+			owner.active_law:lawgroup_distribution_of_power ?= {
+				has_amendment = amendment_type:amendment_electoral_clientelism
+			}
+		}
+	}
+
+	immediate = {
+		handle_possible_absent_caciquismo_variables = yes
+		active_law:lawgroup_distribution_of_power ?= {
+			save_scope_as = election_law_scope
+		}
+		ordered_active_party = {
+			limit = {
+				party_has_members = yes
+				any_member = {
+					is_in_government = yes
+				}
+			}
+			order_by = momentum
+			position = 0
+			save_scope_as = party_1_scope
+		}
+		ordered_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_1_scope ?= this
+				}
+			}
+			order_by = momentum
+			position = 0
+			check_range_bounds = no
+			save_scope_as = party_2_scope
+		}
+		ordered_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					any_member = {
+						is_in_government = yes
+					}
+				}
+				NOR = {
+					scope:party_1_scope ?= this
+					scope:party_2_scope ?= this
+				}
+			}
+			order_by = momentum
+			position = 0
+			save_scope_as = party_3_scope
+		}
+		ordered_active_party = {
+			limit = {
+				party_has_members = yes
+				NOR = {
+					scope:party_1_scope ?= this
+					scope:party_2_scope ?= this
+					scope:party_3_scope ?= this
+				}
+			}
+			order_by = momentum
+			position = 0
+			check_range_bounds = no
+			save_scope_as = party_4_scope
+		}
+		ordered_active_party = {
+			limit = {
+				party_has_members = yes
+				NOR = {
+					scope:party_1_scope ?= this
+					scope:party_2_scope ?= this
+					scope:party_3_scope ?= this
+					scope:party_4_scope ?= this
+				}
+			}
+			order_by = momentum
+			position = 0
+			check_range_bounds = no
+			save_scope_as = party_5_scope
+		}
+		ordered_scope_state = {
+			limit = {
+				is_incorporated = yes
+			}
+			order_by = "pop_type_percent_state(pop_type:peasants)"
+			position = 0
+			check_range_bounds = no
+			save_scope_as = rural_state
+		}
+		nr_election_rigging_immediate = yes # NR: hook (common/scripted_effects/nr_election_promise_effects.txt)
+	}
+
+	cancellation_trigger = {
+		OR = {
+			in_election_campaign = no
+			NOT = {
+				modifier:country_forbid_electoral_fraud_bool = no
+			}
+		}
+	}
+
+	option = {
+		name = caciquismo.2.a
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.50
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.40
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.30
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.20
+				}
+				add = -1
+			}
+		}
+		trigger = {
+			exists = scope:party_1_scope
+		}
+		scope:party_1_scope ?= {
+			add_momentum = momentum_utterly_fraudulent
+		}
+		every_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_1_scope ?= this
+				}
+			}
+			add_momentum = momentum_very_large_decrease
+		}
+		add_caciquismo_effect = yes
+		custom_tooltip = {
+			text = mutes_all_election_events_tt
+			set_variable = {
+				name = mute_election_events
+				months = 12
+			}
+		}
+		nr_election_rigged = { PARTY = scope:party_1_scope } # NR: election promise hook
+	}
+
+	option = {
+		name = caciquismo.2.b
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.50
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.40
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.30
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.20
+				}
+				add = -1
+			}
+		}
+		trigger = {
+			exists = scope:party_2_scope
+		}
+		scope:party_2_scope ?= {
+			add_momentum = momentum_utterly_fraudulent
+		}
+		every_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_2_scope ?= this
+				}
+			}
+			add_momentum = momentum_very_large_decrease
+		}
+		add_caciquismo_effect = yes
+		custom_tooltip = {
+			text = mutes_all_election_events_tt
+			set_variable = {
+				name = mute_election_events
+				months = 12
+			}
+		}
+		nr_election_rigged = { PARTY = scope:party_2_scope } # NR: election promise hook
+	}
+
+	option = {
+		name = caciquismo.2.c
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.50
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.40
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.30
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.20
+				}
+				add = -1
+			}
+		}
+		trigger = {
+			exists = scope:party_3_scope
+		}
+		scope:party_3_scope ?= {
+			add_momentum = momentum_utterly_fraudulent
+		}
+		every_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_3_scope ?= this
+				}
+			}
+			add_momentum = momentum_very_large_decrease
+		}
+		add_caciquismo_effect = yes
+		custom_tooltip = {
+			text = mutes_all_election_events_tt
+			set_variable = {
+				name = mute_election_events
+				months = 12
+			}
+		}
+		nr_election_rigged = { PARTY = scope:party_3_scope } # NR: election promise hook
+	}
+
+	option = {
+		name = caciquismo.2.e
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.50
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.40
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.30
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.20
+				}
+				add = -1
+			}
+		}
+		trigger = {
+			exists = scope:party_4_scope
+		}
+		scope:party_4_scope ?= {
+			add_momentum = momentum_utterly_fraudulent
+		}
+		every_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_4_scope ?= this
+				}
+			}
+			add_momentum = momentum_very_large_decrease
+		}
+		add_caciquismo_effect = yes
+		custom_tooltip = {
+			text = mutes_all_election_events_tt
+			set_variable = {
+				name = mute_election_events
+				months = 12
+			}
+		}
+		nr_election_rigged = { PARTY = scope:party_4_scope } # NR: election promise hook
+	}
+
+	option = {
+		name = caciquismo.2.g
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.50
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.40
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.30
+				}
+				add = -1
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence < 0.20
+				}
+				add = -1
+			}
+		}
+		trigger = {
+			exists = scope:party_5_scope
+		}
+		scope:party_5_scope ?= {
+			add_momentum = momentum_utterly_fraudulent
+		}
+		every_active_party = {
+			limit = {
+				party_has_members = yes
+				NOT = {
+					scope:party_5_scope ?= this
+				}
+			}
+			add_momentum = momentum_very_large_decrease
+		}
+		add_caciquismo_effect = yes
+		custom_tooltip = {
+			text = mutes_all_election_events_tt
+			set_variable = {
+				name = mute_election_events
+				months = 12
+			}
+		}
+		nr_election_rigged = { PARTY = scope:party_5_scope } # NR: election promise hook
+	}
+
+	option = { # NR: the promised party of the devout is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_devout
+		trigger = {
+			nr_election_promise_party_unlisted_devout = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_devout }
+	}
+
+	option = { # NR: the promised party of the landowners is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_landowners
+		trigger = {
+			nr_election_promise_party_unlisted_landowners = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_landowners }
+	}
+
+	option = { # NR: the promised party of the industrialists is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_industrialists
+		trigger = {
+			nr_election_promise_party_unlisted_industrialists = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_industrialists }
+	}
+
+	option = { # NR: the promised party of the petty_bourgeoisie is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_petty_bourgeoisie
+		trigger = {
+			nr_election_promise_party_unlisted_petty_bourgeoisie = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_petty_bourgeoisie }
+	}
+
+	option = { # NR: the promised party of the intelligentsia is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_intelligentsia
+		trigger = {
+			nr_election_promise_party_unlisted_intelligentsia = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_intelligentsia }
+	}
+
+	option = { # NR: the promised party of the trade_unions is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_trade_unions
+		trigger = {
+			nr_election_promise_party_unlisted_trade_unions = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_trade_unions }
+	}
+
+	option = { # NR: the promised party of the rural_folk is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_rural_folk
+		trigger = {
+			nr_election_promise_party_unlisted_rural_folk = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_rural_folk }
+	}
+
+	option = { # NR: the promised party of the armed_forces is not listed - nr_election_promise_effects.txt
+		name = caciquismo.nr_promised_armed_forces
+		trigger = {
+			nr_election_promise_party_unlisted_armed_forces = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_rig_promised = { PARTY = scope:nr_promised_party_armed_forces }
+	}
+
+	option = { # Let's not do this
+		name = caciquismo.2.h
+		ai_chance = { # The AI will try to avoid a legitimacy death spiral
+			base = 20
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence > 0.90
+				}
+				add = -2
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence > 0.70
+				}
+				add = -2
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence > 0.50
+				}
+				add = -2
+			}
+			modifier = {
+				trigger = {
+					ROOT.electoral_confidence > 0.30
+				}
+				add = -2
+			}
+		}
+		trigger = {
+			custom_tooltip = {
+				text = caciquismo_cannot_be_abolished_tt
+				var:electoral_fraud_abolish_var < 5
+			}
+		}
+		highlighted_option = yes
+		default_option = yes
+		if = {
+			limit = {
+				var:electoral_fraud_abolish_var = 4
+			}
+			custom_tooltip = can_abolish_caciquismo_next_election_tt
+		}
+		subtract_caciquismo_effect = yes
+		nr_election_not_rigged = yes # NR: election promise hook
+	}
+
+	option = { # Let's not do this - abolish
+		name = caciquismo.2.i
+		ai_chance = {
+			base = 20
+		}
+		trigger = {
+			custom_tooltip = {
+				text = caciquismo_can_be_abolished_tt
+				var:electoral_fraud_abolish_var >= 5
+			}
+		}
+		highlighted_option = yes
+		default_option = yes
+		remove_electoral_fraud_effect = yes
+		nr_election_not_rigged = yes # NR: election promise hook
+	}
+}

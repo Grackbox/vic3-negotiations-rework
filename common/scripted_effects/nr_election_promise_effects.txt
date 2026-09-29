@@ -1,0 +1,210 @@
+﻿# NR: promise to back the group's party at the next election (feature election_promise, spec in README_NR.md).
+# Several groups may hold a promise at once; backing a party keeps the promises of every promised group in it.
+# Group variables: nr_election_promise, nr_election_promise_campaign, nr_election_promise_kept / _broken / _void.
+
+# Option negotiation.1.nr_election_promise. Scope: country, scope:ig.
+nr_election_promise_start = {
+	custom_tooltip = nr_election_promise_lore
+	custom_tooltip = nr_election_promise_tt
+	nr_authority_cost_add = { COST = 50 }
+	scope:ig = {
+		hidden_effect = { set_variable = nr_election_promise }
+		finish_negotiation = "negotiation.1.nr_election_promise"
+		set_variable = {
+			name = promise_quest_type
+			value = 102 # NR: election promise
+		}
+	}
+	promise_quest = yes
+	if = { # one journal entry per group, must be last
+		limit = { scope:ig = { is_interest_group_type = ig_devout } }
+		add_journal_entry = { type = je_nr_election_promise_devout }
+	}
+	else_if = { # one journal entry per group, must be last
+		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
+		add_journal_entry = { type = je_nr_election_promise_landowners }
+	}
+	else_if = { # one journal entry per group, must be last
+		limit = { scope:ig = { is_interest_group_type = ig_industrialists } }
+		add_journal_entry = { type = je_nr_election_promise_industrialists }
+	}
+	else_if = { # one journal entry per group, must be last
+		limit = { scope:ig = { is_interest_group_type = ig_petty_bourgeoisie } }
+		add_journal_entry = { type = je_nr_election_promise_petty_bourgeoisie }
+	}
+	else_if = { # one journal entry per group, must be last
+		limit = { scope:ig = { is_interest_group_type = ig_intelligentsia } }
+		add_journal_entry = { type = je_nr_election_promise_intelligentsia }
+	}
+	else_if = { # one journal entry per group, must be last
+		limit = { scope:ig = { is_interest_group_type = ig_trade_unions } }
+		add_journal_entry = { type = je_nr_election_promise_trade_unions }
+	}
+	else_if = { # one journal entry per group, must be last
+		limit = { scope:ig = { is_interest_group_type = ig_rural_folk } }
+		add_journal_entry = { type = je_nr_election_promise_rural_folk }
+	}
+	else_if = { # one journal entry per group, must be last
+		limit = { scope:ig = { is_interest_group_type = ig_armed_forces } }
+		add_journal_entry = { type = je_nr_election_promise_armed_forces }
+	}
+}
+
+# on_election_campaign_start: the first campaign after a promise decides it. Scope: country.
+nr_election_promise_campaign_start = {
+	every_interest_group = {
+		limit = {
+			has_variable = nr_election_promise
+			NOT = { has_variable = nr_election_promise_campaign }
+		}
+		if = {
+			limit = { has_party = yes }
+			set_variable = nr_election_promise_campaign
+		}
+		else = {
+			set_variable = nr_election_promise_void # the group is in no party: nothing to back
+		}
+	}
+}
+
+# on_election_campaign_end: the campaign ended without a rigging event (vanilla conditions). Scope: country.
+# With the Tradition of Free Elections the journal entry fails on its own.
+nr_election_promise_campaign_end = {
+	every_interest_group = {
+		limit = { has_variable = nr_election_promise_campaign }
+		remove_variable = nr_election_promise_campaign
+		if = {
+			limit = { owner = { modifier:country_forbid_electoral_fraud_bool = no } }
+			set_variable = nr_election_promise_void
+		}
+	}
+}
+
+# Hooks in the copied vanilla rigging events (events/iberia_events/ip4_election_rigging.txt). Scope: country.
+# A party option: $PARTY$ = the party that gets +150%. Keeps the promises of the groups in it, breaks the others.
+nr_election_rigged = {
+	every_interest_group = {
+		limit = { has_variable = nr_election_promise_campaign }
+		save_scope_as = nr_promised_ig
+		if = {
+			limit = {
+				$PARTY$ ?= { has_party_member = prev }
+			}
+			custom_tooltip = {
+				text = nr_election_promise_keeps_tt
+				set_variable = nr_election_promise_kept
+			}
+		}
+		else = {
+			custom_tooltip = {
+				text = nr_election_promise_breaks_tt
+				set_variable = nr_election_promise_broken
+			}
+		}
+		hidden_effect = { remove_variable = nr_election_promise_campaign }
+	}
+}
+
+# No rigging (including abolishing electoral fraud): every waiting promise is broken.
+nr_election_not_rigged = {
+	every_interest_group = {
+		limit = { has_variable = nr_election_promise_campaign }
+		save_scope_as = nr_promised_ig
+		custom_tooltip = {
+			text = nr_election_promise_breaks_tt
+			set_variable = nr_election_promise_broken
+		}
+		hidden_effect = { remove_variable = nr_election_promise_campaign }
+	}
+}
+
+# Immediate of the rigging events: make sure waiting promises are marked (our on_action may run after the event),
+# then save each promised group's current party for the extra options and their names.
+nr_election_rigging_immediate = {
+	nr_election_promise_campaign_start = yes
+	ig:ig_devout ?= {
+		if = {
+			limit = { has_variable = nr_election_promise_campaign }
+			party ?= { save_scope_as = nr_promised_party_devout }
+		}
+	}
+	ig:ig_landowners ?= {
+		if = {
+			limit = { has_variable = nr_election_promise_campaign }
+			party ?= { save_scope_as = nr_promised_party_landowners }
+		}
+	}
+	ig:ig_industrialists ?= {
+		if = {
+			limit = { has_variable = nr_election_promise_campaign }
+			party ?= { save_scope_as = nr_promised_party_industrialists }
+		}
+	}
+	ig:ig_petty_bourgeoisie ?= {
+		if = {
+			limit = { has_variable = nr_election_promise_campaign }
+			party ?= { save_scope_as = nr_promised_party_petty_bourgeoisie }
+		}
+	}
+	ig:ig_intelligentsia ?= {
+		if = {
+			limit = { has_variable = nr_election_promise_campaign }
+			party ?= { save_scope_as = nr_promised_party_intelligentsia }
+		}
+	}
+	ig:ig_trade_unions ?= {
+		if = {
+			limit = { has_variable = nr_election_promise_campaign }
+			party ?= { save_scope_as = nr_promised_party_trade_unions }
+		}
+	}
+	ig:ig_rural_folk ?= {
+		if = {
+			limit = { has_variable = nr_election_promise_campaign }
+			party ?= { save_scope_as = nr_promised_party_rural_folk }
+		}
+	}
+	ig:ig_armed_forces ?= {
+		if = {
+			limit = { has_variable = nr_election_promise_campaign }
+			party ?= { save_scope_as = nr_promised_party_armed_forces }
+		}
+	}
+}
+
+# Extra option: the party of a promised group is not listed - back it the vanilla way (+150%, others -50%).
+# $PARTY$ = scope:nr_promised_party_<group>.
+nr_election_rig_promised = {
+	$PARTY$ = {
+		add_momentum = momentum_utterly_fraudulent
+	}
+	every_active_party = {
+		limit = {
+			party_has_members = yes
+			NOT = { this = $PARTY$ }
+		}
+		add_momentum = momentum_very_large_decrease
+	}
+	add_caciquismo_effect = yes
+	custom_tooltip = {
+		text = mutes_all_election_events_tt
+		set_variable = {
+			name = mute_election_events
+			months = 12
+		}
+	}
+	nr_election_rigged = { PARTY = $PARTY$ }
+}
+
+# Journal entry end. Scope: country, scope:ig.
+nr_election_promise_cleanup = {
+	scope:ig ?= {
+		hidden_effect = {
+			remove_variable = nr_election_promise
+			remove_variable = nr_election_promise_campaign
+			remove_variable = nr_election_promise_kept
+			remove_variable = nr_election_promise_broken
+			remove_variable = nr_election_promise_void
+		}
+	}
+}

@@ -774,6 +774,28 @@ negotiation.1 = {
 		}
 	}
 
+	option = { # NR: the ruler presses the group - logic in common/scripted_effects/nr_ruler_pressure_effects.txt
+		name = negotiation.1.nr_pressure
+		trigger = {
+			nr_ruler_pressure_available = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_ruler_pressure_apply = yes
+	}
+
+	option = { # NR: promise to back the group's party at the next election - nr_election_promise_effects.txt
+		name = negotiation.1.nr_election_promise
+		trigger = {
+			nr_election_promise_available = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+		nr_election_promise_start = yes
+	}
+
 	#### This Option must be at the bottom
 	option = { #cancel
 		name = negotiation.1.cancel

@@ -1,0 +1,89 @@
+﻿# NR: the ruler presses the group (feature ruler_pressure) and the election promise (feature election_promise).
+# Scope: country; in negotiation.1 scope:ig = the group, scope:law = the law being enacted.
+
+# Ruler type. Monarchy and theocracy whatever the distribution of power; otherwise by the distribution of power.
+nr_ruler_is_monarch = {
+	OR = {
+		has_law_or_variant = law_type:law_monarchy
+		has_law = law_type:law_social_monarchy
+		has_law = law_type:law_chiefdom
+	}
+}
+
+nr_ruler_is_theocrat = {
+	nr_ruler_is_monarch = no
+	has_law_or_variant = law_type:law_theocracy
+}
+
+nr_ruler_is_autocrat = {
+	nr_ruler_is_monarch = no
+	nr_ruler_is_theocrat = no
+	OR = {
+		has_law_or_variant = law_type:law_autocracy
+		has_law_or_variant = law_type:law_single_party_state
+	}
+}
+
+nr_ruler_is_oligarchs = {
+	nr_ruler_is_monarch = no
+	nr_ruler_is_theocrat = no
+	OR = {
+		has_law_or_variant = law_type:law_oligarchy
+		has_law_or_variant = law_type:law_elder_council
+	}
+}
+
+nr_ruler_is_technocrats = {
+	nr_ruler_is_monarch = no
+	nr_ruler_is_theocrat = no
+	has_law_or_variant = law_type:law_technocracy
+}
+
+# The ruler is not against the law being enacted.
+nr_ruler_not_against_law = {
+	exists = ruler
+	NOT = {
+		ruler = {
+			law_stance = {
+				law = scope:law.type
+				value < neutral
+			}
+		}
+	}
+}
+
+# The ruler belongs to the group being pressed.
+nr_ruler_pressure_own_group = {
+	exists = ruler
+	ruler = {
+		exists = interest_group
+		interest_group = { this = scope:ig }
+	}
+}
+
+# Option "the ruler presses the group" is offered.
+nr_ruler_pressure_available = {
+	OR = {
+		nr_ruler_is_monarch = yes
+		nr_ruler_is_theocrat = yes
+		nr_ruler_is_autocrat = yes
+		nr_ruler_is_oligarchs = yes
+		nr_ruler_is_technocrats = yes
+	}
+	nr_ruler_not_against_law = yes
+	scope:ig = { NOT = { has_variable = nr_ruler_pressure_cooldown } } # not pressed in the last 5 years
+	authority >= 400
+	nr_authority_cost_slot_free = yes
+}
+
+# The leader of the Armed Forces is reliable (vanilla LOYALTY_RELIABLE_THRESHOLD) / at least neutral.
+nr_ruler_pressure_army_loyal = {
+	scope:ig.leader ?= { loyalty >= 75 }
+}
+
+nr_ruler_pressure_army_wary = {
+	OR = {
+		NOT = { exists = scope:ig.leader }
+		scope:ig.leader = { loyalty >= 50 }
+	}
+}

@@ -17,6 +17,7 @@ Copied vanilla files contain only hooks; all mod logic lives in the mod's own fi
 | `set_neg_options`, option 2 (bureaucracy) in all three lists | `nr_neg_option_2_allowed` (condition) and `nr_neg_option_2_modifier` (weight) |
 | `negotiation.1.o1` | `nr_neg_option_1_is_custom = no`, `nr_neg_option_1_affordable`; AI: `nr_neg_option_1_vanilla_ai` gates the vanilla income checks, `nr_neg_option_1_ai_good` / `_fair` / `_bad` (+35 / +15 / -50) for groups with their own bribe. Otherwise option `negotiation.1.nr_o1_soft` → `nr_neg_option_1_custom` |
 | `negotiation.1.o2` | `nr_neg_option_2_is_custom = no`; otherwise option `negotiation.1.nr_o2_devout` (`nr_neg_option_2_allowed`, AI `nr_neg_option_2_ai_good` / `_bad`) → `nr_neg_option_2_custom` |
+| `negotiation.1`, extra options before the cancel option | `negotiation.1.nr_pressure` (`nr_ruler_pressure_available` -> `nr_ruler_pressure_apply`), `negotiation.1.nr_election_promise` (`nr_election_promise_available` -> `nr_election_promise_start`) |
 | `negotiation.1.o1`, `bribed_ig_benefits` | multiplier `nr_neg_level_scale` (level 1 / 2 / 4 → 1 / 2 / 3); the same value scales soft bribe patronage and church officials |
 
 No interest group is named in the copied vanilla files; every group-specific check sits behind a hook. Routing by interest group: `common/scripted_effects/nr_negotiation_hooks.txt`, `common/scripted_triggers/nr_negotiation_hooks.txt`, `common/script_values/nr_negotiation_hooks_values.txt`.
@@ -26,6 +27,7 @@ No interest group is named in the copied vanilla files; every group-specific che
 - `common/scripted_triggers/ip4_negotiation_triggers.txt`
 - `common/script_values/negotiation_values.txt` (hooks in `building_scaler` and `building_levels_to_increase_value`)
 - `common/scripted_effects/04_neg_event_options_scripted_effects.txt`
+- `events/iberia_events/ip4_election_rigging.txt` (election promise: `nr_election_rigging_immediate` at the end of `immediate`, `nr_election_rigged = { PARTY = scope:party_N_scope }` in each party option, `nr_election_not_rigged` in the no-rigging options, extra options `caciquismo.nr_promised_<group>` before them)
 
 ## Naming
 - Feature: `<group>_<feature>`, e.g. `devout_sol`, `devout_charity`, `devout_softbribe`.
@@ -49,6 +51,9 @@ No interest group is named in the copied vanilla files; every group-specific che
 | devout_census | `common/amendments/nr_devout_census_amendments.txt`, `events/nr_devout_census_events.txt`, `common/journal_entries/nr_devout_census_je.txt`, `common/scripted_effects/nr_devout_census_effects.txt`, `common/scripted_triggers/nr_devout_census_triggers.txt`, `common/static_modifiers/nr_devout_census_modifiers.txt`, `localization/*/nr_devout_census_l_*.yml` |
 | devout_police | `common/amendments/nr_devout_police_amendments.txt`, `events/nr_devout_police_events.txt`, `common/journal_entries/nr_devout_police_je.txt`, `common/scripted_effects/nr_devout_police_effects.txt`, `common/scripted_triggers/nr_devout_police_triggers.txt`, `common/static_modifiers/nr_devout_police_modifiers.txt`, `localization/*/nr_devout_police_l_*.yml`, concepts `concept_nr_parish_constables`, `concept_nr_prison_chaplaincy`, `concept_nr_gendarmerie_chaplains` |
 | devout_slavery | `common/amendments/nr_devout_slavery_amendments.txt`, `events/nr_devout_slavery_events.txt`, `common/journal_entries/nr_devout_slavery_je.txt`, `common/scripted_effects/nr_devout_slavery_effects.txt`, `common/scripted_triggers/nr_devout_slavery_triggers.txt`, `common/static_modifiers/nr_devout_slavery_modifiers.txt`, `localization/*/nr_devout_slavery_l_*.yml`, concept `concept_nr_fellow_believers`; hooks in `nr_on_actions.txt` (`on_law_activated`, `on_yearly_pulse_country`) |
+| ruler_pressure | `common/scripted_effects/nr_ruler_pressure_effects.txt`, `common/scripted_triggers/nr_ruler_pressure_triggers.txt`, `common/static_modifiers/nr_ruler_pressure_modifiers.txt`, `localization/*/nr_ruler_pressure_l_*.yml` (also election_promise texts), custom loc `NR_PressureLine`; generated from the tables below |
+| election_promise | `common/journal_entries/nr_election_promise_je.txt`, `common/scripted_effects/nr_election_promise_effects.txt`, `common/scripted_triggers/nr_election_promise_triggers.txt`, `events/iberia_events/ip4_election_rigging.txt` (copy with hooks), on_actions `nr_on_election_campaign_start` / `_end` |
+| authority cost slots | `common/scripted_effects/nr_authority_cost.txt`, `common/scripted_triggers/nr_authority_cost.txt`, `common/static_modifiers/nr_authority_cost_modifiers.txt` |
 | campaign slots | `common/scripted_effects/nr_campaign_slots.txt`, `common/scripted_triggers/nr_campaign_slots.txt` |
 | devout_schools | `events/nr_devout_schools_events.txt`, `common/journal_entries/nr_devout_schools_je.txt`, `common/scripted_triggers/nr_devout_schools_triggers.txt`, `common/static_modifiers/nr_devout_schools_modifiers.txt`, `localization/*/nr_devout_schools_l_*.yml` |
 | devout_sisters | `common/amendments/nr_devout_sisters_amendments.txt`, `events/nr_devout_sisters_events.txt`, `common/journal_entries/nr_devout_sisters_je.txt`, `common/scripted_triggers/nr_devout_sisters_triggers.txt`, `common/static_modifiers/nr_devout_sisters_modifiers.txt`, `localization/*/nr_devout_sisters_l_*.yml` |
@@ -189,6 +194,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - `event nr_debug.5` / `event nr_debug.6` - landowners' grants: the form event `nr_landowners_grants.1` and the follow-ups `.11` - `.18` (with the running mark of their form).
 - `event nr_debug.7` - activate a law at once (`activate_law`): Free Trade, Protectionism, Tenant Farmers, Serfdom, Slavery Banned, Legacy Slavery, Slave Trade - to test interruptions.
 - New follow-ups and enactment events should be added to these menus.
+- Ruler pressure / election promise: form of government via Script Runner (`activate_law = law_type:law_autocracy` etc.); an election campaign starts with `call_election = { months = 1 }` (Script Runner, Effect) - the rigging event `caciquismo.2` fires at its start if electoral fraud is possible.
 
 ## Feature landowners_grants - grants instead of money (negotiation option 1)
 - Roll (`nr_softbribe_roll`): 50 / 50 money or grant. Always a grant: leader Honorable, Ambitious, Imperious or Arrogant (status and land matter more than cash), or the bribe is unaffordable. Always money: Grifter / Expensive Tastes / Hedonist, or no free grant slot.
@@ -315,6 +321,7 @@ Agreed design. An extra button in `negotiation.1` (not part of the random three 
   - theocrat: `law_theocracy` - whatever the distribution of power;
   - otherwise by distribution of power: autocrat - `law_autocracy` (and variants), `law_single_party_state`; oligarchs - `law_oligarchy` (and variants), `law_elder_council`; technocrats - `law_technocracy`. Other distributions (voting laws, anarchy): no option.
 - Cost: 400 authority for 5 years (`country_authority_add`, cost slot, see "Authority cost slots"); needs available authority >= 400 and a free cost slot.
+- A group cannot be pressed again while its pressure lasts: 5 years (group variable `nr_ruler_pressure_cooldown`).
 - Result: the group supports the law like after any successful negotiation (`finish_negotiation`, `improve_law_stance`), plus the effects below for 5 years (infamy is one-time). Every effect is shown in the option tooltip; a lore line per ruler type.
 
 Armed Forces (any ruler type), by the loyalty of their leader (0-100, vanilla thresholds 25/50/75):
@@ -354,14 +361,15 @@ Own Armed Forces with a leader of loyalty 75+: only strength -10% and popularity
 
 ## Feature election_promise - promise to back the group's party at the next election (extra negotiation option)
 Agreed design. An extra button in `negotiation.1`, a promise like the vanilla ones (`promise_quest`, `promise_quest_type` 102, journal entry `je_nr_election_promise`). The AI never takes it.
-- Available: the country has elections (`country_has_voting_franchise`, any form of government, so a monarchy or theocracy with a franchise may get both options), not `law_single_party_state`, no Tradition of Free Elections (`modifier:country_forbid_electoral_fraud_bool = no`), the group is in a party (`has_party`), the ruler is not against the law, no other election promise running, available authority >= 50 and a free cost slot.
+- Available: the country has elections (`country_has_voting_franchise`, any form of government, so a monarchy or theocracy with a franchise may get both options), not `law_single_party_state`, no Tradition of Free Elections (`modifier:country_forbid_electoral_fraud_bool = no`), the ruler is not against the law, this group holds no election promise yet, available authority >= 50 and a free cost slot.
+- Promises can be given to any number of groups; one journal entry per group (`je_nr_election_promise_<group>`), state in group variables (`nr_election_promise`, `_campaign`, `_kept`, `_broken`, `_void`). The party is not remembered at the negotiation: it is the group's party at the election (groups may change party meanwhile). Backing one party keeps the promises of every promised group that is in it.
 - Cost: 50 authority for 5 years. Result: the group supports the law (vanilla `promise_quest`).
 - Kept or broken at the next election campaign that starts after the promise, in the vanilla rigging event (`caciquismo.1` / `caciquismo.2`, fired at the start of every campaign while fraud is possible: chosen party +150% momentum, all others -50%):
   - kept: the player chose the party the group is a member of -> vanilla `promise_quest_completed`;
   - broken: another party, no rigging, the event expired, the promise abandoned (vanilla button), or the Tradition of Free Elections appeared before the election -> vanilla `promise_quest_failed`;
-  - the group's party is not among the parties listed in the event: an extra option "Back [party], as promised" (vanilla effect: +150% / -50%, `add_caciquismo_effect`);
+  - a promised group's party is not among the parties listed in the event: an extra option "Back [party], as promised" per such party (vanilla effect: +150% / -50%, `add_caciquismo_effect`);
   - withdrawn without penalty: the group is in no party when the campaign starts, or the campaign ended without the rigging event (vanilla conditions, e.g. fewer than two parties with members).
 - Needs hooks in a copy of vanilla `events/iberia_events/ip4_election_rigging.txt` (each option reports the chosen party). Brazil's `coffee_with_milk.7` is not touched.
 
 ## Authority cost slots (shared)
-Timed authority costs of our options: static modifiers `nr_authority_cost_1` - `_4` (`country_authority_add` = -1, applied with `multiplier` = cost, 5 years). `nr_authority_cost_add = { COST = ... }` takes the first free slot; an option with an authority cost is offered only if a slot is free.
+Timed authority costs of our options: static modifiers `nr_authority_cost_1` - `_10` (`country_authority_add` = -1, applied with `multiplier` = cost, 5 years). `nr_authority_cost_add = { COST = ... }` takes the first free slot; an option with an authority cost is offered only if a slot is free.

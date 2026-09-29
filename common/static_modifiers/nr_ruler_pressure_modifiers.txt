@@ -1,0 +1,494 @@
+﻿# NR: the ruler presses a group in negotiations (feature ruler_pressure). Country modifiers, 5 years.
+# Generated from the tables in README_NR.md ("Feature ruler_pressure").
+
+nr_ruler_pressure_monarch_devout = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_devout_approval_add = -2
+	country_legitimacy_base_add = -5
+}
+
+nr_ruler_pressure_theocrat_devout = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	state_conversion_mult = 0.1
+}
+
+nr_ruler_pressure_autocrat_devout = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_devout_approval_add = -3
+	country_legitimacy_base_add = -5
+}
+
+nr_ruler_pressure_oligarchs_devout = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_devout_approval_add = -3
+}
+
+nr_ruler_pressure_technocrats_devout = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_devout_pol_str_mult = -0.05
+	state_education_access_add = 0.02
+}
+
+nr_ruler_pressure_monarch_landowners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_landowners_approval_add = -3
+	building_group_bg_agriculture_throughput_add = -0.05
+}
+
+nr_ruler_pressure_theocrat_landowners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_landowners_approval_add = -2
+}
+
+nr_ruler_pressure_autocrat_landowners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_landowners_approval_add = -3
+	building_group_bg_agriculture_throughput_add = -0.05
+}
+
+nr_ruler_pressure_oligarchs_landowners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_landowners_approval_add = -2
+}
+
+nr_ruler_pressure_technocrats_landowners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_landowners_approval_add = -3
+	building_group_bg_agriculture_throughput_add = 0.05
+}
+
+nr_ruler_pressure_monarch_industrialists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_industrialists_approval_add = -3
+	building_group_bg_manufacturing_throughput_add = -0.05
+}
+
+nr_ruler_pressure_theocrat_industrialists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_industrialists_approval_add = -3
+	building_group_bg_manufacturing_throughput_add = -0.05
+}
+
+nr_ruler_pressure_autocrat_industrialists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_industrialists_approval_add = -3
+	country_military_goods_cost_mult = -0.1
+}
+
+nr_ruler_pressure_oligarchs_industrialists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_industrialists_approval_add = -1
+	building_group_bg_manufacturing_throughput_add = 0.05
+	interest_group_ig_industrialists_pol_str_mult = 0.1
+}
+
+nr_ruler_pressure_technocrats_industrialists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_industrialists_approval_add = -2
+	building_group_bg_manufacturing_throughput_add = 0.05
+}
+
+nr_ruler_pressure_monarch_petty_bourgeoisie = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_petty_bourgeoisie_approval_add = -2
+	state_tax_waste_add = 0.05
+}
+
+nr_ruler_pressure_theocrat_petty_bourgeoisie = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_petty_bourgeoisie_approval_add = -2
+	state_tax_waste_add = 0.05
+}
+
+nr_ruler_pressure_autocrat_petty_bourgeoisie = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_petty_bourgeoisie_approval_add = -2
+	building_group_bg_government_throughput_add = -0.05
+}
+
+nr_ruler_pressure_oligarchs_petty_bourgeoisie = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_petty_bourgeoisie_approval_add = -3
+}
+
+nr_ruler_pressure_technocrats_petty_bourgeoisie = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_petty_bourgeoisie_approval_add = -2
+	building_group_bg_government_throughput_add = -0.05
+}
+
+nr_ruler_pressure_monarch_intelligentsia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	state_radicals_from_political_movements_mult = 0.1
+}
+
+nr_ruler_pressure_theocrat_intelligentsia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	state_radicals_from_political_movements_mult = 0.15
+	country_tech_research_speed_mult = -0.1
+}
+
+nr_ruler_pressure_autocrat_intelligentsia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	state_radicals_from_political_movements_mult = 0.1
+	country_tech_research_speed_mult = -0.05
+}
+
+nr_ruler_pressure_oligarchs_intelligentsia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	state_radicals_from_political_movements_mult = 0.1
+}
+
+nr_ruler_pressure_technocrats_intelligentsia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_intelligentsia_approval_add = -3
+}
+
+nr_ruler_pressure_monarch_trade_unions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	state_radicals_from_political_movements_mult = 0.1
+}
+
+nr_ruler_pressure_theocrat_trade_unions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	state_radicals_from_political_movements_mult = 0.1
+}
+
+nr_ruler_pressure_autocrat_trade_unions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	state_radicals_from_political_movements_mult = 0.1
+	interest_group_ig_trade_unions_approval_add = -3
+}
+
+nr_ruler_pressure_oligarchs_trade_unions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	state_radicals_from_political_movements_mult = 0.15
+	building_throughput_add = -0.03
+}
+
+nr_ruler_pressure_technocrats_trade_unions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_trade_unions_approval_add = -2
+	building_throughput_add = -0.02
+}
+
+nr_ruler_pressure_monarch_rural_folk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	state_loyalists_from_political_movements_mult = 0.05
+}
+
+nr_ruler_pressure_autocrat_rural_folk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_rural_folk_approval_add = -2
+}
+
+nr_ruler_pressure_oligarchs_rural_folk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_rural_folk_approval_add = -3
+	building_group_bg_agriculture_throughput_add = -0.03
+}
+
+nr_ruler_pressure_technocrats_rural_folk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_rural_folk_approval_add = -3
+}
+
+
+# The ruler presses their own group
+
+nr_ruler_pressure_own_monarch_armed_forces = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_armed_forces_pol_str_mult = -0.1
+	country_prestige_mult = -0.05
+	country_coup_resistance_add = -0.1
+}
+
+nr_ruler_pressure_own_theocrat_armed_forces = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_armed_forces_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_autocrat_armed_forces = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_armed_forces_pol_str_mult = -0.1
+	country_coup_resistance_add = -0.15
+}
+
+nr_ruler_pressure_own_oligarchs_armed_forces = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_armed_forces_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_technocrats_armed_forces = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_armed_forces_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_monarch_devout = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_devout_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_theocrat_devout = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_devout_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+	state_conversion_mult = -0.1
+}
+
+nr_ruler_pressure_own_autocrat_devout = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_devout_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_oligarchs_devout = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_devout_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_technocrats_devout = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_devout_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_monarch_landowners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_landowners_pol_str_mult = -0.1
+	country_prestige_mult = -0.1
+}
+
+nr_ruler_pressure_own_theocrat_landowners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_landowners_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_autocrat_landowners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_landowners_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+	building_group_bg_agriculture_throughput_add = -0.05
+}
+
+nr_ruler_pressure_own_oligarchs_landowners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_landowners_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_technocrats_landowners = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_landowners_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_monarch_industrialists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_industrialists_pol_str_mult = -0.1
+	country_prestige_mult = -0.05
+	country_legitimacy_base_add = -5
+}
+
+nr_ruler_pressure_own_theocrat_industrialists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_industrialists_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_autocrat_industrialists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_industrialists_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_oligarchs_industrialists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_industrialists_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+	building_group_bg_manufacturing_throughput_add = -0.05
+}
+
+nr_ruler_pressure_own_technocrats_industrialists = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_industrialists_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_monarch_petty_bourgeoisie = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_petty_bourgeoisie_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_theocrat_petty_bourgeoisie = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_petty_bourgeoisie_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_autocrat_petty_bourgeoisie = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_petty_bourgeoisie_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+	state_tax_waste_add = 0.05
+}
+
+nr_ruler_pressure_own_oligarchs_petty_bourgeoisie = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_petty_bourgeoisie_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_technocrats_petty_bourgeoisie = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_petty_bourgeoisie_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_monarch_intelligentsia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_intelligentsia_pol_str_mult = -0.1
+	country_prestige_mult = -0.1
+	state_radicals_from_political_movements_mult = 0.05
+}
+
+nr_ruler_pressure_own_theocrat_intelligentsia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_intelligentsia_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_autocrat_intelligentsia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_intelligentsia_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+	state_radicals_from_political_movements_mult = 0.05
+}
+
+nr_ruler_pressure_own_oligarchs_intelligentsia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_intelligentsia_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_technocrats_intelligentsia = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_intelligentsia_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_monarch_trade_unions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_trade_unions_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_theocrat_trade_unions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_trade_unions_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_autocrat_trade_unions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_trade_unions_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+	state_radicals_from_political_movements_mult = 0.1
+}
+
+nr_ruler_pressure_own_oligarchs_trade_unions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_trade_unions_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_technocrats_trade_unions = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_trade_unions_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_monarch_rural_folk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_rural_folk_pol_str_mult = -0.1
+	country_prestige_mult = -0.05
+	state_loyalists_from_political_movements_mult = -0.05
+}
+
+nr_ruler_pressure_own_theocrat_rural_folk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_rural_folk_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_autocrat_rural_folk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_rural_folk_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_oligarchs_rural_folk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_rural_folk_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+nr_ruler_pressure_own_technocrats_rural_folk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_ig_rural_folk_pol_str_mult = -0.1
+	country_legitimacy_base_add = -10
+}
+
+
+# Armed Forces by the loyalty of their leader
+
+nr_ruler_pressure_army_loyal_monarch = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_rifle_positive.dds
+	unit_morale_recovery_mult = 0.05
+}
+
+nr_ruler_pressure_army_loyal_autocrat = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_rifle_positive.dds
+	country_coup_resistance_add = 0.1
+}
+
+nr_ruler_pressure_army_wary = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_rifle_negative.dds
+	interest_group_ig_armed_forces_approval_add = -2
+}
+
+nr_ruler_pressure_army_disloyal = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_rifle_negative.dds
+	interest_group_ig_armed_forces_approval_add = -3
+	country_coup_resistance_add = -0.1
+}
+
+nr_ruler_pressure_own_army_loyal = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_rifle_negative.dds
+	interest_group_ig_armed_forces_pol_str_mult = -0.1
+}
+
+nr_ruler_pressure_own_autocrat_army_loyal = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_rifle_positive.dds
+	country_legitimacy_base_add = 10
+}
+
+
+# The leader of the Armed Forces resents the order (character)
+nr_ruler_pressure_leader_disloyal = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_rifle_negative.dds
+	character_loyalty_add = -15
+}
+
+# The ruler struck at their own group (character)
+nr_ruler_pressure_betrayal = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	character_popularity_add = -25
+}

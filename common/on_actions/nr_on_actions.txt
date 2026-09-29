@@ -57,3 +57,24 @@ nr_on_yearly_pulse_country = {
 		nr_landowners_grants_movements = yes # movement radicalism of the running grants and of Free Import
 	}
 }
+
+# Election campaigns (root = country): the election promise is decided by the first campaign after it.
+on_election_campaign_start = {
+	on_actions = { nr_on_election_campaign_start }
+}
+
+nr_on_election_campaign_start = {
+	effect = {
+		nr_election_promise_campaign_start = yes
+	}
+}
+
+on_election_campaign_end = {
+	on_actions = { nr_on_election_campaign_end }
+}
+
+nr_on_election_campaign_end = {
+	effect = {
+		nr_election_promise_campaign_end = yes
+	}
+}

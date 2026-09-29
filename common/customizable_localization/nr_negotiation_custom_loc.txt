@@ -38,3 +38,43 @@ NR_SoftBribeLine = {
 		localization_key = nr_landowners_grants_option
 	}
 }
+
+# Option "the ruler presses the group" (negotiation.1.nr_pressure): wording by ruler type.
+NR_PressureLine = {
+	type = country
+
+	text = {
+		trigger = {
+			nr_ruler_is_monarch = yes
+		}
+		localization_key = nr_ruler_pressure_option_monarch
+	}
+
+	text = {
+		trigger = {
+			nr_ruler_is_theocrat = yes
+		}
+		localization_key = nr_ruler_pressure_option_theocrat
+	}
+
+	text = {
+		trigger = {
+			nr_ruler_is_autocrat = yes
+		}
+		localization_key = nr_ruler_pressure_option_autocrat
+	}
+
+	text = {
+		trigger = {
+			nr_ruler_is_oligarchs = yes
+		}
+		localization_key = nr_ruler_pressure_option_oligarchs
+	}
+
+	text = {
+		trigger = {
+			nr_ruler_is_technocrats = yes
+		}
+		localization_key = nr_ruler_pressure_option_technocrats
+	}
+}

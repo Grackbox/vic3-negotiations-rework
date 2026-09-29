@@ -1,0 +1,699 @@
+﻿# NR: promise to back the group's party at the next election (feature election_promise), one entry per group so
+# several promises can run at once. Created by option negotiation.1.nr_election_promise. Decided by the rigging event
+# of the first election campaign after the promise (hooks in events/iberia_events/ip4_election_rigging.txt).
+
+je_nr_election_promise_devout = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_internal_affairs
+
+	scripted_button = negotiation_go_away_button
+
+	immediate = {
+		random_interest_group = {
+			limit = {
+				is_interest_group_type = ig_devout
+				has_variable = ig_new_quest_starting
+				has_variable = promise_quest_type
+				var:promise_quest_type = 102 # NR: election promise
+			}
+			save_scope_as = ig
+			remove_variable = ig_new_quest_starting
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_election_promise_status_campaign
+				trigger = { scope:ig ?= { has_variable = nr_election_promise_campaign } }
+			}
+			triggered_desc = {
+				desc = je_nr_election_promise_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = nr_election_promise_kept_cond_tt
+			scope:ig ?= { has_variable = nr_election_promise_kept }
+		}
+	}
+
+	on_complete = {
+		promise_quest_completed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	fail = {
+		OR = {
+			is_promise_abandoned = yes
+			custom_tooltip = {
+				text = nr_election_promise_broken_cond_tt
+				scope:ig ?= { has_variable = nr_election_promise_broken }
+			}
+			custom_tooltip = {
+				text = nr_election_promise_free_elections_tt
+				modifier:country_forbid_electoral_fraud_bool = yes
+			}
+		}
+	}
+
+	on_fail = {
+		promise_quest_failed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	invalid = {
+		OR = {
+			NOT = { exists = scope:ig }
+			scope:ig ?= { has_variable = nr_election_promise_void }
+		}
+	}
+
+	on_invalid = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	timeout = 3650 # safety net: there is an election every few years
+
+	on_timeout = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_election_promise_landowners = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_internal_affairs
+
+	scripted_button = negotiation_go_away_button
+
+	immediate = {
+		random_interest_group = {
+			limit = {
+				is_interest_group_type = ig_landowners
+				has_variable = ig_new_quest_starting
+				has_variable = promise_quest_type
+				var:promise_quest_type = 102 # NR: election promise
+			}
+			save_scope_as = ig
+			remove_variable = ig_new_quest_starting
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_election_promise_status_campaign
+				trigger = { scope:ig ?= { has_variable = nr_election_promise_campaign } }
+			}
+			triggered_desc = {
+				desc = je_nr_election_promise_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = nr_election_promise_kept_cond_tt
+			scope:ig ?= { has_variable = nr_election_promise_kept }
+		}
+	}
+
+	on_complete = {
+		promise_quest_completed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	fail = {
+		OR = {
+			is_promise_abandoned = yes
+			custom_tooltip = {
+				text = nr_election_promise_broken_cond_tt
+				scope:ig ?= { has_variable = nr_election_promise_broken }
+			}
+			custom_tooltip = {
+				text = nr_election_promise_free_elections_tt
+				modifier:country_forbid_electoral_fraud_bool = yes
+			}
+		}
+	}
+
+	on_fail = {
+		promise_quest_failed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	invalid = {
+		OR = {
+			NOT = { exists = scope:ig }
+			scope:ig ?= { has_variable = nr_election_promise_void }
+		}
+	}
+
+	on_invalid = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	timeout = 3650 # safety net: there is an election every few years
+
+	on_timeout = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_election_promise_industrialists = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_internal_affairs
+
+	scripted_button = negotiation_go_away_button
+
+	immediate = {
+		random_interest_group = {
+			limit = {
+				is_interest_group_type = ig_industrialists
+				has_variable = ig_new_quest_starting
+				has_variable = promise_quest_type
+				var:promise_quest_type = 102 # NR: election promise
+			}
+			save_scope_as = ig
+			remove_variable = ig_new_quest_starting
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_election_promise_status_campaign
+				trigger = { scope:ig ?= { has_variable = nr_election_promise_campaign } }
+			}
+			triggered_desc = {
+				desc = je_nr_election_promise_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = nr_election_promise_kept_cond_tt
+			scope:ig ?= { has_variable = nr_election_promise_kept }
+		}
+	}
+
+	on_complete = {
+		promise_quest_completed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	fail = {
+		OR = {
+			is_promise_abandoned = yes
+			custom_tooltip = {
+				text = nr_election_promise_broken_cond_tt
+				scope:ig ?= { has_variable = nr_election_promise_broken }
+			}
+			custom_tooltip = {
+				text = nr_election_promise_free_elections_tt
+				modifier:country_forbid_electoral_fraud_bool = yes
+			}
+		}
+	}
+
+	on_fail = {
+		promise_quest_failed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	invalid = {
+		OR = {
+			NOT = { exists = scope:ig }
+			scope:ig ?= { has_variable = nr_election_promise_void }
+		}
+	}
+
+	on_invalid = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	timeout = 3650 # safety net: there is an election every few years
+
+	on_timeout = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_election_promise_petty_bourgeoisie = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_internal_affairs
+
+	scripted_button = negotiation_go_away_button
+
+	immediate = {
+		random_interest_group = {
+			limit = {
+				is_interest_group_type = ig_petty_bourgeoisie
+				has_variable = ig_new_quest_starting
+				has_variable = promise_quest_type
+				var:promise_quest_type = 102 # NR: election promise
+			}
+			save_scope_as = ig
+			remove_variable = ig_new_quest_starting
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_election_promise_status_campaign
+				trigger = { scope:ig ?= { has_variable = nr_election_promise_campaign } }
+			}
+			triggered_desc = {
+				desc = je_nr_election_promise_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = nr_election_promise_kept_cond_tt
+			scope:ig ?= { has_variable = nr_election_promise_kept }
+		}
+	}
+
+	on_complete = {
+		promise_quest_completed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	fail = {
+		OR = {
+			is_promise_abandoned = yes
+			custom_tooltip = {
+				text = nr_election_promise_broken_cond_tt
+				scope:ig ?= { has_variable = nr_election_promise_broken }
+			}
+			custom_tooltip = {
+				text = nr_election_promise_free_elections_tt
+				modifier:country_forbid_electoral_fraud_bool = yes
+			}
+		}
+	}
+
+	on_fail = {
+		promise_quest_failed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	invalid = {
+		OR = {
+			NOT = { exists = scope:ig }
+			scope:ig ?= { has_variable = nr_election_promise_void }
+		}
+	}
+
+	on_invalid = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	timeout = 3650 # safety net: there is an election every few years
+
+	on_timeout = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_election_promise_intelligentsia = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_internal_affairs
+
+	scripted_button = negotiation_go_away_button
+
+	immediate = {
+		random_interest_group = {
+			limit = {
+				is_interest_group_type = ig_intelligentsia
+				has_variable = ig_new_quest_starting
+				has_variable = promise_quest_type
+				var:promise_quest_type = 102 # NR: election promise
+			}
+			save_scope_as = ig
+			remove_variable = ig_new_quest_starting
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_election_promise_status_campaign
+				trigger = { scope:ig ?= { has_variable = nr_election_promise_campaign } }
+			}
+			triggered_desc = {
+				desc = je_nr_election_promise_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = nr_election_promise_kept_cond_tt
+			scope:ig ?= { has_variable = nr_election_promise_kept }
+		}
+	}
+
+	on_complete = {
+		promise_quest_completed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	fail = {
+		OR = {
+			is_promise_abandoned = yes
+			custom_tooltip = {
+				text = nr_election_promise_broken_cond_tt
+				scope:ig ?= { has_variable = nr_election_promise_broken }
+			}
+			custom_tooltip = {
+				text = nr_election_promise_free_elections_tt
+				modifier:country_forbid_electoral_fraud_bool = yes
+			}
+		}
+	}
+
+	on_fail = {
+		promise_quest_failed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	invalid = {
+		OR = {
+			NOT = { exists = scope:ig }
+			scope:ig ?= { has_variable = nr_election_promise_void }
+		}
+	}
+
+	on_invalid = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	timeout = 3650 # safety net: there is an election every few years
+
+	on_timeout = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_election_promise_trade_unions = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_internal_affairs
+
+	scripted_button = negotiation_go_away_button
+
+	immediate = {
+		random_interest_group = {
+			limit = {
+				is_interest_group_type = ig_trade_unions
+				has_variable = ig_new_quest_starting
+				has_variable = promise_quest_type
+				var:promise_quest_type = 102 # NR: election promise
+			}
+			save_scope_as = ig
+			remove_variable = ig_new_quest_starting
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_election_promise_status_campaign
+				trigger = { scope:ig ?= { has_variable = nr_election_promise_campaign } }
+			}
+			triggered_desc = {
+				desc = je_nr_election_promise_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = nr_election_promise_kept_cond_tt
+			scope:ig ?= { has_variable = nr_election_promise_kept }
+		}
+	}
+
+	on_complete = {
+		promise_quest_completed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	fail = {
+		OR = {
+			is_promise_abandoned = yes
+			custom_tooltip = {
+				text = nr_election_promise_broken_cond_tt
+				scope:ig ?= { has_variable = nr_election_promise_broken }
+			}
+			custom_tooltip = {
+				text = nr_election_promise_free_elections_tt
+				modifier:country_forbid_electoral_fraud_bool = yes
+			}
+		}
+	}
+
+	on_fail = {
+		promise_quest_failed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	invalid = {
+		OR = {
+			NOT = { exists = scope:ig }
+			scope:ig ?= { has_variable = nr_election_promise_void }
+		}
+	}
+
+	on_invalid = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	timeout = 3650 # safety net: there is an election every few years
+
+	on_timeout = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_election_promise_rural_folk = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_internal_affairs
+
+	scripted_button = negotiation_go_away_button
+
+	immediate = {
+		random_interest_group = {
+			limit = {
+				is_interest_group_type = ig_rural_folk
+				has_variable = ig_new_quest_starting
+				has_variable = promise_quest_type
+				var:promise_quest_type = 102 # NR: election promise
+			}
+			save_scope_as = ig
+			remove_variable = ig_new_quest_starting
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_election_promise_status_campaign
+				trigger = { scope:ig ?= { has_variable = nr_election_promise_campaign } }
+			}
+			triggered_desc = {
+				desc = je_nr_election_promise_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = nr_election_promise_kept_cond_tt
+			scope:ig ?= { has_variable = nr_election_promise_kept }
+		}
+	}
+
+	on_complete = {
+		promise_quest_completed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	fail = {
+		OR = {
+			is_promise_abandoned = yes
+			custom_tooltip = {
+				text = nr_election_promise_broken_cond_tt
+				scope:ig ?= { has_variable = nr_election_promise_broken }
+			}
+			custom_tooltip = {
+				text = nr_election_promise_free_elections_tt
+				modifier:country_forbid_electoral_fraud_bool = yes
+			}
+		}
+	}
+
+	on_fail = {
+		promise_quest_failed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	invalid = {
+		OR = {
+			NOT = { exists = scope:ig }
+			scope:ig ?= { has_variable = nr_election_promise_void }
+		}
+	}
+
+	on_invalid = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	timeout = 3650 # safety net: there is an election every few years
+
+	on_timeout = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_election_promise_armed_forces = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_internal_affairs
+
+	scripted_button = negotiation_go_away_button
+
+	immediate = {
+		random_interest_group = {
+			limit = {
+				is_interest_group_type = ig_armed_forces
+				has_variable = ig_new_quest_starting
+				has_variable = promise_quest_type
+				var:promise_quest_type = 102 # NR: election promise
+			}
+			save_scope_as = ig
+			remove_variable = ig_new_quest_starting
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_election_promise_status_campaign
+				trigger = { scope:ig ?= { has_variable = nr_election_promise_campaign } }
+			}
+			triggered_desc = {
+				desc = je_nr_election_promise_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = nr_election_promise_kept_cond_tt
+			scope:ig ?= { has_variable = nr_election_promise_kept }
+		}
+	}
+
+	on_complete = {
+		promise_quest_completed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	fail = {
+		OR = {
+			is_promise_abandoned = yes
+			custom_tooltip = {
+				text = nr_election_promise_broken_cond_tt
+				scope:ig ?= { has_variable = nr_election_promise_broken }
+			}
+			custom_tooltip = {
+				text = nr_election_promise_free_elections_tt
+				modifier:country_forbid_electoral_fraud_bool = yes
+			}
+		}
+	}
+
+	on_fail = {
+		promise_quest_failed = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	invalid = {
+		OR = {
+			NOT = { exists = scope:ig }
+			scope:ig ?= { has_variable = nr_election_promise_void }
+		}
+	}
+
+	on_invalid = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	timeout = 3650 # safety net: there is an election every few years
+
+	on_timeout = {
+		quest_cleanup = yes
+		nr_election_promise_cleanup = yes
+	}
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}

@@ -1,0 +1,86 @@
+﻿# NR: timed authority cost of our negotiation options (pattern "Authority cost slots" in README_NR.md).
+# Ten slots (static modifiers nr_authority_cost_1..10, country_authority_add = -1 times the cost), so several
+# costs running at once never overwrite each other. Check nr_authority_cost_slot_free before offering an option.
+# $COST$ = authority per month for 5 years. Scope: country.
+nr_authority_cost_add = {
+	if = {
+		limit = { NOT = { has_modifier = nr_authority_cost_1 } }
+		add_modifier = {
+			name = nr_authority_cost_1
+			days = normal_modifier_time
+			multiplier = $COST$
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_modifier = nr_authority_cost_2 } }
+		add_modifier = {
+			name = nr_authority_cost_2
+			days = normal_modifier_time
+			multiplier = $COST$
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_modifier = nr_authority_cost_3 } }
+		add_modifier = {
+			name = nr_authority_cost_3
+			days = normal_modifier_time
+			multiplier = $COST$
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_modifier = nr_authority_cost_4 } }
+		add_modifier = {
+			name = nr_authority_cost_4
+			days = normal_modifier_time
+			multiplier = $COST$
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_modifier = nr_authority_cost_5 } }
+		add_modifier = {
+			name = nr_authority_cost_5
+			days = normal_modifier_time
+			multiplier = $COST$
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_modifier = nr_authority_cost_6 } }
+		add_modifier = {
+			name = nr_authority_cost_6
+			days = normal_modifier_time
+			multiplier = $COST$
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_modifier = nr_authority_cost_7 } }
+		add_modifier = {
+			name = nr_authority_cost_7
+			days = normal_modifier_time
+			multiplier = $COST$
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_modifier = nr_authority_cost_8 } }
+		add_modifier = {
+			name = nr_authority_cost_8
+			days = normal_modifier_time
+			multiplier = $COST$
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_modifier = nr_authority_cost_9 } }
+		add_modifier = {
+			name = nr_authority_cost_9
+			days = normal_modifier_time
+			multiplier = $COST$
+		}
+	}
+	else_if = {
+		limit = { NOT = { has_modifier = nr_authority_cost_10 } }
+		add_modifier = {
+			name = nr_authority_cost_10
+			days = normal_modifier_time
+			multiplier = $COST$
+		}
+	}
+}
