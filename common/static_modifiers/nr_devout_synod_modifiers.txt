@@ -5,3 +5,27 @@ nr_devout_synod_declined = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
 	interest_group_approval_add = -1
 }
+
+# Enactment event nr_devout_synod.1: "The church governs itself" - faster enactment
+nr_devout_synod_self_rule = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_speed_mult = 0.15
+}
+
+# Enactment event nr_devout_synod.1: the synod is written into the law - slower enactment
+nr_devout_synod_debate = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_speed_mult = -0.15
+}
+
+# Devout IG: the synod was kept out of the law being enacted
+nr_devout_synod_rejected = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -2
+}
+
+# Intelligentsia IG: they were asked to decide
+nr_devout_synod_intelligentsia_heard = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
