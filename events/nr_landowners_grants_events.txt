@@ -801,3 +801,191 @@ nr_landowners_grants.18 = {
 		}
 	}
 }
+
+# ---------- A law change ended a grant (fired by nr_landowners_grants_interrupt) ----------
+# Text and option depend on whether the Landowners are in government ("gave it up themselves") or not
+# ("the order was broken over their heads").
+
+nr_landowners_grants.21 = {
+	type = country_event
+	placement = root
+	title = nr_landowners_grants.21.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_grants.21.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_grants.21.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_grants.21.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_grants.21.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_landowners_grants_react_gave_up = yes
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_grants.21.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_landowners_grants_react_overruled = { BACKLASH = reaction }
+	}
+}
+
+nr_landowners_grants.22 = {
+	type = country_event
+	placement = root
+	title = nr_landowners_grants.22.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_grants.22.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_grants.22.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_grants.22.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_grants.22.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_landowners_grants_react_gave_up = yes
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_grants.22.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_landowners_grants_react_overruled = { BACKLASH = reaction }
+	}
+}
+
+nr_landowners_grants.23 = {
+	type = country_event
+	placement = root
+	title = nr_landowners_grants.23.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_grants.23.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_grants.23.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_grants.23.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "southamerica_slave_chains"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_grants.23.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_landowners_grants_react_gave_up = yes
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_grants.23.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_landowners_grants_react_overruled = { BACKLASH = planters }
+	}
+}
+
+nr_landowners_grants.24 = {
+	type = country_event
+	placement = root
+	title = nr_landowners_grants.24.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_landowners_grants.24.desc_gov
+				trigger = { ig:ig_landowners ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_landowners_grants.24.desc_opp
+			}
+		}
+	}
+	flavor = nr_landowners_grants.24.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "southamerica_slave_chains"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # the Landowners gave it up themselves
+		name = nr_landowners_grants.24.a
+		default_option = yes
+		trigger = {
+			ig:ig_landowners ?= { is_in_government = yes }
+		}
+		nr_landowners_grants_react_gave_up = yes
+	}
+
+	option = { # the order was broken over their heads
+		name = nr_landowners_grants.24.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_landowners ?= { is_in_government = yes } }
+		}
+		nr_landowners_grants_react_overruled = { BACKLASH = planters }
+	}
+}
