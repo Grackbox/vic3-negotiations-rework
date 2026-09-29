@@ -285,7 +285,19 @@ Agreed design; same scheme as the Devout church officials. Numbers are drafts.
 | Naval Cadet Corps | amendment Naval Census (any navy law): navy goods cost -5%, prestige from navy +10% |
 | Chancery Posts | Appointed Bureaucrats: petition for Hereditary Bureaucrats; Hereditary: amendment Service Census: population bureaucracy cost -5%, Intelligentsia -5% strength, Landowners +1 |
 
-- Amendments: sponsor Landowners, no authority cost; the leader rule applies (not offered if the Landowners leader is against the parent law). Enactment events (.1) for these amendments: not yet.
+- Amendments: sponsor Landowners, no authority cost; the leader rule applies (not offered if the Landowners leader is against the parent law).
+- Enactment events `nr_landowners_enact.7` - `.14` (same pattern as `.1` - `.6`; not while the form whose follow-up offers the amendment is running):
+
+| Event | Amendment | While enacting | c: who decides |
+|---|---|---|---|
+| .7 | Patrimonial Justice | Serfdom / Manorialism | Rural Folk |
+| .8 | Noble Guard | Local Police | Rural Folk |
+| .9 | Noble Curia | Landed Voting | Intelligentsia |
+| .10 | Patrol Statute | any legal slavery law | Intelligentsia |
+| .11 | Slaves of the Nation | any legal slavery law | Industrialists |
+| .12 | Noble Commissions | Peasant Levies / Professional Army | Armed Forces |
+| .13 | Naval Census | any navy law | Petty Bourgeoisie |
+| .14 | Service Census | Hereditary Bureaucrats | Intelligentsia |
 - Every form: lore line + historical concept (noble assemblies after 1785; Prussian patrimonial courts until 1849, Russian until 1861; English JPs until the county councils of 1888; Prussian manorial police until 1872, Russian elected district police chief until 1862; zemstvos 1864; poll tax through the landowner, tax farming; Southern slave patrols; Brazil's slaves of the nation, El Cobre until 1800, Capitol built partly by hired slaves; Junker officer corps, purchase of commissions until 1871; Russian recruit levies until 1874; Naval Cadet Corps; Table of Ranks 1722, Prussian Landrat).
 - Files: `common/scripted_effects/nr_landowners_offices_effects.txt`, `common/scripted_triggers/nr_landowners_offices_triggers.txt`, `common/script_values/nr_landowners_offices_values.txt`, `common/static_modifiers/nr_landowners_offices_modifiers.txt`, `common/amendments/nr_landowners_offices_amendments.txt`, `common/journal_entries/nr_landowners_offices_je.txt` (petitions police / landed / hereditary), `events/nr_landowners_offices_events.txt`, `localization/*/nr_landowners_offices_l_*.yml`, concepts in `nr_game_concepts.txt`. Debug: `event nr_debug.8` (form event and every follow-up).
 

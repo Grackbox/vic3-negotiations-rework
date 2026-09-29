@@ -17,6 +17,14 @@ on_law_checkpoint_debate = {
 		10 = nr_landowners_enact.4
 		10 = nr_landowners_enact.5
 		10 = nr_landowners_enact.6
+		10 = nr_landowners_enact.7
+		10 = nr_landowners_enact.8
+		10 = nr_landowners_enact.9
+		10 = nr_landowners_enact.10
+		10 = nr_landowners_enact.11
+		10 = nr_landowners_enact.12
+		10 = nr_landowners_enact.13
+		10 = nr_landowners_enact.14
 	}
 }
 
