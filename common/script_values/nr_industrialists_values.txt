@@ -1,0 +1,81 @@
+﻿# NR: the Industrialists' commissions (option 2), same scheme as nr_devout_officials_values.txt.
+
+nr_industrialists_commissions_level = {
+	value = 1
+	if = {
+		limit = { exists = scope:ig }
+		value = scope:ig.amenability_level
+	}
+	if = {
+		limit = { has_variable = nr_industrialists_commissions_degree }
+		value = var:nr_industrialists_commissions_degree
+	}
+}
+
+nr_industrialists_commissions_base_production = {
+	value = produced_bureaucracy
+	if = {
+		limit = { has_variable = nr_industrialists_commissions_degree }
+		divide = {
+			value = 1
+			subtract = {
+				value = nr_neg_bureaucracy_penalty_share
+				multiply = var:nr_industrialists_commissions_degree
+			}
+		}
+	}
+}
+
+nr_industrialists_commissions_spare_share = {
+	value = nr_industrialists_commissions_base_production
+	multiply = {
+		value = 1
+		subtract = {
+			value = nr_neg_bureaucracy_penalty_share
+			multiply = nr_industrialists_commissions_level
+		}
+	}
+	subtract = bureaucracy_usage
+	divide = {
+		value = bureaucracy_usage
+		min = 1
+	}
+}
+
+# Chance of option 2 by the Industrialists leader (added to the base weight 10). Scope: interest group.
+nr_industrialists_commissions_leader_weight = {
+	value = 0
+	if = {
+		limit = { leader ?= { has_trait = ambitious } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { has_trait = master_bureaucrat } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { has_trait = political_appointee } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { has_trait = basic_political_operator } }
+		add = 5
+	}
+	if = {
+		limit = { leader ?= { has_trait = experienced_political_operator } }
+		add = 10
+	}
+	if = {
+		limit = { leader ?= { has_trait = expert_political_operator } }
+		add = 15
+	}
+	if = {
+		limit = { leader ?= { has_trait = reckless } }
+		add = -5
+	}
+	if = {
+		limit = { leader ?= { nr_bribe_leader_loves = yes } }
+		add = -5 # Grifter / Expensive Tastes / Hedonist want money, not posts
+	}
+	min = -10
+}

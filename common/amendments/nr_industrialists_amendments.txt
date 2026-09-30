@@ -1,0 +1,262 @@
+﻿# NR: the Industrialists' amendments (follow-ups of state contracts and commissions). Sponsor Industrialists, no authority cost.
+
+# railway follow-up
+amendment_nr_industrialists_guaranteed_return = {
+	parent = law_interventionism
+
+	allowed_laws = {
+		law_traditionalism
+		law_interventionism
+		law_agrarianism
+		law_laissez_faire
+	}
+
+	modifier = {
+		state_infrastructure_mult = 0.05
+		country_loan_interest_rate_add = 0.0025
+		interest_group_ig_industrialists_pol_str_mult = 0.05
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_industrialists
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_industrialists } } # NR: room in the law
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# arms follow-up
+amendment_nr_industrialists_private_arsenals = {
+	parent = law_professional_army
+
+	allowed_laws = {
+		law_peasant_levies
+		law_professional_army
+		law_national_militia
+		law_mass_conscription
+	}
+
+	modifier = {
+		country_military_goods_cost_mult = -0.05
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_industrialists
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_industrialists } } # NR: room in the law
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# iron_tariff follow-up
+amendment_nr_industrialists_iron_tariff = {
+	parent = law_protectionism
+
+	allowed_laws = {
+		law_protectionism
+	}
+
+	modifier = {
+		building_group_bg_heavy_industry_throughput_add = 0.05
+		interest_group_ig_industrialists_approval_add = 1
+		state_lower_strata_standard_of_living_add = -0.25
+		interest_group_ig_petty_bourgeoisie_approval_add = -1
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_industrialists
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_industrialists } } # NR: room in the law
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# charter follow-up
+amendment_nr_industrialists_chartered_companies = {
+	parent = law_colonial_exploitation
+
+	allowed_laws = {
+		law_colonial_exploitation
+	}
+
+	modifier = {
+		state_colony_growth_speed_mult = 0.1
+		interest_group_ig_industrialists_pol_str_mult = 0.05
+		country_infamy_generation_mult = 0.05
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_industrialists
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_industrialists } } # NR: room in the law
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# strikes follow-up
+amendment_nr_industrialists_strike_law = {
+	parent = law_combination_acts
+
+	allowed_laws = {
+		law_combination_acts
+		law_anti_strike_laws
+	}
+
+	modifier = {
+		interest_group_ig_trade_unions_pol_str_mult = -0.05
+		state_turmoil_effects_mult = -0.03
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_industrialists
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_industrialists } } # NR: room in the law
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# company_law follow-up
+amendment_nr_industrialists_limited_liability = {
+	parent = law_laissez_faire
+
+	allowed_laws = {
+		law_laissez_faire
+		law_interventionism
+	}
+
+	modifier = {
+		country_company_throughput_bonus_add = 0.03
+		country_private_construction_allocation_mult = 0.05
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_industrialists
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_industrialists } } # NR: room in the law
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# inspection follow-up
+amendment_nr_industrialists_mild_oversight = {
+	parent = law_regulatory_bodies
+
+	allowed_laws = {
+		law_regulatory_bodies
+		law_worker_protections
+	}
+
+	modifier = {
+		building_group_bg_manufacturing_throughput_add = 0.03
+		interest_group_ig_trade_unions_pol_str_mult = -0.05
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_industrialists
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_industrialists } } # NR: room in the law
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}
+
+# bank follow-up
+amendment_nr_industrialists_independent_bank = {
+	parent = law_laissez_faire
+
+	allowed_laws = {
+		law_laissez_faire
+		law_interventionism
+	}
+
+	modifier = {
+		country_loan_interest_rate_add = -0.005
+		country_minting_mult = -0.05
+	}
+
+	possible = {
+		always = yes
+	}
+
+	would_sponsor = {
+		is_interest_group_type = ig_industrialists
+		owner.currently_enacting_law ?= { nr_amendment_fits = { IG = ig_industrialists } } # NR: room in the law
+		exists = scope:approval
+		scope:approval > 0
+	}
+
+	can_repeal = {
+		legitimacy >= legitimacy_to_repeal_amendment
+	}
+
+	amendment_activism_multiplier = 0.25
+}

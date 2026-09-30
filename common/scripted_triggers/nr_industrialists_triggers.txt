@@ -1,0 +1,201 @@
+﻿# NR: the Industrialists' features (state contracts, commissions). Scope: country unless noted.
+
+# The Industrialists leader is not against the law (without scope:ig).
+nr_industrialists_leader_not_against_law = {
+	NOT = {
+		ig:ig_industrialists ?= {
+			leader ?= {
+				law_stance = {
+					law = law_type:$LAW$
+					value < neutral
+				}
+			}
+		}
+	}
+}
+
+# The Industrialists leader never takes money for a contract: Honorable, or Ambitious (an empire, not an envelope). Scope: character.
+nr_industrialists_contracts_leader_refuses = {
+	OR = {
+		nr_bribe_leader_refuses = yes
+		has_trait = ambitious
+	}
+}
+
+# An Industrialists' petition asks for the law being enacted.
+nr_industrialists_petition_for_enacting_law = {
+	OR = {
+		AND = {
+			has_journal_entry = je_nr_industrialists_protectionism_petition
+			is_enacting_law = law_type:law_protectionism
+		}
+		AND = {
+			has_journal_entry = je_nr_industrialists_colonial_petition
+			is_enacting_law = law_type:law_colonial_exploitation
+		}
+		AND = {
+			has_journal_entry = je_nr_industrialists_combination_petition
+			is_enacting_law = law_type:law_combination_acts
+		}
+	}
+}
+
+# ---------- nr_industrialists_contracts: forms ----------
+nr_industrialists_contracts_can_offer = {
+	nr_industrialists_contracts_$FORM$_available = yes
+	NOT = { has_variable = nr_industrialists_contracts_offer_$FORM$ }
+	NOT = { has_modifier = nr_industrialists_contracts_$FORM$ }
+}
+
+nr_industrialists_contracts_railway_available = {
+	has_technology_researched = railways
+	any_scope_state = { is_incorporated = yes NOT = { has_building = building_railway } }
+}
+
+nr_industrialists_contracts_arms_available = {
+	always = yes
+}
+
+nr_industrialists_contracts_iron_tariff_available = {
+	NOT = { has_law = law_type:law_free_trade }
+}
+
+nr_industrialists_contracts_mining_available = {
+	always = yes
+}
+
+nr_industrialists_contracts_charter_available = {
+	OR = { has_law = law_type:law_frontier_colonization has_law = law_type:law_colonial_resettlement has_law = law_type:law_colonial_exploitation }
+}
+
+nr_industrialists_contracts_strikes_available = {
+	OR = { has_law = law_type:law_combination_acts has_law = law_type:law_anti_strike_laws has_law = law_type:law_guild_system }
+}
+
+nr_industrialists_contracts_contract_labour_available = {
+	has_law = law_type:law_no_migration_controls
+}
+
+# ---------- nr_industrialists_commissions: forms ----------
+nr_industrialists_commissions_can_offer = {
+	nr_industrialists_commissions_$FORM$_available = yes
+	NOT = { has_variable = nr_industrialists_commissions_offer_$FORM$ }
+	NOT = { has_modifier = nr_industrialists_commissions_$FORM$ }
+}
+
+nr_industrialists_commissions_ministry_available = {
+	always = yes
+}
+
+nr_industrialists_commissions_patents_available = {
+	always = yes
+}
+
+nr_industrialists_commissions_company_law_available = {
+	NOR = { has_law = law_type:law_command_economy has_law = law_type:law_cooperative_ownership }
+}
+
+nr_industrialists_commissions_inspection_available = {
+	OR = { has_law = law_type:law_regulatory_bodies has_law = law_type:law_worker_protections }
+}
+
+nr_industrialists_commissions_consuls_available = {
+	always = yes
+}
+
+nr_industrialists_commissions_bank_available = {
+	NOT = { has_law = law_type:law_command_economy }
+}
+
+# AI of the commissions option: spare bureaucracy after the penalty.
+nr_industrialists_commissions_ai_good = {
+	nr_industrialists_commissions_spare_share >= 0.25
+}
+
+nr_industrialists_commissions_ai_bad = {
+	nr_industrialists_commissions_spare_share < 0.10
+}
+
+# ---------- follow-ups ----------
+
+nr_industrialists_guaranteed_return_amendment_available = {
+	OR = { has_law = law_type:law_traditionalism has_law = law_type:law_interventionism has_law = law_type:law_agrarianism has_law = law_type:law_laissez_faire }
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_guaranteed_return }
+	}
+	nr_industrialists_leader_not_against_law = { LAW = law_interventionism }
+}
+
+nr_industrialists_private_arsenals_amendment_available = {
+	OR = { has_law = law_type:law_peasant_levies has_law = law_type:law_professional_army has_law = law_type:law_national_militia has_law = law_type:law_mass_conscription }
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_private_arsenals }
+	}
+	nr_industrialists_leader_not_against_law = { LAW = law_professional_army }
+}
+
+nr_industrialists_iron_tariff_amendment_available = {
+	has_law = law_type:law_protectionism
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_iron_tariff }
+	}
+	nr_industrialists_leader_not_against_law = { LAW = law_protectionism }
+}
+
+nr_industrialists_chartered_companies_amendment_available = {
+	has_law = law_type:law_colonial_exploitation
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_chartered_companies }
+	}
+	nr_industrialists_leader_not_against_law = { LAW = law_colonial_exploitation }
+}
+
+nr_industrialists_strike_law_amendment_available = {
+	OR = { has_law = law_type:law_combination_acts has_law = law_type:law_anti_strike_laws }
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_strike_law }
+	}
+	nr_industrialists_leader_not_against_law = { LAW = law_combination_acts }
+}
+
+nr_industrialists_limited_liability_amendment_available = {
+	OR = { has_law = law_type:law_laissez_faire has_law = law_type:law_interventionism }
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_limited_liability }
+	}
+	nr_industrialists_leader_not_against_law = { LAW = law_laissez_faire }
+}
+
+nr_industrialists_mild_oversight_amendment_available = {
+	OR = { has_law = law_type:law_regulatory_bodies has_law = law_type:law_worker_protections }
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_mild_oversight }
+	}
+	nr_industrialists_leader_not_against_law = { LAW = law_regulatory_bodies }
+}
+
+nr_industrialists_independent_bank_amendment_available = {
+	OR = { has_law = law_type:law_laissez_faire has_law = law_type:law_interventionism }
+	NOT = {
+		nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_independent_bank }
+	}
+	nr_industrialists_leader_not_against_law = { LAW = law_laissez_faire }
+}
+
+nr_industrialists_protectionism_petition_available = {
+	NOR = { has_law = law_type:law_protectionism has_law = law_type:law_free_trade }
+	nr_industrialists_leader_not_against_law = { LAW = law_protectionism }
+	NOT = { has_journal_entry = je_nr_industrialists_protectionism_petition }
+}
+
+nr_industrialists_colonial_petition_available = {
+	OR = { has_law = law_type:law_frontier_colonization has_law = law_type:law_colonial_resettlement }
+	nr_industrialists_leader_not_against_law = { LAW = law_colonial_exploitation }
+	NOT = { has_journal_entry = je_nr_industrialists_colonial_petition }
+}
+
+nr_industrialists_combination_petition_available = {
+	has_law = law_type:law_guild_system
+	nr_industrialists_leader_not_against_law = { LAW = law_combination_acts }
+	NOT = { has_journal_entry = je_nr_industrialists_combination_petition }
+}

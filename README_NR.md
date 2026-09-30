@@ -125,6 +125,8 @@ Agreed with the user. Applies only to our amendments (`amendment_nr_*`, list gen
 | Slavery | Devout - Landowners | "Do Not Enslave Fellow Believers" frees slaves; the planters' amendments hold them |
 | Policing | Devout - Landowners | whose police rules the village: the parish or the manor |
 | Army (Devout chaplains, Landowners' noble commissions) | none | altar and noble officer are allies |
+| Economic system | Industrialists - Landowners | iron against rye: bank, guarantees and company law against the land bank |
+| Labour (workers' rights, labour associations) | Industrialists - Trade Unions | capital against labour |
 
 New groups' amendments get their pairs per law group when they are designed (e.g. Education: Devout - Intelligentsia; Labour: Industrialists - Trade Unions).
 - Enforcement: both framework helpers (`nr_amendment_add_to_enacting_law`, `nr_amendment_add_to_active_law`) check `nr_amendment_fits = { IG = ... }` (law scope). No room: `nr_amendment_no_room` stores the law, amendment and group and fires `nr_amendment_room.1` - strike an article (full law: either of the two; conflict: every article of the opposing group) and attach the new one, or leave the law as it is (default) - it repeats the refusal of the offering event: while the law is being enacted +15% enactment speed and the new article's sponsor -2 approval for 5 years (like option a of the enactment events); for an active law the sponsor -1 approval for 5 years (like declining a follow-up). The struck article's sponsor gets `nr_amendment_struck` (-3 approval, 5 years), unless it is the same group as the new article's (a group swapping its own articles pays nothing). Tested in game: conflict (Devout vs Landowners on Slave Trade), overflow, free same-group swap, leaving the law as it is. This covers every event that offers our amendments, the church tax transfer and the census attached with its petition.
@@ -209,6 +211,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - `event nr_debug.4` - Devout regular bribe without a negotiation: pay it exactly as option `negotiation.1.o1` (payment, `bribed_ig_benefits`, exposure roll, vice check in 310 days), give the Devout leader a vice now (100%), or expose it now (`generic_laws.2`, needs a law being enacted).
 - `event nr_debug.5` / `event nr_debug.6` - landowners' grants: the form event `nr_landowners_grants.1` and the follow-ups `.11` - `.18` (with the running mark of their form).
 - `event nr_debug.8` - landowners' places in the provinces: the form event `nr_landowners_offices.1` and the follow-ups `.11` - `.21` (with the running mark of their form).
+- `event nr_debug.9` / `event nr_debug.10` - the Industrialists' state contracts / commissions: form event and follow-ups.
 - `event nr_debug.7` - activate a law at once (`activate_law`): Free Trade, Protectionism, Tenant Farmers, Serfdom, Slavery Banned, Legacy Slavery, Slave Trade - to test interruptions.
 - New follow-ups and enactment events should be added to these menus.
 - Ruler pressure / election promise: form of government via Script Runner (`activate_law = law_type:law_autocracy` etc.); an election campaign starts with `call_election = { months = 1 }` (Script Runner, Effect) - the rigging event `caciquismo.2` fires at its start if electoral fraud is possible.
@@ -347,7 +350,10 @@ Agreed design; same scheme as the Devout church officials and the landowners' pl
 | State Bank in the Bankers' Hands (Bank of England, Banque de France 1800, Russian State Bank 1860) | x1 | no Command Economy | private construction allocation +10%, Industrialists +5% strength; minting -10% | Command Economy | amendment Independent Bank (Laissez-Faire / Interventionism): loan interest -0.5%, minting -5% |
 
 - Room in the law: new opposing pairs - economic system laws: Industrialists - Landowners; labour laws (workers' rights, labour associations): Industrialists - Trade Unions.
-- Enactment events for the new amendments: same pattern as the Landowners' (`.1` style, in the debate pool).
+- Enactment events `nr_industrialists_enact.1` - `.8` (pattern of the Landowners'; c: Guaranteed Return / Iron Tariff / Limited Liability - Petty Bourgeoisie, Private Arsenals - Armed Forces, Chartered Companies - Intelligentsia, Strike Law / Mild Oversight - Trade Unions, Independent Bank - Landowners).
+- Petitions (4 years, +25% speed, timeout -2): Protectionism, Colonial Exploitation, Combination Acts (`je_nr_industrialists_<key>_petition`).
+- Interruption popups: contracts `.21` - `.24` (Iron Tariff, Colonial Charter, Strike Suppression, Contract Labour), commissions `.31` - `.33` (Company Law, Factory Inspection, State Bank).
+- Files: `common/scripted_effects/nr_industrialists_effects.txt`, `common/scripted_triggers/nr_industrialists_triggers.txt`, `common/script_values/nr_industrialists_values.txt`, `common/static_modifiers/nr_industrialists_modifiers.txt`, `common/amendments/nr_industrialists_amendments.txt`, `common/journal_entries/nr_industrialists_je.txt`, `events/nr_industrialists_contracts_events.txt`, `events/nr_industrialists_commissions_events.txt`, `events/nr_industrialists_enact_events.txt`, `localization/*/nr_industrialists_l_*.yml`, concepts in `nr_game_concepts.txt`. Debug: `event nr_debug.9` (contracts), `event nr_debug.10` (commissions).
 
 ## Negotiation difficulty (reference)
 - Amenability (0-100) is computed in code; factor weights are not exposed.

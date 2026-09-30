@@ -1,0 +1,729 @@
+﻿namespace = nr_industrialists_enact
+
+# NR: enactment events for the Industrialists' amendments (pattern of nr_landowners_enact).
+
+nr_industrialists_enact.1 = { # amendment_nr_industrialists_guaranteed_return
+	type = country_event
+	placement = root
+	title = nr_industrialists_enact.1.t
+	desc = nr_industrialists_enact.1.desc
+	flavor = nr_industrialists_enact.1.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_traditionalism
+			is_enacting_law = law_type:law_interventionism
+			is_enacting_law = law_type:law_agrarianism
+			is_enacting_law = law_type:law_laissez_faire
+		}
+		exists = ig:ig_industrialists
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_guaranteed_return }
+		}
+		NOT = { has_modifier = nr_industrialists_contracts_railway } # the form is running: its follow-up offers the amendment
+		nr_industrialists_leader_not_against_law = { LAW = law_interventionism }
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_industrialists ?= { save_scope_as = industrialists_ig }
+		ig:ig_petty_bourgeoisie ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_industrialists_enact.1.a
+		default_option = yes
+		custom_tooltip = nr_industrialists_enact_lore_a
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_guaranteed_return_fast
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_guaranteed_return_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_industrialists_enact.1.b
+		custom_tooltip = nr_industrialists_enact_lore_b
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_guaranteed_return_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_industrialists_guaranteed_return
+			IG = ig_industrialists
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_industrialists_enact.1.c
+		custom_tooltip = nr_industrialists_enact_lore_c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_guaranteed_return_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_guaranteed_return_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_industrialists_enact.2 = { # amendment_nr_industrialists_private_arsenals
+	type = country_event
+	placement = root
+	title = nr_industrialists_enact.2.t
+	desc = nr_industrialists_enact.2.desc
+	flavor = nr_industrialists_enact.2.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_peasant_levies
+			is_enacting_law = law_type:law_professional_army
+			is_enacting_law = law_type:law_national_militia
+			is_enacting_law = law_type:law_mass_conscription
+		}
+		exists = ig:ig_industrialists
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_private_arsenals }
+		}
+		NOT = { has_modifier = nr_industrialists_contracts_arms } # the form is running: its follow-up offers the amendment
+		nr_industrialists_leader_not_against_law = { LAW = law_professional_army }
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_industrialists ?= { save_scope_as = industrialists_ig }
+		ig:ig_armed_forces ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_industrialists_enact.2.a
+		default_option = yes
+		custom_tooltip = nr_industrialists_enact_lore_a
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_private_arsenals_fast
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_private_arsenals_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_industrialists_enact.2.b
+		custom_tooltip = nr_industrialists_enact_lore_b
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_private_arsenals_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_industrialists_private_arsenals
+			IG = ig_industrialists
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_industrialists_enact.2.c
+		custom_tooltip = nr_industrialists_enact_lore_c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_private_arsenals_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_private_arsenals_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_industrialists_enact.3 = { # amendment_nr_industrialists_iron_tariff
+	type = country_event
+	placement = root
+	title = nr_industrialists_enact.3.t
+	desc = nr_industrialists_enact.3.desc
+	flavor = nr_industrialists_enact.3.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		is_enacting_law = law_type:law_protectionism
+		exists = ig:ig_industrialists
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_iron_tariff }
+		}
+		NOT = { has_modifier = nr_industrialists_contracts_iron_tariff } # the form is running: its follow-up offers the amendment
+		nr_industrialists_leader_not_against_law = { LAW = law_protectionism }
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_industrialists ?= { save_scope_as = industrialists_ig }
+		ig:ig_petty_bourgeoisie ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_industrialists_enact.3.a
+		default_option = yes
+		custom_tooltip = nr_industrialists_enact_lore_a
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_iron_tariff_fast
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_iron_tariff_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_industrialists_enact.3.b
+		custom_tooltip = nr_industrialists_enact_lore_b
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_iron_tariff_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_industrialists_iron_tariff
+			IG = ig_industrialists
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_industrialists_enact.3.c
+		custom_tooltip = nr_industrialists_enact_lore_c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_iron_tariff_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_iron_tariff_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_industrialists_enact.4 = { # amendment_nr_industrialists_chartered_companies
+	type = country_event
+	placement = root
+	title = nr_industrialists_enact.4.t
+	desc = nr_industrialists_enact.4.desc
+	flavor = nr_industrialists_enact.4.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		is_enacting_law = law_type:law_colonial_exploitation
+		exists = ig:ig_industrialists
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_chartered_companies }
+		}
+		NOT = { has_modifier = nr_industrialists_contracts_charter } # the form is running: its follow-up offers the amendment
+		nr_industrialists_leader_not_against_law = { LAW = law_colonial_exploitation }
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_industrialists ?= { save_scope_as = industrialists_ig }
+		ig:ig_intelligentsia ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_industrialists_enact.4.a
+		default_option = yes
+		custom_tooltip = nr_industrialists_enact_lore_a
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_chartered_companies_fast
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_chartered_companies_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_industrialists_enact.4.b
+		custom_tooltip = nr_industrialists_enact_lore_b
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_chartered_companies_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_industrialists_chartered_companies
+			IG = ig_industrialists
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_industrialists_enact.4.c
+		custom_tooltip = nr_industrialists_enact_lore_c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_chartered_companies_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_chartered_companies_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_industrialists_enact.5 = { # amendment_nr_industrialists_strike_law
+	type = country_event
+	placement = root
+	title = nr_industrialists_enact.5.t
+	desc = nr_industrialists_enact.5.desc
+	flavor = nr_industrialists_enact.5.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_combination_acts
+			is_enacting_law = law_type:law_anti_strike_laws
+		}
+		exists = ig:ig_industrialists
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_strike_law }
+		}
+		NOT = { has_modifier = nr_industrialists_contracts_strikes } # the form is running: its follow-up offers the amendment
+		nr_industrialists_leader_not_against_law = { LAW = law_combination_acts }
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_industrialists ?= { save_scope_as = industrialists_ig }
+		ig:ig_trade_unions ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_industrialists_enact.5.a
+		default_option = yes
+		custom_tooltip = nr_industrialists_enact_lore_a
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_strike_law_fast
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_strike_law_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_industrialists_enact.5.b
+		custom_tooltip = nr_industrialists_enact_lore_b
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_strike_law_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_industrialists_strike_law
+			IG = ig_industrialists
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_industrialists_enact.5.c
+		custom_tooltip = nr_industrialists_enact_lore_c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_strike_law_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_strike_law_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_industrialists_enact.6 = { # amendment_nr_industrialists_limited_liability
+	type = country_event
+	placement = root
+	title = nr_industrialists_enact.6.t
+	desc = nr_industrialists_enact.6.desc
+	flavor = nr_industrialists_enact.6.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_laissez_faire
+			is_enacting_law = law_type:law_interventionism
+		}
+		exists = ig:ig_industrialists
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_limited_liability }
+		}
+		NOT = { has_modifier = nr_industrialists_commissions_company_law } # the form is running: its follow-up offers the amendment
+		nr_industrialists_leader_not_against_law = { LAW = law_laissez_faire }
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_industrialists ?= { save_scope_as = industrialists_ig }
+		ig:ig_petty_bourgeoisie ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_industrialists_enact.6.a
+		default_option = yes
+		custom_tooltip = nr_industrialists_enact_lore_a
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_limited_liability_fast
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_limited_liability_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_industrialists_enact.6.b
+		custom_tooltip = nr_industrialists_enact_lore_b
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_limited_liability_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_industrialists_limited_liability
+			IG = ig_industrialists
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_industrialists_enact.6.c
+		custom_tooltip = nr_industrialists_enact_lore_c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_limited_liability_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_limited_liability_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_industrialists_enact.7 = { # amendment_nr_industrialists_mild_oversight
+	type = country_event
+	placement = root
+	title = nr_industrialists_enact.7.t
+	desc = nr_industrialists_enact.7.desc
+	flavor = nr_industrialists_enact.7.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_regulatory_bodies
+			is_enacting_law = law_type:law_worker_protections
+		}
+		exists = ig:ig_industrialists
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_mild_oversight }
+		}
+		NOT = { has_modifier = nr_industrialists_commissions_inspection } # the form is running: its follow-up offers the amendment
+		nr_industrialists_leader_not_against_law = { LAW = law_regulatory_bodies }
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_industrialists ?= { save_scope_as = industrialists_ig }
+		ig:ig_trade_unions ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_industrialists_enact.7.a
+		default_option = yes
+		custom_tooltip = nr_industrialists_enact_lore_a
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_mild_oversight_fast
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_mild_oversight_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_industrialists_enact.7.b
+		custom_tooltip = nr_industrialists_enact_lore_b
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_mild_oversight_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_industrialists_mild_oversight
+			IG = ig_industrialists
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_industrialists_enact.7.c
+		custom_tooltip = nr_industrialists_enact_lore_c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_mild_oversight_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_mild_oversight_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}
+
+nr_industrialists_enact.8 = { # amendment_nr_industrialists_independent_bank
+	type = country_event
+	placement = root
+	title = nr_industrialists_enact.8.t
+	desc = nr_industrialists_enact.8.desc
+	flavor = nr_industrialists_enact.8.flavor
+
+	category = enactment
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		OR = {
+			is_enacting_law = law_type:law_laissez_faire
+			is_enacting_law = law_type:law_interventionism
+		}
+		exists = ig:ig_industrialists
+		NOT = {
+			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_independent_bank }
+		}
+		NOT = { has_modifier = nr_industrialists_commissions_bank } # the form is running: its follow-up offers the amendment
+		nr_industrialists_leader_not_against_law = { LAW = law_laissez_faire }
+	}
+
+	immediate = {
+		currently_enacting_law = {
+			save_scope_as = current_law_scope
+		}
+		ig:ig_industrialists ?= { save_scope_as = industrialists_ig }
+		ig:ig_landowners ?= { save_scope_as = other_ig }
+	}
+
+	cancellation_trigger = {
+		NOT = { currently_enacting_law = scope:current_law_scope }
+	}
+
+	option = { # refuse: the law passes faster
+		name = nr_industrialists_enact.8.a
+		default_option = yes
+		custom_tooltip = nr_industrialists_enact_lore_a
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_independent_bank_fast
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_independent_bank_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # attach the amendment
+		name = nr_industrialists_enact.8.b
+		custom_tooltip = nr_industrialists_enact_lore_b
+		add_enactment_modifier = {
+			name = nr_industrialists_enact_independent_bank_debate
+		}
+		nr_amendment_add_to_enacting_law = {
+			AMENDMENT = amendment_nr_industrialists_independent_bank
+			IG = ig_industrialists
+		}
+	}
+
+	option = { # let another group decide
+		name = nr_industrialists_enact.8.c
+		custom_tooltip = nr_industrialists_enact_lore_c
+		scope:other_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_independent_bank_heard
+				days = normal_modifier_time
+			}
+		}
+		scope:industrialists_ig ?= {
+			add_modifier = {
+				name = nr_industrialists_enact_independent_bank_rejected
+				days = normal_modifier_time
+			}
+		}
+	}
+}

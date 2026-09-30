@@ -19,6 +19,10 @@ nr_negotiation_after_options = {
 		nr_softbribe_roll = { KEY = nr_landowners_grants REFUSES = nr_landowners_grants_leader_refuses }
 	}
 	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_industrialists } }
+		nr_softbribe_roll = { KEY = nr_industrialists_contracts REFUSES = nr_industrialists_contracts_leader_refuses }
+	}
+	if = {
 		limit = {
 			scope:ig = {
 				is_interest_group_type = ig_devout
@@ -47,6 +51,10 @@ nr_neg_option_1_custom = {
 		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
 		nr_landowners_grants_start = yes
 	}
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_industrialists } }
+		nr_industrialists_contracts_start = yes
+	}
 }
 
 # Option 2: the group's own posts for groups in nr_neg_option_2_is_custom.
@@ -58,6 +66,10 @@ nr_neg_option_2_custom = {
 	if = {
 		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
 		nr_landowners_offices_start = yes
+	}
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_industrialists } }
+		nr_industrialists_commissions_start = yes
 	}
 }
 

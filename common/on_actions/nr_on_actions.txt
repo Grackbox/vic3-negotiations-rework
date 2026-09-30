@@ -25,6 +25,14 @@ on_law_checkpoint_debate = {
 		10 = nr_landowners_enact.12
 		10 = nr_landowners_enact.13
 		10 = nr_landowners_enact.14
+		10 = nr_industrialists_enact.1
+		10 = nr_industrialists_enact.2
+		10 = nr_industrialists_enact.3
+		10 = nr_industrialists_enact.4
+		10 = nr_industrialists_enact.5
+		10 = nr_industrialists_enact.6
+		10 = nr_industrialists_enact.7
+		10 = nr_industrialists_enact.8
 	}
 }
 
@@ -52,7 +60,9 @@ nr_on_law_activated = {
 		owner = {
 			nr_devout_officials_check_censorship = yes # Censorship Committees end under Protected Speech
 			nr_landowners_grants_check_laws = yes
-			nr_landowners_offices_check_laws = yes # places in the provinces end with their laws # Corn Laws, Corvee, Return of Fugitives, Slave Import end with their laws
+			nr_landowners_offices_check_laws = yes # places in the provinces end with their laws
+			nr_industrialists_contracts_check_laws = yes
+			nr_industrialists_commissions_check_laws = yes # Corn Laws, Corvee, Return of Fugitives, Slave Import end with their laws
 		}
 		if = {
 			limit = { has_amendment = amendment_type:amendment_nr_devout_fellow_believers }

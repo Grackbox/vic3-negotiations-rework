@@ -1,0 +1,1018 @@
+﻿# NR: the Industrialists' state contracts (option 1, instead of money) and places in the commissions (option 2).
+# Same schemes as the landowners' grants and places in the provinces.
+
+# ========== State contracts ==========
+# Negotiation option. Scope: country, scope:ig = Industrialists.
+nr_industrialists_contracts_start = {
+	custom_tooltip = nr_industrialists_contracts_tt
+	hidden_effect = {
+		set_variable = {
+			name = nr_industrialists_contracts_pending
+			days = 14
+		}
+		set_variable = {
+			name = nr_industrialists_contracts_cost_amount
+			value = neg_bribe_amount
+		}
+		set_variable = {
+			name = nr_industrialists_contracts_degree
+			value = scope:ig.amenability_level
+		}
+		nr_campaign_take_slot = { KEY = nr_industrialists_contracts }
+	}
+	nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 1 }
+	scope:ig = {
+		finish_negotiation = "negotiation.1.o1"
+		add_modifier = {
+			name = nr_industrialists_contracts_favor
+			days = long_modifier_time
+			multiplier = nr_neg_level_scale
+			is_decaying = yes
+		}
+		improve_law_stance = yes
+	}
+	trigger_event = {
+		id = nr_industrialists_contracts.1
+		days = 7
+		popup = yes
+	}
+}
+
+nr_industrialists_contracts_offer_random_form = {
+	random_list = {
+		1 = {
+			trigger = { nr_industrialists_contracts_can_offer = { FORM = railway } }
+			set_variable = nr_industrialists_contracts_offer_railway
+		}
+		1 = {
+			trigger = { nr_industrialists_contracts_can_offer = { FORM = arms } }
+			set_variable = nr_industrialists_contracts_offer_arms
+		}
+		1 = {
+			trigger = { nr_industrialists_contracts_can_offer = { FORM = iron_tariff } }
+			set_variable = nr_industrialists_contracts_offer_iron_tariff
+		}
+		1 = {
+			trigger = { nr_industrialists_contracts_can_offer = { FORM = mining } }
+			set_variable = nr_industrialists_contracts_offer_mining
+		}
+		1 = {
+			trigger = { nr_industrialists_contracts_can_offer = { FORM = charter } }
+			set_variable = nr_industrialists_contracts_offer_charter
+		}
+		1 = {
+			trigger = { nr_industrialists_contracts_can_offer = { FORM = strikes } }
+			set_variable = nr_industrialists_contracts_offer_strikes
+		}
+		1 = {
+			trigger = { nr_industrialists_contracts_can_offer = { FORM = contract_labour } }
+			set_variable = nr_industrialists_contracts_offer_contract_labour
+		}
+	}
+}
+
+# Chosen form: its modifier for 10 years, its expenses (set by nr_softbribe_set_cost in the option), the slot it occupies, the running mark for its follow-up. Scope: country.
+nr_industrialists_contracts_choose_form = {
+	add_modifier = {
+		name = nr_industrialists_contracts_$FORM$
+		days = long_modifier_time
+		is_decaying = yes
+	}
+	hidden_effect = {
+		if = {
+			limit = { has_variable = nr_industrialists_contracts_current_slot }
+			set_variable = {
+				name = nr_industrialists_contracts_$FORM$_slot
+				value = var:nr_industrialists_contracts_current_slot
+				days = long_modifier_time
+			}
+		}
+		set_variable = {
+			name = nr_industrialists_contracts_$FORM$_running
+			days = 3660
+		}
+	}
+}
+
+# Railway Concession: new railways (level 1) in up to 2 incorporated states without one, the most populous first.
+nr_industrialists_contracts_build_railways = {
+	ordered_scope_state = {
+		limit = {
+			is_incorporated = yes
+			NOT = { has_building = building_railway }
+		}
+		order_by = state_population
+		position = 0
+		create_building = {
+			building = building_railway
+			level = 1
+		}
+	}
+	ordered_scope_state = {
+		limit = {
+			is_incorporated = yes
+			NOT = { has_building = building_railway }
+		}
+		order_by = state_population
+		position = 0
+		create_building = {
+			building = building_railway
+			level = 1
+		}
+	}
+}
+
+nr_industrialists_contracts_cleanup = {
+	remove_variable = nr_industrialists_contracts_pending
+	remove_variable = nr_industrialists_contracts_cost_amount
+	remove_variable = nr_industrialists_contracts_degree
+	remove_variable = nr_industrialists_contracts_current_slot
+	remove_variable = nr_industrialists_contracts_offer_railway
+	remove_variable = nr_industrialists_contracts_offer_arms
+	remove_variable = nr_industrialists_contracts_offer_iron_tariff
+	remove_variable = nr_industrialists_contracts_offer_mining
+	remove_variable = nr_industrialists_contracts_offer_charter
+	remove_variable = nr_industrialists_contracts_offer_strikes
+	remove_variable = nr_industrialists_contracts_offer_contract_labour
+}
+
+# A law change ends a form (called from nr_on_law_activated). Scope: country.
+nr_industrialists_contracts_check_laws = {
+	if = {
+		limit = {
+			has_modifier = nr_industrialists_contracts_iron_tariff
+			has_law = law_type:law_free_trade
+		}
+		nr_industrialists_contracts_interrupt = { FORM = iron_tariff EVENT = 21 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_industrialists_contracts_charter
+			has_law = law_type:law_no_colonial_affairs
+		}
+		nr_industrialists_contracts_interrupt = { FORM = charter EVENT = 22 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_industrialists_contracts_strikes
+			OR = { has_law = law_type:law_right_to_associate has_law = law_type:law_corporatized_unions has_law = law_type:law_factory_councils }
+		}
+		nr_industrialists_contracts_interrupt = { FORM = strikes EVENT = 23 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_industrialists_contracts_contract_labour
+			NOT = { has_law = law_type:law_no_migration_controls }
+		}
+		nr_industrialists_contracts_interrupt = { FORM = contract_labour EVENT = 24 }
+	}
+}
+
+# Ends a form early: its modifier, its costs and its slot go, no follow-up; popup $EVENT$ (pattern "Campaign interruption").
+nr_industrialists_contracts_interrupt = {
+	remove_modifier = nr_industrialists_contracts_$FORM$
+	hidden_effect = {
+		if = {
+			limit = { var:nr_industrialists_contracts_$FORM$_slot ?= 1 }
+			nr_industrialists_contracts_free_slot = { SLOT = 1 }
+		}
+		else_if = {
+			limit = { var:nr_industrialists_contracts_$FORM$_slot ?= 2 }
+			nr_industrialists_contracts_free_slot = { SLOT = 2 }
+		}
+		else_if = {
+			limit = { var:nr_industrialists_contracts_$FORM$_slot ?= 3 }
+			nr_industrialists_contracts_free_slot = { SLOT = 3 }
+		}
+		if = {
+			limit = { has_variable = nr_industrialists_contracts_$FORM$_slot }
+			remove_variable = nr_industrialists_contracts_$FORM$_slot
+		}
+		if = {
+			limit = { has_variable = nr_industrialists_contracts_$FORM$_running }
+			remove_variable = nr_industrialists_contracts_$FORM$_running
+		}
+	}
+	trigger_event = { id = nr_industrialists_contracts.$EVENT$ popup = yes }
+}
+
+nr_industrialists_contracts_free_slot = {
+	if = {
+		limit = { has_modifier = nr_industrialists_contracts_expenses_$SLOT$ }
+		remove_modifier = nr_industrialists_contracts_expenses_$SLOT$
+	}
+	if = {
+		limit = { has_variable = nr_industrialists_contracts_slot_$SLOT$ }
+		remove_variable = nr_industrialists_contracts_slot_$SLOT$
+	}
+}
+
+# ========== Commissions ==========
+# Negotiation option. Scope: country, scope:ig = Industrialists.
+nr_industrialists_commissions_start = {
+	custom_tooltip = nr_industrialists_commissions_tt
+	hidden_effect = {
+		set_variable = {
+			name = nr_industrialists_commissions_degree
+			value = scope:ig.amenability_level
+		}
+		nr_campaign_take_slot = { KEY = nr_industrialists_commissions }
+	}
+	nr_industrialists_commissions_set_penalty = { FACTOR = 1 }
+	scope:ig = {
+		finish_negotiation = "negotiation.1.o2"
+		add_modifier = {
+			name = nr_industrialists_commissions_benefits
+			days = long_modifier_time
+			multiplier = nr_neg_level_scale
+			is_decaying = yes
+		}
+		improve_law_stance = yes
+	}
+	trigger_event = {
+		id = nr_industrialists_commissions.1
+		days = 7
+		popup = yes
+	}
+}
+
+nr_industrialists_commissions_offer_random_form = {
+	random_list = {
+		1 = {
+			trigger = { nr_industrialists_commissions_can_offer = { FORM = ministry } }
+			set_variable = nr_industrialists_commissions_offer_ministry
+		}
+		1 = {
+			trigger = { nr_industrialists_commissions_can_offer = { FORM = patents } }
+			set_variable = nr_industrialists_commissions_offer_patents
+		}
+		1 = {
+			trigger = { nr_industrialists_commissions_can_offer = { FORM = company_law } }
+			set_variable = nr_industrialists_commissions_offer_company_law
+		}
+		1 = {
+			trigger = { nr_industrialists_commissions_can_offer = { FORM = inspection } }
+			set_variable = nr_industrialists_commissions_offer_inspection
+		}
+		1 = {
+			trigger = { nr_industrialists_commissions_can_offer = { FORM = consuls } }
+			set_variable = nr_industrialists_commissions_offer_consuls
+		}
+		1 = {
+			trigger = { nr_industrialists_commissions_can_offer = { FORM = bank } }
+			set_variable = nr_industrialists_commissions_offer_bank
+		}
+	}
+}
+
+# Chosen form: its modifier for 10 years, the slot it occupies, the running mark for its follow-up. Scope: country.
+nr_industrialists_commissions_choose_form = {
+	add_modifier = {
+		name = nr_industrialists_commissions_$FORM$
+		days = long_modifier_time
+		is_decaying = yes
+	}
+	hidden_effect = {
+		if = {
+			limit = { has_variable = nr_industrialists_commissions_current_slot }
+			set_variable = {
+				name = nr_industrialists_commissions_$FORM$_slot
+				value = var:nr_industrialists_commissions_current_slot
+				days = long_modifier_time
+			}
+		}
+		set_variable = {
+			name = nr_industrialists_commissions_$FORM$_running
+			days = 3660
+		}
+	}
+}
+
+nr_industrialists_commissions_set_penalty = {
+	if = {
+		limit = { has_variable = nr_industrialists_commissions_current_slot }
+		if = {
+			limit = { var:nr_industrialists_commissions_current_slot = 1 }
+			nr_industrialists_commissions_set_slot_penalty = { SLOT = 1 FACTOR = $FACTOR$ }
+		}
+		else_if = {
+			limit = { var:nr_industrialists_commissions_current_slot = 2 }
+			nr_industrialists_commissions_set_slot_penalty = { SLOT = 2 FACTOR = $FACTOR$ }
+		}
+		else = {
+			nr_industrialists_commissions_set_slot_penalty = { SLOT = 3 FACTOR = $FACTOR$ }
+		}
+	}
+}
+
+nr_industrialists_commissions_set_slot_penalty = {
+	if = {
+		limit = { has_modifier = nr_industrialists_commissions_penalty_$SLOT$ }
+		remove_modifier = nr_industrialists_commissions_penalty_$SLOT$
+	}
+	add_modifier = {
+		name = nr_industrialists_commissions_penalty_$SLOT$
+		multiplier = {
+			value = nr_industrialists_commissions_level
+			multiply = $FACTOR$
+		}
+		days = long_modifier_time
+		is_decaying = yes
+	}
+}
+
+nr_industrialists_commissions_cleanup = {
+	remove_variable = nr_industrialists_commissions_degree
+	remove_variable = nr_industrialists_commissions_current_slot
+	remove_variable = nr_industrialists_commissions_offer_ministry
+	remove_variable = nr_industrialists_commissions_offer_patents
+	remove_variable = nr_industrialists_commissions_offer_company_law
+	remove_variable = nr_industrialists_commissions_offer_inspection
+	remove_variable = nr_industrialists_commissions_offer_consuls
+	remove_variable = nr_industrialists_commissions_offer_bank
+}
+
+# A law change ends a form (called from nr_on_law_activated). Scope: country.
+nr_industrialists_commissions_check_laws = {
+	if = {
+		limit = {
+			has_modifier = nr_industrialists_commissions_company_law
+			OR = { has_law = law_type:law_command_economy has_law = law_type:law_cooperative_ownership }
+		}
+		nr_industrialists_commissions_interrupt = { FORM = company_law EVENT = 31 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_industrialists_commissions_inspection
+			has_law = law_type:law_no_workers_rights
+		}
+		nr_industrialists_commissions_interrupt = { FORM = inspection EVENT = 32 }
+	}
+	if = {
+		limit = {
+			has_modifier = nr_industrialists_commissions_bank
+			has_law = law_type:law_command_economy
+		}
+		nr_industrialists_commissions_interrupt = { FORM = bank EVENT = 33 }
+	}
+}
+
+# Ends a form early: its modifier, its costs and its slot go, no follow-up; popup $EVENT$ (pattern "Campaign interruption").
+nr_industrialists_commissions_interrupt = {
+	remove_modifier = nr_industrialists_commissions_$FORM$
+	hidden_effect = {
+		if = {
+			limit = { var:nr_industrialists_commissions_$FORM$_slot ?= 1 }
+			nr_industrialists_commissions_free_slot = { SLOT = 1 }
+		}
+		else_if = {
+			limit = { var:nr_industrialists_commissions_$FORM$_slot ?= 2 }
+			nr_industrialists_commissions_free_slot = { SLOT = 2 }
+		}
+		else_if = {
+			limit = { var:nr_industrialists_commissions_$FORM$_slot ?= 3 }
+			nr_industrialists_commissions_free_slot = { SLOT = 3 }
+		}
+		if = {
+			limit = { has_variable = nr_industrialists_commissions_$FORM$_slot }
+			remove_variable = nr_industrialists_commissions_$FORM$_slot
+		}
+		if = {
+			limit = { has_variable = nr_industrialists_commissions_$FORM$_running }
+			remove_variable = nr_industrialists_commissions_$FORM$_running
+		}
+	}
+	trigger_event = { id = nr_industrialists_commissions.$EVENT$ popup = yes }
+}
+
+nr_industrialists_commissions_free_slot = {
+	if = {
+		limit = { has_modifier = nr_industrialists_commissions_penalty_$SLOT$ }
+		remove_modifier = nr_industrialists_commissions_penalty_$SLOT$
+	}
+	if = {
+		limit = { has_variable = nr_industrialists_commissions_slot_$SLOT$ }
+		remove_variable = nr_industrialists_commissions_slot_$SLOT$
+	}
+}
+
+# Patent Office follow-up: up to 3 researchable production technologies offered (variables nr_industrialists_commissions_patent_<tech>).
+nr_industrialists_commissions_patent_offer = {
+	random_list = {
+		1 = {
+			trigger = {
+				can_research = sericulture
+				NOT = { has_variable = nr_industrialists_commissions_patent_sericulture }
+			}
+			set_variable = nr_industrialists_commissions_patent_sericulture
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = enclosure
+				NOT = { has_variable = nr_industrialists_commissions_patent_enclosure }
+			}
+			set_variable = nr_industrialists_commissions_patent_enclosure
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = manufacturies
+				NOT = { has_variable = nr_industrialists_commissions_patent_manufacturies }
+			}
+			set_variable = nr_industrialists_commissions_patent_manufacturies
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = shaft_mining
+				NOT = { has_variable = nr_industrialists_commissions_patent_shaft_mining }
+			}
+			set_variable = nr_industrialists_commissions_patent_shaft_mining
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = cotton_gin
+				NOT = { has_variable = nr_industrialists_commissions_patent_cotton_gin }
+			}
+			set_variable = nr_industrialists_commissions_patent_cotton_gin
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = lathe
+				NOT = { has_variable = nr_industrialists_commissions_patent_lathe }
+			}
+			set_variable = nr_industrialists_commissions_patent_lathe
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = distillation
+				NOT = { has_variable = nr_industrialists_commissions_patent_distillation }
+			}
+			set_variable = nr_industrialists_commissions_patent_distillation
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = steelworking
+				NOT = { has_variable = nr_industrialists_commissions_patent_steelworking }
+			}
+			set_variable = nr_industrialists_commissions_patent_steelworking
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = prospecting
+				NOT = { has_variable = nr_industrialists_commissions_patent_prospecting }
+			}
+			set_variable = nr_industrialists_commissions_patent_prospecting
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = crystal_glass
+				NOT = { has_variable = nr_industrialists_commissions_patent_crystal_glass }
+			}
+			set_variable = nr_industrialists_commissions_patent_crystal_glass
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = intensive_agriculture
+				NOT = { has_variable = nr_industrialists_commissions_patent_intensive_agriculture }
+			}
+			set_variable = nr_industrialists_commissions_patent_intensive_agriculture
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = fractional_distillation
+				NOT = { has_variable = nr_industrialists_commissions_patent_fractional_distillation }
+			}
+			set_variable = nr_industrialists_commissions_patent_fractional_distillation
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = canneries
+				NOT = { has_variable = nr_industrialists_commissions_patent_canneries }
+			}
+			set_variable = nr_industrialists_commissions_patent_canneries
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = watertube_boiler
+				NOT = { has_variable = nr_industrialists_commissions_patent_watertube_boiler }
+			}
+			set_variable = nr_industrialists_commissions_patent_watertube_boiler
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = atmospheric_engine
+				NOT = { has_variable = nr_industrialists_commissions_patent_atmospheric_engine }
+			}
+			set_variable = nr_industrialists_commissions_patent_atmospheric_engine
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = railways
+				NOT = { has_variable = nr_industrialists_commissions_patent_railways }
+			}
+			set_variable = nr_industrialists_commissions_patent_railways
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = chemical_bleaching
+				NOT = { has_variable = nr_industrialists_commissions_patent_chemical_bleaching }
+			}
+			set_variable = nr_industrialists_commissions_patent_chemical_bleaching
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = nitroglycerin
+				NOT = { has_variable = nr_industrialists_commissions_patent_nitroglycerin }
+			}
+			set_variable = nr_industrialists_commissions_patent_nitroglycerin
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = bessemer_process
+				NOT = { has_variable = nr_industrialists_commissions_patent_bessemer_process }
+			}
+			set_variable = nr_industrialists_commissions_patent_bessemer_process
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = baking_powder
+				NOT = { has_variable = nr_industrialists_commissions_patent_baking_powder }
+			}
+			set_variable = nr_industrialists_commissions_patent_baking_powder
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = mechanized_workshops
+				NOT = { has_variable = nr_industrialists_commissions_patent_mechanized_workshops }
+			}
+			set_variable = nr_industrialists_commissions_patent_mechanized_workshops
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = mechanical_tools
+				NOT = { has_variable = nr_industrialists_commissions_patent_mechanical_tools }
+			}
+			set_variable = nr_industrialists_commissions_patent_mechanical_tools
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = improved_fertilizer
+				NOT = { has_variable = nr_industrialists_commissions_patent_improved_fertilizer }
+			}
+			set_variable = nr_industrialists_commissions_patent_improved_fertilizer
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = steam_donkey
+				NOT = { has_variable = nr_industrialists_commissions_patent_steam_donkey }
+			}
+			set_variable = nr_industrialists_commissions_patent_steam_donkey
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = dynamite
+				NOT = { has_variable = nr_industrialists_commissions_patent_dynamite }
+			}
+			set_variable = nr_industrialists_commissions_patent_dynamite
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = rubber_mastication
+				NOT = { has_variable = nr_industrialists_commissions_patent_rubber_mastication }
+			}
+			set_variable = nr_industrialists_commissions_patent_rubber_mastication
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = rotary_valve_engine
+				NOT = { has_variable = nr_industrialists_commissions_patent_rotary_valve_engine }
+			}
+			set_variable = nr_industrialists_commissions_patent_rotary_valve_engine
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = reinforced_concrete
+				NOT = { has_variable = nr_industrialists_commissions_patent_reinforced_concrete }
+			}
+			set_variable = nr_industrialists_commissions_patent_reinforced_concrete
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = threshing_machine
+				NOT = { has_variable = nr_industrialists_commissions_patent_threshing_machine }
+			}
+			set_variable = nr_industrialists_commissions_patent_threshing_machine
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = pumpjacks
+				NOT = { has_variable = nr_industrialists_commissions_patent_pumpjacks }
+			}
+			set_variable = nr_industrialists_commissions_patent_pumpjacks
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = aniline
+				NOT = { has_variable = nr_industrialists_commissions_patent_aniline }
+			}
+			set_variable = nr_industrialists_commissions_patent_aniline
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = open_hearth_process
+				NOT = { has_variable = nr_industrialists_commissions_patent_open_hearth_process }
+			}
+			set_variable = nr_industrialists_commissions_patent_open_hearth_process
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = vulcanization
+				NOT = { has_variable = nr_industrialists_commissions_patent_vulcanization }
+			}
+			set_variable = nr_industrialists_commissions_patent_vulcanization
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = vacuum_canning
+				NOT = { has_variable = nr_industrialists_commissions_patent_vacuum_canning }
+			}
+			set_variable = nr_industrialists_commissions_patent_vacuum_canning
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = shift_work
+				NOT = { has_variable = nr_industrialists_commissions_patent_shift_work }
+			}
+			set_variable = nr_industrialists_commissions_patent_shift_work
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = steel_railway_cars
+				NOT = { has_variable = nr_industrialists_commissions_patent_steel_railway_cars }
+			}
+			set_variable = nr_industrialists_commissions_patent_steel_railway_cars
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = electrical_generation
+				NOT = { has_variable = nr_industrialists_commissions_patent_electrical_generation }
+			}
+			set_variable = nr_industrialists_commissions_patent_electrical_generation
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = mechanized_farming
+				NOT = { has_variable = nr_industrialists_commissions_patent_mechanized_farming }
+			}
+			set_variable = nr_industrialists_commissions_patent_mechanized_farming
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = art_silk
+				NOT = { has_variable = nr_industrialists_commissions_patent_art_silk }
+			}
+			set_variable = nr_industrialists_commissions_patent_art_silk
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = automatic_bottle_blowers
+				NOT = { has_variable = nr_industrialists_commissions_patent_automatic_bottle_blowers }
+			}
+			set_variable = nr_industrialists_commissions_patent_automatic_bottle_blowers
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = conveyors
+				NOT = { has_variable = nr_industrialists_commissions_patent_conveyors }
+			}
+			set_variable = nr_industrialists_commissions_patent_conveyors
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = pasteurization
+				NOT = { has_variable = nr_industrialists_commissions_patent_pasteurization }
+			}
+			set_variable = nr_industrialists_commissions_patent_pasteurization
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = electric_railway
+				NOT = { has_variable = nr_industrialists_commissions_patent_electric_railway }
+			}
+			set_variable = nr_industrialists_commissions_patent_electric_railway
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = combustion_engine
+				NOT = { has_variable = nr_industrialists_commissions_patent_combustion_engine }
+			}
+			set_variable = nr_industrialists_commissions_patent_combustion_engine
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = pneumatic_tools
+				NOT = { has_variable = nr_industrialists_commissions_patent_pneumatic_tools }
+			}
+			set_variable = nr_industrialists_commissions_patent_pneumatic_tools
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = nitrogen_fixation
+				NOT = { has_variable = nr_industrialists_commissions_patent_nitrogen_fixation }
+			}
+			set_variable = nr_industrialists_commissions_patent_nitrogen_fixation
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = electric_arc_process
+				NOT = { has_variable = nr_industrialists_commissions_patent_electric_arc_process }
+			}
+			set_variable = nr_industrialists_commissions_patent_electric_arc_process
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = steam_turbine
+				NOT = { has_variable = nr_industrialists_commissions_patent_steam_turbine }
+			}
+			set_variable = nr_industrialists_commissions_patent_steam_turbine
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = plastics
+				NOT = { has_variable = nr_industrialists_commissions_patent_plastics }
+			}
+			set_variable = nr_industrialists_commissions_patent_plastics
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = electrical_capacitors
+				NOT = { has_variable = nr_industrialists_commissions_patent_electrical_capacitors }
+			}
+			set_variable = nr_industrialists_commissions_patent_electrical_capacitors
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = radio
+				NOT = { has_variable = nr_industrialists_commissions_patent_radio }
+			}
+			set_variable = nr_industrialists_commissions_patent_radio
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = telephone
+				NOT = { has_variable = nr_industrialists_commissions_patent_telephone }
+			}
+			set_variable = nr_industrialists_commissions_patent_telephone
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = dough_rollers
+				NOT = { has_variable = nr_industrialists_commissions_patent_dough_rollers }
+			}
+			set_variable = nr_industrialists_commissions_patent_dough_rollers
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = flash_freezing
+				NOT = { has_variable = nr_industrialists_commissions_patent_flash_freezing }
+			}
+			set_variable = nr_industrialists_commissions_patent_flash_freezing
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = oil_turbine
+				NOT = { has_variable = nr_industrialists_commissions_patent_oil_turbine }
+			}
+			set_variable = nr_industrialists_commissions_patent_oil_turbine
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = arc_welding
+				NOT = { has_variable = nr_industrialists_commissions_patent_arc_welding }
+			}
+			set_variable = nr_industrialists_commissions_patent_arc_welding
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+		1 = {
+			trigger = {
+				can_research = compression_ignition
+				NOT = { has_variable = nr_industrialists_commissions_patent_compression_ignition }
+			}
+			set_variable = nr_industrialists_commissions_patent_compression_ignition
+			set_variable = nr_industrialists_commissions_patent_any
+		}
+	}
+}
+
+nr_industrialists_commissions_patent_cleanup = {
+	remove_variable = nr_industrialists_commissions_patent_any
+	remove_variable = nr_industrialists_commissions_patent_sericulture
+	remove_variable = nr_industrialists_commissions_patent_enclosure
+	remove_variable = nr_industrialists_commissions_patent_manufacturies
+	remove_variable = nr_industrialists_commissions_patent_shaft_mining
+	remove_variable = nr_industrialists_commissions_patent_cotton_gin
+	remove_variable = nr_industrialists_commissions_patent_lathe
+	remove_variable = nr_industrialists_commissions_patent_distillation
+	remove_variable = nr_industrialists_commissions_patent_steelworking
+	remove_variable = nr_industrialists_commissions_patent_prospecting
+	remove_variable = nr_industrialists_commissions_patent_crystal_glass
+	remove_variable = nr_industrialists_commissions_patent_intensive_agriculture
+	remove_variable = nr_industrialists_commissions_patent_fractional_distillation
+	remove_variable = nr_industrialists_commissions_patent_canneries
+	remove_variable = nr_industrialists_commissions_patent_watertube_boiler
+	remove_variable = nr_industrialists_commissions_patent_atmospheric_engine
+	remove_variable = nr_industrialists_commissions_patent_railways
+	remove_variable = nr_industrialists_commissions_patent_chemical_bleaching
+	remove_variable = nr_industrialists_commissions_patent_nitroglycerin
+	remove_variable = nr_industrialists_commissions_patent_bessemer_process
+	remove_variable = nr_industrialists_commissions_patent_baking_powder
+	remove_variable = nr_industrialists_commissions_patent_mechanized_workshops
+	remove_variable = nr_industrialists_commissions_patent_mechanical_tools
+	remove_variable = nr_industrialists_commissions_patent_improved_fertilizer
+	remove_variable = nr_industrialists_commissions_patent_steam_donkey
+	remove_variable = nr_industrialists_commissions_patent_dynamite
+	remove_variable = nr_industrialists_commissions_patent_rubber_mastication
+	remove_variable = nr_industrialists_commissions_patent_rotary_valve_engine
+	remove_variable = nr_industrialists_commissions_patent_reinforced_concrete
+	remove_variable = nr_industrialists_commissions_patent_threshing_machine
+	remove_variable = nr_industrialists_commissions_patent_pumpjacks
+	remove_variable = nr_industrialists_commissions_patent_aniline
+	remove_variable = nr_industrialists_commissions_patent_open_hearth_process
+	remove_variable = nr_industrialists_commissions_patent_vulcanization
+	remove_variable = nr_industrialists_commissions_patent_vacuum_canning
+	remove_variable = nr_industrialists_commissions_patent_shift_work
+	remove_variable = nr_industrialists_commissions_patent_steel_railway_cars
+	remove_variable = nr_industrialists_commissions_patent_electrical_generation
+	remove_variable = nr_industrialists_commissions_patent_mechanized_farming
+	remove_variable = nr_industrialists_commissions_patent_art_silk
+	remove_variable = nr_industrialists_commissions_patent_automatic_bottle_blowers
+	remove_variable = nr_industrialists_commissions_patent_conveyors
+	remove_variable = nr_industrialists_commissions_patent_pasteurization
+	remove_variable = nr_industrialists_commissions_patent_electric_railway
+	remove_variable = nr_industrialists_commissions_patent_combustion_engine
+	remove_variable = nr_industrialists_commissions_patent_pneumatic_tools
+	remove_variable = nr_industrialists_commissions_patent_nitrogen_fixation
+	remove_variable = nr_industrialists_commissions_patent_electric_arc_process
+	remove_variable = nr_industrialists_commissions_patent_steam_turbine
+	remove_variable = nr_industrialists_commissions_patent_plastics
+	remove_variable = nr_industrialists_commissions_patent_electrical_capacitors
+	remove_variable = nr_industrialists_commissions_patent_radio
+	remove_variable = nr_industrialists_commissions_patent_telephone
+	remove_variable = nr_industrialists_commissions_patent_dough_rollers
+	remove_variable = nr_industrialists_commissions_patent_flash_freezing
+	remove_variable = nr_industrialists_commissions_patent_oil_turbine
+	remove_variable = nr_industrialists_commissions_patent_arc_welding
+	remove_variable = nr_industrialists_commissions_patent_compression_ignition
+}
+
+# ========== Follow-ups: attach the amendment to the active law. Scope: country. ==========
+nr_industrialists_add_guaranteed_return = {
+	if = {
+		limit = { has_law = law_type:law_traditionalism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_guaranteed_return LAW = law_traditionalism IG = ig_industrialists }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_interventionism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_guaranteed_return LAW = law_interventionism IG = ig_industrialists }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_agrarianism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_guaranteed_return LAW = law_agrarianism IG = ig_industrialists }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_laissez_faire }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_guaranteed_return LAW = law_laissez_faire IG = ig_industrialists }
+	}
+}
+
+nr_industrialists_add_private_arsenals = {
+	if = {
+		limit = { has_law = law_type:law_peasant_levies }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_private_arsenals LAW = law_peasant_levies IG = ig_industrialists }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_professional_army }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_private_arsenals LAW = law_professional_army IG = ig_industrialists }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_national_militia }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_private_arsenals LAW = law_national_militia IG = ig_industrialists }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_mass_conscription }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_private_arsenals LAW = law_mass_conscription IG = ig_industrialists }
+	}
+}
+
+nr_industrialists_add_iron_tariff = {
+	if = {
+		limit = { has_law = law_type:law_protectionism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_iron_tariff LAW = law_protectionism IG = ig_industrialists }
+	}
+}
+
+nr_industrialists_add_chartered_companies = {
+	if = {
+		limit = { has_law = law_type:law_colonial_exploitation }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_chartered_companies LAW = law_colonial_exploitation IG = ig_industrialists }
+	}
+}
+
+nr_industrialists_add_strike_law = {
+	if = {
+		limit = { has_law = law_type:law_combination_acts }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_strike_law LAW = law_combination_acts IG = ig_industrialists }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_anti_strike_laws }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_strike_law LAW = law_anti_strike_laws IG = ig_industrialists }
+	}
+}
+
+nr_industrialists_add_limited_liability = {
+	if = {
+		limit = { has_law = law_type:law_laissez_faire }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_limited_liability LAW = law_laissez_faire IG = ig_industrialists }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_interventionism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_limited_liability LAW = law_interventionism IG = ig_industrialists }
+	}
+}
+
+nr_industrialists_add_mild_oversight = {
+	if = {
+		limit = { has_law = law_type:law_regulatory_bodies }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_mild_oversight LAW = law_regulatory_bodies IG = ig_industrialists }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_worker_protections }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_mild_oversight LAW = law_worker_protections IG = ig_industrialists }
+	}
+}
+
+nr_industrialists_add_independent_bank = {
+	if = {
+		limit = { has_law = law_type:law_laissez_faire }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_independent_bank LAW = law_laissez_faire IG = ig_industrialists }
+	}
+	else_if = {
+		limit = { has_law = law_type:law_interventionism }
+		nr_amendment_add_to_active_law = { AMENDMENT = amendment_nr_industrialists_independent_bank LAW = law_interventionism IG = ig_industrialists }
+	}
+}
+

@@ -1,0 +1,823 @@
+﻿namespace = nr_industrialists_contracts
+
+# NR: nr_industrialists_contracts (see nr_industrialists_effects.txt). .1 form event (default + 2 random), .11+ follow-ups after 10 years,
+# .21+ / .31+ popups when a law change ends a form.
+
+nr_industrialists_contracts.1 = {
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.1.t
+	desc = nr_industrialists_contracts.1.desc
+	flavor = nr_industrialists_contracts.1.flavor
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	duration = 3
+
+	immediate = {
+		ig:ig_industrialists ?= {
+			save_scope_as = ig
+			leader ?= { save_scope_as = ig_leader }
+		}
+		nr_industrialists_contracts_offer_random_form = yes
+		nr_industrialists_contracts_offer_random_form = yes
+	}
+
+	option = { # default: base effects only
+		name = nr_industrialists_contracts.1.state_order
+		default_option = yes
+		custom_tooltip = nr_industrialists_contracts_lore_state_order
+		custom_tooltip = nr_industrialists_contracts_base_tt
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_contracts.1.railway
+		trigger = {
+			has_variable = nr_industrialists_contracts_offer_railway
+		}
+		custom_tooltip = nr_industrialists_contracts_lore_railway
+		nr_industrialists_contracts_choose_form = { FORM = railway }
+		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 1.25 }
+		nr_industrialists_contracts_build_railways = yes
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_contracts.11
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_contracts.1.arms
+		trigger = {
+			has_variable = nr_industrialists_contracts_offer_arms
+		}
+		custom_tooltip = nr_industrialists_contracts_lore_arms
+		nr_industrialists_contracts_choose_form = { FORM = arms }
+		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 1 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_contracts.12
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_contracts.1.iron_tariff
+		trigger = {
+			has_variable = nr_industrialists_contracts_offer_iron_tariff
+		}
+		custom_tooltip = nr_industrialists_contracts_lore_iron_tariff
+		nr_industrialists_contracts_choose_form = { FORM = iron_tariff }
+		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 0.25 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_contracts.13
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_contracts.1.mining
+		trigger = {
+			has_variable = nr_industrialists_contracts_offer_mining
+		}
+		custom_tooltip = nr_industrialists_contracts_lore_mining
+		nr_industrialists_contracts_choose_form = { FORM = mining }
+		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 0.5 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_contracts.14
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_contracts.1.charter
+		trigger = {
+			has_variable = nr_industrialists_contracts_offer_charter
+		}
+		custom_tooltip = nr_industrialists_contracts_lore_charter
+		nr_industrialists_contracts_choose_form = { FORM = charter }
+		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 0.75 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_contracts.15
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_contracts.1.strikes
+		trigger = {
+			has_variable = nr_industrialists_contracts_offer_strikes
+		}
+		custom_tooltip = nr_industrialists_contracts_lore_strikes
+		nr_industrialists_contracts_choose_form = { FORM = strikes }
+		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 0.5 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_contracts.16
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_contracts.1.contract_labour
+		trigger = {
+			has_variable = nr_industrialists_contracts_offer_contract_labour
+		}
+		custom_tooltip = nr_industrialists_contracts_lore_contract_labour
+		nr_industrialists_contracts_choose_form = { FORM = contract_labour }
+		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 0.5 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_contracts.17
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			nr_industrialists_contracts_cleanup = yes
+		}
+	}
+}
+
+nr_industrialists_contracts.11 = { # follow-up of railway
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.11.t
+	desc = nr_industrialists_contracts.11.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_contracts_railway_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # amendment
+		name = nr_industrialists_fu_amendment
+		trigger = {
+			nr_industrialists_guaranteed_return_amendment_available = yes
+		}
+		custom_tooltip = nr_industrialists_lore_amendment_guaranteed_return
+		nr_industrialists_add_guaranteed_return = yes
+	}
+
+	option = { # decline
+		name = nr_industrialists_fu_decline
+		default_option = yes
+		trigger = {
+			nr_industrialists_guaranteed_return_amendment_available = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_industrialists_fu_nothing
+		default_option = yes
+		trigger = {
+			NOT = { nr_industrialists_guaranteed_return_amendment_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_contracts_railway_running }
+				remove_variable = nr_industrialists_contracts_railway_running
+			}
+		}
+	}
+}
+
+nr_industrialists_contracts.12 = { # follow-up of arms
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.12.t
+	desc = nr_industrialists_contracts.12.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_contracts_arms_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # amendment
+		name = nr_industrialists_fu_amendment
+		trigger = {
+			nr_industrialists_private_arsenals_amendment_available = yes
+		}
+		custom_tooltip = nr_industrialists_lore_amendment_private_arsenals
+		nr_industrialists_add_private_arsenals = yes
+	}
+
+	option = { # decline
+		name = nr_industrialists_fu_decline
+		default_option = yes
+		trigger = {
+			nr_industrialists_private_arsenals_amendment_available = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_industrialists_fu_nothing
+		default_option = yes
+		trigger = {
+			NOT = { nr_industrialists_private_arsenals_amendment_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_contracts_arms_running }
+				remove_variable = nr_industrialists_contracts_arms_running
+			}
+		}
+	}
+}
+
+nr_industrialists_contracts.13 = { # follow-up of iron_tariff
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.13.t
+	desc = nr_industrialists_contracts.13.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_contracts_iron_tariff_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # petition
+		name = nr_industrialists_fu_petition
+		trigger = {
+			nr_industrialists_protectionism_petition_available = yes
+		}
+		custom_tooltip = nr_industrialists_protectionism_petition_tt
+		add_journal_entry = { type = je_nr_industrialists_protectionism_petition }
+	}
+
+	option = { # amendment
+		name = nr_industrialists_fu_amendment
+		trigger = {
+			nr_industrialists_iron_tariff_amendment_available = yes
+		}
+		custom_tooltip = nr_industrialists_lore_amendment_iron_tariff
+		nr_industrialists_add_iron_tariff = yes
+	}
+
+	option = { # decline
+		name = nr_industrialists_fu_decline
+		default_option = yes
+		trigger = {
+			OR = { nr_industrialists_protectionism_petition_available = yes nr_industrialists_iron_tariff_amendment_available = yes }
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_industrialists_fu_nothing
+		default_option = yes
+		trigger = {
+			NOR = { nr_industrialists_protectionism_petition_available = yes nr_industrialists_iron_tariff_amendment_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_contracts_iron_tariff_running }
+				remove_variable = nr_industrialists_contracts_iron_tariff_running
+			}
+		}
+	}
+}
+
+nr_industrialists_contracts.14 = { # follow-up of mining
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.14.t
+	desc = nr_industrialists_contracts.14.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_contracts_mining_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # the Industrialists are content
+		name = nr_industrialists_fu_thanks
+		default_option = yes
+		custom_tooltip = nr_industrialists_lore_thanks
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_contracts_mining_running }
+				remove_variable = nr_industrialists_contracts_mining_running
+			}
+		}
+	}
+}
+
+nr_industrialists_contracts.15 = { # follow-up of charter
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.15.t
+	desc = nr_industrialists_contracts.15.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_contracts_charter_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # petition
+		name = nr_industrialists_fu_petition
+		trigger = {
+			nr_industrialists_colonial_petition_available = yes
+		}
+		custom_tooltip = nr_industrialists_colonial_petition_tt
+		add_journal_entry = { type = je_nr_industrialists_colonial_petition }
+	}
+
+	option = { # amendment
+		name = nr_industrialists_fu_amendment
+		trigger = {
+			nr_industrialists_chartered_companies_amendment_available = yes
+		}
+		custom_tooltip = nr_industrialists_lore_amendment_chartered_companies
+		nr_industrialists_add_chartered_companies = yes
+	}
+
+	option = { # decline
+		name = nr_industrialists_fu_decline
+		default_option = yes
+		trigger = {
+			OR = { nr_industrialists_colonial_petition_available = yes nr_industrialists_chartered_companies_amendment_available = yes }
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_industrialists_fu_nothing
+		default_option = yes
+		trigger = {
+			NOR = { nr_industrialists_colonial_petition_available = yes nr_industrialists_chartered_companies_amendment_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_contracts_charter_running }
+				remove_variable = nr_industrialists_contracts_charter_running
+			}
+		}
+	}
+}
+
+nr_industrialists_contracts.16 = { # follow-up of strikes
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.16.t
+	desc = nr_industrialists_contracts.16.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_contracts_strikes_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # petition
+		name = nr_industrialists_fu_petition
+		trigger = {
+			nr_industrialists_combination_petition_available = yes
+		}
+		custom_tooltip = nr_industrialists_combination_petition_tt
+		add_journal_entry = { type = je_nr_industrialists_combination_petition }
+	}
+
+	option = { # amendment
+		name = nr_industrialists_fu_amendment
+		trigger = {
+			nr_industrialists_strike_law_amendment_available = yes
+		}
+		custom_tooltip = nr_industrialists_lore_amendment_strike_law
+		nr_industrialists_add_strike_law = yes
+	}
+
+	option = { # decline
+		name = nr_industrialists_fu_decline
+		default_option = yes
+		trigger = {
+			OR = { nr_industrialists_combination_petition_available = yes nr_industrialists_strike_law_amendment_available = yes }
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_industrialists_fu_nothing
+		default_option = yes
+		trigger = {
+			NOR = { nr_industrialists_combination_petition_available = yes nr_industrialists_strike_law_amendment_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_contracts_strikes_running }
+				remove_variable = nr_industrialists_contracts_strikes_running
+			}
+		}
+	}
+}
+
+nr_industrialists_contracts.17 = { # follow-up of contract_labour
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.17.t
+	desc = nr_industrialists_contracts.17.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_contracts_contract_labour_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # the Industrialists are content
+		name = nr_industrialists_fu_thanks
+		default_option = yes
+		custom_tooltip = nr_industrialists_lore_thanks
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_contracts_contract_labour_running }
+				remove_variable = nr_industrialists_contracts_contract_labour_running
+			}
+		}
+	}
+}
+
+nr_industrialists_contracts.21 = { # a law change ended iron_tariff
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.21.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_industrialists_contracts.21.desc_gov
+				trigger = { ig:ig_industrialists ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_industrialists_contracts.21.desc_opp
+			}
+		}
+	}
+	flavor = nr_industrialists_contracts.21.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_industrialists_contracts.21.a
+		default_option = yes
+		trigger = {
+			ig:ig_industrialists ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_industrialists }
+	}
+
+	option = {
+		name = nr_industrialists_contracts.21.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_industrialists ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_industrialists BACKLASH = none }
+	}
+}
+
+nr_industrialists_contracts.22 = { # a law change ended charter
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.22.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_industrialists_contracts.22.desc_gov
+				trigger = { ig:ig_industrialists ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_industrialists_contracts.22.desc_opp
+			}
+		}
+	}
+	flavor = nr_industrialists_contracts.22.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_industrialists_contracts.22.a
+		default_option = yes
+		trigger = {
+			ig:ig_industrialists ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_industrialists }
+	}
+
+	option = {
+		name = nr_industrialists_contracts.22.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_industrialists ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_industrialists BACKLASH = none }
+	}
+}
+
+nr_industrialists_contracts.23 = { # a law change ended strikes
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.23.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_industrialists_contracts.23.desc_gov
+				trigger = { ig:ig_industrialists ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_industrialists_contracts.23.desc_opp
+			}
+		}
+	}
+	flavor = nr_industrialists_contracts.23.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_industrialists_contracts.23.a
+		default_option = yes
+		trigger = {
+			ig:ig_industrialists ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_industrialists }
+	}
+
+	option = {
+		name = nr_industrialists_contracts.23.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_industrialists ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_industrialists BACKLASH = reaction }
+	}
+}
+
+nr_industrialists_contracts.24 = { # a law change ended contract_labour
+	type = country_event
+	placement = root
+	title = nr_industrialists_contracts.24.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_industrialists_contracts.24.desc_gov
+				trigger = { ig:ig_industrialists ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_industrialists_contracts.24.desc_opp
+			}
+		}
+	}
+	flavor = nr_industrialists_contracts.24.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_industrialists_contracts.24.a
+		default_option = yes
+		trigger = {
+			ig:ig_industrialists ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_industrialists }
+	}
+
+	option = {
+		name = nr_industrialists_contracts.24.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_industrialists ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_industrialists BACKLASH = none }
+	}
+}

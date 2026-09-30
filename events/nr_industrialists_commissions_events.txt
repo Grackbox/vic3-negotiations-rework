@@ -1,0 +1,989 @@
+﻿namespace = nr_industrialists_commissions
+
+# NR: nr_industrialists_commissions (see nr_industrialists_effects.txt). .1 form event (default + 2 random), .11+ follow-ups after 10 years,
+# .21+ / .31+ popups when a law change ends a form.
+
+nr_industrialists_commissions.1 = {
+	type = country_event
+	placement = root
+	title = nr_industrialists_commissions.1.t
+	desc = nr_industrialists_commissions.1.desc
+	flavor = nr_industrialists_commissions.1.flavor
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	duration = 3
+
+	immediate = {
+		ig:ig_industrialists ?= {
+			save_scope_as = ig
+			leader ?= { save_scope_as = ig_leader }
+		}
+		nr_industrialists_commissions_offer_random_form = yes
+		nr_industrialists_commissions_offer_random_form = yes
+	}
+
+	option = { # default: base effects only
+		name = nr_industrialists_commissions.1.exchange
+		default_option = yes
+		custom_tooltip = nr_industrialists_commissions_lore_exchange
+		custom_tooltip = nr_industrialists_commissions_base_tt
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_commissions.1.ministry
+		trigger = {
+			has_variable = nr_industrialists_commissions_offer_ministry
+		}
+		custom_tooltip = nr_industrialists_commissions_lore_ministry
+		nr_industrialists_commissions_choose_form = { FORM = ministry }
+		nr_industrialists_commissions_set_penalty = { FACTOR = 1.25 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_commissions.11
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_commissions.1.patents
+		trigger = {
+			has_variable = nr_industrialists_commissions_offer_patents
+		}
+		custom_tooltip = nr_industrialists_commissions_lore_patents
+		nr_industrialists_commissions_choose_form = { FORM = patents }
+		nr_industrialists_commissions_set_penalty = { FACTOR = 0.75 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_commissions.12
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_commissions.1.company_law
+		trigger = {
+			has_variable = nr_industrialists_commissions_offer_company_law
+		}
+		custom_tooltip = nr_industrialists_commissions_lore_company_law
+		nr_industrialists_commissions_choose_form = { FORM = company_law }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_commissions.13
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_commissions.1.inspection
+		trigger = {
+			has_variable = nr_industrialists_commissions_offer_inspection
+		}
+		custom_tooltip = nr_industrialists_commissions_lore_inspection
+		nr_industrialists_commissions_choose_form = { FORM = inspection }
+		nr_industrialists_commissions_set_penalty = { FACTOR = 0.75 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_commissions.14
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_commissions.1.consuls
+		trigger = {
+			has_variable = nr_industrialists_commissions_offer_consuls
+		}
+		custom_tooltip = nr_industrialists_commissions_lore_consuls
+		nr_industrialists_commissions_choose_form = { FORM = consuls }
+		nr_industrialists_commissions_set_penalty = { FACTOR = 0.75 }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_commissions.15
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = nr_industrialists_commissions.1.bank
+		trigger = {
+			has_variable = nr_industrialists_commissions_offer_bank
+		}
+		custom_tooltip = nr_industrialists_commissions_lore_bank
+		nr_industrialists_commissions_choose_form = { FORM = bank }
+		hidden_effect = {
+			trigger_event = {
+				id = nr_industrialists_commissions.16
+				days = 3650
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			nr_industrialists_commissions_cleanup = yes
+		}
+	}
+}
+
+nr_industrialists_commissions.11 = { # follow-up of ministry
+	type = country_event
+	placement = root
+	title = nr_industrialists_commissions.11.t
+	desc = nr_industrialists_commissions.11.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_commissions_ministry_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # the Industrialists are content
+		name = nr_industrialists_fu_thanks
+		default_option = yes
+		custom_tooltip = nr_industrialists_lore_thanks
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_commissions_ministry_running }
+				remove_variable = nr_industrialists_commissions_ministry_running
+			}
+		}
+	}
+}
+
+nr_industrialists_commissions.12 = { # follow-up of patents
+	type = country_event
+	placement = root
+	title = nr_industrialists_commissions.12.t
+	desc = nr_industrialists_commissions.12.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_commissions_patents_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+		nr_industrialists_commissions_patent_offer = yes
+		nr_industrialists_commissions_patent_offer = yes
+		nr_industrialists_commissions_patent_offer = yes
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.sericulture
+		trigger = { has_variable = nr_industrialists_commissions_patent_sericulture }
+		add_technology_progress = { progress = 2500 technology = sericulture }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.enclosure
+		trigger = { has_variable = nr_industrialists_commissions_patent_enclosure }
+		add_technology_progress = { progress = 2500 technology = enclosure }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.manufacturies
+		trigger = { has_variable = nr_industrialists_commissions_patent_manufacturies }
+		add_technology_progress = { progress = 2500 technology = manufacturies }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.shaft_mining
+		trigger = { has_variable = nr_industrialists_commissions_patent_shaft_mining }
+		add_technology_progress = { progress = 2500 technology = shaft_mining }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.cotton_gin
+		trigger = { has_variable = nr_industrialists_commissions_patent_cotton_gin }
+		add_technology_progress = { progress = 2500 technology = cotton_gin }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.lathe
+		trigger = { has_variable = nr_industrialists_commissions_patent_lathe }
+		add_technology_progress = { progress = 2500 technology = lathe }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.distillation
+		trigger = { has_variable = nr_industrialists_commissions_patent_distillation }
+		add_technology_progress = { progress = 2500 technology = distillation }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.steelworking
+		trigger = { has_variable = nr_industrialists_commissions_patent_steelworking }
+		add_technology_progress = { progress = 2500 technology = steelworking }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.prospecting
+		trigger = { has_variable = nr_industrialists_commissions_patent_prospecting }
+		add_technology_progress = { progress = 2500 technology = prospecting }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.crystal_glass
+		trigger = { has_variable = nr_industrialists_commissions_patent_crystal_glass }
+		add_technology_progress = { progress = 3500 technology = crystal_glass }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.intensive_agriculture
+		trigger = { has_variable = nr_industrialists_commissions_patent_intensive_agriculture }
+		add_technology_progress = { progress = 3500 technology = intensive_agriculture }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.fractional_distillation
+		trigger = { has_variable = nr_industrialists_commissions_patent_fractional_distillation }
+		add_technology_progress = { progress = 3500 technology = fractional_distillation }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.canneries
+		trigger = { has_variable = nr_industrialists_commissions_patent_canneries }
+		add_technology_progress = { progress = 3500 technology = canneries }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.watertube_boiler
+		trigger = { has_variable = nr_industrialists_commissions_patent_watertube_boiler }
+		add_technology_progress = { progress = 3500 technology = watertube_boiler }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.atmospheric_engine
+		trigger = { has_variable = nr_industrialists_commissions_patent_atmospheric_engine }
+		add_technology_progress = { progress = 3500 technology = atmospheric_engine }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.railways
+		trigger = { has_variable = nr_industrialists_commissions_patent_railways }
+		add_technology_progress = { progress = 3500 technology = railways }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.chemical_bleaching
+		trigger = { has_variable = nr_industrialists_commissions_patent_chemical_bleaching }
+		add_technology_progress = { progress = 3500 technology = chemical_bleaching }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.nitroglycerin
+		trigger = { has_variable = nr_industrialists_commissions_patent_nitroglycerin }
+		add_technology_progress = { progress = 3500 technology = nitroglycerin }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.bessemer_process
+		trigger = { has_variable = nr_industrialists_commissions_patent_bessemer_process }
+		add_technology_progress = { progress = 3500 technology = bessemer_process }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.baking_powder
+		trigger = { has_variable = nr_industrialists_commissions_patent_baking_powder }
+		add_technology_progress = { progress = 3500 technology = baking_powder }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.mechanized_workshops
+		trigger = { has_variable = nr_industrialists_commissions_patent_mechanized_workshops }
+		add_technology_progress = { progress = 3500 technology = mechanized_workshops }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.mechanical_tools
+		trigger = { has_variable = nr_industrialists_commissions_patent_mechanical_tools }
+		add_technology_progress = { progress = 3500 technology = mechanical_tools }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.improved_fertilizer
+		trigger = { has_variable = nr_industrialists_commissions_patent_improved_fertilizer }
+		add_technology_progress = { progress = 4150 technology = improved_fertilizer }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.steam_donkey
+		trigger = { has_variable = nr_industrialists_commissions_patent_steam_donkey }
+		add_technology_progress = { progress = 4150 technology = steam_donkey }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.dynamite
+		trigger = { has_variable = nr_industrialists_commissions_patent_dynamite }
+		add_technology_progress = { progress = 4150 technology = dynamite }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.rubber_mastication
+		trigger = { has_variable = nr_industrialists_commissions_patent_rubber_mastication }
+		add_technology_progress = { progress = 4150 technology = rubber_mastication }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.rotary_valve_engine
+		trigger = { has_variable = nr_industrialists_commissions_patent_rotary_valve_engine }
+		add_technology_progress = { progress = 4150 technology = rotary_valve_engine }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.reinforced_concrete
+		trigger = { has_variable = nr_industrialists_commissions_patent_reinforced_concrete }
+		add_technology_progress = { progress = 4150 technology = reinforced_concrete }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.threshing_machine
+		trigger = { has_variable = nr_industrialists_commissions_patent_threshing_machine }
+		add_technology_progress = { progress = 4150 technology = threshing_machine }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.pumpjacks
+		trigger = { has_variable = nr_industrialists_commissions_patent_pumpjacks }
+		add_technology_progress = { progress = 4150 technology = pumpjacks }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.aniline
+		trigger = { has_variable = nr_industrialists_commissions_patent_aniline }
+		add_technology_progress = { progress = 4150 technology = aniline }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.open_hearth_process
+		trigger = { has_variable = nr_industrialists_commissions_patent_open_hearth_process }
+		add_technology_progress = { progress = 4150 technology = open_hearth_process }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.vulcanization
+		trigger = { has_variable = nr_industrialists_commissions_patent_vulcanization }
+		add_technology_progress = { progress = 4150 technology = vulcanization }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.vacuum_canning
+		trigger = { has_variable = nr_industrialists_commissions_patent_vacuum_canning }
+		add_technology_progress = { progress = 4150 technology = vacuum_canning }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.shift_work
+		trigger = { has_variable = nr_industrialists_commissions_patent_shift_work }
+		add_technology_progress = { progress = 4150 technology = shift_work }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.steel_railway_cars
+		trigger = { has_variable = nr_industrialists_commissions_patent_steel_railway_cars }
+		add_technology_progress = { progress = 4150 technology = steel_railway_cars }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.electrical_generation
+		trigger = { has_variable = nr_industrialists_commissions_patent_electrical_generation }
+		add_technology_progress = { progress = 4150 technology = electrical_generation }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.mechanized_farming
+		trigger = { has_variable = nr_industrialists_commissions_patent_mechanized_farming }
+		add_technology_progress = { progress = 5000 technology = mechanized_farming }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.art_silk
+		trigger = { has_variable = nr_industrialists_commissions_patent_art_silk }
+		add_technology_progress = { progress = 5000 technology = art_silk }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.automatic_bottle_blowers
+		trigger = { has_variable = nr_industrialists_commissions_patent_automatic_bottle_blowers }
+		add_technology_progress = { progress = 5000 technology = automatic_bottle_blowers }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.conveyors
+		trigger = { has_variable = nr_industrialists_commissions_patent_conveyors }
+		add_technology_progress = { progress = 5000 technology = conveyors }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.pasteurization
+		trigger = { has_variable = nr_industrialists_commissions_patent_pasteurization }
+		add_technology_progress = { progress = 5000 technology = pasteurization }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.electric_railway
+		trigger = { has_variable = nr_industrialists_commissions_patent_electric_railway }
+		add_technology_progress = { progress = 5000 technology = electric_railway }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.combustion_engine
+		trigger = { has_variable = nr_industrialists_commissions_patent_combustion_engine }
+		add_technology_progress = { progress = 5000 technology = combustion_engine }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.pneumatic_tools
+		trigger = { has_variable = nr_industrialists_commissions_patent_pneumatic_tools }
+		add_technology_progress = { progress = 5000 technology = pneumatic_tools }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.nitrogen_fixation
+		trigger = { has_variable = nr_industrialists_commissions_patent_nitrogen_fixation }
+		add_technology_progress = { progress = 5000 technology = nitrogen_fixation }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.electric_arc_process
+		trigger = { has_variable = nr_industrialists_commissions_patent_electric_arc_process }
+		add_technology_progress = { progress = 5000 technology = electric_arc_process }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.steam_turbine
+		trigger = { has_variable = nr_industrialists_commissions_patent_steam_turbine }
+		add_technology_progress = { progress = 5000 technology = steam_turbine }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.plastics
+		trigger = { has_variable = nr_industrialists_commissions_patent_plastics }
+		add_technology_progress = { progress = 5000 technology = plastics }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.electrical_capacitors
+		trigger = { has_variable = nr_industrialists_commissions_patent_electrical_capacitors }
+		add_technology_progress = { progress = 5000 technology = electrical_capacitors }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.radio
+		trigger = { has_variable = nr_industrialists_commissions_patent_radio }
+		add_technology_progress = { progress = 5000 technology = radio }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.telephone
+		trigger = { has_variable = nr_industrialists_commissions_patent_telephone }
+		add_technology_progress = { progress = 5000 technology = telephone }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.dough_rollers
+		trigger = { has_variable = nr_industrialists_commissions_patent_dough_rollers }
+		add_technology_progress = { progress = 5850 technology = dough_rollers }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.flash_freezing
+		trigger = { has_variable = nr_industrialists_commissions_patent_flash_freezing }
+		add_technology_progress = { progress = 5850 technology = flash_freezing }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.oil_turbine
+		trigger = { has_variable = nr_industrialists_commissions_patent_oil_turbine }
+		add_technology_progress = { progress = 5850 technology = oil_turbine }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.arc_welding
+		trigger = { has_variable = nr_industrialists_commissions_patent_arc_welding }
+		add_technology_progress = { progress = 5850 technology = arc_welding }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.patent.compression_ignition
+		trigger = { has_variable = nr_industrialists_commissions_patent_compression_ignition }
+		add_technology_progress = { progress = 5850 technology = compression_ignition }
+	}
+
+	option = { # the Industrialists are content
+		name = nr_industrialists_fu_thanks
+		default_option = yes
+		trigger = { NOT = { has_variable = nr_industrialists_commissions_patent_any } }
+		custom_tooltip = nr_industrialists_lore_thanks
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_commissions_patents_running }
+				remove_variable = nr_industrialists_commissions_patents_running
+			}
+			nr_industrialists_commissions_patent_cleanup = yes
+		}
+	}
+}
+
+nr_industrialists_commissions.13 = { # follow-up of company_law
+	type = country_event
+	placement = root
+	title = nr_industrialists_commissions.13.t
+	desc = nr_industrialists_commissions.13.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_commissions_company_law_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # amendment
+		name = nr_industrialists_fu_amendment
+		trigger = {
+			nr_industrialists_limited_liability_amendment_available = yes
+		}
+		custom_tooltip = nr_industrialists_lore_amendment_limited_liability
+		nr_industrialists_add_limited_liability = yes
+	}
+
+	option = { # decline
+		name = nr_industrialists_fu_decline
+		default_option = yes
+		trigger = {
+			nr_industrialists_limited_liability_amendment_available = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_industrialists_fu_nothing
+		default_option = yes
+		trigger = {
+			NOT = { nr_industrialists_limited_liability_amendment_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_commissions_company_law_running }
+				remove_variable = nr_industrialists_commissions_company_law_running
+			}
+		}
+	}
+}
+
+nr_industrialists_commissions.14 = { # follow-up of inspection
+	type = country_event
+	placement = root
+	title = nr_industrialists_commissions.14.t
+	desc = nr_industrialists_commissions.14.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_commissions_inspection_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # amendment
+		name = nr_industrialists_fu_amendment
+		trigger = {
+			nr_industrialists_mild_oversight_amendment_available = yes
+		}
+		custom_tooltip = nr_industrialists_lore_amendment_mild_oversight
+		nr_industrialists_add_mild_oversight = yes
+	}
+
+	option = { # decline
+		name = nr_industrialists_fu_decline
+		default_option = yes
+		trigger = {
+			nr_industrialists_mild_oversight_amendment_available = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_industrialists_fu_nothing
+		default_option = yes
+		trigger = {
+			NOT = { nr_industrialists_mild_oversight_amendment_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_commissions_inspection_running }
+				remove_variable = nr_industrialists_commissions_inspection_running
+			}
+		}
+	}
+}
+
+nr_industrialists_commissions.15 = { # follow-up of consuls
+	type = country_event
+	placement = root
+	title = nr_industrialists_commissions.15.t
+	desc = nr_industrialists_commissions.15.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_commissions_consuls_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # the Industrialists are content
+		name = nr_industrialists_fu_thanks
+		default_option = yes
+		custom_tooltip = nr_industrialists_lore_thanks
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_content
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_commissions_consuls_running }
+				remove_variable = nr_industrialists_commissions_consuls_running
+			}
+		}
+	}
+}
+
+nr_industrialists_commissions.16 = { # follow-up of bank
+	type = country_event
+	placement = root
+	title = nr_industrialists_commissions.16.t
+	desc = nr_industrialists_commissions.16.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		exists = ig:ig_industrialists
+		has_variable = nr_industrialists_commissions_bank_running
+	}
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+	}
+
+	option = { # amendment
+		name = nr_industrialists_fu_amendment
+		trigger = {
+			nr_industrialists_independent_bank_amendment_available = yes
+		}
+		custom_tooltip = nr_industrialists_lore_amendment_independent_bank
+		nr_industrialists_add_independent_bank = yes
+	}
+
+	option = { # decline
+		name = nr_industrialists_fu_decline
+		default_option = yes
+		trigger = {
+			nr_industrialists_independent_bank_amendment_available = yes
+		}
+		scope:ig ?= {
+			add_modifier = {
+				name = nr_industrialists_declined
+				days = normal_modifier_time
+			}
+		}
+	}
+
+	option = { # nothing to offer: neutral close
+		name = nr_industrialists_fu_nothing
+		default_option = yes
+		trigger = {
+			NOT = { nr_industrialists_independent_bank_amendment_available = yes }
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { has_variable = nr_industrialists_commissions_bank_running }
+				remove_variable = nr_industrialists_commissions_bank_running
+			}
+		}
+	}
+}
+
+nr_industrialists_commissions.31 = { # a law change ended company_law
+	type = country_event
+	placement = root
+	title = nr_industrialists_commissions.31.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_industrialists_commissions.31.desc_gov
+				trigger = { ig:ig_industrialists ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_industrialists_commissions.31.desc_opp
+			}
+		}
+	}
+	flavor = nr_industrialists_commissions.31.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_industrialists_commissions.31.a
+		default_option = yes
+		trigger = {
+			ig:ig_industrialists ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_industrialists }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.31.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_industrialists ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_industrialists BACKLASH = none }
+	}
+}
+
+nr_industrialists_commissions.32 = { # a law change ended inspection
+	type = country_event
+	placement = root
+	title = nr_industrialists_commissions.32.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_industrialists_commissions.32.desc_gov
+				trigger = { ig:ig_industrialists ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_industrialists_commissions.32.desc_opp
+			}
+		}
+	}
+	flavor = nr_industrialists_commissions.32.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_rich_and_poor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_industrialists_commissions.32.a
+		default_option = yes
+		trigger = {
+			ig:ig_industrialists ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_industrialists }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.32.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_industrialists ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_industrialists BACKLASH = none }
+	}
+}
+
+nr_industrialists_commissions.33 = { # a law change ended bank
+	type = country_event
+	placement = root
+	title = nr_industrialists_commissions.33.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = nr_industrialists_commissions.33.desc_gov
+				trigger = { ig:ig_industrialists ?= { is_in_government = yes } }
+			}
+			triggered_desc = {
+				desc = nr_industrialists_commissions.33.desc_opp
+			}
+		}
+	}
+	flavor = nr_industrialists_commissions.33.flavor
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_industrialists_commissions.33.a
+		default_option = yes
+		trigger = {
+			ig:ig_industrialists ?= { is_in_government = yes }
+		}
+		nr_campaign_react_gave_up = { IG = ig_industrialists }
+	}
+
+	option = {
+		name = nr_industrialists_commissions.33.b
+		default_option = yes
+		trigger = {
+			NOT = { ig:ig_industrialists ?= { is_in_government = yes } }
+		}
+		nr_campaign_react_overruled = { IG = ig_industrialists BACKLASH = none }
+	}
+}

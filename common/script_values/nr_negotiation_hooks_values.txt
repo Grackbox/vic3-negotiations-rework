@@ -34,4 +34,8 @@ nr_neg_option_2_modifier = {
 		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
 		add = scope:ig.nr_landowners_offices_leader_weight
 	}
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_industrialists } }
+		add = scope:ig.nr_industrialists_commissions_leader_weight
+	}
 }

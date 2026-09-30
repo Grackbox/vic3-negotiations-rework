@@ -1,0 +1,142 @@
+﻿# NR: the Industrialists' petitions (follow-ups of state contracts). 4 years, +25% enactment speed; timeout -2 approval.
+
+je_nr_industrialists_protectionism_petition = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	group = je_group_internal_affairs
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+		nr_petition_boost = { PETITION = nr_industrialists_protectionism_petition LAW = law_protectionism }
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			nr_petition_boost = { PETITION = nr_industrialists_protectionism_petition LAW = law_protectionism }
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_industrialists_protectionism_petition_status_enacting
+				trigger = { is_enacting_law = law_type:law_protectionism }
+			}
+			triggered_desc = {
+				desc = je_nr_industrialists_protectionism_petition_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		has_law = law_type:law_protectionism
+	}
+
+	on_complete = {
+		nr_petition_end = { PETITION = nr_industrialists_protectionism_petition }
+	}
+
+	on_timeout = {
+		nr_petition_timeout = { PETITION = nr_industrialists_protectionism_petition }
+	}
+
+	timeout = 1461 # 4 years
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_industrialists_colonial_petition = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	group = je_group_internal_affairs
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+		nr_petition_boost = { PETITION = nr_industrialists_colonial_petition LAW = law_colonial_exploitation }
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			nr_petition_boost = { PETITION = nr_industrialists_colonial_petition LAW = law_colonial_exploitation }
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_industrialists_colonial_petition_status_enacting
+				trigger = { is_enacting_law = law_type:law_colonial_exploitation }
+			}
+			triggered_desc = {
+				desc = je_nr_industrialists_colonial_petition_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		has_law = law_type:law_colonial_exploitation
+	}
+
+	on_complete = {
+		nr_petition_end = { PETITION = nr_industrialists_colonial_petition }
+	}
+
+	on_timeout = {
+		nr_petition_timeout = { PETITION = nr_industrialists_colonial_petition }
+	}
+
+	timeout = 1461 # 4 years
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
+je_nr_industrialists_combination_petition = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	group = je_group_internal_affairs
+
+	immediate = {
+		ig:ig_industrialists ?= { save_scope_as = ig }
+		nr_petition_boost = { PETITION = nr_industrialists_combination_petition LAW = law_combination_acts }
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			nr_petition_boost = { PETITION = nr_industrialists_combination_petition LAW = law_combination_acts }
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_industrialists_combination_petition_status_enacting
+				trigger = { is_enacting_law = law_type:law_combination_acts }
+			}
+			triggered_desc = {
+				desc = je_nr_industrialists_combination_petition_status_waiting
+			}
+		}
+	}
+
+	complete = {
+		has_law = law_type:law_combination_acts
+	}
+
+	on_complete = {
+		nr_petition_end = { PETITION = nr_industrialists_combination_petition }
+	}
+
+	on_timeout = {
+		nr_petition_timeout = { PETITION = nr_industrialists_combination_petition }
+	}
+
+	timeout = 1461 # 4 years
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}

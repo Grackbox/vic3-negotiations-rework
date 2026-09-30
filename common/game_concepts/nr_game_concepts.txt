@@ -90,3 +90,33 @@ concept_nr_recruits = {}
 concept_nr_naval = {}
 
 concept_nr_chancery = {}
+
+concept_nr_state_order = {}
+
+concept_nr_railway_concession = {}
+
+concept_nr_arms_contracts = {}
+
+concept_nr_iron_tariff = {}
+
+concept_nr_mining_concession = {}
+
+concept_nr_colonial_charter = {}
+
+concept_nr_strike_suppression = {}
+
+concept_nr_contract_labour = {}
+
+concept_nr_exchange_committee = {}
+
+concept_nr_ways_ministry = {}
+
+concept_nr_patent_office = {}
+
+concept_nr_company_law = {}
+
+concept_nr_factory_inspection = {}
+
+concept_nr_consular_service = {}
+
+concept_nr_state_bank = {}

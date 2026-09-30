@@ -51,6 +51,10 @@ nr_petition_improve_stance = {
 		limit = { nr_landowners_petition_for_enacting_law = yes }
 		ig:ig_landowners ?= { improve_stance = 1 }
 	}
+	if = {
+		limit = { nr_industrialists_petition_for_enacting_law = yes }
+		ig:ig_industrialists ?= { improve_stance = 1 }
+	}
 }
 
 # Called from nr_on_law_enactment_started: every running Devout petition applies its enactment speed bonus at once,
@@ -103,5 +107,17 @@ nr_devout_petition_boost_all = {
 	if = {
 		limit = { has_journal_entry = je_nr_landowners_hereditary_petition }
 		nr_petition_boost = { PETITION = nr_landowners_hereditary_petition LAW = law_hereditary_bureaucrats }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_industrialists_protectionism_petition }
+		nr_petition_boost = { PETITION = nr_industrialists_protectionism_petition LAW = law_protectionism }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_industrialists_colonial_petition }
+		nr_petition_boost = { PETITION = nr_industrialists_colonial_petition LAW = law_colonial_exploitation }
+	}
+	if = {
+		limit = { has_journal_entry = je_nr_industrialists_combination_petition }
+		nr_petition_boost = { PETITION = nr_industrialists_combination_petition LAW = law_combination_acts }
 	}
 }

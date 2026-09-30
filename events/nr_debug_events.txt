@@ -32,6 +32,14 @@ nr_debug.1 = {
 		trigger_event = { id = nr_landowners_enact.12 popup = yes }
 		trigger_event = { id = nr_landowners_enact.13 popup = yes }
 		trigger_event = { id = nr_landowners_enact.14 popup = yes }
+		trigger_event = { id = nr_industrialists_enact.1 popup = yes }
+		trigger_event = { id = nr_industrialists_enact.2 popup = yes }
+		trigger_event = { id = nr_industrialists_enact.3 popup = yes }
+		trigger_event = { id = nr_industrialists_enact.4 popup = yes }
+		trigger_event = { id = nr_industrialists_enact.5 popup = yes }
+		trigger_event = { id = nr_industrialists_enact.6 popup = yes }
+		trigger_event = { id = nr_industrialists_enact.7 popup = yes }
+		trigger_event = { id = nr_industrialists_enact.8 popup = yes }
 	}
 }
 
@@ -515,6 +523,173 @@ nr_debug.8 = {
 
 	option = {
 		name = nr_debug.8.close
+		default_option = yes
+	}
+}
+
+nr_debug.9 = {
+	type = country_event
+	placement = root
+	title = nr_debug.9.t
+	desc = nr_debug.9.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_debug.9.form
+		trigger_event = { id = nr_industrialists_contracts.1 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.9.railway
+		set_variable = {
+			name = nr_industrialists_contracts_railway_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_contracts.11 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.9.arms
+		set_variable = {
+			name = nr_industrialists_contracts_arms_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_contracts.12 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.9.iron_tariff
+		set_variable = {
+			name = nr_industrialists_contracts_iron_tariff_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_contracts.13 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.9.mining
+		set_variable = {
+			name = nr_industrialists_contracts_mining_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_contracts.14 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.9.charter
+		set_variable = {
+			name = nr_industrialists_contracts_charter_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_contracts.15 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.9.strikes
+		set_variable = {
+			name = nr_industrialists_contracts_strikes_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_contracts.16 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.9.contract_labour
+		set_variable = {
+			name = nr_industrialists_contracts_contract_labour_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_contracts.17 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.9.close
+		default_option = yes
+	}
+}
+
+nr_debug.10 = {
+	type = country_event
+	placement = root
+	title = nr_debug.10.t
+	desc = nr_debug.10.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = nr_debug.10.form
+		trigger_event = { id = nr_industrialists_commissions.1 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.10.ministry
+		set_variable = {
+			name = nr_industrialists_commissions_ministry_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_commissions.11 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.10.patents
+		set_variable = {
+			name = nr_industrialists_commissions_patents_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_commissions.12 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.10.company_law
+		set_variable = {
+			name = nr_industrialists_commissions_company_law_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_commissions.13 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.10.inspection
+		set_variable = {
+			name = nr_industrialists_commissions_inspection_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_commissions.14 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.10.consuls
+		set_variable = {
+			name = nr_industrialists_commissions_consuls_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_commissions.15 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.10.bank
+		set_variable = {
+			name = nr_industrialists_commissions_bank_running
+			days = 3660
+		}
+		trigger_event = { id = nr_industrialists_commissions.16 popup = yes }
+	}
+
+	option = {
+		name = nr_debug.10.close
 		default_option = yes
 	}
 }

@@ -34,6 +34,7 @@ nr_neg_option_1_allowed = {
 				NOR = {
 					is_interest_group_type = ig_devout
 					is_interest_group_type = ig_landowners
+					is_interest_group_type = ig_industrialists
 				}
 			}
 			nr_bribe_affordable = yes
@@ -45,6 +46,10 @@ nr_neg_option_1_allowed = {
 		AND = {
 			scope:ig = { is_interest_group_type = ig_landowners }
 			nr_softbribe_option_allowed = { KEY = nr_landowners_grants REFUSES = nr_landowners_grants_leader_refuses }
+		}
+		AND = {
+			scope:ig = { is_interest_group_type = ig_industrialists }
+			nr_softbribe_option_allowed = { KEY = nr_industrialists_contracts REFUSES = nr_industrialists_contracts_leader_refuses }
 		}
 	}
 }
@@ -81,6 +86,7 @@ nr_neg_option_2_is_custom = {
 		OR = {
 			is_interest_group_type = ig_devout
 			is_interest_group_type = ig_landowners
+			is_interest_group_type = ig_industrialists
 		}
 	}
 }
@@ -94,7 +100,12 @@ nr_neg_option_2_allowed = {
 			NOR = {
 				is_interest_group_type = ig_devout
 				is_interest_group_type = ig_landowners
+				is_interest_group_type = ig_industrialists
 			}
+		}
+		AND = {
+			scope:ig = { is_interest_group_type = ig_industrialists }
+			nr_campaign_slot_free = { KEY = nr_industrialists_commissions }
 		}
 		AND = {
 			scope:ig = { is_interest_group_type = ig_devout }
@@ -124,6 +135,10 @@ nr_neg_option_2_ai_good = {
 			scope:ig = { is_interest_group_type = ig_landowners }
 			nr_landowners_offices_ai_good = yes
 		}
+		AND = {
+			scope:ig = { is_interest_group_type = ig_industrialists }
+			nr_industrialists_commissions_ai_good = yes
+		}
 	}
 }
 
@@ -136,6 +151,10 @@ nr_neg_option_2_ai_bad = {
 		AND = {
 			scope:ig = { is_interest_group_type = ig_landowners }
 			nr_landowners_offices_ai_bad = yes
+		}
+		AND = {
+			scope:ig = { is_interest_group_type = ig_industrialists }
+			nr_industrialists_commissions_ai_bad = yes
 		}
 	}
 }

@@ -37,6 +37,13 @@ NR_SoftBribeLine = {
 		}
 		localization_key = nr_landowners_grants_option
 	}
+
+	text = {
+		trigger = {
+			is_interest_group_type = ig_industrialists
+		}
+		localization_key = nr_industrialists_contracts_option
+	}
 }
 
 # Option "the ruler presses the group" (negotiation.1.nr_pressure): wording by ruler type.
@@ -95,5 +102,12 @@ NR_OfficesLine = {
 			is_interest_group_type = ig_landowners
 		}
 		localization_key = nr_landowners_offices_option
+	}
+
+	text = {
+		trigger = {
+			is_interest_group_type = ig_industrialists
+		}
+		localization_key = nr_industrialists_commissions_option
 	}
 }
