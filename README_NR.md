@@ -67,7 +67,7 @@ Vanilla: 1 army, 2 law, 3 buildings, 4 taxes, 5 SoL. Ours start at 101.
 |---|---|
 | 101 | `devout_sol` — Devout, SoL with progress bar |
 | 102 | `election_promise` — back the group's party at the next election |
-| 103 | `industrialists_healthy` — X healthy levels of a heavy industry type (Industrialists, options 5 and 6) |
+| 103 | `industrialists_healthy` — X healthy levels of a heavy industry type held 6 months (Industrialists, options 5 and 6) |
 
 ## Feature devout_sol — "Commitment: The Flock's Welfare"
 - One journal entry `je_nr_devout_sol`, one bar `nr_devout_sol_bar` from 0 to 36 (`nr_devout_sol_bar_max`, keep in sync with `max_value`).
@@ -341,7 +341,7 @@ Agreed design; same scheme as the landowners' grants (`nr_softbribe_roll`, expen
 Agreed with the user. When vanilla gives the Industrialists a heavy industry building (option 5) or the heavy industry group (option 6), the promise becomes ours (`promise_quest_type` 103, journal entry `je_nr_industrialists_healthy`):
 - always a specific building type: option 5 keeps the vanilla type (heavy industry: steel mill, chemical plant, explosives factory, synthetics plant, motor industry, automotive industry, electrics industry); option 6 picks one of those types the country already has instead of the whole group;
 - target X = the type's current levels + N, so X is always above what exists; N is the vanilla increase (option 5: `building_level_increase`; option 6: the group increase), both with our logarithmic scaler;
-- completed when X levels of the type are healthy: `occupancy >= 0.9`, `weekly_profit > 0`, `is_subsidized = no` (`nr_industrialists_healthy_levels`); 10 years, +3 with the vanilla extension button; vanilla completion / failure effects;
+- completed when X levels of the type are healthy (`occupancy >= 0.9`, `weekly_profit > 0`, `is_subsidized = no`, `nr_industrialists_healthy_levels`) for 6 months in a row (monthly counter `nr_industrialists_healthy_months`, reset when the target is lost); trade subventions and tariffs are the player's levers, only building subsidies are excluded; 10 years, +3 with the vanilla extension button; vanilla completion / failure effects;
 - hooks: `nr_industrialists_healthy_prepare` in `nr_negotiation_after_options` (targets for the option tooltips, vars `_type_5 / _target_5 / _type_6 / _target_6` on the group), options `negotiation.1.o5` / `.o6` call `nr_industrialists_healthy_start` instead of the vanilla promise when prepared. Railways and power plants (option 5) stay vanilla.
 
 ## Feature industrialists_commissions - places in the commissions (negotiation option 2 for the Industrialists)

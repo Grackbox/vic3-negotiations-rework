@@ -1,5 +1,6 @@
 ﻿# NR: the Industrialists' heavy industry promise (options 5 and 6, promise_quest_type 103): X levels of a heavy
-# industry type staffed at least 90%, profitable and not subsidized within 10 years (+3 with the vanilla extension).
+# industry type staffed at least 90%, profitable and not subsidized, held 6 months in a row, within 10 years (+3 with the
+# vanilla extension).
 
 je_nr_industrialists_healthy = {
 	icon = "gfx/interface/icons/event_icons/event_trade.dds"
@@ -21,6 +22,26 @@ je_nr_industrialists_healthy = {
 		}
 	}
 
+	on_monthly_pulse = { # the target must hold 6 months in a row
+		effect = {
+			scope:ig ?= {
+				if = {
+					limit = { nr_industrialists_healthy_levels >= var:nr_industrialists_healthy_target }
+					change_variable = {
+						name = nr_industrialists_healthy_months
+						add = 1
+					}
+				}
+				else = {
+					set_variable = {
+						name = nr_industrialists_healthy_months
+						value = 0
+					}
+				}
+			}
+		}
+	}
+
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
@@ -32,7 +53,7 @@ je_nr_industrialists_healthy = {
 	complete = {
 		custom_tooltip = {
 			text = nr_industrialists_healthy_complete_tt
-			scope:ig ?= { nr_industrialists_healthy_levels >= var:nr_industrialists_healthy_target }
+			scope:ig ?= { var:nr_industrialists_healthy_months ?= 6 }
 		}
 	}
 

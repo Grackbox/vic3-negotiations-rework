@@ -1098,6 +1098,10 @@ nr_industrialists_healthy_start = {
 			name = nr_industrialists_healthy_target
 			value = var:nr_industrialists_healthy_target_$N$
 		}
+		set_variable = {
+			name = nr_industrialists_healthy_months
+			value = 0
+		}
 		finish_negotiation = "negotiation.1.$OPTION$"
 		set_variable = {
 			name = promise_quest_type
@@ -1118,6 +1122,7 @@ nr_industrialists_healthy_cleanup = {
 			remove_variable = nr_industrialists_healthy_target_5
 			remove_variable = nr_industrialists_healthy_type_6
 			remove_variable = nr_industrialists_healthy_target_6
+			remove_variable = nr_industrialists_healthy_months
 		}
 	}
 }
