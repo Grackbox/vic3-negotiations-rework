@@ -143,7 +143,7 @@ Every group will get its own soft form of option 1 instead of money (Devout: cha
 
 | Group | Option 1 weight | Money / own form | Own form |
 |---|---|---|---|
-| Industrialists | +20 | 80 / 20 | (to design: state contracts, concessions) |
+| Industrialists | +20 | 80 / 20 | state contracts (feature industrialists_contracts) |
 | Petty Bourgeoisie | +10 | 60 / 40 | (to design: town privileges, patents) |
 | Landowners | +10 | 50 / 50 | grants (in design) |
 | Armed Forces | 0 | 50 / 50 | (to design: army orders, officers' pensions) |
@@ -316,6 +316,38 @@ Agreed design; same scheme as the Devout church officials. Numbers are drafts.
 | .14 | Service Census | Hereditary Bureaucrats | Intelligentsia |
 - Every form: lore line + historical concept (noble assemblies after 1785; Prussian patrimonial courts until 1849, Russian until 1861; English JPs until the county councils of 1888; Prussian manorial police until 1872, Russian elected district police chief until 1862; zemstvos 1864; poll tax through the landowner, tax farming; Southern slave patrols; Brazil's slaves of the nation, El Cobre until 1800, Capitol built partly by hired slaves; Junker officer corps, purchase of commissions until 1871; Russian recruit levies until 1874; Naval Cadet Corps; Table of Ranks 1722, Prussian Landrat).
 - Files: `common/scripted_effects/nr_landowners_offices_effects.txt`, `common/scripted_triggers/nr_landowners_offices_triggers.txt`, `common/script_values/nr_landowners_offices_values.txt`, `common/static_modifiers/nr_landowners_offices_modifiers.txt`, `common/amendments/nr_landowners_offices_amendments.txt`, `common/journal_entries/nr_landowners_offices_je.txt` (petitions police / landed / hereditary), `events/nr_landowners_offices_events.txt`, `localization/*/nr_landowners_offices_l_*.yml`, concepts in `nr_game_concepts.txt`. Debug: `event nr_debug.8` (form event and every follow-up).
+
+## Feature industrialists_contracts - state contracts instead of money (negotiation option 1 for the Industrialists)
+Agreed design; same scheme as the landowners' grants (`nr_softbribe_roll`, expenses x form factor, campaign slots, form event a week later: default + 2 random, 10 years decaying, follow-ups, interruption popups). Numbers are drafts.
+- Roll: 80 / 20 money or contract (unchanged). Always a contract: leader Honorable or Ambitious. Always money: Grifter / Expensive Tastes / Hedonist, or no free slot.
+- Rules agreed with the user: temporary bonuses to railways are pointless (railways are unprofitable, subsidised, their product is infrastructure), so the railway concession builds lines at once; cost-structure effects only in amendments.
+
+| Form | Cost | Available | Effects | Ended by | Follow-up (10 years) |
+|---|---|---|---|---|---|
+| State Order (default) | x1 | always | base effects only | - | - |
+| Railway Concession (France 1842, Main Society of Russian Railways 1857) | x1.25 | tech railways, an incorporated state without a railway | at once: railway level 1 in up to 2 incorporated states without a railway (most populous); campaign: Industrialists +1 approval | - | amendment Guaranteed Return (economic system laws): infrastructure +5%, loan interest +0.25%, Industrialists +5% strength |
+| Arms Contracts (Krupp, Armstrong, Putilov) | x1 | always | military industry throughput +10%, Armed Forces +1 | - | amendment Private Arsenals (army laws): military goods cost -5% |
+| Iron Tariff (German tariff 1879, McKinley 1890) | x0.25 | no Free Trade | heavy industry throughput +10%; lower strata SoL -0.25, Petty Bourgeoisie -1 | Free Trade | Protectionism: amendment Iron Tariff (heavy industry +5%, Industrialists +1; lower strata SoL -0.25, Petty Bourgeoisie -1); otherwise petition for Protectionism |
+| Mining Concession | x0.5 | always | mining throughput +10%; laborers mortality +5%, Rural Folk -1 | - | thanks |
+| Colonial Charter (British South Africa Company 1889, Royal Niger Company 1886) | x0.75 | a colonial law other than no colonial affairs | colony growth +25%, Industrialists +1; infamy generation +10% | no colonial affairs | Colonial Exploitation: amendment Chartered Companies (colony growth +10%, Industrialists +5% strength, infamy generation +5%); otherwise petition for Colonial Exploitation |
+| Strike Suppression (Combination Acts, Pinkertons) | x0.5 | Combination Acts or no labour associations law granting rights | Trade Unions -10% strength, turmoil effects -5%; radicals from movements +5% | a law granting the right to associate | Combination Acts: amendment Strike Law (Trade Unions -5% strength, turmoil effects -3%); otherwise petition |
+| Contract Labour (Chinese workers on American and Peruvian lines) | x0.5 | no migration controls | migration attraction +10%, construction sector +5%; Petty Bourgeoisie -1 | migration controls / closed borders | thanks |
+
+## Feature industrialists_commissions - places in the commissions (negotiation option 2 for the Industrialists)
+Agreed design; same scheme as the Devout church officials and the landowners' places in the provinces (vanilla bureaucracy penalty x form factor, Industrialists +12 / 24 / 36% strength, form event a week later, slots 1 / 2 / 3).
+
+| Form | Cost | Available | Effects (10 years, decaying) | Ended by | Follow-up |
+|---|---|---|---|---|---|
+| Exchange Committee (default) | x1 | always | base effects only | - | - |
+| Ministry of Ways and Communications (Russia 1865) | x1.25 | always | infrastructure construction efficiency +20%, Industrialists +5% strength; Landowners -1 | - | thanks |
+| Patent Office (US 1836, German patent law 1877) | x0.75 | always | tech spread +10%, Intelligentsia +1; Petty Bourgeoisie -1 | - | three random researchable production technologies to choose from (fewer if not enough), the chosen one gets a third of its era cost (2500 / 3500 / 4150 / 5000 / 5850, vanilla convention); none: thanks |
+| Company Law Commission (British Companies Act 1862, French 1867) | x1 | no Command Economy / Cooperative Ownership | company throughput +5%, company construction efficiency +10%; Petty Bourgeoisie -1 | those laws | amendment Limited Liability (Laissez-Faire / Interventionism): company throughput +3%, private construction allocation +5% |
+| Factory Inspection in the Owners' Hands | x0.75 | Regulatory Bodies / Worker Protections | manufacturing throughput +5%; laborers mortality +5%, Trade Unions -2 | No Workers' Rights | amendment Mild Oversight (same laws): manufacturing +3%, Trade Unions -5% strength |
+| Consular Service | x0.75 | always | leverage generation +10%, influence +5% | - | thanks |
+| State Bank in the Bankers' Hands (Bank of England, Banque de France 1800, Russian State Bank 1860) | x1 | no Command Economy | private construction allocation +10%, Industrialists +5% strength; minting -10% | Command Economy | amendment Independent Bank (Laissez-Faire / Interventionism): loan interest -0.5%, minting -5% |
+
+- Room in the law: new opposing pairs - economic system laws: Industrialists - Landowners; labour laws (workers' rights, labour associations): Industrialists - Trade Unions.
+- Enactment events for the new amendments: same pattern as the Landowners' (`.1` style, in the debate pool).
 
 ## Negotiation difficulty (reference)
 - Amenability (0-100) is computed in code; factor weights are not exposed.

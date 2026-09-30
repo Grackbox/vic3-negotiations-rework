@@ -5,7 +5,8 @@
       "Bash(python \"C:/Users/Grack/AppData/Local/Temp/claude/d--dl-negotiations-rework/d63a2c98-fc58-4b5f-8917-480116b72b7d/scratchpad/fix_log_errors.py\")",
       "Bash(git commit -qm 'Fixes from the game log: valid construction/prestige modifiers, amendment triggers no longer collide with form triggers, duplicate leader trigger removed, debug bribe needs an enactment; check_mod reports definitions made twice *)",
       "Bash(git commit -qm 'Room in the law: striking an article of the same group as the new one is free *)",
-      "Bash(git commit -qam 'README: room in the law fully tested *)"
+      "Bash(git commit -qam 'README: room in the law fully tested *)",
+      "Bash(git push *)"
     ]
   }
 }
