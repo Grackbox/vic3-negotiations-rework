@@ -1016,3 +1016,108 @@ nr_industrialists_add_independent_bank = {
 	}
 }
 
+# ========== Heavy industry promise (options 5 and 6) ==========
+# Called from nr_negotiation_after_options (after set_neg_options): prepares the targets for the option tooltips.
+# Option 5: the vanilla type if it is heavy industry, target = vanilla building_level_increase (existing + N).
+# Option 6: a heavy industry type the country already has instead of the whole group, target = its levels + N,
+# N = the vanilla group increase (with our logarithmic scaler). Scope: country, scope:ig.
+nr_industrialists_healthy_prepare = {
+	scope:ig = {
+		if = {
+			limit = { has_variable = nr_industrialists_healthy_type_5 }
+			remove_variable = nr_industrialists_healthy_type_5
+		}
+		if = {
+			limit = { has_variable = nr_industrialists_healthy_type_6 }
+			remove_variable = nr_industrialists_healthy_type_6
+		}
+		if = {
+			limit = {
+				exists = var:promised_building_type
+				var:promised_building_type = { nr_industrialists_healthy_is_heavy = yes }
+				exists = var:building_level_increase
+			}
+			set_variable = {
+				name = nr_industrialists_healthy_type_5
+				value = var:promised_building_type
+			}
+			set_variable = {
+				name = nr_industrialists_healthy_target_5
+				value = var:building_level_increase
+			}
+		}
+		if = {
+			limit = {
+				var:promised_building_group ?= bg:bg_heavy_industry
+				exists = var:building_group_level_increase
+				owner = {
+					any_scope_building = {
+						is_building_group = bg_heavy_industry
+						type = { nr_industrialists_healthy_is_heavy = yes }
+					}
+				}
+			}
+			owner = {
+				random_scope_building = {
+					limit = {
+						is_building_group = bg_heavy_industry
+						type = { nr_industrialists_healthy_is_heavy = yes }
+					}
+					type = { save_temporary_scope_as = nr_industrialists_healthy_group_type }
+				}
+			}
+			set_variable = {
+				name = nr_industrialists_healthy_type_6
+				value = scope:nr_industrialists_healthy_group_type
+			}
+			set_variable = {
+				name = nr_industrialists_healthy_target_6
+				value = {
+					value = nr_industrialists_healthy_all_levels_6
+					add = var:building_group_level_increase
+					subtract = building_group_levels_existing
+					min = {
+						value = nr_industrialists_healthy_all_levels_6
+						add = 1
+					}
+				}
+			}
+		}
+	}
+}
+
+# The option was chosen: $N$ = 5 / 6, $OPTION$ = its key for finish_negotiation. Scope: country, scope:ig.
+nr_industrialists_healthy_start = {
+	custom_tooltip = nr_industrialists_healthy_tt_$N$
+	scope:ig = {
+		set_variable = {
+			name = nr_industrialists_healthy_type
+			value = var:nr_industrialists_healthy_type_$N$
+		}
+		set_variable = {
+			name = nr_industrialists_healthy_target
+			value = var:nr_industrialists_healthy_target_$N$
+		}
+		finish_negotiation = "negotiation.1.$OPTION$"
+		set_variable = {
+			name = promise_quest_type
+			value = 103 # NR: heavy industry promise
+		}
+	}
+	promise_quest = yes
+	construction_balance_effects = yes
+	add_journal_entry = { type = je_nr_industrialists_healthy } # must be last
+}
+
+nr_industrialists_healthy_cleanup = {
+	scope:ig ?= {
+		hidden_effect = {
+			remove_variable = nr_industrialists_healthy_type
+			remove_variable = nr_industrialists_healthy_target
+			remove_variable = nr_industrialists_healthy_type_5
+			remove_variable = nr_industrialists_healthy_target_5
+			remove_variable = nr_industrialists_healthy_type_6
+			remove_variable = nr_industrialists_healthy_target_6
+		}
+	}
+}

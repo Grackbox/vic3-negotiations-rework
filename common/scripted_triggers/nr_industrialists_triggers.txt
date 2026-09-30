@@ -199,3 +199,26 @@ nr_industrialists_combination_petition_available = {
 	nr_industrialists_leader_not_against_law = { LAW = law_combination_acts }
 	NOT = { has_journal_entry = je_nr_industrialists_combination_petition }
 }
+
+# ---------- Heavy industry promise (options 5 and 6) ----------
+# The building type is heavy industry. Scope: building type.
+nr_industrialists_healthy_is_heavy = {
+	OR = {
+		this = bt:building_steel_mill
+		this = bt:building_chemical_plant
+		this = bt:building_explosives_factory
+		this = bt:building_synthetics_plant
+		this = bt:building_motor_industry
+		this = bt:building_automotive_industry
+		this = bt:building_electrics_industry
+	}
+}
+
+# Option 5 / 6 of this negotiation is our heavy industry promise. Scope: country, scope:ig.
+nr_industrialists_healthy_option_5 = {
+	scope:ig = { has_variable = nr_industrialists_healthy_type_5 }
+}
+
+nr_industrialists_healthy_option_6 = {
+	scope:ig = { has_variable = nr_industrialists_healthy_type_6 }
+}

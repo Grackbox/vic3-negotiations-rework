@@ -67,6 +67,7 @@ Vanilla: 1 army, 2 law, 3 buildings, 4 taxes, 5 SoL. Ours start at 101.
 |---|---|
 | 101 | `devout_sol` — Devout, SoL with progress bar |
 | 102 | `election_promise` — back the group's party at the next election |
+| 103 | `industrialists_healthy` — X healthy levels of a heavy industry type (Industrialists, options 5 and 6) |
 
 ## Feature devout_sol — "Commitment: The Flock's Welfare"
 - One journal entry `je_nr_devout_sol`, one bar `nr_devout_sol_bar` from 0 to 36 (`nr_devout_sol_bar_max`, keep in sync with `max_value`).
@@ -335,6 +336,13 @@ Agreed design; same scheme as the landowners' grants (`nr_softbribe_roll`, expen
 | Colonial Charter (British South Africa Company 1889, Royal Niger Company 1886) | x0.75 | a colonial law other than no colonial affairs | colony growth +25%, Industrialists +1; infamy generation +10% | no colonial affairs | Colonial Exploitation: amendment Chartered Companies (colony growth +10%, Industrialists +5% strength, infamy generation +5%); otherwise petition for Colonial Exploitation |
 | Strike Suppression (Combination Acts, Pinkertons) | x0.5 | Combination Acts or no labour associations law granting rights | Trade Unions -10% strength, turmoil effects -5%; radicals from movements +5% | a law granting the right to associate | Combination Acts: amendment Strike Law (Trade Unions -5% strength, turmoil effects -3%); otherwise petition |
 | Contract Labour (Chinese workers on American and Peruvian lines) | x0.5 | no migration controls | migration attraction +10%, construction sector +5%; Petty Bourgeoisie -1 | migration controls / closed borders | thanks |
+
+### Industrialists: heavy industry that pays (options 5 and 6)
+Agreed with the user. When vanilla gives the Industrialists a heavy industry building (option 5) or the heavy industry group (option 6), the promise becomes ours (`promise_quest_type` 103, journal entry `je_nr_industrialists_healthy`):
+- always a specific building type: option 5 keeps the vanilla type (heavy industry: steel mill, chemical plant, explosives factory, synthetics plant, motor industry, automotive industry, electrics industry); option 6 picks one of those types the country already has instead of the whole group;
+- target X = the type's current levels + N, so X is always above what exists; N is the vanilla increase (option 5: `building_level_increase`; option 6: the group increase), both with our logarithmic scaler;
+- completed when X levels of the type are healthy: `occupancy >= 0.9`, `weekly_profit > 0`, `is_subsidized = no` (`nr_industrialists_healthy_levels`); 10 years, +3 with the vanilla extension button; vanilla completion / failure effects;
+- hooks: `nr_industrialists_healthy_prepare` in `nr_negotiation_after_options` (targets for the option tooltips, vars `_type_5 / _target_5 / _type_6 / _target_6` on the group), options `negotiation.1.o5` / `.o6` call `nr_industrialists_healthy_start` instead of the vanilla promise when prepared. Railways and power plants (option 5) stay vanilla.
 
 ## Feature industrialists_commissions - places in the commissions (negotiation option 2 for the Industrialists)
 Agreed design; same scheme as the Devout church officials and the landowners' places in the provinces (vanilla bureaucracy penalty x form factor, Industrialists +12 / 24 / 36% strength, form event a week later, slots 1 / 2 / 3).

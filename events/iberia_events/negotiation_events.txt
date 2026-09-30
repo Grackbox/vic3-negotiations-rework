@@ -566,21 +566,27 @@ negotiation.1 = {
 		}
 
 
-		custom_tooltip = {
-			text = promise_build_tt
+		if = { # NR: hook - the Industrialists' heavy industry promise (nr_industrialists_effects.txt)
+			limit = { nr_industrialists_healthy_option_5 = yes }
+			nr_industrialists_healthy_start = { N = 5 OPTION = o5 }
 		}
-		nr_neg_option_5_flavor = yes # NR: hook; lore line for our building requests (nr_negotiation_hooks.txt)
-		scope:ig = {
-			finish_negotiation = "negotiation.1.o5"
-			set_variable = {
-				name = promise_quest_type
-				value = 3 #buildings
+		else = { # unchanged vanilla variant
+			custom_tooltip = {
+				text = promise_build_tt
 			}
-		}
-		promise_quest = yes
-		construction_balance_effects = yes
-		add_journal_entry = { #must do this last
-			type = je_negotiate_buildings
+			nr_neg_option_5_flavor = yes # NR: hook; lore line for our building requests (nr_negotiation_hooks.txt)
+			scope:ig = {
+				finish_negotiation = "negotiation.1.o5"
+				set_variable = {
+					name = promise_quest_type
+					value = 3 #buildings
+				}
+			}
+			promise_quest = yes
+			construction_balance_effects = yes
+			add_journal_entry = { #must do this last
+				type = je_negotiate_buildings
+			}
 		}
 	}
 
@@ -593,20 +599,26 @@ negotiation.1 = {
 				var:negotiation_option_c = 6
 			}
 		}
-		custom_tooltip = {
-			text = promise_building_group_tt
+		if = { # NR: hook - the Industrialists' heavy industry promise (nr_industrialists_effects.txt)
+			limit = { nr_industrialists_healthy_option_6 = yes }
+			nr_industrialists_healthy_start = { N = 6 OPTION = o6 }
 		}
-		scope:ig = {
-			finish_negotiation = "negotiation.1.o6"
-			set_variable = {
-				name = promise_quest_type
-				value = 3 #buildings
+		else = { # unchanged vanilla variant
+			custom_tooltip = {
+				text = promise_building_group_tt
 			}
-		}
-		promise_quest = yes
-		construction_balance_effects = yes
-		add_journal_entry = { #must do this last
-			type = je_negotiate_building_group
+			scope:ig = {
+				finish_negotiation = "negotiation.1.o6"
+				set_variable = {
+					name = promise_quest_type
+					value = 3 #buildings
+				}
+			}
+			promise_quest = yes
+			construction_balance_effects = yes
+			add_journal_entry = { #must do this last
+				type = je_negotiate_building_group
+			}
 		}
 	}
 

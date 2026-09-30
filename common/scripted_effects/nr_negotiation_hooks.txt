@@ -21,6 +21,7 @@ nr_negotiation_after_options = {
 	if = {
 		limit = { scope:ig = { is_interest_group_type = ig_industrialists } }
 		nr_softbribe_roll = { KEY = nr_industrialists_contracts REFUSES = nr_industrialists_contracts_leader_refuses }
+		nr_industrialists_healthy_prepare = yes # heavy industry promises of options 5 and 6
 	}
 	if = {
 		limit = {

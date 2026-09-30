@@ -79,3 +79,53 @@ nr_industrialists_commissions_leader_weight = {
 	}
 	min = -10
 }
+
+# ---------- Heavy industry promise (options 5 and 6): "X healthy levels" ----------
+# Levels of the promised type (var:nr_industrialists_healthy_type on the group) that are staffed at least 90%, profitable and not subsidized.
+# Scope: interest group.
+nr_industrialists_healthy_levels = {
+	value = 0
+	owner = {
+		every_scope_building = {
+			limit = {
+				type = root.var:nr_industrialists_healthy_type
+				occupancy >= 0.9
+				weekly_profit > 0
+				is_subsidized = no
+			}
+			add = this.level
+		}
+	}
+}
+
+# All levels of the promised type. Scope: interest group.
+nr_industrialists_healthy_all_levels = {
+	value = 0
+	owner = {
+		every_scope_building = {
+			limit = { type = root.var:nr_industrialists_healthy_type }
+			add = this.level
+		}
+	}
+}
+
+# Same for the option tooltips, before the promise is chosen ($N$ = 5 / 6 by option). Scope: interest group.
+nr_industrialists_healthy_all_levels_5 = {
+	value = 0
+	owner = {
+		every_scope_building = {
+			limit = { type = root.var:nr_industrialists_healthy_type_5 }
+			add = this.level
+		}
+	}
+}
+
+nr_industrialists_healthy_all_levels_6 = {
+	value = 0
+	owner = {
+		every_scope_building = {
+			limit = { type = root.var:nr_industrialists_healthy_type_6 }
+			add = this.level
+		}
+	}
+}
