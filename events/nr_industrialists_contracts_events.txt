@@ -27,6 +27,7 @@ nr_industrialists_contracts.1 = {
 		}
 		nr_industrialists_contracts_offer_random_form = yes
 		nr_industrialists_contracts_offer_random_form = yes
+		nr_industrialists_contracts_offer_random_form = yes
 	}
 
 	option = { # default: base effects only

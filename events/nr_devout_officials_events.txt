@@ -3,7 +3,7 @@
 # NR: where the church officials go (negotiation option 2 for the Devout, see nr_devout_officials_effects.txt).
 # The base bureaucracy penalty (nr_devout_officials_penalty_<slot> x level) is already applied; forms rescale it
 # (x0.75 / x1 / x1.25 / x1.5). All effects last 10 years and decay.
-# Options shown: Clerical Advisers (always, default) + 2 random of the available forms:
+# Options shown: Clerical Advisers (always, default) + 3 random of the available forms:
 # Censorship Committees (Right of Assembly), Parish Registers, The Church and the Slaves (slavery legal),
 # Church Tax (state religion or freedom of conscience), Prisons, Calendar and Holidays (not state atheism),
 # Seminarists in the Chancelleries, Synodal Administration (state religion).
@@ -31,7 +31,8 @@ nr_devout_officials.1 = {
 			save_scope_as = ig
 			leader ?= { save_scope_as = ig_leader }
 		}
-		# Pick 2 of the available forms at random
+		# Pick 3 of the available forms at random
+		nr_devout_officials_offer_random_form = yes
 		nr_devout_officials_offer_random_form = yes
 		nr_devout_officials_offer_random_form = yes
 	}

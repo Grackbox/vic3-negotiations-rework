@@ -27,6 +27,7 @@ nr_industrialists_commissions.1 = {
 		}
 		nr_industrialists_commissions_offer_random_form = yes
 		nr_industrialists_commissions_offer_random_form = yes
+		nr_industrialists_commissions_offer_random_form = yes
 	}
 
 	option = { # default: base effects only

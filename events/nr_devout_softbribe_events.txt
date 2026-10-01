@@ -35,6 +35,7 @@ nr_devout_softbribe.1 = {
 		# Pick 2 of the 4 civil forms at random
 		nr_devout_softbribe_offer_random_form = yes
 		nr_devout_softbribe_offer_random_form = yes
+		nr_devout_softbribe_offer_random_form = yes
 	}
 
 	option = { # Church Propaganda: base effects only, cost x1

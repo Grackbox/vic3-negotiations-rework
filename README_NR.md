@@ -173,6 +173,7 @@ When a law change ends a running campaign or form early, it never ends silently:
 - Cases: Censorship Committees (Protected Speech, `nr_devout_censorship.3`, backlash reaction); landowners' grants - Corn Laws, Corvee, Return of Fugitives, Slave Import (`nr_landowners_grants.21` - `.24`).
 
 ## Pattern: random forms in a choice event
+- Every campaign form event offers 4 options: the default form + 3 random available forms (not already running); fewer if fewer are available (agreed with the user).
 Soft bribe and church officials offer a default form plus 2 random ones. Each feature has `nr_<feature>_offer_random_form` (one `random_list` that sets `nr_<feature>_offer_<form>`; called twice), `nr_<feature>_cleanup` (in the event's `after`), and per-form helpers: `nr_devout_softbribe_add_form = { FORM }` + `nr_devout_softbribe_set_cost = { FACTOR }`; `nr_devout_officials_choose_form = { FORM FACTOR }` with availability `nr_devout_officials_<form>_available` checked through `nr_devout_officials_can_offer = { FORM }`.
 
 ## Feature devout_chaplains - Army Chaplains amendment
@@ -279,7 +280,7 @@ Agreed with the user: the overall average SoL (SoL by strata exists only for the
 
 ## Feature landowners_offices - places in the provinces (negotiation option 2 for the Landowners)
 Agreed design; same scheme as the Devout church officials. Numbers are drafts.
-- Option `negotiation.1.nr_o2_custom` ("Offer the estates places in the provinces"): vanilla bureaucracy penalty (`nr_landowners_offices_penalty_<slot>`, -7.5% x level 1 / 2 / 4, decaying 10 years) x form factor; Landowners +12 / 24 / 36% political strength (`nr_landowners_offices_benefits`, decaying); form event `nr_landowners_offices.1` a week later: Noble Elections (default) + 2 random available forms. Campaign slots 1 / 2 / 3 by clout (`KEY = nr_landowners_offices`), a running form is not offered again. No bureaucracy deficit check. Leader weight for option 2: Ambitious / Imperious / Master Bureaucrat / Political Appointee +10, political operator +5 / 10 / 15, Honorable +5; Reckless / Romantic -5, bribe lovers -5.
+- Option `negotiation.1.nr_o2_custom` ("Offer the estates places in the provinces"): vanilla bureaucracy penalty (`nr_landowners_offices_penalty_<slot>`, -7.5% x level 1 / 2 / 4, decaying 10 years) x form factor; Landowners +12 / 24 / 36% political strength (`nr_landowners_offices_benefits`, decaying); form event `nr_landowners_offices.1` a week later: Noble Elections (default) + 3 random available forms. Campaign slots 1 / 2 / 3 by clout (`KEY = nr_landowners_offices`), a running form is not offered again. No bureaucracy deficit check. Leader weight for option 2: Ambitious / Imperious / Master Bureaucrat / Political Appointee +10, political operator +5 / 10 / 15, Honorable +5; Reckless / Romantic -5, bribe lovers -5.
 - Rule agreed with the user: cost-structure effects (institution / bureaucracy cost) go into the follow-up amendments, not into the 10-year forms.
 
 | Form | Cost | Available | Effects (10 years, decaying) | Ended by |
@@ -332,7 +333,7 @@ Agreed design; same scheme as the Devout church officials. Numbers are drafts.
 - Files: `common/scripted_effects/nr_landowners_offices_effects.txt`, `common/scripted_triggers/nr_landowners_offices_triggers.txt`, `common/script_values/nr_landowners_offices_values.txt`, `common/static_modifiers/nr_landowners_offices_modifiers.txt`, `common/amendments/nr_landowners_offices_amendments.txt`, `common/journal_entries/nr_landowners_offices_je.txt` (petitions police / landed / hereditary), `events/nr_landowners_offices_events.txt`, `localization/*/nr_landowners_offices_l_*.yml`, concepts in `nr_game_concepts.txt`. Debug: `event nr_debug.8` (form event and every follow-up).
 
 ## Feature industrialists_contracts - state contracts instead of money (negotiation option 1 for the Industrialists)
-Agreed design; same scheme as the landowners' grants (`nr_softbribe_roll`, expenses x form factor, campaign slots, form event a week later: default + 2 random, 10 years decaying, follow-ups, interruption popups). Numbers are drafts.
+Agreed design; same scheme as the landowners' grants (`nr_softbribe_roll`, expenses x form factor, campaign slots, form event a week later: default + 3 random, 10 years decaying, follow-ups, interruption popups). Numbers are drafts.
 - Roll: 80 / 20 money or contract (unchanged). Always a contract: leader Honorable or Ambitious. Always money: Grifter / Expensive Tastes / Hedonist, or no free slot.
 - Rules agreed with the user: temporary bonuses to railways are pointless (railways are unprofitable, subsidised, their product is infrastructure), so the railway concession builds lines at once; cost-structure effects only in amendments.
 

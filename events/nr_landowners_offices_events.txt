@@ -1,7 +1,7 @@
 ﻿namespace = nr_landowners_offices
 
 # NR: the Landowners' places in the provinces (negotiation option 2, see nr_landowners_offices_effects.txt).
-# .1 - form event a week after the negotiation: Noble Elections (always, default) + 2 random of the available forms.
+# .1 - form event a week after the negotiation: Noble Elections (always, default) + 3 random of the available forms.
 # .11 - .21 - follow-ups 10 years after the form (only if it was not interrupted).
 # .31 - .39 - a law change ends a form (pattern "Campaign interruption").
 
@@ -27,6 +27,7 @@ nr_landowners_offices.1 = {
 			save_scope_as = ig
 			leader ?= { save_scope_as = ig_leader }
 		}
+		nr_landowners_offices_offer_random_form = yes
 		nr_landowners_offices_offer_random_form = yes
 		nr_landowners_offices_offer_random_form = yes
 	}

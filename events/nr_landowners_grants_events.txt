@@ -2,7 +2,7 @@
 
 # NR: landowners' grants (negotiation option 1, feature landowners_grants): the form of the grant.
 # Base expenses (vanilla bribe amount, slot modifier) and the Landowners' favour are already applied.
-# Options: Ranks and Orders (always, default, base effects only) + 2 random of the available forms. 10 years, decaying.
+# Options: Ranks and Orders (always, default, base effects only) + 3 random of the available forms. 10 years, decaying.
 # Follow-ups .11 - .18 come 10 years later if the form was not interrupted by a law change.
 
 nr_landowners_grants.1 = {
@@ -27,7 +27,8 @@ nr_landowners_grants.1 = {
 			save_scope_as = ig
 			leader ?= { save_scope_as = ig_leader }
 		}
-		# Pick 2 of the available forms at random
+		# Pick 3 of the available forms at random
+		nr_landowners_grants_offer_random_form = yes
 		nr_landowners_grants_offer_random_form = yes
 		nr_landowners_grants_offer_random_form = yes
 	}
