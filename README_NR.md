@@ -159,6 +159,11 @@ Every group will get its own soft form of option 1 instead of money (Devout: cha
 
 - New group checklist: its soft-form start effect (like `nr_devout_softbribe_start`), a `REFUSES` trigger, the call in `nr_negotiation_after_options`, `nr_neg_option_1_custom` routing, the option 1 roll condition in `nr_neg_option_1_allowed` (pending form event, free slot or affordable bribe), the option name in `NR_SoftBribeLine`.
 
+## Pattern: campaign forms (shared framework, `nr_campaign_slots.txt`)
+Every campaign with a form event uses the same effects with `KEY` (= the campaign key, e.g. `nr_landowners_offices`):
+`nr_campaign_choose_form { KEY FORM }` (form modifier, 10 years decaying), `nr_campaign_mark_running { KEY FORM }` (mark for the follow-up), `nr_campaign_remember_slot { KEY FORM }` (only forms a law can end), `nr_campaign_set_penalty { KEY FACTOR }` (bureaucracy campaigns: `<KEY>_penalty_<slot>` = level x factor), `nr_campaign_interrupt { KEY FORM EVENT COST }` (COST = penalty / expenses; removes the form, frees its slot, fires `<KEY>.<EVENT>`), `nr_campaign_free_slot`. AI value `nr_campaign_spare_share` (`nr_campaign_values.txt`). Money campaigns set their cost with `nr_softbribe_set_cost { KEY FACTOR }`. Each feature keeps only its own forms, their availability, the form event, `<KEY>_offer_random_form`, `<KEY>_cleanup`, `<KEY>_check_laws` and texts.
+- Leader rule everywhere: `nr_leader_not_against_law = { IG = ig_<group> LAW = <law> }`.
+
 ## Pattern: campaign slots
 A group can run several 10-year campaigns of one kind at once, limited by its clout: 20%+ -> 3, 10-20% -> 2, below 10% -> 1.
 - `nr_campaign_slot_free = { KEY }` (trigger, `common/scripted_triggers/nr_campaign_slots.txt`) checks the limit when the negotiation option is rolled; `nr_campaign_take_slot = { KEY }` (effect, `common/scripted_effects/nr_campaign_slots.txt`) takes the first free slot: country variable `<KEY>_slot_1..3` for `long_modifier_time`, and `<KEY>_current_slot` until the form event is done.
@@ -204,6 +209,8 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 
 ## Tools
 - `python tools/check_mod.py` - static checks, no game needed: braces and indentation, every `nr_` symbol defined and used, names built from parameters (`nr_devout_officials_$FORM$` etc.) exist for every value passed, localization BOM / EN-RU parity / duplicates / missing keys. `--fix-indent` rewrites indentation. Runs on GitHub on every push (`.github/workflows/check.yml`).
+- `python tools/gen_amendment_room.py` - regenerates `common/scripted_triggers/nr_amendment_room.txt` (our amendment list and the opposing sponsors per law group, table inside the script). Run after adding an amendment; `check_mod` reports the file when it is out of date.
+- `check_mod` also: reports definitions made twice, broken localization lines (a raw line break inside a value), and modifier keys that vanilla never uses (the engine docs list keys the game does not load; keys verified in game go into `KNOWN_VALID`).
 - `pwsh tools/deploy.ps1` - mirrors the mod into `Documents/Paradox Interactive/Victoria 3/mod/negotiations_rework` for testing (without `.git`, `.github`, `tools`).
 - Engine documentation (effects, triggers, modifiers, on_actions) is dumped by the game into `Documents/Paradox Interactive/Victoria 3/docs/*.log`.
 
@@ -295,10 +302,10 @@ Agreed design; same scheme as the Devout church officials. Numbers are drafts.
 | State Slaves | x1 | slavery legal | construction sector +10%, mining +5%, Landowners +1; abolitionist support +10%, slave mortality +5% | Slavery Banned (.36, planters) |
 | Noble Officer Corps | x1 | Peasant Levies / Professional Army | morale recovery +10%, Armed Forces +1, officers +10% strength; experience gain -10%, Intelligentsia -1 | National Militia / Mass Conscription (.37, reaction) |
 | Recruit Quotas by Estate | x0.5 | Peasant Levies | conscription +10%, Landowners +1; Rural Folk -1, peasants SoL -0.25 | no Peasant Levies (.38, no backlash) |
-| Naval Cadet Corps | x0.75 | coastal | prestige +5%, +1 unassigned admiral; Petty Bourgeoisie -1 | - |
+| Naval Cadet Corps | x0.75 | coastal | prestige from navy power +10%, +1 unassigned admiral; Petty Bourgeoisie -1 | - |
 | Chancery Posts for Noble Sons | x1 | Hereditary / Appointed Bureaucrats | bureaucracy +5%, aristocrats +10% strength, Landowners +1; Intelligentsia -1, tax waste +3% | Elected Bureaucrats (.39, reaction) |
 
-- Changed from the discussion: "prestige from navy power projection" is not a valid modifier in the game (only in the docs), so the naval form and Naval Census give prestige +5%. Patrimonial Courts use peasants SoL -0.25 instead of "peasant radicals +10%" (no per-pop-type radicals modifier); Slave Patrols have no movement radicalism modifier.
+- Changed from the discussion: Patrimonial Courts use peasants SoL -0.25 instead of "peasant radicals +10%" (no per-pop-type radicals modifier); Slave Patrols have no movement radicalism modifier.
 - Interruption: form modifier, its bureaucracy penalty and its slot go, no follow-up; popup `nr_landowners_offices.31` - `.39` with a historical quote, options by government / opposition (`nr_campaign_react_gave_up` / `nr_campaign_react_overruled`). Called from `nr_on_law_activated` (`nr_landowners_offices_check_laws`).
 - Follow-ups 10 years later (`.11` - `.21`, only with the running mark `nr_landowners_offices_<form>_running`): petition / amendment / decline -1 / thanks +2 / neutral close.
 
@@ -313,7 +320,7 @@ Agreed design; same scheme as the Devout church officials. Numbers are drafts.
 | State Slaves | amendment Slaves of the Nation (any legal slavery law): construction sector +5%, Landowners +1, abolitionist support +5% |
 | Noble Officer Corps | amendment Noble Commissions (Peasant Levies / Professional Army): military wages -10%, officers +10% strength, experience gain -5% |
 | Recruit Quotas by Estate | thanks |
-| Naval Cadet Corps | amendment Naval Census (any navy law): navy goods cost -5%, prestige +5% |
+| Naval Cadet Corps | amendment Naval Census (any navy law): navy goods cost -5%, prestige from navy power +10% |
 | Chancery Posts | Appointed Bureaucrats: petition for Hereditary Bureaucrats; Hereditary: amendment Service Census: population bureaucracy cost -5%, Intelligentsia -5% strength, Landowners +1 |
 
 - Amendments: sponsor Landowners, no authority cost; the leader rule applies (not offered if the Landowners leader is against the parent law).

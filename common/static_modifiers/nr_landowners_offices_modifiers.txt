@@ -108,7 +108,7 @@ nr_landowners_offices_recruits = {
 # naval, bureaucracy penalty x0.75
 nr_landowners_offices_naval = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
-	country_prestige_mult = 0.05
+	country_prestige_from_navy_power_projection_mult = 0.1
 	country_max_unassigned_admirals_add = 1
 	interest_group_ig_petty_bourgeoisie_approval_add = -1
 }

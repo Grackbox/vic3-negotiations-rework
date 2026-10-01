@@ -213,7 +213,7 @@ amendment_nr_landowners_naval_census = {
 
 	modifier = {
 		country_navy_goods_cost_mult = -0.05
-		country_prestige_mult = 0.05
+		country_prestige_from_navy_power_projection_mult = 0.1
 	}
 
 	possible = {

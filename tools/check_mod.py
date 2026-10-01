@@ -202,6 +202,35 @@ for f, t in texts.items():
 missing_loc = [k for k in need if k not in loc['english'] and k not in variables and '$' not in k and not k.endswith('_')]
 report('referenced from script but missing in localization', missing_loc)
 
+# ---------- 6. generated files are up to date ----------
+sys.path.insert(0, os.path.join(ROOT, 'tools'))
+import gen_amendment_room  # noqa: E402
+if open(gen_amendment_room.TARGET, encoding='utf-8').read() != gen_amendment_room.generate():
+    report('generated file out of date (run python tools/gen_amendment_room.py)', ['common/scripted_triggers/nr_amendment_room.txt'])
+
+# ---------- 7. modifier keys known to the game ----------
+# The engine docs (docs/modifiers.log) list keys the game does not load (e.g. country_prestige_from_navy_power_projection_mult,
+# building_group_bg_construction_throughput_add), so every key we use must appear somewhere in the vanilla game files.
+VANILLA = r'D:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common'
+KNOWN_VALID = {  # keys vanilla never uses, verified in game (no "Unknown modifier type" in error.log)
+    'building_aristocrats_standard_of_living_add', 'building_peasants_standard_of_living_add',
+    'building_group_bg_agriculture_self_investment_chance_add',
+}
+if os.path.isdir(VANILLA):
+    vocab = set()
+    for f in glob.glob(os.path.join(VANILLA, '**', '*.txt'), recursive=True):
+        if 'modifier_type_definitions' in f:
+            continue  # declared there is not enough: the game may still not load the key
+        vocab |= set(re.findall(r'\b([a-z][a-z0-9_]+)\s*=', open(f, encoding='utf-8-sig', errors='ignore').read()))
+    used = set()
+    for f, t in texts.items():
+        if 'static_modifiers' in f:
+            used |= {(k, f) for k in re.findall(r'(?m)^\t([a-z][a-z0-9_]+)\s*=', t) if k != 'icon'}
+        elif 'amendments' in f:
+            for block in re.findall(r'(?ms)^\tmodifier = \{\n(.*?)^\t\}', t):
+                used |= {(k, f) for k in re.findall(r'(?m)^\t\t([a-z][a-z0-9_]+)\s*=', block)}
+    report('modifier keys unknown to the game', sorted(f'{k} ({f})' for k, f in used if k not in vocab and k not in KNOWN_VALID))
+
 if problems:
     print(f'\n{len(problems)} check(s) failed.')
     sys.exit(1)
