@@ -138,7 +138,7 @@ New groups' amendments get their pairs per law group when they are designed (e.g
 
 ## Pattern: IG petition (reusable)
 A post-campaign offer can open a 4-year journal entry asking for a law (schools, sisters).
-- Helpers in `common/scripted_effects/nr_petition_framework.txt`, parameters `PETITION` (key prefix) and `LAW`: `nr_petition_boost` (at the start of the enactment via `nr_devout_petition_boost_all` from `nr_on_law_enactment_started`, plus JE `immediate` and monthly pulse as a fallback: +enactment speed once per enactment attempt; every new petition must be added to `nr_devout_petition_boost_all` and `nr_devout_petition_for_enacting_law`), `nr_petition_end` (`on_complete`), `nr_petition_timeout` (`on_timeout`: approval penalty on `scope:ig`).
+- Helpers in `common/scripted_effects/nr_petition_framework.txt`, parameters `PETITION` (key prefix) and `LAW`: `nr_petition_boost` (at the start of the enactment via `nr_petition_boost_all` from `nr_on_law_enactment_started`, plus JE `immediate` and monthly pulse as a fallback: +enactment speed once per enactment attempt; every new petition must be added to `nr_petition_boost_all` and `nr_devout_petition_for_enacting_law`), `nr_petition_end` (`on_complete`), `nr_petition_timeout` (`on_timeout`: approval penalty on `scope:ig`).
 - New instance checklist: journal entry `je_<PETITION>` saving the group as `scope:ig`; static modifiers `<PETITION>_speed` (enactment speed) and `<PETITION>_ignored` (approval); availability trigger `nr_<group>_<topic>_petition_available`.
 
 ## Pattern: money or the group's own form (negotiation option 1)
@@ -259,7 +259,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 | Slave Import | Slave Trade still in force: own amendment "Free Import": slave import +15%, plantation throughput +3%, abolitionist support +10%; pro-slavery radicalism -0.1 (movement modifier, refreshed yearly); no authority cost |
 
 - Tested in game: the Corvee Statute follow-up (via `nr_debug.6`) attaches the amendment; Corn Laws interruption with its popup.
-- Enactment events for the six amendments: `nr_landowners_enact.1` - `.6` (`events/nr_landowners_enact_events.txt`), the Devout .1 pattern applied to the Landowners: in the `on_law_checkpoint_debate` pool (weight 10), cooldown 5 years; not if the amendment is present, not while the grant whose follow-up offers it is running, not if the Landowners leader is against the amendment's parent law (`nr_landowners_leader_not_against_law`). Options: a (default) +15% enactment speed, Landowners -2 approval 5 years; b attach the amendment, -15% speed; c the other group +2, Landowners -2.
+- Enactment events for the six amendments: `nr_landowners_enact.1` - `.6` (`events/nr_landowners_enact_events.txt`), the Devout .1 pattern applied to the Landowners: in the `on_law_checkpoint_debate` pool (weight 10), cooldown 5 years; not if the amendment is present, not while the grant whose follow-up offers it is running, not if the Landowners leader is against the amendment's parent law (`nr_leader_not_against_law`). Options: a (default) +15% enactment speed, Landowners -2 approval 5 years; b attach the amendment, -15% speed; c the other group +2, Landowners -2.
 
 | Event | Amendment | While enacting | c: who decides |
 |---|---|---|---|
@@ -433,7 +433,7 @@ Agreed design; same scheme as the Devout church officials and the landowners' pl
 | Synodal Administration | x1.25 | state religion (and variants), leader not against it | authority +50, state religion acceptance +5, Devout -10% attraction | 10, +15 if authority < 100 |
 
 - Censorship Committees end at once when Protected Speech is enacted (`on_law_activated` -> `nr_on_law_activated` -> `nr_devout_officials_check_censorship`), with popup `nr_devout_censorship.3` (see "Pattern: campaign interruption").
-- General rule: an IG never offers a form, petition or amendment its leader is against (`nr_ig_leader_not_against_law`, `common/scripted_triggers/nr_leader_stance_triggers.txt`).
+- General rule: an IG never offers a form, petition or amendment its leader is against (`nr_leader_not_against_law`, `common/scripted_triggers/nr_leader_stance_triggers.txt`).
 - Follow-ups below: all implemented (censorship, synod, church tax, Sunday Rest, police, Clerical Census, slavery), plus `improve_stance` for petitions and the leader rule for older features. Not tested in game yet: police, slavery. Details per feature: petition laws and amendments as in the table; freeing slaves is `nr_devout_slavery_free_believers` (on adding the amendment to an active law, on activation of a law carrying it, and yearly via `nr_on_yearly_pulse_country`).
 
 ### Devout officials - follow-ups (agreed design)
@@ -456,7 +456,7 @@ Shared mechanics:
 | Seminarists in the Chancelleries | hereditary / elected bureaucrats: petition for `law_appointed_bureaucrats` (leader not against), the amendment attaches automatically when its enactment starts; Appointed Bureaucrats: amendment at once | "Clerical Census for Officials" on `law_appointed_bureaucrats`, parent `law_state_religion`, sponsor Devout, no cost: `interest_group_ig_intelligentsia_pol_str_mult` -0.10, `interest_group_ig_intelligentsia_approval_add` -1, `interest_group_ig_devout_pol_str_mult` +0.10 | while enacting Appointed Bureaucrats, amendment absent, no Seminarists campaign, no petition, leader not against: a "The civil service is secular" (default), b "Clerical census" (attach), c "Let the universities decide" (Intelligentsia +2, Devout -2) |
 | Synodal Administration | state religion still active: amendment; otherwise no event | "Synodal Administration" on `law_state_religion`: `country_authority_add` +25, `country_acceptance_state_religion_add` +5, `interest_group_ig_devout_pop_attraction_mult` -0.05, no cost | while enacting State Religion or its variants, amendment absent, no Synod campaign, leader not against: a "The church governs itself" (default), b attach, c "Let the intelligentsia decide" (Intelligentsia +2, Devout -2) |
 
-Also: the leader rule applied to the older features (schools, sisters, chaplains) - done with `nr_devout_leader_not_against_law` (works without scope:ig, e.g. in event triggers); amendments check their parent law.
+Also: the leader rule applied to the older features (schools, sisters, chaplains) - done with `nr_leader_not_against_law` (works without scope:ig, e.g. in event triggers); amendments check their parent law.
 
 ## Feature ruler_pressure - the ruler presses the group (extra negotiation option, all interest groups)
 Agreed design. An extra button in `negotiation.1` (not part of the random three options), shown when available. The AI never takes it.

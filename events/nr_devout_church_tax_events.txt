@@ -35,7 +35,7 @@ nr_devout_church_tax.1 = {
 		NOT = { any_active_law = { has_amendment = amendment_type:amendment_nr_devout_church_tax_guarantee } } # automatic transfer instead
 		NOT = { currently_enacting_law ?= { has_amendment = amendment_type:amendment_nr_devout_church_tax } }
 		NOT = { has_modifier = nr_devout_officials_church_tax } # the campaign is running: its follow-up offers the amendment
-		nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_devout LAW = law_state_religion } # parent law of the amendment
 	}
 
 	immediate = {

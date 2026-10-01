@@ -5,7 +5,7 @@
 # A police law the clergy may petition for: unlocked, the Devout leader is not against it.
 nr_devout_police_candidate = {
 	has_technology_researched = $TECH$
-	nr_devout_leader_not_against_law = { LAW = $LAW$ }
+	nr_leader_not_against_law = { IG = ig_devout LAW = $LAW$ }
 }
 
 # ... and the Devout leader approves of it.
@@ -34,7 +34,7 @@ nr_devout_police_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = $AMENDMENT$ }
 	}
-	nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_state_religion } # parent law of the amendment
 }
 
 # Anything to offer at all. Without it declining is a neutral close.

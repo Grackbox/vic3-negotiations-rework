@@ -1,22 +1,8 @@
-﻿# NR: general rule of the mod - an interest group never offers a form, petition or amendment
-# that its leader is against. Scope: country, scope:ig = the interest group.
-
-# The leader's own stance on the law is not below neutral (true when there is no leader).
-nr_ig_leader_not_against_law = {
+﻿# NR: general rule of the mod - an interest group never offers a form, petition or amendment that its leader is against.
+# $IG$ = interest group type, $LAW$ = law key. True when the group or its leader does not exist. Scope: country.
+nr_leader_not_against_law = {
 	NOT = {
-		scope:ig.leader ?= {
-			law_stance = {
-				law = law_type:$LAW$
-				value < neutral
-			}
-		}
-	}
-}
-
-# Same for the Devout leader, without scope:ig (usable in event triggers). Scope: country.
-nr_devout_leader_not_against_law = {
-	NOT = {
-		ig:ig_devout ?= {
+		ig:$IG$ ?= {
 			leader ?= {
 				law_stance = {
 					law = law_type:$LAW$
@@ -26,4 +12,3 @@ nr_devout_leader_not_against_law = {
 		}
 	}
 }
-# The Landowners version (nr_landowners_leader_not_against_law) lives in nr_landowners_grants_triggers.txt.

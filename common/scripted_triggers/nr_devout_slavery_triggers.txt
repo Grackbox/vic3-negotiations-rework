@@ -16,7 +16,7 @@ nr_devout_slavery_enacting_slavery = {
 # Petition for Slavery Banned can be offered.
 nr_devout_slavery_petition_available = {
 	nr_devout_slavery_legal = yes
-	nr_devout_leader_not_against_law = { LAW = law_slavery_banned }
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_slavery_banned }
 	NOT = { has_journal_entry = je_nr_devout_slavery_petition }
 }
 
@@ -26,7 +26,7 @@ nr_devout_slavery_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_fellow_believers }
 	}
-	nr_devout_leader_not_against_law = { LAW = law_slavery_banned } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_slavery_banned } # parent law of the amendment
 }
 
 # Anything to offer at all. Without it declining is a neutral close.

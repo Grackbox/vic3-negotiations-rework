@@ -39,7 +39,7 @@ nr_landowners_enact.1 = { # amendment_nr_landowners_noble_privilege
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_privilege }
 		}
 		NOT = { has_modifier = nr_landowners_grants_tax_exemptions } # the grant is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_land_based_taxation } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_land_based_taxation } # parent law of the amendment
 	}
 
 	immediate = {
@@ -127,7 +127,7 @@ nr_landowners_enact.2 = { # amendment_nr_landowners_grain_tariff
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_grain_tariff }
 		}
 		NOT = { has_modifier = nr_landowners_grants_corn_laws } # the grant is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_protectionism } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_protectionism } # parent law of the amendment
 	}
 
 	immediate = {
@@ -220,7 +220,7 @@ nr_landowners_enact.3 = { # amendment_nr_landowners_land_bank
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_land_bank }
 		}
 		NOT = { has_modifier = nr_landowners_grants_land_bank } # the grant is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_agrarianism } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_agrarianism } # parent law of the amendment
 	}
 
 	immediate = {
@@ -311,7 +311,7 @@ nr_landowners_enact.4 = { # amendment_nr_landowners_corvee_statute
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_corvee_statute }
 		}
 		NOT = { has_modifier = nr_landowners_grants_corvee } # the grant is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_serfdom } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_serfdom } # parent law of the amendment
 	}
 
 	immediate = {
@@ -404,7 +404,7 @@ nr_landowners_enact.5 = { # amendment_nr_landowners_fugitive_law
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_fugitive_law }
 		}
 		NOT = { has_modifier = nr_landowners_grants_fugitives } # the grant is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_legacy_slavery } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_legacy_slavery } # parent law of the amendment
 	}
 
 	immediate = {
@@ -492,7 +492,7 @@ nr_landowners_enact.6 = { # amendment_nr_landowners_free_import
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_free_import }
 		}
 		NOT = { has_modifier = nr_landowners_grants_slave_import } # the grant is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_slave_trade } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_slave_trade } # parent law of the amendment
 	}
 
 	immediate = {
@@ -583,7 +583,7 @@ nr_landowners_enact.7 = { # amendment_nr_landowners_patrimonial_justice
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_patrimonial_justice }
 		}
 		NOT = { has_modifier = nr_landowners_offices_patrimonial } # the form is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_serfdom } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_serfdom } # parent law of the amendment
 	}
 
 	immediate = {
@@ -671,7 +671,7 @@ nr_landowners_enact.8 = { # amendment_nr_landowners_noble_guard
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_guard }
 		}
 		NOT = { has_modifier = nr_landowners_offices_constabulary } # the form is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_local_police } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_local_police } # parent law of the amendment
 	}
 
 	immediate = {
@@ -759,7 +759,7 @@ nr_landowners_enact.9 = { # amendment_nr_landowners_noble_curia
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_curia }
 		}
 		NOT = { has_modifier = nr_landowners_offices_assemblies } # the form is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_landed_voting } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_landed_voting } # parent law of the amendment
 	}
 
 	immediate = {
@@ -852,7 +852,7 @@ nr_landowners_enact.10 = { # amendment_nr_landowners_patrol_statute
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_patrol_statute }
 		}
 		NOT = { has_modifier = nr_landowners_offices_patrols } # the form is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_legacy_slavery } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_legacy_slavery } # parent law of the amendment
 	}
 
 	immediate = {
@@ -945,7 +945,7 @@ nr_landowners_enact.11 = { # amendment_nr_landowners_state_slaves
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_state_slaves }
 		}
 		NOT = { has_modifier = nr_landowners_offices_state_slaves } # the form is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_legacy_slavery } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_legacy_slavery } # parent law of the amendment
 	}
 
 	immediate = {
@@ -1036,7 +1036,7 @@ nr_landowners_enact.12 = { # amendment_nr_landowners_noble_commissions
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_commissions }
 		}
 		NOT = { has_modifier = nr_landowners_offices_officers } # the form is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_professional_army } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_professional_army } # parent law of the amendment
 	}
 
 	immediate = {
@@ -1129,7 +1129,7 @@ nr_landowners_enact.13 = { # amendment_nr_landowners_naval_census
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_naval_census }
 		}
 		NOT = { has_modifier = nr_landowners_offices_naval } # the form is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_professional_navy } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_professional_navy } # parent law of the amendment
 	}
 
 	immediate = {
@@ -1217,7 +1217,7 @@ nr_landowners_enact.14 = { # amendment_nr_landowners_service_census
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_service_census }
 		}
 		NOT = { has_modifier = nr_landowners_offices_chancery } # the form is running: its follow-up offers the amendment
-		nr_landowners_leader_not_against_law = { LAW = law_hereditary_bureaucrats } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_landowners LAW = law_hereditary_bureaucrats } # parent law of the amendment
 	}
 
 	immediate = {

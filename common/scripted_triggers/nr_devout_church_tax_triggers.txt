@@ -28,11 +28,11 @@ nr_devout_church_tax_enacting_separation = {
 nr_devout_church_tax_a_available = {
 	nr_devout_church_tax_state_church = yes
 	NOT = { nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_church_tax_guarantee } }
-	nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_state_religion } # parent law of the amendment
 }
 
 nr_devout_church_tax_b_available = {
 	nr_devout_church_tax_separated = yes
 	NOT = { nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_church_tax } }
-	nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_state_religion } # parent law of the amendment
 }

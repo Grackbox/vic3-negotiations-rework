@@ -29,7 +29,7 @@ nr_devout_chaplains.1 = {
 		is_enacting_law = law_type:law_professional_army
 		exists = ig:ig_devout
 		nr_devout_chaplains_present = no
-		nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_devout LAW = law_state_religion } # parent law of the amendment
 	}
 
 	immediate = {
@@ -111,7 +111,7 @@ nr_devout_chaplains.2 = {
 		NOT = {
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_chaplains }
 		}
-		nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_devout LAW = law_state_religion } # parent law of the amendment
 	}
 
 	option = { # Keep the chaplains: attach the amendment to the active law

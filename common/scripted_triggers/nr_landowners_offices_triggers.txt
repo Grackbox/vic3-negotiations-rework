@@ -69,7 +69,7 @@ nr_landowners_offices_patrimonial_justice_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_patrimonial_justice }
 	}
-	nr_landowners_leader_not_against_law = { LAW = law_serfdom } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_serfdom } # parent law of the amendment
 }
 
 # Amendment noble_guard can be attached to the active law.
@@ -78,7 +78,7 @@ nr_landowners_offices_noble_guard_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_guard }
 	}
-	nr_landowners_leader_not_against_law = { LAW = law_local_police } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_local_police } # parent law of the amendment
 }
 
 # Amendment noble_curia can be attached to the active law.
@@ -87,7 +87,7 @@ nr_landowners_offices_noble_curia_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_curia }
 	}
-	nr_landowners_leader_not_against_law = { LAW = law_landed_voting } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_landed_voting } # parent law of the amendment
 }
 
 # Amendment patrol_statute can be attached to the active law.
@@ -96,7 +96,7 @@ nr_landowners_offices_patrol_statute_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_patrol_statute }
 	}
-	nr_landowners_leader_not_against_law = { LAW = law_legacy_slavery } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_legacy_slavery } # parent law of the amendment
 }
 
 # Amendment state_slaves can be attached to the active law.
@@ -105,7 +105,7 @@ nr_landowners_offices_state_slaves_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_state_slaves }
 	}
-	nr_landowners_leader_not_against_law = { LAW = law_legacy_slavery } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_legacy_slavery } # parent law of the amendment
 }
 
 # Amendment noble_commissions can be attached to the active law.
@@ -114,7 +114,7 @@ nr_landowners_offices_noble_commissions_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_noble_commissions }
 	}
-	nr_landowners_leader_not_against_law = { LAW = law_professional_army } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_professional_army } # parent law of the amendment
 }
 
 # Amendment naval_census can be attached to the active law.
@@ -123,7 +123,7 @@ nr_landowners_offices_naval_census_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_naval_census }
 	}
-	nr_landowners_leader_not_against_law = { LAW = law_professional_navy } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_professional_navy } # parent law of the amendment
 }
 
 # Amendment service_census can be attached to the active law.
@@ -132,14 +132,14 @@ nr_landowners_offices_service_census_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_landowners_service_census }
 	}
-	nr_landowners_leader_not_against_law = { LAW = law_hereditary_bureaucrats } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_hereditary_bureaucrats } # parent law of the amendment
 }
 
 # Petition for law_local_police can be offered.
 nr_landowners_police_petition_available = {
 	has_law = law_type:law_no_police
 	has_technology_researched = tech_bureaucracy
-	nr_landowners_leader_not_against_law = { LAW = law_local_police }
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_local_police }
 	NOT = { has_journal_entry = je_nr_landowners_police_petition }
 }
 
@@ -147,13 +147,13 @@ nr_landowners_police_petition_available = {
 nr_landowners_landed_petition_available = {
 	NOR = { has_law = law_type:law_landed_voting has_law = law_type:law_universal_suffrage }
 	has_technology_researched = democracy
-	nr_landowners_leader_not_against_law = { LAW = law_landed_voting }
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_landed_voting }
 	NOT = { has_journal_entry = je_nr_landowners_landed_petition }
 }
 
 # Petition for law_hereditary_bureaucrats can be offered.
 nr_landowners_hereditary_petition_available = {
 	has_law = law_type:law_appointed_bureaucrats
-	nr_landowners_leader_not_against_law = { LAW = law_hereditary_bureaucrats }
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_hereditary_bureaucrats }
 	NOT = { has_journal_entry = je_nr_landowners_hereditary_petition }
 }

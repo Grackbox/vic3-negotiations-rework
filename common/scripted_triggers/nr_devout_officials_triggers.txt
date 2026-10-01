@@ -24,7 +24,7 @@ nr_devout_officials_can_offer = {
 
 nr_devout_officials_censorship_available = {
 	has_law = law_type:law_right_of_assembly
-	nr_ig_leader_not_against_law = { LAW = law_censorship }
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_censorship }
 }
 
 nr_devout_officials_registers_available = {
@@ -62,5 +62,5 @@ nr_devout_officials_synod_available = {
 		has_law = law_type:law_millet_system
 		has_law = law_type:law_people_of_the_book
 	}
-	nr_ig_leader_not_against_law = { LAW = law_state_religion }
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_state_religion }
 }

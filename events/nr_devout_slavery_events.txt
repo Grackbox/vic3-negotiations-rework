@@ -34,7 +34,7 @@ nr_devout_slavery.1 = {
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_fellow_believers }
 		}
 		NOT = { has_modifier = nr_devout_officials_slaves } # the campaign is running: its follow-up offers the amendment
-		nr_devout_leader_not_against_law = { LAW = law_slavery_banned } # parent law of the amendment
+		nr_leader_not_against_law = { IG = ig_devout LAW = law_slavery_banned } # parent law of the amendment
 	}
 
 	immediate = {

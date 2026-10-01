@@ -35,7 +35,7 @@ nr_industrialists_enact.1 = { # amendment_nr_industrialists_guaranteed_return
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_guaranteed_return }
 		}
 		NOT = { has_modifier = nr_industrialists_contracts_railway } # the form is running: its follow-up offers the amendment
-		nr_industrialists_leader_not_against_law = { LAW = law_interventionism }
+		nr_leader_not_against_law = { IG = ig_industrialists LAW = law_interventionism }
 	}
 
 	immediate = {
@@ -128,7 +128,7 @@ nr_industrialists_enact.2 = { # amendment_nr_industrialists_private_arsenals
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_private_arsenals }
 		}
 		NOT = { has_modifier = nr_industrialists_contracts_arms } # the form is running: its follow-up offers the amendment
-		nr_industrialists_leader_not_against_law = { LAW = law_professional_army }
+		nr_leader_not_against_law = { IG = ig_industrialists LAW = law_professional_army }
 	}
 
 	immediate = {
@@ -216,7 +216,7 @@ nr_industrialists_enact.3 = { # amendment_nr_industrialists_iron_tariff
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_iron_tariff }
 		}
 		NOT = { has_modifier = nr_industrialists_contracts_iron_tariff } # the form is running: its follow-up offers the amendment
-		nr_industrialists_leader_not_against_law = { LAW = law_protectionism }
+		nr_leader_not_against_law = { IG = ig_industrialists LAW = law_protectionism }
 	}
 
 	immediate = {
@@ -304,7 +304,7 @@ nr_industrialists_enact.4 = { # amendment_nr_industrialists_chartered_companies
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_chartered_companies }
 		}
 		NOT = { has_modifier = nr_industrialists_contracts_charter } # the form is running: its follow-up offers the amendment
-		nr_industrialists_leader_not_against_law = { LAW = law_colonial_exploitation }
+		nr_leader_not_against_law = { IG = ig_industrialists LAW = law_colonial_exploitation }
 	}
 
 	immediate = {
@@ -395,7 +395,7 @@ nr_industrialists_enact.5 = { # amendment_nr_industrialists_strike_law
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_strike_law }
 		}
 		NOT = { has_modifier = nr_industrialists_contracts_strikes } # the form is running: its follow-up offers the amendment
-		nr_industrialists_leader_not_against_law = { LAW = law_combination_acts }
+		nr_leader_not_against_law = { IG = ig_industrialists LAW = law_combination_acts }
 	}
 
 	immediate = {
@@ -486,7 +486,7 @@ nr_industrialists_enact.6 = { # amendment_nr_industrialists_limited_liability
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_limited_liability }
 		}
 		NOT = { has_modifier = nr_industrialists_commissions_company_law } # the form is running: its follow-up offers the amendment
-		nr_industrialists_leader_not_against_law = { LAW = law_laissez_faire }
+		nr_leader_not_against_law = { IG = ig_industrialists LAW = law_laissez_faire }
 	}
 
 	immediate = {
@@ -577,7 +577,7 @@ nr_industrialists_enact.7 = { # amendment_nr_industrialists_mild_oversight
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_mild_oversight }
 		}
 		NOT = { has_modifier = nr_industrialists_commissions_inspection } # the form is running: its follow-up offers the amendment
-		nr_industrialists_leader_not_against_law = { LAW = law_regulatory_bodies }
+		nr_leader_not_against_law = { IG = ig_industrialists LAW = law_regulatory_bodies }
 	}
 
 	immediate = {
@@ -668,7 +668,7 @@ nr_industrialists_enact.8 = { # amendment_nr_industrialists_independent_bank
 			nr_amendment_is_present = { AMENDMENT = amendment_nr_industrialists_independent_bank }
 		}
 		NOT = { has_modifier = nr_industrialists_commissions_bank } # the form is running: its follow-up offers the amendment
-		nr_industrialists_leader_not_against_law = { LAW = law_laissez_faire }
+		nr_leader_not_against_law = { IG = ig_industrialists LAW = law_laissez_faire }
 	}
 
 	immediate = {

@@ -4,7 +4,7 @@
 nr_devout_sunday_petition_available = {
 	has_law = law_type:law_no_workers_rights
 	has_technology_researched = labor_movement
-	nr_devout_leader_not_against_law = { LAW = law_regulatory_bodies }
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_regulatory_bodies }
 	NOT = { has_journal_entry = je_nr_devout_sunday_petition }
 }
 
@@ -17,7 +17,7 @@ nr_devout_sunday_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_sunday }
 	}
-	nr_devout_leader_not_against_law = { LAW = law_worker_protections } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_worker_protections } # parent law of the amendment
 }
 
 # Anything to offer at all. Without it declining is a neutral close.

@@ -68,24 +68,10 @@ nr_landowners_grants_slave_import_available = {
 
 # ---------- Follow-ups (events nr_landowners_grants.11 - .18). Scope: country. ----------
 
-# The Landowners leader is not against the law (without scope:ig).
-nr_landowners_leader_not_against_law = {
-	NOT = {
-		ig:ig_landowners ?= {
-			leader ?= {
-				law_stance = {
-					law = law_type:$LAW$
-					value < neutral
-				}
-			}
-		}
-	}
-}
-
 # An own amendment can be attached to the active law ($AMENDMENT$ key, $PARENT$ its parent law).
 nr_landowners_amendment_free = {
 	NOT = { nr_amendment_is_present = { AMENDMENT = $AMENDMENT$ } }
-	nr_landowners_leader_not_against_law = { LAW = $PARENT$ }
+	nr_leader_not_against_law = { IG = ig_landowners LAW = $PARENT$ }
 }
 
 nr_landowners_tenant_petition_available = {
@@ -94,7 +80,7 @@ nr_landowners_tenant_petition_available = {
 		has_law = law_type:law_homesteading
 		has_law = law_type:law_commercialized_agriculture
 	}
-	nr_landowners_leader_not_against_law = { LAW = law_tenant_farmers }
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_tenant_farmers }
 	NOT = { has_journal_entry = je_nr_landowners_tenant_petition }
 }
 
@@ -110,7 +96,7 @@ nr_landowners_tenant_content = {
 
 nr_landowners_protectionism_petition_available = {
 	NOT = { has_law = law_type:law_protectionism }
-	nr_landowners_leader_not_against_law = { LAW = law_protectionism }
+	nr_leader_not_against_law = { IG = ig_landowners LAW = law_protectionism }
 	NOT = { has_journal_entry = je_nr_landowners_protectionism_petition }
 }
 

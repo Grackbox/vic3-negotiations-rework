@@ -15,5 +15,5 @@ nr_devout_synod_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_synod }
 	}
-	nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_state_religion } # parent law of the amendment
 }

@@ -3,8 +3,8 @@
 # Petition for Appointed Bureaucrats can be offered: other bureaucracy law, leader not against, no petition running.
 nr_devout_census_petition_available = {
 	NOT = { has_law = law_type:law_appointed_bureaucrats }
-	nr_devout_leader_not_against_law = { LAW = law_appointed_bureaucrats }
-	nr_devout_leader_not_against_law = { LAW = law_state_religion } # the amendment comes with the petition
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_appointed_bureaucrats }
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_state_religion } # the amendment comes with the petition
 	NOT = { has_journal_entry = je_nr_devout_census_petition }
 }
 
@@ -14,7 +14,7 @@ nr_devout_census_amendment_available = {
 	NOT = {
 		nr_amendment_is_present = { AMENDMENT = amendment_nr_devout_census }
 	}
-	nr_devout_leader_not_against_law = { LAW = law_state_religion } # parent law of the amendment
+	nr_leader_not_against_law = { IG = ig_devout LAW = law_state_religion } # parent law of the amendment
 }
 
 # Anything to offer at all. Without it declining is a neutral close.

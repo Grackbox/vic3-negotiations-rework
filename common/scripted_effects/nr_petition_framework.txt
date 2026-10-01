@@ -59,7 +59,7 @@ nr_petition_improve_stance = {
 
 # Called from nr_on_law_enactment_started: every running Devout petition applies its enactment speed bonus at once,
 # instead of waiting for the monthly pulse of its journal entry. Add every new Devout petition here. Scope: country.
-nr_devout_petition_boost_all = {
+nr_petition_boost_all = {
 	if = {
 		limit = { has_journal_entry = je_nr_devout_schools_petition }
 		nr_petition_boost = { PETITION = nr_devout_schools_petition LAW = law_religious_schools }
