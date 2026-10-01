@@ -53,5 +53,5 @@
  nr_debug.11.paternal: "Landowners: Paternal Care"
  nr_debug.11.factory: "Industrialists: Factory Care"
  nr_debug.11.heavy: "Industrialists: heavy industry that pays (a type the country has, levels + 2)"
- nr_debug.11.election: "Landowners: back their party at the election"
+ nr_debug.11.election: "Elections: promise to back a group that is in a party"
  nr_debug.11.close: "Close."
