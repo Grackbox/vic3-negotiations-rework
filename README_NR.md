@@ -347,6 +347,8 @@ Agreed design; same scheme as the landowners' grants (`nr_softbribe_roll`, expen
 | Strike Suppression (Combination Acts, Pinkertons) | x0.5 | Combination Acts or no labour associations law granting rights | Trade Unions -10% strength, turmoil effects -5%; radicals from movements +5% | a law granting the right to associate | Combination Acts: amendment Strike Law (Trade Unions -5% strength, turmoil effects -3%); otherwise petition |
 | Contract Labour (Chinese workers on American and Peruvian lines) | x0.5 | no migration controls | migration attraction +10%, construction sector +5%; Petty Bourgeoisie -1 | migration controls / closed borders | thanks |
 
+Tested in game (Industrialists): contracts form event, railway concession (two different states), Strike Suppression interruption popup, commissions form event, patent office follow-up (3 technologies + refusal), Factory Care with canteens, room in the law on economic laws (Land Bank vs Independent Bank).
+
 ### Industrialists: "Factory Care" (option 9)
 Clone of the Landowners' "Paternal Care" (same SoL bar, `promise_quest_type` 105, files `nr_industrialists_sol_*`); option 9 weight 5 + 5 = 10. Campaign (button in the journal entry, 1 year + 1 year of rest, ~0.015% of GDP per week, ended early: Industrialists -2 for 2 years; files `nr_industrialists_canteens_*`):
 - Factory Canteens (Owen at New Lanark, Krupp in Essen): lower strata SoL +1, food security +2%, radicals from movements -10%, throughput of all buildings -5%. The only campaign (the user removed the company store).
@@ -516,7 +518,7 @@ Agreed design. An extra button in `negotiation.1`, a promise like the vanilla on
   - a promised group's party is not among the parties listed in the event: an extra option "Back [party], as promised" per such party (vanilla effect: +150% / -50%, `add_caciquismo_effect`);
   - withdrawn without penalty: the group is in no party when the campaign starts, or the campaign ended without the rigging event (vanilla conditions, e.g. fewer than two parties with members).
   - notifications (toasts, `common/messages/nr_messages.txt`): kept - the engine's `journal_entry_completed` toast (fires for every completed journal entry); broken - vanilla `neg_failed_quest_toast` (from `promise_quest_failed`); the group was in no party - `nr_election_promise_void_toast` (neutral outcome: toast, neutral color, sound `diplomatic_treaties_revoke_neutral`).
-- Tested in game: a kept promise (vanilla completion toast). Not yet: a broken promise, a group without a party, the extra option for an unlisted party.
+- Tested in game: a kept promise (vanilla completion toast), a broken promise, a group without a party (`nr_election_promise_void_toast`). Not yet: the extra option for an unlisted party.
 - Needs hooks in a copy of vanilla `events/iberia_events/ip4_election_rigging.txt` (each option reports the chosen party). Brazil's `coffee_with_milk.7` is not touched.
 
 ## Authority cost slots (shared)
