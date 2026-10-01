@@ -156,7 +156,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - `python tools/check_mod.py` - static checks, no game needed: braces and indentation, every `nr_` symbol defined and used, names built from parameters (`nr_devout_officials_$FORM$` etc.) exist for every value passed, localization BOM / EN-RU parity / duplicates / missing keys. `--fix-indent` rewrites indentation. Runs on GitHub on every push (`.github/workflows/check.yml`).
 - `python tools/gen_amendment_room.py` - regenerates `common/scripted_triggers/nr_amendment_room.txt` (our amendment list and the opposing sponsors per law group, table inside the script). Run after adding an amendment; `check_mod` reports the file when it is out of date.
 - `check_mod` also: reports definitions made twice, broken localization lines (a raw line break inside a value), and modifier keys that vanilla never uses (the engine docs list keys the game does not load; keys verified in game go into `KNOWN_VALID`).
-- `pwsh tools/deploy.ps1` - mirrors the mod into `Documents/Paradox Interactive/Victoria 3/mod/negotiations_rework` for testing (without `.git`, `.github`, `tools`).
+- `pwsh tools/deploy.ps1` - mirrors the mod into `Documents/Paradox Interactive/Victoria 3/mod/negotiations_rework` for testing (without `.git`, `.github`, `tools`, `docs`, the README).
 - Engine documentation (effects, triggers, modifiers, on_actions) is dumped by the game into `Documents/Paradox Interactive/Victoria 3/docs/*.log`.
 
 ## Debug (console)
