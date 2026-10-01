@@ -746,16 +746,20 @@ nr_debug.11 = { # promises without a negotiation (level 2, pragmatic)
 		nr_industrialists_sol_set_bar_start = yes
 	}
 
-	option = { # Industrialists: heavy industry that pays (steel mills, existing levels + 2)
+	option = { # Industrialists: heavy industry that pays (a heavy industry type the country has, existing levels + 2)
 		name = nr_debug.11.heavy
 		trigger = {
 			NOT = { has_journal_entry = je_nr_industrialists_healthy }
-			any_scope_building = { is_building_type = building_steel_mill }
+			any_scope_building = { type = { nr_industrialists_healthy_is_heavy = yes } }
+		}
+		random_scope_building = {
+			limit = { type = { nr_industrialists_healthy_is_heavy = yes } }
+			type = { save_scope_as = nr_debug_heavy_type }
 		}
 		ig:ig_industrialists = {
 			save_scope_as = ig
 			set_variable = { name = promise_quest_degree value = 2 }
-			set_variable = { name = nr_industrialists_healthy_type value = bt:building_steel_mill }
+			set_variable = { name = nr_industrialists_healthy_type value = scope:nr_debug_heavy_type }
 			set_variable = {
 				name = nr_industrialists_healthy_target
 				value = {
@@ -763,7 +767,7 @@ nr_debug.11 = { # promises without a negotiation (level 2, pragmatic)
 					add = 2
 				}
 			}
-			set_variable = { name = nr_industrialists_healthy_type_5 value = bt:building_steel_mill }
+			set_variable = { name = nr_industrialists_healthy_type_5 value = scope:nr_debug_heavy_type }
 			set_variable = {
 				name = nr_industrialists_healthy_target_5
 				value = var:nr_industrialists_healthy_target

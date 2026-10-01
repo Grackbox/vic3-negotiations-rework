@@ -85,12 +85,13 @@ nr_industrialists_commissions_leader_weight = {
 # Scope: interest group.
 nr_industrialists_healthy_levels = {
 	value = 0
+	save_temporary_scope_as = nr_industrialists_healthy_ig # the group (root is the country when called from an effect)
 	if = {
 		limit = { has_variable = nr_industrialists_healthy_type }
 		owner = {
 			every_scope_building = {
 				limit = {
-					type = root.var:nr_industrialists_healthy_type
+					type = scope:nr_industrialists_healthy_ig.var:nr_industrialists_healthy_type
 					occupancy >= 0.9
 					weekly_profit > 0
 					is_subsidized = no
@@ -104,12 +105,13 @@ nr_industrialists_healthy_levels = {
 # All levels of the promised type. Scope: interest group.
 nr_industrialists_healthy_all_levels = {
 	value = 0
+	save_temporary_scope_as = nr_industrialists_healthy_ig # the group (root is the country when called from an effect)
 	if = {
 		limit = { has_variable = nr_industrialists_healthy_type }
 		owner = {
 			every_scope_building = {
 				limit = {
-					type = root.var:nr_industrialists_healthy_type
+					type = scope:nr_industrialists_healthy_ig.var:nr_industrialists_healthy_type
 				}
 				add = this.level
 			}
@@ -120,12 +122,13 @@ nr_industrialists_healthy_all_levels = {
 # Same for the option tooltips, before the promise is chosen ($N$ = 5 / 6 by option). Scope: interest group.
 nr_industrialists_healthy_all_levels_5 = {
 	value = 0
+	save_temporary_scope_as = nr_industrialists_healthy_ig # the group (root is the country when called from an effect)
 	if = {
 		limit = { has_variable = nr_industrialists_healthy_type_5 }
 		owner = {
 			every_scope_building = {
 				limit = {
-					type = root.var:nr_industrialists_healthy_type_5
+					type = scope:nr_industrialists_healthy_ig.var:nr_industrialists_healthy_type_5
 				}
 				add = this.level
 			}
@@ -135,12 +138,13 @@ nr_industrialists_healthy_all_levels_5 = {
 
 nr_industrialists_healthy_all_levels_6 = {
 	value = 0
+	save_temporary_scope_as = nr_industrialists_healthy_ig # the group (root is the country when called from an effect)
 	if = {
 		limit = { has_variable = nr_industrialists_healthy_type_6 }
 		owner = {
 			every_scope_building = {
 				limit = {
-					type = root.var:nr_industrialists_healthy_type_6
+					type = scope:nr_industrialists_healthy_ig.var:nr_industrialists_healthy_type_6
 				}
 				add = this.level
 			}
@@ -162,5 +166,16 @@ nr_industrialists_healthy_levels_c = {
 			}
 			add = this.level
 		}
+	}
+}
+
+# Levels still to build to reach the target. Scope: interest group.
+nr_industrialists_healthy_to_build = {
+	value = 0
+	if = {
+		limit = { has_variable = nr_industrialists_healthy_target }
+		value = var:nr_industrialists_healthy_target
+		subtract = nr_industrialists_healthy_all_levels
+		min = 0
 	}
 }

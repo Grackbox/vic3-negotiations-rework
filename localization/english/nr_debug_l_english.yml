@@ -52,6 +52,6 @@
  nr_debug.11.desc: "Give a promise without a negotiation (pragmatic level)."
  nr_debug.11.paternal: "Landowners: Paternal Care"
  nr_debug.11.factory: "Industrialists: Factory Care"
- nr_debug.11.heavy: "Industrialists: steel mills that pay (levels + 2)"
+ nr_debug.11.heavy: "Industrialists: heavy industry that pays (a type the country has, levels + 2)"
  nr_debug.11.election: "Landowners: back their party at the election"
  nr_debug.11.close: "Close."
