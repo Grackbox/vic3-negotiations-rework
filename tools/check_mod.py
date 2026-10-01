@@ -177,6 +177,15 @@ report('defined twice', dup_defs)
 no_bom = [f.replace('\\', '/') for lang in LANGS for f in glob.glob(f'localization/{lang}/*.yml')
           if not open(f, 'rb').read(3) == b'\xef\xbb\xbf']
 report('localization files without UTF-8 BOM', no_bom)
+# every line must be a header, a comment, empty or a single-line key: "value" (a raw line break splits an entry)
+bad_lines = []
+for lang in LANGS:
+    for f in sorted(glob.glob(f'localization/{lang}/*.yml')):
+        for n, line in enumerate(open(f, encoding='utf-8-sig').read().splitlines(), 1):
+            s = line.strip()
+            if s and not s.startswith('#') and not re.match(r'^l_[a-z_]+:$', s) and not re.match(r'^[\w.\-]+:\d*\s+".*"\s*(#.*)?$', s):
+                bad_lines.append(f'{f}:{n}'.replace(chr(92), '/'))
+report('broken localization lines', bad_lines)
 report('keys only in English', set(loc['english']) - set(loc['russian']))
 report('keys only in Russian', set(loc['russian']) - set(loc['english']))
 dups = [f'{k} ({", ".join(v)})' for lang in LANGS for k, v in loc[lang].items() if len(v) > 1]
