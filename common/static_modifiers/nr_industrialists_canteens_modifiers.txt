@@ -1,0 +1,23 @@
+﻿# NR: the Industrialists' campaigns in the "Factory Care" commitment (buttons in je_nr_industrialists_sol). One at a time.
+
+# Factory canteens: the workers eat at the mill - better fed, calmer, and the dinner hour costs output
+nr_industrialists_canteens_canteens = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_lower_strata_standard_of_living_add = 1
+	state_food_security_add = 0.02
+	state_radicals_from_political_movements_mult = -0.1
+	building_throughput_add = -0.05
+}
+
+
+# Weekly expenses of the campaign; applied with multiplier nr_industrialists_canteens_cost (fixed at launch)
+nr_industrialists_canteens_expenses = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+# Industrialists IG when the campaign is ended early
+nr_industrialists_canteens_cancelled = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	interest_group_approval_add = -2
+}

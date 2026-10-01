@@ -47,4 +47,8 @@ nr_neg_option_9_modifier = {
 		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
 		add = 15
 	}
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_industrialists } }
+		add = 5 # model mill owners, but paternalism is not their creed
+	}
 }

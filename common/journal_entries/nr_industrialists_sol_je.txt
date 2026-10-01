@@ -1,0 +1,121 @@
+﻿# NR: Industrialists' "Factory Care" commitment - the Devout SoL bar (nr_devout_sol) with the Industrialists' flavour.
+# Created by option negotiation.1.o9 when negotiating with ig_industrialists.
+# Complete: bar is full. Fail: bar is empty, the commitment is abandoned, or time runs out.
+
+je_nr_industrialists_sol = {
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	group = je_group_internal_affairs
+
+	scripted_button = negotiation_go_away_button
+	scripted_button = negotiation_extension_button
+	scripted_button = nr_industrialists_canteens_canteens_button
+	scripted_button = nr_industrialists_canteens_stop_button
+
+	scripted_progress_bar = nr_industrialists_sol_bar
+
+	immediate = {
+		random_interest_group = {
+			limit = {
+				has_variable = ig_new_quest_starting
+				has_variable = promise_quest_type
+				var:promise_quest_type = 105 # NR: Industrialists, SoL with progress bar
+			}
+			save_scope_as = ig
+			remove_variable = ig_new_quest_starting
+		}
+		nr_industrialists_sol_start = yes
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			# Fallback: if the start point was not set on creation, set it on the first monthly tick
+			if = {
+				limit = { NOT = { has_variable = nr_industrialists_sol_bar_set } }
+				nr_industrialists_sol_set_bar_start = yes
+			}
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_nr_industrialists_sol_status_filling
+				trigger = {
+					root.average_sol >= root.var:nr_industrialists_sol_target
+				}
+			}
+			triggered_desc = {
+				desc = je_nr_industrialists_sol_status_slow
+				trigger = {
+					root.average_sol >= root.var:nr_industrialists_sol_target_near
+				}
+			}
+			triggered_desc = {
+				desc = je_nr_industrialists_sol_status_draining
+				trigger = {
+					root.nr_industrialists_sol_drain < 0
+				}
+			}
+			triggered_desc = {
+				desc = je_nr_industrialists_sol_status_stalled
+			}
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = nr_industrialists_sol_bar_full_tt
+			scope:journal_entry = {
+				"scripted_bar_progress(nr_industrialists_sol_bar)" >= nr_industrialists_sol_bar_max
+			}
+		}
+	}
+
+	on_complete = {
+		nr_industrialists_sol_completed = yes
+	}
+
+	fail = {
+		OR = {
+			is_promise_abandoned = yes
+			custom_tooltip = {
+				text = nr_industrialists_sol_bar_empty_tt
+				has_variable = nr_industrialists_sol_bar_set # an empty bar is not a failure until the start point is set
+				scope:journal_entry = {
+					"scripted_bar_progress(nr_industrialists_sol_bar)" <= 0
+				}
+			}
+		}
+	}
+
+	on_fail = {
+		nr_industrialists_sol_failed = yes
+	}
+
+	on_timeout = {
+		nr_industrialists_sol_failed = yes
+	}
+
+	timeout = { # same as the vanilla commitment (NR_SOL_commitment_duration)
+		value = 2738 # 7.5 years
+		if = {
+			limit = {
+				scope:ig.var:promise_quest_degree = 4
+			}
+			add = 913 # +2.5 years, tense negotiations
+		}
+		if = {
+			limit = {
+				scope:journal_entry = {
+					has_variable = asked_for_extension_var
+				}
+			}
+			add = 1095 # +3 years, "Announce Delay" button
+		}
+	}
+
+	weight = 1000
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}

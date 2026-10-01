@@ -1,0 +1,13 @@
+﻿# NR: the Industrialists' campaigns (buttons in je_nr_industrialists_sol).
+
+# Ends the running campaign (stop button, or together with the commitment; the rest period is kept). Scope: country.
+nr_industrialists_canteens_end = {
+	if = {
+		limit = { has_modifier = nr_industrialists_canteens_canteens }
+		remove_modifier = nr_industrialists_canteens_canteens
+	}
+	if = {
+		limit = { has_modifier = nr_industrialists_canteens_expenses }
+		remove_modifier = nr_industrialists_canteens_expenses
+	}
+}

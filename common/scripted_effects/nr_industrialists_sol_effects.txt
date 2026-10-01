@@ -1,0 +1,136 @@
+﻿# NR: Industrialists' "Factory Care" commitment (clone of the Devout "Flock's Welfare") (task industrialists_sol): SoL with a 0-36 progress bar.
+# Requires scope:ig (and scope:journal_entry for failure).
+
+# SoL target instead of vanilla neg_promised_sol_level. Called from nr_negotiation_after_options.
+nr_industrialists_sol_set_target = {
+	scope:ig = {
+		set_variable = {
+			name = promised_sol_level
+			value = nr_industrialists_sol_target_value
+		}
+	}
+}
+
+# Effect of option negotiation.1.o9 for the Industrialists. Called from nr_neg_option_9_custom.
+nr_industrialists_sol_promise = {
+	custom_tooltip = {
+		text = nr_promise_industrialists_sol_tt
+	}
+	scope:ig = {
+		finish_negotiation = "negotiation.1.o9"
+		set_variable = {
+			name = promise_quest_type
+			value = 105 # NR: type registry in README_NR.md
+		}
+		add_modifier = {
+			name = heroes_of_the_people
+			days = long_modifier_time
+			multiplier = scope:ig.var:promise_quest_degree
+		}
+	}
+	promise_quest = yes
+	add_journal_entry = { #must do this last (except setting the bar start)
+		type = je_nr_industrialists_sol
+	}
+	nr_industrialists_sol_set_bar_start = yes
+}
+
+nr_industrialists_sol_start = {
+	# The bar cannot see scope:ig, so the target is copied to the country (same trick as the vanilla tax commitment)
+	set_variable = {
+		name = nr_industrialists_sol_target
+		value = scope:ig.var:promised_sol_level
+	}
+	# SoL at the time of the promise; bar drain is measured from it
+	set_variable = {
+		name = nr_industrialists_sol_start_sol
+		value = average_sol
+	}
+	# Lower bound for "almost there": target - nr_industrialists_sol_near_margin
+	set_variable = {
+		name = nr_industrialists_sol_target_near
+		value = {
+			value = scope:ig.var:promised_sol_level
+			subtract = nr_industrialists_sol_near_margin
+		}
+	}
+}
+
+# Sets the bar start point (24 / 12 / 6). Called right after the journal entry is created,
+# or from its first monthly pulse if the entry is not available yet. Requires scope:ig.
+nr_industrialists_sol_set_bar_start = {
+	je:je_nr_industrialists_sol ?= {
+		set_bar_progress = {
+			name = nr_industrialists_sol_bar
+			value = scope:ig.nr_industrialists_sol_bar_start
+		}
+		owner = {
+			set_variable = nr_industrialists_sol_bar_set
+		}
+	}
+}
+
+nr_industrialists_sol_completed = {
+	ruler ?= {
+		add_modifier = {
+			name = hero_of_the_people
+			days = very_long_modifier_time
+			multiplier = scope:ig.var:promise_quest_degree
+		}
+	}
+	scope:ig = { #reapply hero modifier
+		hidden_effect = {
+			if = {
+				limit = {
+					has_modifier = heroes_of_the_people
+				}
+				remove_modifier = heroes_of_the_people
+			}
+		}
+		add_modifier = {
+			name = heroes_of_the_people
+			days = long_modifier_time
+			multiplier = scope:ig.var:promise_quest_degree
+		}
+	}
+	nr_industrialists_sol_cleanup = yes
+	promise_quest_completed = yes
+}
+
+# Mirrors vanilla promise_quest_failed; penalty progress comes from the bar, not from SoL.
+nr_industrialists_sol_failed = {
+	custom_tooltip = closer_we_get_neg_tt
+	scope:ig ?= {
+		add_modifier = {
+			name = negotiation_failed_quest
+			multiplier = nr_industrialists_sol_failure_degree
+			days = moderately_long_modifier_time
+			is_decaying = yes
+		}
+	}
+	add_modifier = {
+		name = negotiation_failed_quest_legit
+		multiplier = nr_industrialists_sol_failure_degree
+		days = normal_modifier_time
+	}
+	add_radicals = {
+		interest_group = scope:ig
+		value = {
+			add = very_large_radicals
+			multiply = nr_industrialists_sol_failure_degree
+		}
+	}
+	post_notification = neg_failed_quest_toast
+	nr_industrialists_sol_cleanup = yes
+	quest_cleanup = yes
+}
+
+nr_industrialists_sol_cleanup = {
+	hidden_effect = {
+		remove_variable = nr_industrialists_sol_target
+		remove_variable = nr_industrialists_sol_target_near
+		remove_variable = nr_industrialists_sol_start_sol
+		remove_variable = nr_industrialists_sol_bar_set
+		nr_industrialists_canteens_end = yes # a campaign ends together with the commitment
+	}
+}

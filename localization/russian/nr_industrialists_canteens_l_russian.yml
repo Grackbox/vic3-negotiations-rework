@@ -1,0 +1,10 @@
+﻿l_russian:
+ # NR: the Industrialists' campaigns in "Factory Care"
+ nr_industrialists_canteens_canteens_button: "Открыть фабричные столовые"
+ nr_industrialists_canteens_canteens_button_desc: "Год фабрики кормят своих рабочих: дешёвые или бесплатные обеды при заводе, как у Роберта Оуэна в Нью-Ланарке и у Круппа в Эссене. Рабочие сыты и спокойнее, но обеденный час стоит заводам части выработки. Кампания стоит денег каждую неделю, после неё нужен год передышки."
+ nr_industrialists_canteens_stop_button: "Свернуть кампанию"
+ nr_industrialists_canteens_stop_button_desc: "Мы сворачиваем кампанию досрочно. Фабриканты не простят такого конфуза. Следующую кампанию можно будет начать только через год."
+ nr_industrialists_canteens_rest_tt: "С прошлой кампании фабрикантов прошло достаточно времени"
+ nr_industrialists_canteens_canteens: "Фабричные столовые"
+ nr_industrialists_canteens_expenses: "Расходы на кампанию фабрикантов"
+ nr_industrialists_canteens_cancelled: "Кампания оборвалась"

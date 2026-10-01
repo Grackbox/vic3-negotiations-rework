@@ -1,0 +1,16 @@
+﻿# NR: numbers for the Industrialists' campaigns (same numbers as the Devout campaign).
+nr_industrialists_canteens_duration = 365
+
+nr_industrialists_canteens_rest = 365
+
+nr_industrialists_canteens_cancel_penalty_time = 730 # -2 Industrialists approval when ended early: 2 years
+
+nr_industrialists_canteens_cooldown_total = { # campaign + rest
+	value = nr_industrialists_canteens_duration
+	add = nr_industrialists_canteens_rest
+}
+
+# Weekly cost: ~0.015% of GDP, like vanilla money_amount_multiplier_small. Scope: country.
+nr_industrialists_canteens_cost = {
+	value = money_amount_multiplier_small
+}

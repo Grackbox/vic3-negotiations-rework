@@ -1,0 +1,17 @@
+﻿l_russian:
+ # NR: Industrialists' "Factory Care" commitment (task industrialists_sol)
+ je_nr_industrialists_sol: "Обязательство: фабричное попечение"
+ je_nr_industrialists_sol_reason: "Мы пообещали #tooltippable_name #tooltip:[SCOPE.gsInterestGroup('ig').GetTooltipTag],EMPTY_STRING,IGTooltip [SCOPE.gsInterestGroup('ig').GetCustom('RU_IG_DP')]#!#!, что простой народ заживёт лучше — довольный рабочий работает лучше, как говорят образцовые фабриканты. Одним удачным годом их не убедить: фабриканты будут судить нас по тому, как долго страна живёт в достатке."
+ je_nr_industrialists_sol_status_filling: "Средний [Concept('concept_sol', 'уровень жизни')] — [ROOT.GetCountry.GetAverageSoLByPopulation|v1] / [SCOPE.gsInterestGroup('ig').MakeScope.Var('promised_sol_level').GetValue|v1]. #g Шкала заполняется.#!"
+ je_nr_industrialists_sol_status_slow: "Средний [Concept('concept_sol', 'уровень жизни')] — [ROOT.GetCountry.GetAverageSoLByPopulation|v1] / [SCOPE.gsInterestGroup('ig').MakeScope.Var('promised_sol_level').GetValue|v1]. #gold_value Шкала заполняется медленно.#!"
+ je_nr_industrialists_sol_status_draining: "Средний [Concept('concept_sol', 'уровень жизни')] — [ROOT.GetCountry.GetAverageSoLByPopulation|v1] / [SCOPE.gsInterestGroup('ig').MakeScope.Var('promised_sol_level').GetValue|v1]. #r Хуже, чем в момент обещания: шкала убывает.#!"
+ je_nr_industrialists_sol_status_stalled: "Средний [Concept('concept_sol', 'уровень жизни')] — [ROOT.GetCountry.GetAverageSoLByPopulation|v1] / [SCOPE.gsInterestGroup('ig').MakeScope.Var('promised_sol_level').GetValue|v1]. #r Шкала стоит.#!"
+ nr_industrialists_sol_bar: "Фабричное попечение"
+ nr_industrialists_sol_bar_desc: "Шкала: #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|1]#! из 36. Пустая — провал, полная — выполнено."
+ nr_industrialists_sol_bar_progress_sol_ok: "Средний [Concept('concept_sol', 'уровень жизни')] не ниже обещанного"
+ nr_industrialists_sol_bar_progress_sol_near: "Средний [Concept('concept_sol', 'уровень жизни')] чуть ниже обещанного"
+ nr_industrialists_sol_bar_progress_sol_drop: "Средний [Concept('concept_sol', 'уровень жизни')] ниже, чем в момент обещания"
+ nr_industrialists_sol_bar_progress_sol_stalled: "Средний [Concept('concept_sol', 'уровень жизни')] ниже обещанного, но заметно не упал с момента обещания"
+ nr_industrialists_sol_bar_full_tt: "Шкала обязательства заполнена"
+ nr_industrialists_sol_bar_empty_tt: "Шкала обязательства опустела"
+ nr_promise_industrialists_sol_tt: "Мы обязуемся удерживать средний [Concept('concept_sol', 'уровень жизни')] в [ROOT.GetCountry.GetAltNameNoFlag('RU_CL_PP')] не ниже #v [SCOPE.gsInterestGroup('ig').MakeScope.Var('promised_sol_level').GetValue|v1]#!. Шкала обязательства начнётся с #v [SCOPE.gsInterestGroup('ig').MakeScope.ScriptValue('nr_industrialists_sol_bar_start')|0]#! из #v 36#!. Каждый месяц на уровне цели она растёт на #v 1#!, а если до цели не хватает не больше #v 0.25#! — на #v 0.5#!. Если уровень жизни опустится ниже нынешнего (#v [ROOT.GetCountry.GetAverageSoLByPopulation|v1]#!), шкала будет убывать на #v 0.5#! за каждые 0.5 падения, но не больше чем на #v 2#! в месяц. Полная шкала — обязательство выполнено, пустая — провалено. На всё у нас #v [SCOPE.gsInterestGroup('ig').GetCustom('NR_SOL_commitment_duration')] лет#! [SCOPE.gsInterestGroup('ig').GetCustom('FailurePromiseLine')]"

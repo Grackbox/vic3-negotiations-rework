@@ -1,0 +1,10 @@
+﻿l_english:
+ # NR: the Industrialists' campaigns in "Factory Care"
+ nr_industrialists_canteens_canteens_button: "Open Factory Canteens"
+ nr_industrialists_canteens_canteens_button_desc: "For a year the mills feed their workers: cheap or free dinners at the factory, as Robert Owen did at New Lanark and Krupp in Essen. The workers are better fed and calmer, but the dinner hour costs the mills some output. The campaign costs money every week and needs a year of rest after it."
+ nr_industrialists_canteens_stop_button: "End the Campaign"
+ nr_industrialists_canteens_stop_button_desc: "We end the campaign early. The manufacturers will not forgive the embarrassment. The next campaign can only begin in a year."
+ nr_industrialists_canteens_rest_tt: "Enough time has passed since the last campaign of the manufacturers"
+ nr_industrialists_canteens_canteens: "Factory Canteens"
+ nr_industrialists_canteens_expenses: "Expenses of the Manufacturers' Campaign"
+ nr_industrialists_canteens_cancelled: "The Campaign Cut Short"

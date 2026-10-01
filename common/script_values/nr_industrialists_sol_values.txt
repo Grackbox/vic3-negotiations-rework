@@ -1,0 +1,90 @@
+﻿# NR: numbers for the Industrialists' "Factory Care" commitment (clone of the Devout "Flock's Welfare") (task industrialists_sol).
+# Negotiation level (promise_quest_degree = amenability_level): 1 = open, 2 = pragmatic, 4 = tense.
+
+# Bar length. Change together with max_value of nr_industrialists_sol_bar.
+nr_industrialists_sol_bar_max = 36
+
+# Bar start point by negotiation level. Scope: interest group.
+# Remaining to complete is 36 - start: 12 / 24 / 30 months at +1 per month.
+nr_industrialists_sol_bar_start = {
+	value = 24 # open
+	if = {
+		limit = { var:promise_quest_degree ?= 2 }
+		value = 12 # pragmatic
+	}
+	else_if = {
+		limit = { var:promise_quest_degree ?= 4 }
+		value = 6 # tense
+	}
+}
+
+# How far SoL may fall short of the target and still give half progress (+0.5 instead of +1).
+nr_industrialists_sol_near_margin = 0.25
+
+# SoL target: current average SoL + 10% of it, increment clamped to 1..2,
+# increment x1.5 in tense negotiations (1.5..3); result rounded to the nearest 0.2.
+# Scope: interest group (owner = country), like vanilla neg_promised_sol_level.
+nr_industrialists_sol_target_value = {
+	value = owner.average_sol
+	multiply = 0.1
+	min = 1
+	max = 2
+	if = {
+		limit = { var:promise_quest_degree ?= 4 }
+		multiply = 1.5
+	}
+	add = owner.average_sol
+	multiply = 5
+	round = yes
+	divide = 5
+}
+
+# Bar drain when SoL is below its level at the time of the promise. Scope: country.
+# -0.5 per full 0.5 of decline, capped at -2 per month (decline of 2 or more).
+# A decline below 0.5 gives 0, to ignore small fluctuations.
+nr_industrialists_sol_drain = {
+	value = 0
+	if = {
+		limit = { has_variable = nr_industrialists_sol_start_sol }
+		value = var:nr_industrialists_sol_start_sol
+		subtract = average_sol
+		min = 0
+		multiply = 2
+		floor = yes
+		divide = 2
+		max = 2
+		multiply = -1
+	}
+}
+
+# Failure penalty multiplier - vanilla neg_quest_failure_degree scheme, but progress is measured
+# from the start point: share of the way from start to full (below start = 0, i.e. full penalty).
+# The share is rounded to 0.1; the penalty never drops below vanilla min_mult_value_per_quest_degree.
+# Requires scope:ig and scope:journal_entry.
+nr_industrialists_sol_failure_degree = {
+	value = scope:ig.var:promise_quest_degree
+	if = {
+		limit = {
+			exists = scope:journal_entry
+		}
+		multiply = {
+			value = 1
+			subtract = {
+				value = "scope:journal_entry.scripted_bar_progress(nr_industrialists_sol_bar)"
+				subtract = scope:ig.nr_industrialists_sol_bar_start
+				divide = {
+					value = nr_industrialists_sol_bar_max
+					subtract = scope:ig.nr_industrialists_sol_bar_start
+				}
+				min = 0
+				multiply = 10
+				round = yes
+				divide = 10
+				max = {
+					add = 1
+					subtract = min_mult_value_per_quest_degree
+				}
+			}
+		}
+	}
+}

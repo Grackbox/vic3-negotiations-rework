@@ -67,6 +67,7 @@ Vanilla: 1 army, 2 law, 3 buildings, 4 taxes, 5 SoL. Ours start at 101.
 |---|---|
 | 101 | `devout_sol` — Devout, SoL with progress bar |
 | 104 | `landowners_sol` — Landowners, "Paternal Care": the same SoL bar |
+| 105 | `industrialists_sol` — Industrialists, "Factory Care": the same SoL bar |
 | 102 | `election_promise` — back the group's party at the next election |
 | 103 | `industrialists_healthy` — X healthy levels of a heavy industry type held 6 months (Industrialists, options 5 and 6) |
 
@@ -344,6 +345,10 @@ Agreed design; same scheme as the landowners' grants (`nr_softbribe_roll`, expen
 | Colonial Charter (British South Africa Company 1889, Royal Niger Company 1886) | x0.75 | a colonial law other than no colonial affairs | colony growth +25%, Industrialists +1; infamy generation +10% | no colonial affairs | Colonial Exploitation: amendment Chartered Companies (colony growth +10%, Industrialists +5% strength, infamy generation +5%); otherwise petition for Colonial Exploitation |
 | Strike Suppression (Combination Acts, Pinkertons) | x0.5 | Combination Acts or no labour associations law granting rights | Trade Unions -10% strength, turmoil effects -5%; radicals from movements +5% | a law granting the right to associate | Combination Acts: amendment Strike Law (Trade Unions -5% strength, turmoil effects -3%); otherwise petition |
 | Contract Labour (Chinese workers on American and Peruvian lines) | x0.5 | no migration controls | migration attraction +10%, construction sector +5%; Petty Bourgeoisie -1 | migration controls / closed borders | thanks |
+
+### Industrialists: "Factory Care" (option 9)
+Clone of the Landowners' "Paternal Care" (same SoL bar, `promise_quest_type` 105, files `nr_industrialists_sol_*`); option 9 weight 5 + 5 = 10. Campaign (button in the journal entry, 1 year + 1 year of rest, ~0.015% of GDP per week, ended early: Industrialists -2 for 2 years; files `nr_industrialists_canteens_*`):
+- Factory Canteens (Owen at New Lanark, Krupp in Essen): lower strata SoL +1, food security +2%, radicals from movements -10%, throughput of all buildings -5%. The only campaign (the user removed the company store).
 
 ### Industrialists: heavy industry that pays (options 5 and 6)
 Agreed with the user. When vanilla gives the Industrialists a heavy industry building (option 5) or the heavy industry group (option 6), the promise becomes ours (`promise_quest_type` 103, journal entry `je_nr_industrialists_healthy`):

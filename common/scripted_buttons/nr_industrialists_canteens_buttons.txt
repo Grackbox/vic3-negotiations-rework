@@ -1,0 +1,78 @@
+﻿# NR: the Industrialists' campaigns in "Factory Care" (je_nr_industrialists_sol): factory canteens,
+# 1 year, then 1 year of rest; ended early: -2 Industrialists approval for 2 years.
+
+nr_industrialists_canteens_canteens_button = {
+	name = "nr_industrialists_canteens_canteens_button"
+	desc = "nr_industrialists_canteens_canteens_button_desc"
+
+	visible = {
+		NOR = {
+			has_modifier = nr_industrialists_canteens_canteens
+		}
+	}
+
+	possible = {
+		custom_tooltip = {
+			text = nr_industrialists_canteens_rest_tt
+			NOT = { has_variable = nr_industrialists_canteens_cooldown }
+		}
+	}
+
+	effect = {
+		add_modifier = {
+			name = nr_industrialists_canteens_canteens
+			days = nr_industrialists_canteens_duration
+		}
+		add_modifier = {
+			name = nr_industrialists_canteens_expenses
+			days = nr_industrialists_canteens_duration
+			multiplier = nr_industrialists_canteens_cost
+		}
+		hidden_effect = {
+			set_variable = {
+				name = nr_industrialists_canteens_cooldown
+				days = nr_industrialists_canteens_cooldown_total
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 0
+	}
+}
+
+
+nr_industrialists_canteens_stop_button = {
+	name = "nr_industrialists_canteens_stop_button"
+	desc = "nr_industrialists_canteens_stop_button_desc"
+
+	visible = {
+		OR = {
+			has_modifier = nr_industrialists_canteens_canteens
+		}
+	}
+
+	possible = {
+		always = yes
+	}
+
+	effect = {
+		scope:ig = {
+			add_modifier = {
+				name = nr_industrialists_canteens_cancelled
+				days = nr_industrialists_canteens_cancel_penalty_time
+			}
+		}
+		nr_industrialists_canteens_end = yes
+		hidden_effect = {
+			set_variable = {
+				name = nr_industrialists_canteens_cooldown
+				days = nr_industrialists_canteens_rest
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 0
+	}
+}
