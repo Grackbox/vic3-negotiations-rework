@@ -716,8 +716,13 @@ nr_debug.11 = { # promises without a negotiation (level 2, pragmatic)
 			set_variable = { name = promise_quest_degree value = 2 }
 		}
 		nr_landowners_sol_set_target = yes
+		custom_tooltip = nr_promise_landowners_sol_tt
 		scope:ig = { set_variable = { name = promise_quest_type value = 104 } }
-		promise_quest = yes
+		add_modifier = { name = active_ig_promise_country multiplier = 2 } # promise_quest without its law stance part
+		scope:ig = {
+			set_variable = ig_new_quest_starting
+			add_modifier = { name = active_ig_promise }
+		}
 		add_journal_entry = { type = je_nr_landowners_sol }
 		nr_landowners_sol_set_bar_start = yes
 	}
@@ -730,8 +735,13 @@ nr_debug.11 = { # promises without a negotiation (level 2, pragmatic)
 			set_variable = { name = promise_quest_degree value = 2 }
 		}
 		nr_industrialists_sol_set_target = yes
+		custom_tooltip = nr_promise_industrialists_sol_tt
 		scope:ig = { set_variable = { name = promise_quest_type value = 105 } }
-		promise_quest = yes
+		add_modifier = { name = active_ig_promise_country multiplier = 2 } # promise_quest without its law stance part
+		scope:ig = {
+			set_variable = ig_new_quest_starting
+			add_modifier = { name = active_ig_promise }
+		}
 		add_journal_entry = { type = je_nr_industrialists_sol }
 		nr_industrialists_sol_set_bar_start = yes
 	}
@@ -753,24 +763,78 @@ nr_debug.11 = { # promises without a negotiation (level 2, pragmatic)
 					add = 2
 				}
 			}
-			set_variable = { name = nr_industrialists_healthy_months value = 0 }
+			set_variable = { name = nr_industrialists_healthy_type_5 value = bt:building_steel_mill }
+			set_variable = {
+				name = nr_industrialists_healthy_target_5
+				value = var:nr_industrialists_healthy_target
+			}
 			set_variable = { name = promise_quest_type value = 103 }
 		}
-		promise_quest = yes
+		add_modifier = { name = active_ig_promise_country multiplier = 2 } # promise_quest without its law stance part
+		scope:ig = {
+			set_variable = ig_new_quest_starting
+			add_modifier = { name = active_ig_promise }
+		}
+		custom_tooltip = nr_industrialists_healthy_tt_5
 		add_journal_entry = { type = je_nr_industrialists_healthy }
 	}
 
-	option = { # Landowners: back their party at the next election
+	option = { # back the party of a group that is in a party
 		name = nr_debug.11.election
-		trigger = { NOT = { has_journal_entry = je_nr_election_promise_landowners } }
-		ig:ig_landowners = {
+		trigger = {
+			any_interest_group = {
+				has_party = yes
+				NOT = { has_variable = nr_election_promise }
+			}
+		}
+		random_interest_group = {
+			limit = {
+				has_party = yes
+				NOT = { has_variable = nr_election_promise }
+			}
 			save_scope_as = ig
 			set_variable = { name = promise_quest_degree value = 2 }
 			set_variable = nr_election_promise
 			set_variable = { name = promise_quest_type value = 102 }
 		}
-		promise_quest = yes
-		add_journal_entry = { type = je_nr_election_promise_landowners }
+		custom_tooltip = nr_election_promise_tt
+		add_modifier = { name = active_ig_promise_country multiplier = 2 } # promise_quest without its law stance part
+		scope:ig = {
+			set_variable = ig_new_quest_starting
+			add_modifier = { name = active_ig_promise }
+		}
+		if = {
+			limit = { scope:ig = { is_interest_group_type = ig_armed_forces } }
+			add_journal_entry = { type = je_nr_election_promise_armed_forces }
+		}
+		else_if = {
+			limit = { scope:ig = { is_interest_group_type = ig_devout } }
+			add_journal_entry = { type = je_nr_election_promise_devout }
+		}
+		else_if = {
+			limit = { scope:ig = { is_interest_group_type = ig_industrialists } }
+			add_journal_entry = { type = je_nr_election_promise_industrialists }
+		}
+		else_if = {
+			limit = { scope:ig = { is_interest_group_type = ig_intelligentsia } }
+			add_journal_entry = { type = je_nr_election_promise_intelligentsia }
+		}
+		else_if = {
+			limit = { scope:ig = { is_interest_group_type = ig_landowners } }
+			add_journal_entry = { type = je_nr_election_promise_landowners }
+		}
+		else_if = {
+			limit = { scope:ig = { is_interest_group_type = ig_petty_bourgeoisie } }
+			add_journal_entry = { type = je_nr_election_promise_petty_bourgeoisie }
+		}
+		else_if = {
+			limit = { scope:ig = { is_interest_group_type = ig_rural_folk } }
+			add_journal_entry = { type = je_nr_election_promise_rural_folk }
+		}
+		else_if = {
+			limit = { scope:ig = { is_interest_group_type = ig_trade_unions } }
+			add_journal_entry = { type = je_nr_election_promise_trade_unions }
+		}
 	}
 
 	option = {

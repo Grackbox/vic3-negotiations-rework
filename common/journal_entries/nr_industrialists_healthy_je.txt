@@ -20,27 +20,17 @@ je_nr_industrialists_healthy = {
 			save_scope_as = ig
 			remove_variable = ig_new_quest_starting
 		}
-	}
-
-	on_monthly_pulse = { # the target must hold 6 months in a row
-		effect = {
-			scope:ig ?= {
-				if = {
-					limit = { nr_industrialists_healthy_levels >= var:nr_industrialists_healthy_target }
-					change_variable = {
-						name = nr_industrialists_healthy_months
-						add = 1
-					}
-				}
-				else = {
-					set_variable = {
-						name = nr_industrialists_healthy_months
-						value = 0
-					}
-				}
-			}
+		set_variable = { # copies for the progress bar, which cannot see scope:ig
+			name = nr_industrialists_healthy_type_c
+			value = scope:ig.var:nr_industrialists_healthy_type
+		}
+		set_variable = {
+			name = nr_industrialists_healthy_target_c
+			value = scope:ig.var:nr_industrialists_healthy_target
 		}
 	}
+
+	scripted_progress_bar = nr_industrialists_healthy_bar
 
 	status_desc = {
 		first_valid = {
@@ -53,7 +43,9 @@ je_nr_industrialists_healthy = {
 	complete = {
 		custom_tooltip = {
 			text = nr_industrialists_healthy_complete_tt
-			scope:ig ?= { var:nr_industrialists_healthy_months ?= 6 }
+			scope:journal_entry = {
+				"scripted_bar_progress(nr_industrialists_healthy_bar)" >= 6
+			}
 		}
 	}
 

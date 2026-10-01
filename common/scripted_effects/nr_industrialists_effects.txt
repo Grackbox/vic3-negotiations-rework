@@ -103,6 +103,7 @@ nr_industrialists_contracts_build_railways = {
 		}
 		order_by = state_population
 		position = 0
+		save_scope_as = nr_railway_state_1
 		create_building = {
 			building = building_railway
 			level = 1
@@ -112,6 +113,7 @@ nr_industrialists_contracts_build_railways = {
 		limit = {
 			is_incorporated = yes
 			NOT = { has_building = building_railway }
+			NOT = { this = scope:nr_railway_state_1 } # the first line may not be registered yet
 		}
 		order_by = state_population
 		position = 0
@@ -1098,10 +1100,6 @@ nr_industrialists_healthy_start = {
 			name = nr_industrialists_healthy_target
 			value = var:nr_industrialists_healthy_target_$N$
 		}
-		set_variable = {
-			name = nr_industrialists_healthy_months
-			value = 0
-		}
 		finish_negotiation = "negotiation.1.$OPTION$"
 		set_variable = {
 			name = promise_quest_type
@@ -1122,7 +1120,10 @@ nr_industrialists_healthy_cleanup = {
 			remove_variable = nr_industrialists_healthy_target_5
 			remove_variable = nr_industrialists_healthy_type_6
 			remove_variable = nr_industrialists_healthy_target_6
-			remove_variable = nr_industrialists_healthy_months
 		}
+	}
+	hidden_effect = {
+		remove_variable = nr_industrialists_healthy_type_c
+		remove_variable = nr_industrialists_healthy_target_c
 	}
 }

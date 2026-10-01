@@ -85,15 +85,18 @@ nr_industrialists_commissions_leader_weight = {
 # Scope: interest group.
 nr_industrialists_healthy_levels = {
 	value = 0
-	owner = {
-		every_scope_building = {
-			limit = {
-				type = root.var:nr_industrialists_healthy_type
-				occupancy >= 0.9
-				weekly_profit > 0
-				is_subsidized = no
+	if = {
+		limit = { has_variable = nr_industrialists_healthy_type }
+		owner = {
+			every_scope_building = {
+				limit = {
+					type = root.var:nr_industrialists_healthy_type
+					occupancy >= 0.9
+					weekly_profit > 0
+					is_subsidized = no
+				}
+				add = this.level
 			}
-			add = this.level
 		}
 	}
 }
@@ -101,10 +104,15 @@ nr_industrialists_healthy_levels = {
 # All levels of the promised type. Scope: interest group.
 nr_industrialists_healthy_all_levels = {
 	value = 0
-	owner = {
-		every_scope_building = {
-			limit = { type = root.var:nr_industrialists_healthy_type }
-			add = this.level
+	if = {
+		limit = { has_variable = nr_industrialists_healthy_type }
+		owner = {
+			every_scope_building = {
+				limit = {
+					type = root.var:nr_industrialists_healthy_type
+				}
+				add = this.level
+			}
 		}
 	}
 }
@@ -112,19 +120,46 @@ nr_industrialists_healthy_all_levels = {
 # Same for the option tooltips, before the promise is chosen ($N$ = 5 / 6 by option). Scope: interest group.
 nr_industrialists_healthy_all_levels_5 = {
 	value = 0
-	owner = {
-		every_scope_building = {
-			limit = { type = root.var:nr_industrialists_healthy_type_5 }
-			add = this.level
+	if = {
+		limit = { has_variable = nr_industrialists_healthy_type_5 }
+		owner = {
+			every_scope_building = {
+				limit = {
+					type = root.var:nr_industrialists_healthy_type_5
+				}
+				add = this.level
+			}
 		}
 	}
 }
 
 nr_industrialists_healthy_all_levels_6 = {
 	value = 0
-	owner = {
+	if = {
+		limit = { has_variable = nr_industrialists_healthy_type_6 }
+		owner = {
+			every_scope_building = {
+				limit = {
+					type = root.var:nr_industrialists_healthy_type_6
+				}
+				add = this.level
+			}
+		}
+	}
+}
+
+# Country-scope copy for the progress bar (the bar cannot see scope:ig): healthy levels of var:nr_industrialists_healthy_type_c. Scope: country.
+nr_industrialists_healthy_levels_c = {
+	value = 0
+	if = {
+		limit = { has_variable = nr_industrialists_healthy_type_c }
 		every_scope_building = {
-			limit = { type = root.var:nr_industrialists_healthy_type_6 }
+			limit = {
+				type = root.var:nr_industrialists_healthy_type_c
+				occupancy >= 0.9
+				weekly_profit > 0
+				is_subsidized = no
+			}
 			add = this.level
 		}
 	}

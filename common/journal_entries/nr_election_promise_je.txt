@@ -82,10 +82,6 @@ je_nr_election_promise_devout = {
 	}
 
 	on_invalid = {
-		if = {
-			limit = { scope:ig ?= { has_variable = nr_election_promise_void } }
-			post_notification = nr_election_promise_void_toast
-		}
 		quest_cleanup = yes
 		nr_election_promise_cleanup = yes
 	}
@@ -182,10 +178,6 @@ je_nr_election_promise_landowners = {
 	}
 
 	on_invalid = {
-		if = {
-			limit = { scope:ig ?= { has_variable = nr_election_promise_void } }
-			post_notification = nr_election_promise_void_toast
-		}
 		quest_cleanup = yes
 		nr_election_promise_cleanup = yes
 	}
@@ -282,10 +274,6 @@ je_nr_election_promise_industrialists = {
 	}
 
 	on_invalid = {
-		if = {
-			limit = { scope:ig ?= { has_variable = nr_election_promise_void } }
-			post_notification = nr_election_promise_void_toast
-		}
 		quest_cleanup = yes
 		nr_election_promise_cleanup = yes
 	}
@@ -382,10 +370,6 @@ je_nr_election_promise_petty_bourgeoisie = {
 	}
 
 	on_invalid = {
-		if = {
-			limit = { scope:ig ?= { has_variable = nr_election_promise_void } }
-			post_notification = nr_election_promise_void_toast
-		}
 		quest_cleanup = yes
 		nr_election_promise_cleanup = yes
 	}
@@ -482,10 +466,6 @@ je_nr_election_promise_intelligentsia = {
 	}
 
 	on_invalid = {
-		if = {
-			limit = { scope:ig ?= { has_variable = nr_election_promise_void } }
-			post_notification = nr_election_promise_void_toast
-		}
 		quest_cleanup = yes
 		nr_election_promise_cleanup = yes
 	}
@@ -582,10 +562,6 @@ je_nr_election_promise_trade_unions = {
 	}
 
 	on_invalid = {
-		if = {
-			limit = { scope:ig ?= { has_variable = nr_election_promise_void } }
-			post_notification = nr_election_promise_void_toast
-		}
 		quest_cleanup = yes
 		nr_election_promise_cleanup = yes
 	}
@@ -682,10 +658,6 @@ je_nr_election_promise_rural_folk = {
 	}
 
 	on_invalid = {
-		if = {
-			limit = { scope:ig ?= { has_variable = nr_election_promise_void } }
-			post_notification = nr_election_promise_void_toast
-		}
 		quest_cleanup = yes
 		nr_election_promise_cleanup = yes
 	}
@@ -782,10 +754,6 @@ je_nr_election_promise_armed_forces = {
 	}
 
 	on_invalid = {
-		if = {
-			limit = { scope:ig ?= { has_variable = nr_election_promise_void } }
-			post_notification = nr_election_promise_void_toast
-		}
 		quest_cleanup = yes
 		nr_election_promise_cleanup = yes
 	}

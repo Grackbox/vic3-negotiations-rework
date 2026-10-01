@@ -63,6 +63,8 @@ nr_election_promise_campaign_start = {
 		}
 		else = {
 			set_variable = nr_election_promise_void # the group is in no party: nothing to back
+			save_scope_as = ig
+			root = { post_notification = nr_election_promise_void_toast }
 		}
 	}
 }

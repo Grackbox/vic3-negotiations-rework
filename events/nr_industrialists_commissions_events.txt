@@ -581,6 +581,13 @@ nr_industrialists_commissions.12 = { # follow-up of patents
 		add_technology_progress = { progress = 5850 technology = compression_ignition }
 	}
 
+	option = { # refuse the rights (roleplay, no effect)
+		name = nr_industrialists_commissions.patent.refuse
+		default_option = yes
+		trigger = { has_variable = nr_industrialists_commissions_patent_any }
+		custom_tooltip = nr_industrialists_commissions_patent_refuse_tt
+	}
+
 	option = { # the Industrialists are content
 		name = nr_industrialists_fu_thanks
 		default_option = yes
