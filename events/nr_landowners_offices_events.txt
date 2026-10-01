@@ -180,6 +180,7 @@ nr_landowners_offices.1 = {
 		}
 		custom_tooltip = nr_landowners_offices_lore_state_slaves
 		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = state_slaves }
+		custom_tooltip = nr_campaign_penalty_same_tt
 		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = state_slaves }
 		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = state_slaves }
 		hidden_effect = {
@@ -201,6 +202,7 @@ nr_landowners_offices.1 = {
 		}
 		custom_tooltip = nr_landowners_offices_lore_officers
 		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = officers }
+		custom_tooltip = nr_campaign_penalty_same_tt
 		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = officers }
 		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = officers }
 		hidden_effect = {
@@ -265,6 +267,7 @@ nr_landowners_offices.1 = {
 		}
 		custom_tooltip = nr_landowners_offices_lore_chancery
 		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = chancery }
+		custom_tooltip = nr_campaign_penalty_same_tt
 		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = chancery }
 		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = chancery }
 		hidden_effect = {

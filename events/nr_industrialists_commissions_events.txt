@@ -89,6 +89,7 @@ nr_industrialists_commissions.1 = {
 		}
 		custom_tooltip = nr_industrialists_commissions_lore_company_law
 		nr_campaign_choose_form = { KEY = nr_industrialists_commissions FORM = company_law }
+		custom_tooltip = nr_campaign_penalty_same_tt
 		nr_campaign_mark_running = { KEY = nr_industrialists_commissions FORM = company_law }
 		nr_campaign_remember_slot = { KEY = nr_industrialists_commissions FORM = company_law }
 		hidden_effect = {
@@ -153,6 +154,7 @@ nr_industrialists_commissions.1 = {
 		}
 		custom_tooltip = nr_industrialists_commissions_lore_bank
 		nr_campaign_choose_form = { KEY = nr_industrialists_commissions FORM = bank }
+		custom_tooltip = nr_campaign_penalty_same_tt
 		nr_campaign_mark_running = { KEY = nr_industrialists_commissions FORM = bank }
 		nr_campaign_remember_slot = { KEY = nr_industrialists_commissions FORM = bank }
 		hidden_effect = {

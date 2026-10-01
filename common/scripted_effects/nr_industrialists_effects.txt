@@ -166,6 +166,7 @@ nr_industrialists_commissions_start = {
 		}
 		nr_campaign_take_slot = { KEY = nr_industrialists_commissions }
 	}
+	custom_tooltip = nr_campaign_penalty_tt # the penalty is set from hidden variables, so the tooltip would not show it
 	nr_campaign_set_penalty = { KEY = nr_industrialists_commissions FACTOR = 1 }
 	scope:ig = {
 		finish_negotiation = "negotiation.1.o2"

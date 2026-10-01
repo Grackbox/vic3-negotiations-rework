@@ -26,3 +26,9 @@ nr_campaign_spare_share = {
 		min = 1
 	}
 }
+
+# Bureaucracy penalty of a new campaign in percent (vanilla 7.5% per negotiation level 1 / 2 / 4). Scope: interest group.
+nr_campaign_penalty_percent = {
+	value = amenability_level
+	multiply = 7.5
+}

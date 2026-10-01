@@ -154,6 +154,7 @@ nr_devout_officials.1 = {
 		}
 		custom_tooltip = nr_devout_officials_lore_prisons
 		nr_campaign_choose_form = { KEY = nr_devout_officials FORM = prisons }
+		custom_tooltip = nr_campaign_penalty_same_tt
 		hidden_effect = {
 			# NR devout_police: follow-up in 10 years
 			trigger_event = {
@@ -178,6 +179,7 @@ nr_devout_officials.1 = {
 		}
 		custom_tooltip = nr_devout_officials_lore_calendar
 		nr_campaign_choose_form = { KEY = nr_devout_officials FORM = calendar }
+		custom_tooltip = nr_campaign_penalty_same_tt
 		hidden_effect = {
 			# NR devout_sunday: follow-up in 10 years
 			trigger_event = {

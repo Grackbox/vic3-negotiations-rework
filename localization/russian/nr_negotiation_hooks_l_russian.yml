@@ -8,3 +8,5 @@
  nr_campaign_reaction: "Тоска по старому порядку"
  negotiation.1.nr_o2_custom: "[SCOPE.gsInterestGroup('negotiating_interest_group').GetCustom('NR_OfficesLine')]"
  nr_softbribe_cost_tt: "Казна будет платить #v @money![SCOPE.gsInterestGroup('ig').MakeScope.ScriptValue('neg_bribe_amount')|D]#! в неделю 10 лет, постепенно меньше. Форма, которую выберут через неделю, изменит сумму: от #v ×0,25#! до #v ×1,5#!."
+ nr_campaign_penalty_tt: "Государственная бюрократия теряет #r [SCOPE.gsInterestGroup('ig').MakeScope.ScriptValue('nr_campaign_penalty_percent')|1]%#! на 10 лет, постепенно меньше. Места, которые выберут через неделю, изменят это: от #v ×0,5#! до #v ×1,5#!."
+ nr_campaign_penalty_same_tt: "Нагрузка на бюрократию остаётся прежней."
