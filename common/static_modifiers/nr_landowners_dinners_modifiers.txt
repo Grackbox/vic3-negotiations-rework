@@ -1,0 +1,28 @@
+﻿# NR: the Landowners' campaigns in the "Paternal Care" commitment (buttons in je_nr_landowners_sol). One at a time.
+
+# Charity dinners: the estates pay, the town and the poor gain
+nr_landowners_dinners_charity = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_upper_strata_standard_of_living_add = -1
+	state_middle_strata_standard_of_living_add = 0.5
+	state_lower_strata_standard_of_living_add = 0.5
+}
+
+# The social season: balls for themselves, envy below
+nr_landowners_dinners_season = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_upper_strata_standard_of_living_add = 3
+	political_movement_radicalism_add = 0.1
+}
+
+# Weekly expenses of either campaign; applied with multiplier nr_landowners_dinners_cost (fixed at launch)
+nr_landowners_dinners_expenses = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+# Landowners IG when a campaign is ended early
+nr_landowners_dinners_cancelled = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_negative.dds
+	interest_group_approval_add = -2
+}

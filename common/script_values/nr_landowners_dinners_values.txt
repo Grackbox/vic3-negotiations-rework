@@ -1,0 +1,16 @@
+﻿# NR: numbers for the Landowners' campaigns (same as the Devout charity campaign).
+nr_landowners_dinners_duration = 365
+
+nr_landowners_dinners_rest = 365
+
+nr_landowners_dinners_cancel_penalty_time = 730 # -2 Landowners approval when ended early: 2 years
+
+nr_landowners_dinners_cooldown_total = { # campaign + rest
+	value = nr_landowners_dinners_duration
+	add = nr_landowners_dinners_rest
+}
+
+# Weekly cost: ~0.015% of GDP, like vanilla money_amount_multiplier_small. Scope: country.
+nr_landowners_dinners_cost = {
+	value = money_amount_multiplier_small
+}

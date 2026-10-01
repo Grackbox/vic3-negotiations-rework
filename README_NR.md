@@ -271,6 +271,9 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 ## Feature landowners_sol - "Paternal Care" (negotiation option 9 for the Landowners)
 Agreed with the user: the overall average SoL (SoL by strata exists only for the interface, not for scripts; computing it from pops was rejected as too heavy). Clone of the Devout `devout_sol` mechanics (target = average SoL + 10%, 1..2, x1.5 tense; bar 0-36 with start 24 / 12 / 6; +1 at target, +0.5 within 0.25, drain below the SoL at the time of the promise; 7.5 / 10 years), without the charity buttons; `promise_quest_type` 104, journal entry `je_nr_landowners_sol`, files `nr_landowners_sol_*` (journal entry, bar, effects, values, localization).
 - Weight of option 9 for the Landowners: vanilla 5 + 15 = 20 (hook `nr_neg_option_9_modifier` in the copied `neg_option_9_modifier`).
+- Campaigns (buttons in the journal entry, one at a time, 1 year, then 1 year of rest, cost ~0.015% of GDP per week, ended early: Landowners -2 approval for 2 years, end together with the commitment; files `nr_landowners_dinners_*`):
+  - Charity Dinners: upper strata SoL -1 (the nobility pays), middle +0.5, lower +0.5;
+  - The Social Season: upper strata SoL +3, political movement radicalism +10% (`political_movement_radicalism_add` 0.1).
 
 ## Feature landowners_offices - places in the provinces (negotiation option 2 for the Landowners)
 Agreed design; same scheme as the Devout church officials. Numbers are drafts.

@@ -131,5 +131,6 @@ nr_landowners_sol_cleanup = {
 		remove_variable = nr_landowners_sol_target_near
 		remove_variable = nr_landowners_sol_start_sol
 		remove_variable = nr_landowners_sol_bar_set
+		nr_landowners_dinners_end = yes # a campaign ends together with the commitment
 	}
 }

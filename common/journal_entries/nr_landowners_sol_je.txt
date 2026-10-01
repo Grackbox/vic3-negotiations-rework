@@ -9,6 +9,9 @@ je_nr_landowners_sol = {
 
 	scripted_button = negotiation_go_away_button
 	scripted_button = negotiation_extension_button
+	scripted_button = nr_landowners_dinners_charity_button
+	scripted_button = nr_landowners_dinners_season_button
+	scripted_button = nr_landowners_dinners_stop_button
 
 	scripted_progress_bar = nr_landowners_sol_bar
 

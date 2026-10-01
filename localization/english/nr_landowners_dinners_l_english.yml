@@ -1,0 +1,13 @@
+﻿l_english:
+ # NR: the Landowners' campaigns in "Paternal Care"
+ nr_landowners_dinners_charity_button: "Hold Charity Dinners"
+ nr_landowners_dinners_charity_button_desc: "For a year the estates hold charity dinners and bazaars for the poor. The nobility pays for it out of its own comfort; the townsfolk who cater and the poor who receive the proceeds live better. The campaign costs money every week and needs a year of rest after it."
+ nr_landowners_dinners_season_button: "Open the Social Season"
+ nr_landowners_dinners_season_button_desc: "For a year the estates dance: balls, receptions, hunting parties. The nobility lives in splendour - and the people in the streets watch the carriages pass with growing anger. The campaign costs money every week and needs a year of rest after it."
+ nr_landowners_dinners_stop_button: "End the Campaign"
+ nr_landowners_dinners_stop_button_desc: "We end the campaign early. The estates will not forgive the embarrassment. The next campaign can only begin in a year."
+ nr_landowners_dinners_rest_tt: "Enough time has passed since the last campaign of the estates"
+ nr_landowners_dinners_charity: "Charity Dinners"
+ nr_landowners_dinners_season: "The Social Season"
+ nr_landowners_dinners_expenses: "Expenses of the Estates' Campaign"
+ nr_landowners_dinners_cancelled: "The Season Cut Short"

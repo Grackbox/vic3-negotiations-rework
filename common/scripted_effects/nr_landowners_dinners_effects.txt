@@ -1,0 +1,17 @@
+﻿# NR: the Landowners' campaigns (buttons in je_nr_landowners_sol).
+
+# Ends the running campaign (stop button, or together with the commitment; the rest period is kept). Scope: country.
+nr_landowners_dinners_end = {
+	if = {
+		limit = { has_modifier = nr_landowners_dinners_charity }
+		remove_modifier = nr_landowners_dinners_charity
+	}
+	if = {
+		limit = { has_modifier = nr_landowners_dinners_season }
+		remove_modifier = nr_landowners_dinners_season
+	}
+	if = {
+		limit = { has_modifier = nr_landowners_dinners_expenses }
+		remove_modifier = nr_landowners_dinners_expenses
+	}
+}

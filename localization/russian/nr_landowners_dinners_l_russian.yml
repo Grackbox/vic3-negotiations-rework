@@ -1,0 +1,13 @@
+﻿l_russian:
+ # NR: the Landowners' campaigns in "Paternal Care"
+ nr_landowners_dinners_charity_button: "Устроить благотворительные ужины"
+ nr_landowners_dinners_charity_button_desc: "Год имения устраивают благотворительные ужины и базары в пользу бедных. Дворянство платит за это из своего достатка, а горожане, которые обслуживают приёмы, и бедняки, которым идут сборы, живут лучше. Кампания стоит денег каждую неделю, после неё нужен год передышки."
+ nr_landowners_dinners_season_button: "Открыть светский сезон"
+ nr_landowners_dinners_season_button_desc: "Год имения танцуют: балы, приёмы, охоты. Дворянство живёт в блеске — а люди на улицах провожают кареты всё более злыми взглядами. Кампания стоит денег каждую неделю, после неё нужен год передышки."
+ nr_landowners_dinners_stop_button: "Свернуть кампанию"
+ nr_landowners_dinners_stop_button_desc: "Мы сворачиваем кампанию досрочно. Имения не простят такого конфуза. Следующую кампанию можно будет начать только через год."
+ nr_landowners_dinners_rest_tt: "С прошлой кампании имений прошло достаточно времени"
+ nr_landowners_dinners_charity: "Благотворительные ужины"
+ nr_landowners_dinners_season: "Светский сезон"
+ nr_landowners_dinners_expenses: "Расходы на кампанию имений"
+ nr_landowners_dinners_cancelled: "Сезон оборвался"

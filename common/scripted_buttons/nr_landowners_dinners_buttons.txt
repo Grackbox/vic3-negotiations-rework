@@ -1,0 +1,120 @@
+﻿# NR: the Landowners' campaigns in "Paternal Care" (je_nr_landowners_sol): charity dinners or the social season,
+# one at a time, 1 year, then 1 year of rest; ended early: -2 Landowners approval for 2 years.
+
+nr_landowners_dinners_charity_button = {
+	name = "nr_landowners_dinners_charity_button"
+	desc = "nr_landowners_dinners_charity_button_desc"
+
+	visible = {
+		NOR = {
+			has_modifier = nr_landowners_dinners_charity
+			has_modifier = nr_landowners_dinners_season
+		}
+	}
+
+	possible = {
+		custom_tooltip = {
+			text = nr_landowners_dinners_rest_tt
+			NOT = { has_variable = nr_landowners_dinners_cooldown }
+		}
+	}
+
+	effect = {
+		add_modifier = {
+			name = nr_landowners_dinners_charity
+			days = nr_landowners_dinners_duration
+		}
+		add_modifier = {
+			name = nr_landowners_dinners_expenses
+			days = nr_landowners_dinners_duration
+			multiplier = nr_landowners_dinners_cost
+		}
+		hidden_effect = {
+			set_variable = {
+				name = nr_landowners_dinners_cooldown
+				days = nr_landowners_dinners_cooldown_total
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 0
+	}
+}
+
+nr_landowners_dinners_season_button = {
+	name = "nr_landowners_dinners_season_button"
+	desc = "nr_landowners_dinners_season_button_desc"
+
+	visible = {
+		NOR = {
+			has_modifier = nr_landowners_dinners_charity
+			has_modifier = nr_landowners_dinners_season
+		}
+	}
+
+	possible = {
+		custom_tooltip = {
+			text = nr_landowners_dinners_rest_tt
+			NOT = { has_variable = nr_landowners_dinners_cooldown }
+		}
+	}
+
+	effect = {
+		add_modifier = {
+			name = nr_landowners_dinners_season
+			days = nr_landowners_dinners_duration
+		}
+		add_modifier = {
+			name = nr_landowners_dinners_expenses
+			days = nr_landowners_dinners_duration
+			multiplier = nr_landowners_dinners_cost
+		}
+		hidden_effect = {
+			set_variable = {
+				name = nr_landowners_dinners_cooldown
+				days = nr_landowners_dinners_cooldown_total
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 0
+	}
+}
+
+nr_landowners_dinners_stop_button = {
+	name = "nr_landowners_dinners_stop_button"
+	desc = "nr_landowners_dinners_stop_button_desc"
+
+	visible = {
+		OR = {
+			has_modifier = nr_landowners_dinners_charity
+			has_modifier = nr_landowners_dinners_season
+		}
+	}
+
+	possible = {
+		always = yes
+	}
+
+	effect = {
+		scope:ig = {
+			add_modifier = {
+				name = nr_landowners_dinners_cancelled
+				days = nr_landowners_dinners_cancel_penalty_time
+			}
+		}
+		nr_landowners_dinners_end = yes
+		hidden_effect = {
+			set_variable = {
+				name = nr_landowners_dinners_cooldown
+				days = nr_landowners_dinners_rest
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 0
+	}
+}
