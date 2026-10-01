@@ -4,7 +4,7 @@ param(
     [string]$Target = "$env:USERPROFILE\Documents\Paradox Interactive\Victoria 3\mod\negotiations_rework"
 )
 $Source = Split-Path -Parent $PSScriptRoot
-robocopy $Source $Target /MIR /XD .git .github tools /XF .gitignore .gitattributes /NJH /NJS /NP /NDL /NS /NC
+robocopy $Source $Target /MIR /XD .git .github tools docs __pycache__ /XF .gitignore .gitattributes README_NR.md /NJH /NJS /NP /NDL /NS /NC
 if ($LASTEXITCODE -lt 8) {
     Write-Output "Deployed to $Target"
     exit 0
