@@ -693,3 +693,88 @@ nr_debug.10 = {
 		default_option = yes
 	}
 }
+
+nr_debug.11 = { # promises without a negotiation (level 2, pragmatic)
+	type = country_event
+	placement = root
+	title = nr_debug.11.t
+	desc = nr_debug.11.desc
+
+	duration = 3
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = { # Landowners: Paternal Care
+		name = nr_debug.11.paternal
+		trigger = { NOT = { has_journal_entry = je_nr_landowners_sol } }
+		ig:ig_landowners = {
+			save_scope_as = ig
+			set_variable = { name = promise_quest_degree value = 2 }
+		}
+		nr_landowners_sol_set_target = yes
+		scope:ig = { set_variable = { name = promise_quest_type value = 104 } }
+		promise_quest = yes
+		add_journal_entry = { type = je_nr_landowners_sol }
+		nr_landowners_sol_set_bar_start = yes
+	}
+
+	option = { # Industrialists: Factory Care
+		name = nr_debug.11.factory
+		trigger = { NOT = { has_journal_entry = je_nr_industrialists_sol } }
+		ig:ig_industrialists = {
+			save_scope_as = ig
+			set_variable = { name = promise_quest_degree value = 2 }
+		}
+		nr_industrialists_sol_set_target = yes
+		scope:ig = { set_variable = { name = promise_quest_type value = 105 } }
+		promise_quest = yes
+		add_journal_entry = { type = je_nr_industrialists_sol }
+		nr_industrialists_sol_set_bar_start = yes
+	}
+
+	option = { # Industrialists: heavy industry that pays (steel mills, existing levels + 2)
+		name = nr_debug.11.heavy
+		trigger = {
+			NOT = { has_journal_entry = je_nr_industrialists_healthy }
+			any_scope_building = { is_building_type = building_steel_mill }
+		}
+		ig:ig_industrialists = {
+			save_scope_as = ig
+			set_variable = { name = promise_quest_degree value = 2 }
+			set_variable = { name = nr_industrialists_healthy_type value = bt:building_steel_mill }
+			set_variable = {
+				name = nr_industrialists_healthy_target
+				value = {
+					value = nr_industrialists_healthy_all_levels
+					add = 2
+				}
+			}
+			set_variable = { name = nr_industrialists_healthy_months value = 0 }
+			set_variable = { name = promise_quest_type value = 103 }
+		}
+		promise_quest = yes
+		add_journal_entry = { type = je_nr_industrialists_healthy }
+	}
+
+	option = { # Landowners: back their party at the next election
+		name = nr_debug.11.election
+		trigger = { NOT = { has_journal_entry = je_nr_election_promise_landowners } }
+		ig:ig_landowners = {
+			save_scope_as = ig
+			set_variable = { name = promise_quest_degree value = 2 }
+			set_variable = nr_election_promise
+			set_variable = { name = promise_quest_type value = 102 }
+		}
+		promise_quest = yes
+		add_journal_entry = { type = je_nr_election_promise_landowners }
+	}
+
+	option = {
+		name = nr_debug.11.close
+		default_option = yes
+	}
+}

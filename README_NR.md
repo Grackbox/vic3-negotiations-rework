@@ -215,6 +215,7 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 - `event nr_debug.5` / `event nr_debug.6` - landowners' grants: the form event `nr_landowners_grants.1` and the follow-ups `.11` - `.18` (with the running mark of their form).
 - `event nr_debug.8` - landowners' places in the provinces: the form event `nr_landowners_offices.1` and the follow-ups `.11` - `.21` (with the running mark of their form).
 - `event nr_debug.9` / `event nr_debug.10` - the Industrialists' state contracts / commissions: form event and follow-ups.
+- `event nr_debug.11` - promises without a negotiation (pragmatic level): Paternal Care, Factory Care, steel mills that pay (existing levels + 2), Landowners' election promise.
 - `event nr_debug.7` - activate a law at once (`activate_law`): Free Trade, Protectionism, Tenant Farmers, Serfdom, Slavery Banned, Legacy Slavery, Slave Trade - to test interruptions.
 - New follow-ups and enactment events should be added to these menus.
 - Ruler pressure / election promise: form of government via Script Runner (`activate_law = law_type:law_autocracy` etc.); an election campaign starts with `call_election = { months = 1 }` (Script Runner, Effect) - the rigging event `caciquismo.2` fires at its start if electoral fraud is possible.
