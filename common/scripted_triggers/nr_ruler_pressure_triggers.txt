@@ -45,12 +45,7 @@ nr_ruler_pressure_constitutional = {
 		nr_ruler_is_monarch = yes
 		nr_ruler_is_theocrat = yes
 	}
-	OR = {
-		has_law_or_variant = law_type:law_landed_voting
-		has_law_or_variant = law_type:law_wealth_voting
-		has_law_or_variant = law_type:law_census_voting
-		has_law_or_variant = law_type:law_universal_suffrage
-	}
+	country_has_voting_franchise = yes # any voting power means elections
 }
 
 # The ruler is not against the law being enacted.
