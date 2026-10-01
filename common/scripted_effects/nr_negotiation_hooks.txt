@@ -32,6 +32,15 @@ nr_negotiation_after_options = {
 		}
 		nr_devout_sol_set_target = yes
 	}
+	if = {
+		limit = {
+			scope:ig = {
+				is_interest_group_type = ig_landowners
+				has_variable = promised_sol_level
+			}
+		}
+		nr_landowners_sol_set_target = yes
+	}
 }
 
 # Option 9 (SoL) for groups in nr_neg_option_9_is_custom.
@@ -39,6 +48,10 @@ nr_neg_option_9_custom = {
 	if = {
 		limit = { scope:ig = { is_interest_group_type = ig_devout } }
 		nr_devout_sol_promise = yes
+	}
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
+		nr_landowners_sol_promise = yes
 	}
 }
 

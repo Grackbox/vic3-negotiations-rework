@@ -25,7 +25,7 @@ No interest group is named in the copied vanilla files; every group-specific che
 ## Overridden vanilla files (after every game patch: take the new vanilla file and re-add the hooks)
 - `events/iberia_events/negotiation_events.txt`
 - `common/scripted_triggers/ip4_negotiation_triggers.txt`
-- `common/script_values/negotiation_values.txt` (hooks in `building_scaler` and `building_levels_to_increase_value`)
+- `common/script_values/negotiation_values.txt` (hooks in `building_scaler`, `building_levels_to_increase_value` and `neg_option_9_modifier`)
 - `common/scripted_effects/04_neg_event_options_scripted_effects.txt`
 - `events/iberia_events/ip4_election_rigging.txt` (election promise: `nr_election_rigging_immediate` at the end of `immediate`, `nr_election_rigged = { PARTY = scope:party_N_scope }` in each party option, `nr_election_not_rigged` in the no-rigging options, extra options `caciquismo.nr_promised_<group>` before them)
 
@@ -66,6 +66,7 @@ Vanilla: 1 army, 2 law, 3 buildings, 4 taxes, 5 SoL. Ours start at 101.
 | Type | Task |
 |---|---|
 | 101 | `devout_sol` — Devout, SoL with progress bar |
+| 104 | `landowners_sol` — Landowners, "Paternal Care": the same SoL bar |
 | 102 | `election_promise` — back the group's party at the next election |
 | 103 | `industrialists_healthy` — X healthy levels of a heavy industry type held 6 months (Industrialists, options 5 and 6) |
 
@@ -266,6 +267,10 @@ Soft bribe and church officials offer a default form plus 2 random ones. Each fe
 | .5 | Fugitive Slave Law | Slave Trade / Legacy / Colonial / Debt Slavery | Intelligentsia |
 | .6 | Free Import | Slave Trade | Intelligentsia |
 - Implementation: `common/scripted_effects/nr_landowners_grants_effects.txt` (start, forms, interruption, follow-up amendments), `common/scripted_triggers/nr_landowners_grants_triggers.txt`, `common/static_modifiers/nr_landowners_grants_modifiers.txt`, `common/amendments/nr_landowners_grants_amendments.txt`, `events/nr_landowners_grants_events.txt` (.1 form event, .11 - .18 follow-ups), journal entries `nr_landowners_tenant_je.txt` / `nr_landowners_protectionism_je.txt`, localization `nr_landowners_grants_l_*.yml`, concepts in `nr_game_concepts.txt`. Generic helpers used: `nr_softbribe_roll`, `nr_softbribe_option_allowed`, `nr_softbribe_set_cost` (`common/scripted_effects/nr_softbribe_framework.txt`), campaign slots, petition framework, `nr_movement_radicalism` (`common/scripted_effects/nr_movement_effects.txt`, modifiers `nr_movement_radicalism_up_010` ... in `nr_movement_modifiers.txt`). Each form remembers its slot (`nr_landowners_grants_<form>_slot`) and a running mark (`_running`, 3660 days) that its follow-up requires.
+
+## Feature landowners_sol - "Paternal Care" (negotiation option 9 for the Landowners)
+Agreed with the user: the overall average SoL (SoL by strata exists only for the interface, not for scripts; computing it from pops was rejected as too heavy). Clone of the Devout `devout_sol` mechanics (target = average SoL + 10%, 1..2, x1.5 tense; bar 0-36 with start 24 / 12 / 6; +1 at target, +0.5 within 0.25, drain below the SoL at the time of the promise; 7.5 / 10 years), without the charity buttons; `promise_quest_type` 104, journal entry `je_nr_landowners_sol`, files `nr_landowners_sol_*` (journal entry, bar, effects, values, localization).
+- Weight of option 9 for the Landowners: vanilla 5 + 15 = 20 (hook `nr_neg_option_9_modifier` in the copied `neg_option_9_modifier`).
 
 ## Feature landowners_offices - places in the provinces (negotiation option 2 for the Landowners)
 Agreed design; same scheme as the Devout church officials. Numbers are drafts.

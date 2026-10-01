@@ -509,6 +509,7 @@ neg_option_9_modifier = {
 		}
 		add = 30
 	}
+	add = nr_neg_option_9_modifier # NR: extra weight for our groups (nr_negotiation_hooks_values.txt)
 }
 
 amenability_level = { #determines multipliers for negotiate effects based on amenability. Less amenability means more severe effects

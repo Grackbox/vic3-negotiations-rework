@@ -39,3 +39,12 @@ nr_neg_option_2_modifier = {
 		add = scope:ig.nr_industrialists_commissions_leader_weight
 	}
 }
+
+# Extra weight for option 9 (SoL, vanilla base 5, Devout and Trade Unions +30). Landowners +15: paternalism is their ideology.
+nr_neg_option_9_modifier = {
+	value = 0
+	if = {
+		limit = { scope:ig = { is_interest_group_type = ig_landowners } }
+		add = 15
+	}
+}

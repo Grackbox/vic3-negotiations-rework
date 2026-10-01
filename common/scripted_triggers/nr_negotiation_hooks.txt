@@ -6,6 +6,7 @@ nr_neg_option_9_is_custom = {
 	scope:ig = {
 		OR = {
 			is_interest_group_type = ig_devout
+			is_interest_group_type = ig_landowners
 		}
 	}
 }
@@ -14,6 +15,7 @@ nr_neg_option_9_is_custom = {
 nr_has_custom_sol_promise = {
 	OR = {
 		has_journal_entry = je_nr_devout_sol
+		has_journal_entry = je_nr_landowners_sol
 	}
 }
 

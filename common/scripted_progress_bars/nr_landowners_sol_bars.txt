@@ -1,0 +1,62 @@
+﻿# NR: Devout commitment progress bar. One bar for all negotiation levels: 0-36,
+# start 24 / 12 / 6 (nr_landowners_sol_bar_start) is set by an effect when the entry is created.
+# Monthly progress:
+#   SoL >= target                               -> +1
+#   SoL >= target - nr_landowners_sol_near_margin   -> +0.5
+#   SoL below its level at promise time          -> nr_landowners_sol_drain (-0.5 .. -2)
+#   otherwise                                   -> 0 (explanation line in the tooltip)
+# Empty bar = failure, full bar = success. Evaluated in journal entry scope; the country is owner.
+
+nr_landowners_sol_bar = {
+	name = "nr_landowners_sol_bar"
+	desc = "nr_landowners_sol_bar_desc"
+
+	default_green = yes
+
+	monthly_progress = {
+		if = {
+			limit = {
+				owner = {
+					has_variable = nr_landowners_sol_target # guards against errors on the tick the entry closes
+					average_sol >= var:nr_landowners_sol_target
+				}
+			}
+			add = {
+				desc = "nr_landowners_sol_bar_progress_sol_ok"
+				value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				owner = {
+					has_variable = nr_landowners_sol_target_near
+					average_sol >= var:nr_landowners_sol_target_near
+				}
+			}
+			add = {
+				desc = "nr_landowners_sol_bar_progress_sol_near"
+				value = 0.5
+			}
+		}
+		else_if = {
+			limit = {
+				owner.nr_landowners_sol_drain < 0
+			}
+			add = {
+				desc = "nr_landowners_sol_bar_progress_sol_drop"
+				value = owner.nr_landowners_sol_drain
+			}
+		}
+		else = {
+			# Zero line so the bar tooltip explains why it is not moving
+			add = {
+				desc = "nr_landowners_sol_bar_progress_sol_stalled"
+				value = 0
+			}
+		}
+	}
+
+	start_value = 0 # the real start is set by nr_landowners_sol_set_bar_start
+	min_value = 0
+	max_value = 36 # = nr_landowners_sol_bar_max
+}
