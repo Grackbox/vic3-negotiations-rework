@@ -104,9 +104,12 @@ nr_industrialists_contracts_build_railways = {
 		order_by = state_population
 		position = 0
 		save_scope_as = nr_railway_state_1
-		create_building = {
-			building = building_railway
-			level = 1
+		custom_tooltip = nr_industrialists_contracts_railway_built_1_tt # the vanilla Russian tooltip of create_building is broken
+		hidden_effect = {
+			create_building = {
+				building = building_railway
+				level = 1
+			}
 		}
 	}
 	ordered_scope_state = {
@@ -117,9 +120,13 @@ nr_industrialists_contracts_build_railways = {
 		}
 		order_by = state_population
 		position = 0
-		create_building = {
-			building = building_railway
-			level = 1
+		save_scope_as = nr_railway_state_2
+		custom_tooltip = nr_industrialists_contracts_railway_built_2_tt
+		hidden_effect = {
+			create_building = {
+				building = building_railway
+				level = 1
+			}
 		}
 	}
 }

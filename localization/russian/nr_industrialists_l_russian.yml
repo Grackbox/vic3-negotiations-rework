@@ -387,3 +387,5 @@
  nr_industrialists_healthy_bar_reset: "Окупаются только #v [ROOT.GetCountry.MakeScope.ScriptValue('nr_industrialists_healthy_levels_c')|v0]#! из нужных #v [ROOT.GetCountry.MakeScope.Var('nr_industrialists_healthy_target_c').GetValue|v0]#! уровней «[ROOT.GetCountry.MakeScope.Var('nr_industrialists_healthy_type_c').GetBuildingType.GetName]»: счёт начинается заново"
  nr_industrialists_commissions.patent.refuse: "Оставить права изобретателям."
  nr_industrialists_commissions_patent_refuse_tt: "#lore Права остаются у изобретателей. Фабриканты пожимают плечами: будут и другие патенты.#!"
+ nr_industrialists_contracts_railway_built_1_tt: "В области [SCOPE.sState('nr_railway_state_1').GetName] строится новая железная дорога (уровень #v 1#!)."
+ nr_industrialists_contracts_railway_built_2_tt: "В области [SCOPE.sState('nr_railway_state_2').GetName] строится новая железная дорога (уровень #v 1#!)."

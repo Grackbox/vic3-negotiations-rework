@@ -387,3 +387,5 @@
  nr_industrialists_healthy_bar_reset: "Only #v [ROOT.GetCountry.MakeScope.ScriptValue('nr_industrialists_healthy_levels_c')|v0]#! of the needed #v [ROOT.GetCountry.MakeScope.Var('nr_industrialists_healthy_target_c').GetValue|v0]#! levels of [ROOT.GetCountry.MakeScope.Var('nr_industrialists_healthy_type_c').GetBuildingType.GetName] pay their way: the count starts again"
  nr_industrialists_commissions.patent.refuse: "Leave the rights to the inventors."
  nr_industrialists_commissions_patent_refuse_tt: "#lore The rights stay with the inventors. The manufacturers shrug: there will be other patents.#!"
+ nr_industrialists_contracts_railway_built_1_tt: "A new railway (level #v 1#!) is built in [SCOPE.sState('nr_railway_state_1').GetName]."
+ nr_industrialists_contracts_railway_built_2_tt: "A new railway (level #v 1#!) is built in [SCOPE.sState('nr_railway_state_2').GetName]."
