@@ -21,6 +21,7 @@ nr_devout_softbribe_start = {
 		days = long_modifier_time
 		is_decaying = yes
 	}
+	custom_tooltip = nr_softbribe_cost_tt # the expenses modifier is set from hidden variables, so the tooltip would not show it
 	nr_softbribe_set_cost = { KEY = nr_devout_softbribe FACTOR = 1 }
 	scope:ig = {
 		finish_negotiation = "negotiation.1.o1"

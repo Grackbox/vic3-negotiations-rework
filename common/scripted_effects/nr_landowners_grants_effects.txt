@@ -20,6 +20,7 @@ nr_landowners_grants_start = {
 		}
 		nr_campaign_take_slot = { KEY = nr_landowners_grants }
 	}
+	custom_tooltip = nr_softbribe_cost_tt # the expenses modifier is set from hidden variables, so the tooltip would not show it
 	nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = 1 }
 	scope:ig = {
 		finish_negotiation = "negotiation.1.o1"

@@ -7,3 +7,4 @@
  nr_campaign_marginalized: "Pushed Aside"
  nr_campaign_reaction: "Longing for the Old Order"
  negotiation.1.nr_o2_custom: "[SCOPE.gsInterestGroup('negotiating_interest_group').GetCustom('NR_OfficesLine')]"
+ nr_softbribe_cost_tt: "The treasury will pay #v @money![SCOPE.gsInterestGroup('ig').MakeScope.ScriptValue('neg_bribe_amount')|D]#! a week for 10 years, decreasing over time. The form chosen in a week changes the amount: from #v x0.25#! to #v x1.5#!."
