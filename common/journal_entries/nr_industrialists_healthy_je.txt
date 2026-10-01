@@ -58,23 +58,7 @@ je_nr_industrialists_healthy = {
 	}
 
 	fail = {
-		OR = {
-			is_promise_abandoned = yes
-			custom_tooltip = {
-				text = time_runs_out_tt
-				scope:journal_entry.journal_entry_age >= {
-					value = 3650 # 10 years
-					if = {
-						limit = {
-							scope:journal_entry = {
-								has_variable = asked_for_extension_var
-							}
-						}
-						add = 1095
-					}
-				}
-			}
-		}
+		is_promise_abandoned = yes
 	}
 
 	on_fail = {
@@ -83,6 +67,26 @@ je_nr_industrialists_healthy = {
 			promise_quest_failed = yes
 		}
 		nr_industrialists_healthy_cleanup = yes
+	}
+
+	on_timeout = {
+		if = {
+			limit = { scope:ig ?= { has_variable = promise_quest_type } }
+			promise_quest_failed = yes
+		}
+		nr_industrialists_healthy_cleanup = yes
+	}
+
+	timeout = { # 10 years, +3 with the vanilla "announce delay" button; shown as a countdown
+		value = 3650
+		if = {
+			limit = {
+				scope:journal_entry = {
+					has_variable = asked_for_extension_var
+				}
+			}
+			add = 1095
+		}
 	}
 
 	weight = 1000
