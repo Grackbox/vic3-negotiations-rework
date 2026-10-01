@@ -143,10 +143,10 @@ for f, t in texts.items():
                 param_defs[m.group(1)] = m.group(2)
 missing_built = []
 for name, body in param_defs.items():
-    templates = set(re.findall(r'[a-z0-9_]*\$[A-Z]+\$[a-z0-9_]*', body))
+    templates = set(re.findall(r'(?:[a-z0-9_]*\$[A-Z]+\$)+[a-z0-9_]*', body))  # several parameters may form one name
     templates = {tpl for tpl in templates if re.search(r'[a-z]', tpl)}  # skip bare $PARAM$ values
     # variables created by the helper itself are not definitions to look up
-    templates -= set(re.findall(r'(?:has_variable|remove_variable|set_variable)\s*=\s*(?:\{\s*name\s*=\s*)?([a-z0-9_]*\$[A-Z]+\$[a-z0-9_]*)', body))
+    templates -= set(re.findall(r'(?:(?:has_variable|remove_variable|set_variable)\s*=\s*(?:\{\s*name\s*=\s*)?|var:)((?:[a-z0-9_]*\$[A-Z]+\$)+[a-z0-9_]*)', body))
     if not templates:
         continue
     for f, t in texts.items():

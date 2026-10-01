@@ -2,11 +2,11 @@
 
 # AI (option negotiation.1.nr_o2_custom, via nr_neg_option_2_ai_*): spare bureaucracy after the penalty.
 nr_landowners_offices_ai_good = {
-	nr_landowners_offices_spare_share >= 0.25
+	nr_campaign_spare_share >= 0.25
 }
 
 nr_landowners_offices_ai_bad = {
-	nr_landowners_offices_spare_share < 0.10
+	nr_campaign_spare_share < 0.10
 }
 
 # ---------- Forms (event nr_landowners_offices.1) ----------

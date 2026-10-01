@@ -12,7 +12,7 @@ nr_devout_officials_start = {
 		nr_campaign_take_slot = { KEY = nr_devout_officials }
 	}
 	# penalty like vanilla negotiation_bureaucracy (-7.5% bureaucracy x level 1 / 2 / 4), rescaled by the form a week later
-	nr_devout_officials_set_penalty = { FACTOR = 1 }
+	nr_campaign_set_penalty = { KEY = nr_devout_officials FACTOR = 1 }
 	scope:ig = {
 		finish_negotiation = "negotiation.1.o2"
 		add_modifier = {
@@ -65,51 +65,6 @@ nr_devout_officials_offer_random_form = {
 			trigger = { nr_devout_officials_can_offer = { FORM = synod } }
 			set_variable = nr_devout_officials_offer_synod
 		}
-	}
-}
-
-# Chosen form: its modifier for 10 years. Scope: country. $FORM$ = censorship / registers / ...
-# Forms with a penalty other than x1 also call nr_devout_officials_set_penalty.
-nr_devout_officials_choose_form = {
-	add_modifier = {
-		name = nr_devout_officials_$FORM$
-		days = long_modifier_time
-		is_decaying = yes
-	}
-}
-
-# Sets the bureaucracy penalty of this campaign (its own slot modifier nr_devout_officials_penalty_<slot>)
-# to level x $FACTOR$ (1 at the negotiation; 0.75 / 1.25 / 1.5 for the form). Scope: country.
-nr_devout_officials_set_penalty = {
-	if = {
-		limit = { has_variable = nr_devout_officials_current_slot }
-		if = {
-			limit = { var:nr_devout_officials_current_slot = 1 }
-			nr_devout_officials_set_slot_penalty = { SLOT = 1 FACTOR = $FACTOR$ }
-		}
-		else_if = {
-			limit = { var:nr_devout_officials_current_slot = 2 }
-			nr_devout_officials_set_slot_penalty = { SLOT = 2 FACTOR = $FACTOR$ }
-		}
-		else = {
-			nr_devout_officials_set_slot_penalty = { SLOT = 3 FACTOR = $FACTOR$ }
-		}
-	}
-}
-
-nr_devout_officials_set_slot_penalty = {
-	if = {
-		limit = { has_modifier = nr_devout_officials_penalty_$SLOT$ }
-		remove_modifier = nr_devout_officials_penalty_$SLOT$
-	}
-	add_modifier = {
-		name = nr_devout_officials_penalty_$SLOT$
-		multiplier = {
-			value = nr_devout_officials_level
-			multiply = $FACTOR$
-		}
-		days = long_modifier_time
-		is_decaying = yes
 	}
 }
 

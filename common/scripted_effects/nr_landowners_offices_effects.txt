@@ -11,7 +11,7 @@ nr_landowners_offices_start = {
 		}
 		nr_campaign_take_slot = { KEY = nr_landowners_offices }
 	}
-	nr_landowners_offices_set_penalty = { FACTOR = 1 } # like vanilla negotiation_bureaucracy, rescaled by the form a week later
+	nr_campaign_set_penalty = { KEY = nr_landowners_offices FACTOR = 1 } # like vanilla negotiation_bureaucracy, rescaled by the form a week later
 	scope:ig = {
 		finish_negotiation = "negotiation.1.o2"
 		add_modifier = {
@@ -79,64 +79,6 @@ nr_landowners_offices_offer_random_form = {
 	}
 }
 
-# Chosen form: its modifier for 10 years, the slot it occupies (for an interruption), the running mark for its
-# follow-up. Scope: country.
-nr_landowners_offices_choose_form = {
-	add_modifier = {
-		name = nr_landowners_offices_$FORM$
-		days = long_modifier_time
-		is_decaying = yes
-	}
-	hidden_effect = {
-		if = {
-			limit = { has_variable = nr_landowners_offices_current_slot }
-			set_variable = {
-				name = nr_landowners_offices_$FORM$_slot
-				value = var:nr_landowners_offices_current_slot
-				days = long_modifier_time
-			}
-		}
-		set_variable = {
-			name = nr_landowners_offices_$FORM$_running
-			days = 3660
-		}
-	}
-}
-
-# Bureaucracy penalty of this campaign (its slot modifier) = level x $FACTOR$. Scope: country.
-nr_landowners_offices_set_penalty = {
-	if = {
-		limit = { has_variable = nr_landowners_offices_current_slot }
-		if = {
-			limit = { var:nr_landowners_offices_current_slot = 1 }
-			nr_landowners_offices_set_slot_penalty = { SLOT = 1 FACTOR = $FACTOR$ }
-		}
-		else_if = {
-			limit = { var:nr_landowners_offices_current_slot = 2 }
-			nr_landowners_offices_set_slot_penalty = { SLOT = 2 FACTOR = $FACTOR$ }
-		}
-		else = {
-			nr_landowners_offices_set_slot_penalty = { SLOT = 3 FACTOR = $FACTOR$ }
-		}
-	}
-}
-
-nr_landowners_offices_set_slot_penalty = {
-	if = {
-		limit = { has_modifier = nr_landowners_offices_penalty_$SLOT$ }
-		remove_modifier = nr_landowners_offices_penalty_$SLOT$
-	}
-	add_modifier = {
-		name = nr_landowners_offices_penalty_$SLOT$
-		multiplier = {
-			value = nr_landowners_offices_level
-			multiply = $FACTOR$
-		}
-		days = long_modifier_time
-		is_decaying = yes
-	}
-}
-
 # Clears the data of event nr_landowners_offices.1. Scope: country.
 nr_landowners_offices_cleanup = {
 	remove_variable = nr_landowners_offices_degree
@@ -161,103 +103,63 @@ nr_landowners_offices_check_laws = {
 			has_modifier = nr_landowners_offices_patrimonial
 			NOR = { has_law = law_type:law_serfdom has_law = law_type:law_manorialism has_law = law_type:law_tenant_farmers has_law = law_type:law_latifundias has_law = law_type:law_expanded_latifundias }
 		}
-		nr_landowners_offices_interrupt = { FORM = patrimonial EVENT = 31 }
+		nr_campaign_interrupt = { KEY = nr_landowners_offices FORM = patrimonial EVENT = 31 COST = penalty }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_landowners_offices_constabulary
 			OR = { has_law = law_type:law_dedicated_police has_law = law_type:law_militarized_police }
 		}
-		nr_landowners_offices_interrupt = { FORM = constabulary EVENT = 32 }
+		nr_campaign_interrupt = { KEY = nr_landowners_offices FORM = constabulary EVENT = 32 COST = penalty }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_landowners_offices_assemblies
 			has_law = law_type:law_universal_suffrage
 		}
-		nr_landowners_offices_interrupt = { FORM = assemblies EVENT = 33 }
+		nr_campaign_interrupt = { KEY = nr_landowners_offices FORM = assemblies EVENT = 33 COST = penalty }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_landowners_offices_tax_farming
 			OR = { has_law = law_type:law_proportional_taxation has_law = law_type:law_graduated_taxation }
 		}
-		nr_landowners_offices_interrupt = { FORM = tax_farming EVENT = 34 }
+		nr_campaign_interrupt = { KEY = nr_landowners_offices FORM = tax_farming EVENT = 34 COST = penalty }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_landowners_offices_patrols
 			has_law = law_type:law_slavery_banned
 		}
-		nr_landowners_offices_interrupt = { FORM = patrols EVENT = 35 }
+		nr_campaign_interrupt = { KEY = nr_landowners_offices FORM = patrols EVENT = 35 COST = penalty }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_landowners_offices_state_slaves
 			has_law = law_type:law_slavery_banned
 		}
-		nr_landowners_offices_interrupt = { FORM = state_slaves EVENT = 36 }
+		nr_campaign_interrupt = { KEY = nr_landowners_offices FORM = state_slaves EVENT = 36 COST = penalty }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_landowners_offices_officers
 			OR = { has_law = law_type:law_national_militia has_law = law_type:law_mass_conscription }
 		}
-		nr_landowners_offices_interrupt = { FORM = officers EVENT = 37 }
+		nr_campaign_interrupt = { KEY = nr_landowners_offices FORM = officers EVENT = 37 COST = penalty }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_landowners_offices_recruits
 			NOT = { has_law = law_type:law_peasant_levies }
 		}
-		nr_landowners_offices_interrupt = { FORM = recruits EVENT = 38 }
+		nr_campaign_interrupt = { KEY = nr_landowners_offices FORM = recruits EVENT = 38 COST = penalty }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_landowners_offices_chancery
 			has_law = law_type:law_elected_bureaucrats
 		}
-		nr_landowners_offices_interrupt = { FORM = chancery EVENT = 39 }
-	}
-}
-
-# Ends a form early: its modifier, its bureaucracy penalty and its slot go, no follow-up; popup event $EVENT$ tells
-# what happened and applies the Landowners' reaction (pattern "Campaign interruption"). Scope: country.
-nr_landowners_offices_interrupt = {
-	remove_modifier = nr_landowners_offices_$FORM$
-	hidden_effect = {
-		if = {
-			limit = { var:nr_landowners_offices_$FORM$_slot ?= 1 }
-			nr_landowners_offices_free_slot = { SLOT = 1 }
-		}
-		else_if = {
-			limit = { var:nr_landowners_offices_$FORM$_slot ?= 2 }
-			nr_landowners_offices_free_slot = { SLOT = 2 }
-		}
-		else_if = {
-			limit = { var:nr_landowners_offices_$FORM$_slot ?= 3 }
-			nr_landowners_offices_free_slot = { SLOT = 3 }
-		}
-		if = {
-			limit = { has_variable = nr_landowners_offices_$FORM$_slot }
-			remove_variable = nr_landowners_offices_$FORM$_slot
-		}
-		if = {
-			limit = { has_variable = nr_landowners_offices_$FORM$_running }
-			remove_variable = nr_landowners_offices_$FORM$_running
-		}
-	}
-	trigger_event = { id = nr_landowners_offices.$EVENT$ popup = yes }
-}
-
-nr_landowners_offices_free_slot = {
-	if = {
-		limit = { has_modifier = nr_landowners_offices_penalty_$SLOT$ }
-		remove_modifier = nr_landowners_offices_penalty_$SLOT$
-	}
-	if = {
-		limit = { has_variable = nr_landowners_offices_slot_$SLOT$ }
-		remove_variable = nr_landowners_offices_slot_$SLOT$
+		nr_campaign_interrupt = { KEY = nr_landowners_offices FORM = chancery EVENT = 39 COST = penalty }
 	}
 }
 

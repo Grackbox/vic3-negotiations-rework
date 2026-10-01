@@ -72,29 +72,6 @@ nr_industrialists_contracts_offer_random_form = {
 	}
 }
 
-# Chosen form: its modifier for 10 years, its expenses (set by nr_softbribe_set_cost in the option), the slot it occupies, the running mark for its follow-up. Scope: country.
-nr_industrialists_contracts_choose_form = {
-	add_modifier = {
-		name = nr_industrialists_contracts_$FORM$
-		days = long_modifier_time
-		is_decaying = yes
-	}
-	hidden_effect = {
-		if = {
-			limit = { has_variable = nr_industrialists_contracts_current_slot }
-			set_variable = {
-				name = nr_industrialists_contracts_$FORM$_slot
-				value = var:nr_industrialists_contracts_current_slot
-				days = long_modifier_time
-			}
-		}
-		set_variable = {
-			name = nr_industrialists_contracts_$FORM$_running
-			days = 3660
-		}
-	}
-}
-
 # Railway Concession: new railways (level 1) in up to 2 incorporated states without one, the most populous first.
 nr_industrialists_contracts_build_railways = {
 	ordered_scope_state = {
@@ -153,67 +130,28 @@ nr_industrialists_contracts_check_laws = {
 			has_modifier = nr_industrialists_contracts_iron_tariff
 			has_law = law_type:law_free_trade
 		}
-		nr_industrialists_contracts_interrupt = { FORM = iron_tariff EVENT = 21 }
+		nr_campaign_interrupt = { KEY = nr_industrialists_contracts FORM = iron_tariff EVENT = 21 COST = expenses }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_industrialists_contracts_charter
 			has_law = law_type:law_no_colonial_affairs
 		}
-		nr_industrialists_contracts_interrupt = { FORM = charter EVENT = 22 }
+		nr_campaign_interrupt = { KEY = nr_industrialists_contracts FORM = charter EVENT = 22 COST = expenses }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_industrialists_contracts_strikes
 			OR = { has_law = law_type:law_right_to_associate has_law = law_type:law_corporatized_unions has_law = law_type:law_factory_councils }
 		}
-		nr_industrialists_contracts_interrupt = { FORM = strikes EVENT = 23 }
+		nr_campaign_interrupt = { KEY = nr_industrialists_contracts FORM = strikes EVENT = 23 COST = expenses }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_industrialists_contracts_contract_labour
 			NOT = { has_law = law_type:law_no_migration_controls }
 		}
-		nr_industrialists_contracts_interrupt = { FORM = contract_labour EVENT = 24 }
-	}
-}
-
-# Ends a form early: its modifier, its costs and its slot go, no follow-up; popup $EVENT$ (pattern "Campaign interruption").
-nr_industrialists_contracts_interrupt = {
-	remove_modifier = nr_industrialists_contracts_$FORM$
-	hidden_effect = {
-		if = {
-			limit = { var:nr_industrialists_contracts_$FORM$_slot ?= 1 }
-			nr_industrialists_contracts_free_slot = { SLOT = 1 }
-		}
-		else_if = {
-			limit = { var:nr_industrialists_contracts_$FORM$_slot ?= 2 }
-			nr_industrialists_contracts_free_slot = { SLOT = 2 }
-		}
-		else_if = {
-			limit = { var:nr_industrialists_contracts_$FORM$_slot ?= 3 }
-			nr_industrialists_contracts_free_slot = { SLOT = 3 }
-		}
-		if = {
-			limit = { has_variable = nr_industrialists_contracts_$FORM$_slot }
-			remove_variable = nr_industrialists_contracts_$FORM$_slot
-		}
-		if = {
-			limit = { has_variable = nr_industrialists_contracts_$FORM$_running }
-			remove_variable = nr_industrialists_contracts_$FORM$_running
-		}
-	}
-	trigger_event = { id = nr_industrialists_contracts.$EVENT$ popup = yes }
-}
-
-nr_industrialists_contracts_free_slot = {
-	if = {
-		limit = { has_modifier = nr_industrialists_contracts_expenses_$SLOT$ }
-		remove_modifier = nr_industrialists_contracts_expenses_$SLOT$
-	}
-	if = {
-		limit = { has_variable = nr_industrialists_contracts_slot_$SLOT$ }
-		remove_variable = nr_industrialists_contracts_slot_$SLOT$
+		nr_campaign_interrupt = { KEY = nr_industrialists_contracts FORM = contract_labour EVENT = 24 COST = expenses }
 	}
 }
 
@@ -228,7 +166,7 @@ nr_industrialists_commissions_start = {
 		}
 		nr_campaign_take_slot = { KEY = nr_industrialists_commissions }
 	}
-	nr_industrialists_commissions_set_penalty = { FACTOR = 1 }
+	nr_campaign_set_penalty = { KEY = nr_industrialists_commissions FACTOR = 1 }
 	scope:ig = {
 		finish_negotiation = "negotiation.1.o2"
 		add_modifier = {
@@ -275,62 +213,6 @@ nr_industrialists_commissions_offer_random_form = {
 	}
 }
 
-# Chosen form: its modifier for 10 years, the slot it occupies, the running mark for its follow-up. Scope: country.
-nr_industrialists_commissions_choose_form = {
-	add_modifier = {
-		name = nr_industrialists_commissions_$FORM$
-		days = long_modifier_time
-		is_decaying = yes
-	}
-	hidden_effect = {
-		if = {
-			limit = { has_variable = nr_industrialists_commissions_current_slot }
-			set_variable = {
-				name = nr_industrialists_commissions_$FORM$_slot
-				value = var:nr_industrialists_commissions_current_slot
-				days = long_modifier_time
-			}
-		}
-		set_variable = {
-			name = nr_industrialists_commissions_$FORM$_running
-			days = 3660
-		}
-	}
-}
-
-nr_industrialists_commissions_set_penalty = {
-	if = {
-		limit = { has_variable = nr_industrialists_commissions_current_slot }
-		if = {
-			limit = { var:nr_industrialists_commissions_current_slot = 1 }
-			nr_industrialists_commissions_set_slot_penalty = { SLOT = 1 FACTOR = $FACTOR$ }
-		}
-		else_if = {
-			limit = { var:nr_industrialists_commissions_current_slot = 2 }
-			nr_industrialists_commissions_set_slot_penalty = { SLOT = 2 FACTOR = $FACTOR$ }
-		}
-		else = {
-			nr_industrialists_commissions_set_slot_penalty = { SLOT = 3 FACTOR = $FACTOR$ }
-		}
-	}
-}
-
-nr_industrialists_commissions_set_slot_penalty = {
-	if = {
-		limit = { has_modifier = nr_industrialists_commissions_penalty_$SLOT$ }
-		remove_modifier = nr_industrialists_commissions_penalty_$SLOT$
-	}
-	add_modifier = {
-		name = nr_industrialists_commissions_penalty_$SLOT$
-		multiplier = {
-			value = nr_industrialists_commissions_level
-			multiply = $FACTOR$
-		}
-		days = long_modifier_time
-		is_decaying = yes
-	}
-}
-
 nr_industrialists_commissions_cleanup = {
 	remove_variable = nr_industrialists_commissions_degree
 	remove_variable = nr_industrialists_commissions_current_slot
@@ -349,60 +231,21 @@ nr_industrialists_commissions_check_laws = {
 			has_modifier = nr_industrialists_commissions_company_law
 			OR = { has_law = law_type:law_command_economy has_law = law_type:law_cooperative_ownership }
 		}
-		nr_industrialists_commissions_interrupt = { FORM = company_law EVENT = 31 }
+		nr_campaign_interrupt = { KEY = nr_industrialists_commissions FORM = company_law EVENT = 31 COST = penalty }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_industrialists_commissions_inspection
 			has_law = law_type:law_no_workers_rights
 		}
-		nr_industrialists_commissions_interrupt = { FORM = inspection EVENT = 32 }
+		nr_campaign_interrupt = { KEY = nr_industrialists_commissions FORM = inspection EVENT = 32 COST = penalty }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_industrialists_commissions_bank
 			has_law = law_type:law_command_economy
 		}
-		nr_industrialists_commissions_interrupt = { FORM = bank EVENT = 33 }
-	}
-}
-
-# Ends a form early: its modifier, its costs and its slot go, no follow-up; popup $EVENT$ (pattern "Campaign interruption").
-nr_industrialists_commissions_interrupt = {
-	remove_modifier = nr_industrialists_commissions_$FORM$
-	hidden_effect = {
-		if = {
-			limit = { var:nr_industrialists_commissions_$FORM$_slot ?= 1 }
-			nr_industrialists_commissions_free_slot = { SLOT = 1 }
-		}
-		else_if = {
-			limit = { var:nr_industrialists_commissions_$FORM$_slot ?= 2 }
-			nr_industrialists_commissions_free_slot = { SLOT = 2 }
-		}
-		else_if = {
-			limit = { var:nr_industrialists_commissions_$FORM$_slot ?= 3 }
-			nr_industrialists_commissions_free_slot = { SLOT = 3 }
-		}
-		if = {
-			limit = { has_variable = nr_industrialists_commissions_$FORM$_slot }
-			remove_variable = nr_industrialists_commissions_$FORM$_slot
-		}
-		if = {
-			limit = { has_variable = nr_industrialists_commissions_$FORM$_running }
-			remove_variable = nr_industrialists_commissions_$FORM$_running
-		}
-	}
-	trigger_event = { id = nr_industrialists_commissions.$EVENT$ popup = yes }
-}
-
-nr_industrialists_commissions_free_slot = {
-	if = {
-		limit = { has_modifier = nr_industrialists_commissions_penalty_$SLOT$ }
-		remove_modifier = nr_industrialists_commissions_penalty_$SLOT$
-	}
-	if = {
-		limit = { has_variable = nr_industrialists_commissions_slot_$SLOT$ }
-		remove_variable = nr_industrialists_commissions_slot_$SLOT$
+		nr_campaign_interrupt = { KEY = nr_industrialists_commissions FORM = bank EVENT = 33 COST = penalty }
 	}
 }
 

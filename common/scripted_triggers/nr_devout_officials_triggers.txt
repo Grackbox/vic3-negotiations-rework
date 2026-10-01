@@ -3,12 +3,12 @@
 # AI (option negotiation.1.nr_o2_custom, via nr_neg_option_2_ai_*).
 # Plenty of spare bureaucracy after the penalty.
 nr_devout_officials_ai_good = {
-	nr_devout_officials_spare_share >= 0.25
+	nr_campaign_spare_share >= 0.25
 }
 
 # Almost no spare bureaucracy left after the penalty.
 nr_devout_officials_ai_bad = {
-	nr_devout_officials_spare_share < 0.10
+	nr_campaign_spare_share < 0.10
 }
 
 # ---------- Forms (event nr_devout_officials.1) ----------

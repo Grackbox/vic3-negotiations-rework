@@ -45,7 +45,7 @@ nr_devout_officials.1 = {
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { nr_devout_officials_spare_share < 0.10 }
+				trigger = { nr_campaign_spare_share < 0.10 }
 				add = 10
 			}
 		}
@@ -57,8 +57,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_censorship
 		}
 		custom_tooltip = nr_devout_officials_lore_censorship
-		nr_devout_officials_choose_form = { FORM = censorship }
-		nr_devout_officials_set_penalty = { FACTOR = 1.25 }
+		nr_campaign_choose_form = { KEY = nr_devout_officials FORM = censorship }
+		nr_campaign_set_penalty = { KEY = nr_devout_officials FACTOR = 1.25 }
 		hidden_effect = {
 			# NR devout_censorship: follow-up in 10 years; the variable is cleared if Protected Speech aborts the campaign
 			set_variable = {
@@ -86,12 +86,12 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_registers
 		}
 		custom_tooltip = nr_devout_officials_lore_registers
-		nr_devout_officials_choose_form = { FORM = registers }
-		nr_devout_officials_set_penalty = { FACTOR = 0.75 }
+		nr_campaign_choose_form = { KEY = nr_devout_officials FORM = registers }
+		nr_campaign_set_penalty = { KEY = nr_devout_officials FACTOR = 0.75 }
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { nr_devout_officials_spare_share < 0.10 }
+				trigger = { nr_campaign_spare_share < 0.10 }
 				add = 10 # the cheapest form
 			}
 		}
@@ -103,8 +103,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_slaves
 		}
 		custom_tooltip = nr_devout_officials_lore_slaves
-		nr_devout_officials_choose_form = { FORM = slaves }
-		nr_devout_officials_set_penalty = { FACTOR = 0.75 }
+		nr_campaign_choose_form = { KEY = nr_devout_officials FORM = slaves }
+		nr_campaign_set_penalty = { KEY = nr_devout_officials FACTOR = 0.75 }
 		hidden_effect = {
 			# NR devout_slavery: follow-up in 10 years (only if slavery is still legal)
 			trigger_event = {
@@ -128,8 +128,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_church_tax
 		}
 		custom_tooltip = nr_devout_officials_lore_church_tax
-		nr_devout_officials_choose_form = { FORM = church_tax }
-		nr_devout_officials_set_penalty = { FACTOR = 1.25 }
+		nr_campaign_choose_form = { KEY = nr_devout_officials FORM = church_tax }
+		nr_campaign_set_penalty = { KEY = nr_devout_officials FACTOR = 1.25 }
 		hidden_effect = {
 			# NR devout_church_tax: follow-up in 10 years
 			trigger_event = {
@@ -153,7 +153,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_prisons
 		}
 		custom_tooltip = nr_devout_officials_lore_prisons
-		nr_devout_officials_choose_form = { FORM = prisons }
+		nr_campaign_choose_form = { KEY = nr_devout_officials FORM = prisons }
 		hidden_effect = {
 			# NR devout_police: follow-up in 10 years
 			trigger_event = {
@@ -177,7 +177,7 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_calendar
 		}
 		custom_tooltip = nr_devout_officials_lore_calendar
-		nr_devout_officials_choose_form = { FORM = calendar }
+		nr_campaign_choose_form = { KEY = nr_devout_officials FORM = calendar }
 		hidden_effect = {
 			# NR devout_sunday: follow-up in 10 years
 			trigger_event = {
@@ -201,8 +201,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_seminarists
 		}
 		custom_tooltip = nr_devout_officials_lore_seminarists
-		nr_devout_officials_choose_form = { FORM = seminarists }
-		nr_devout_officials_set_penalty = { FACTOR = 1.5 }
+		nr_campaign_choose_form = { KEY = nr_devout_officials FORM = seminarists }
+		nr_campaign_set_penalty = { KEY = nr_devout_officials FACTOR = 1.5 }
 		hidden_effect = {
 			# NR devout_census: follow-up in 10 years
 			trigger_event = {
@@ -218,7 +218,7 @@ nr_devout_officials.1 = {
 				add = 20
 			}
 			modifier = { # the most expensive form
-				trigger = { nr_devout_officials_spare_share < 0.20 }
+				trigger = { nr_campaign_spare_share < 0.20 }
 				add = -20
 			}
 		}
@@ -230,8 +230,8 @@ nr_devout_officials.1 = {
 			has_variable = nr_devout_officials_offer_synod
 		}
 		custom_tooltip = nr_devout_officials_lore_synod
-		nr_devout_officials_choose_form = { FORM = synod }
-		nr_devout_officials_set_penalty = { FACTOR = 1.25 }
+		nr_campaign_choose_form = { KEY = nr_devout_officials FORM = synod }
+		nr_campaign_set_penalty = { KEY = nr_devout_officials FACTOR = 1.25 }
 		hidden_effect = {
 			# NR devout_synod: follow-up in 10 years
 			trigger_event = {

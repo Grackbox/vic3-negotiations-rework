@@ -77,32 +77,6 @@ nr_landowners_grants_offer_random_form = {
 	}
 }
 
-# Chosen form: its modifier for 10 years, its expenses (x $FACTOR$), the slot it occupies (for an interruption),
-# the running mark for its follow-up. Scope: country.
-nr_landowners_grants_choose_form = {
-	add_modifier = {
-		name = nr_landowners_grants_$FORM$
-		days = long_modifier_time
-		is_decaying = yes
-	}
-	nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = $FACTOR$ }
-	hidden_effect = {
-		if = {
-			limit = { has_variable = nr_landowners_grants_current_slot }
-			set_variable = {
-				name = nr_landowners_grants_$FORM$_slot
-				value = var:nr_landowners_grants_current_slot
-				days = long_modifier_time
-			}
-		}
-		set_variable = {
-			name = nr_landowners_grants_$FORM$_running
-			days = 3660
-		}
-	}
-	nr_landowners_grants_movements = yes
-}
-
 # Movement radicalism of the running forms (and of the Free Import amendment); on choice and yearly. Scope: country.
 nr_landowners_grants_movements = {
 	if = {
@@ -152,7 +126,7 @@ nr_landowners_grants_check_laws = {
 			has_modifier = nr_landowners_grants_corn_laws
 			has_law = law_type:law_free_trade
 		}
-		nr_landowners_grants_interrupt = { FORM = corn_laws EVENT = 21 }
+		nr_campaign_interrupt = { KEY = nr_landowners_grants FORM = corn_laws EVENT = 21 COST = expenses }
 	}
 	if = {
 		limit = {
@@ -162,64 +136,24 @@ nr_landowners_grants_check_laws = {
 				has_law = law_type:law_manorialism
 			}
 		}
-		nr_landowners_grants_interrupt = { FORM = corvee EVENT = 22 }
+		nr_campaign_interrupt = { KEY = nr_landowners_grants FORM = corvee EVENT = 22 COST = expenses }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_landowners_grants_fugitives
 			has_law = law_type:law_slavery_banned
 		}
-		nr_landowners_grants_interrupt = { FORM = fugitives EVENT = 23 }
+		nr_campaign_interrupt = { KEY = nr_landowners_grants FORM = fugitives EVENT = 23 COST = expenses }
 	}
 	if = {
 		limit = {
 			has_modifier = nr_landowners_grants_slave_import
 			NOT = { has_law = law_type:law_slave_trade }
 		}
-		nr_landowners_grants_interrupt = { FORM = slave_import EVENT = 24 }
+		nr_campaign_interrupt = { KEY = nr_landowners_grants FORM = slave_import EVENT = 24 COST = expenses }
 	}
 }
 
-# Ends a form early: its modifier, its expenses and its slot go, no follow-up; popup event $EVENT$ tells what happened
-# and applies the Landowners' reaction. Scope: country.
-nr_landowners_grants_interrupt = {
-	remove_modifier = nr_landowners_grants_$FORM$
-	hidden_effect = {
-		if = {
-			limit = { var:nr_landowners_grants_$FORM$_slot ?= 1 }
-			nr_landowners_grants_free_slot = { SLOT = 1 }
-		}
-		else_if = {
-			limit = { var:nr_landowners_grants_$FORM$_slot ?= 2 }
-			nr_landowners_grants_free_slot = { SLOT = 2 }
-		}
-		else_if = {
-			limit = { var:nr_landowners_grants_$FORM$_slot ?= 3 }
-			nr_landowners_grants_free_slot = { SLOT = 3 }
-		}
-		if = {
-			limit = { has_variable = nr_landowners_grants_$FORM$_slot }
-			remove_variable = nr_landowners_grants_$FORM$_slot
-		}
-		if = {
-			limit = { has_variable = nr_landowners_grants_$FORM$_running }
-			remove_variable = nr_landowners_grants_$FORM$_running
-		}
-	}
-	trigger_event = { id = nr_landowners_grants.$EVENT$ popup = yes } # tells what happened; the Landowners' reaction is in its options
-}
-
-
-nr_landowners_grants_free_slot = {
-	if = {
-		limit = { has_modifier = nr_landowners_grants_expenses_$SLOT$ }
-		remove_modifier = nr_landowners_grants_expenses_$SLOT$
-	}
-	if = {
-		limit = { has_variable = nr_landowners_grants_slot_$SLOT$ }
-		remove_variable = nr_landowners_grants_slot_$SLOT$
-	}
-}
 
 
 # ---------- Follow-ups ----------

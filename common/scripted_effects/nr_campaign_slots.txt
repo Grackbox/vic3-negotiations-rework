@@ -87,3 +87,122 @@ nr_campaign_backlash_planters = {
 nr_campaign_backlash_none = {
 	# no backlash
 }
+
+# ---------- Campaign forms (shared by every campaign with a form event) ----------
+# KEY = campaign key (nr_landowners_offices, ...); the form modifier is <KEY>_<FORM>. Scope: country.
+
+# The chosen form: its modifier for 10 years, decaying.
+nr_campaign_choose_form = {
+	add_modifier = {
+		name = $KEY$_$FORM$
+		days = long_modifier_time
+		is_decaying = yes
+	}
+}
+
+# Running mark of the form, required by its follow-up event 10 years later.
+nr_campaign_mark_running = {
+	hidden_effect = {
+		set_variable = {
+			name = $KEY$_$FORM$_running
+			days = 3660
+		}
+	}
+}
+
+# The slot the form occupies, for an interruption (only forms that a law change can end).
+nr_campaign_remember_slot = {
+	hidden_effect = {
+		if = {
+			limit = { has_variable = $KEY$_current_slot }
+			set_variable = {
+				name = $KEY$_$FORM$_slot
+				value = var:$KEY$_current_slot
+				days = long_modifier_time
+			}
+		}
+	}
+}
+
+# Bureaucracy penalty of this campaign (modifier <KEY>_penalty_<slot>, -7.5% bureaucracy per point like vanilla
+# negotiation_bureaucracy) = negotiation level (1 / 2 / 4) x $FACTOR$.
+nr_campaign_set_penalty = {
+	if = {
+		limit = { has_variable = $KEY$_current_slot }
+		if = {
+			limit = { var:$KEY$_current_slot = 1 }
+			nr_campaign_set_slot_penalty = { KEY = $KEY$ SLOT = 1 FACTOR = $FACTOR$ }
+		}
+		else_if = {
+			limit = { var:$KEY$_current_slot = 2 }
+			nr_campaign_set_slot_penalty = { KEY = $KEY$ SLOT = 2 FACTOR = $FACTOR$ }
+		}
+		else = {
+			nr_campaign_set_slot_penalty = { KEY = $KEY$ SLOT = 3 FACTOR = $FACTOR$ }
+		}
+	}
+}
+
+nr_campaign_set_slot_penalty = {
+	if = {
+		limit = { has_modifier = $KEY$_penalty_$SLOT$ }
+		remove_modifier = $KEY$_penalty_$SLOT$
+	}
+	add_modifier = {
+		name = $KEY$_penalty_$SLOT$
+		multiplier = {
+			value = 1
+			if = {
+				limit = { exists = scope:ig }
+				value = scope:ig.amenability_level
+			}
+			if = {
+				limit = { has_variable = $KEY$_degree }
+				value = var:$KEY$_degree
+			}
+			multiply = $FACTOR$
+		}
+		days = long_modifier_time
+		is_decaying = yes
+	}
+}
+
+# A law change ends a form early: its modifier, its cost ($COST$ = penalty / expenses) and its slot go, no follow-up;
+# popup event <KEY>.$EVENT$ tells what happened and applies the group's reaction (pattern "Campaign interruption").
+nr_campaign_interrupt = {
+	remove_modifier = $KEY$_$FORM$
+	hidden_effect = {
+		if = {
+			limit = { var:$KEY$_$FORM$_slot ?= 1 }
+			nr_campaign_free_slot = { KEY = $KEY$ SLOT = 1 COST = $COST$ }
+		}
+		else_if = {
+			limit = { var:$KEY$_$FORM$_slot ?= 2 }
+			nr_campaign_free_slot = { KEY = $KEY$ SLOT = 2 COST = $COST$ }
+		}
+		else_if = {
+			limit = { var:$KEY$_$FORM$_slot ?= 3 }
+			nr_campaign_free_slot = { KEY = $KEY$ SLOT = 3 COST = $COST$ }
+		}
+		if = {
+			limit = { has_variable = $KEY$_$FORM$_slot }
+			remove_variable = $KEY$_$FORM$_slot
+		}
+		if = {
+			limit = { has_variable = $KEY$_$FORM$_running }
+			remove_variable = $KEY$_$FORM$_running
+		}
+	}
+	trigger_event = { id = $KEY$.$EVENT$ popup = yes }
+}
+
+nr_campaign_free_slot = {
+	if = {
+		limit = { has_modifier = $KEY$_$COST$_$SLOT$ }
+		remove_modifier = $KEY$_$COST$_$SLOT$
+	}
+	if = {
+		limit = { has_variable = $KEY$_slot_$SLOT$ }
+		remove_variable = $KEY$_slot_$SLOT$
+	}
+}

@@ -49,7 +49,10 @@ nr_landowners_grants.1 = {
 			has_variable = nr_landowners_grants_offer_crown_lands
 		}
 		custom_tooltip = nr_landowners_grants_lore_crown_lands
-		nr_landowners_grants_choose_form = { FORM = crown_lands FACTOR = 0.5 }
+		nr_campaign_choose_form = { KEY = nr_landowners_grants FORM = crown_lands }
+		nr_campaign_mark_running = { KEY = nr_landowners_grants FORM = crown_lands }
+		nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = 0.5 }
+		nr_landowners_grants_movements = yes
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_grants.11
@@ -68,7 +71,10 @@ nr_landowners_grants.1 = {
 			has_variable = nr_landowners_grants_offer_tax_exemptions
 		}
 		custom_tooltip = nr_landowners_grants_lore_tax_exemptions
-		nr_landowners_grants_choose_form = { FORM = tax_exemptions FACTOR = 0.25 }
+		nr_campaign_choose_form = { KEY = nr_landowners_grants FORM = tax_exemptions }
+		nr_campaign_mark_running = { KEY = nr_landowners_grants FORM = tax_exemptions }
+		nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = 0.25 }
+		nr_landowners_grants_movements = yes
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_grants.12
@@ -91,7 +97,11 @@ nr_landowners_grants.1 = {
 			has_variable = nr_landowners_grants_offer_corn_laws
 		}
 		custom_tooltip = nr_landowners_grants_lore_corn_laws
-		nr_landowners_grants_choose_form = { FORM = corn_laws FACTOR = 0.25 }
+		nr_campaign_choose_form = { KEY = nr_landowners_grants FORM = corn_laws }
+		nr_campaign_mark_running = { KEY = nr_landowners_grants FORM = corn_laws }
+		nr_campaign_remember_slot = { KEY = nr_landowners_grants FORM = corn_laws }
+		nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = 0.25 }
+		nr_landowners_grants_movements = yes
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_grants.13
@@ -114,7 +124,10 @@ nr_landowners_grants.1 = {
 			has_variable = nr_landowners_grants_offer_land_bank
 		}
 		custom_tooltip = nr_landowners_grants_lore_land_bank
-		nr_landowners_grants_choose_form = { FORM = land_bank FACTOR = 1.25 }
+		nr_campaign_choose_form = { KEY = nr_landowners_grants FORM = land_bank }
+		nr_campaign_mark_running = { KEY = nr_landowners_grants FORM = land_bank }
+		nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = 1.25 }
+		nr_landowners_grants_movements = yes
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_grants.14
@@ -137,7 +150,11 @@ nr_landowners_grants.1 = {
 			has_variable = nr_landowners_grants_offer_corvee
 		}
 		custom_tooltip = nr_landowners_grants_lore_corvee
-		nr_landowners_grants_choose_form = { FORM = corvee FACTOR = 0.25 }
+		nr_campaign_choose_form = { KEY = nr_landowners_grants FORM = corvee }
+		nr_campaign_mark_running = { KEY = nr_landowners_grants FORM = corvee }
+		nr_campaign_remember_slot = { KEY = nr_landowners_grants FORM = corvee }
+		nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = 0.25 }
+		nr_landowners_grants_movements = yes
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_grants.15
@@ -156,7 +173,10 @@ nr_landowners_grants.1 = {
 			has_variable = nr_landowners_grants_offer_redemption
 		}
 		custom_tooltip = nr_landowners_grants_lore_redemption
-		nr_landowners_grants_choose_form = { FORM = redemption FACTOR = 1.5 }
+		nr_campaign_choose_form = { KEY = nr_landowners_grants FORM = redemption }
+		nr_campaign_mark_running = { KEY = nr_landowners_grants FORM = redemption }
+		nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = 1.5 }
+		nr_landowners_grants_movements = yes
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_grants.16
@@ -175,7 +195,11 @@ nr_landowners_grants.1 = {
 			has_variable = nr_landowners_grants_offer_fugitives
 		}
 		custom_tooltip = nr_landowners_grants_lore_fugitives
-		nr_landowners_grants_choose_form = { FORM = fugitives FACTOR = 0.75 }
+		nr_campaign_choose_form = { KEY = nr_landowners_grants FORM = fugitives }
+		nr_campaign_mark_running = { KEY = nr_landowners_grants FORM = fugitives }
+		nr_campaign_remember_slot = { KEY = nr_landowners_grants FORM = fugitives }
+		nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = 0.75 }
+		nr_landowners_grants_movements = yes
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_grants.17
@@ -198,7 +222,11 @@ nr_landowners_grants.1 = {
 			has_variable = nr_landowners_grants_offer_slave_import
 		}
 		custom_tooltip = nr_landowners_grants_lore_slave_import
-		nr_landowners_grants_choose_form = { FORM = slave_import FACTOR = 0.25 }
+		nr_campaign_choose_form = { KEY = nr_landowners_grants FORM = slave_import }
+		nr_campaign_mark_running = { KEY = nr_landowners_grants FORM = slave_import }
+		nr_campaign_remember_slot = { KEY = nr_landowners_grants FORM = slave_import }
+		nr_softbribe_set_cost = { KEY = nr_landowners_grants FACTOR = 0.25 }
+		nr_landowners_grants_movements = yes
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_grants.18
@@ -803,7 +831,7 @@ nr_landowners_grants.18 = {
 	}
 }
 
-# ---------- A law change ended a grant (fired by nr_landowners_grants_interrupt) ----------
+# ---------- A law change ended a grant (fired by nr_campaign_interrupt) ----------
 # Text and option depend on whether the Landowners are in government ("gave it up themselves") or not
 # ("the order was broken over their heads").
 

@@ -46,8 +46,9 @@ nr_industrialists_commissions.1 = {
 			has_variable = nr_industrialists_commissions_offer_ministry
 		}
 		custom_tooltip = nr_industrialists_commissions_lore_ministry
-		nr_industrialists_commissions_choose_form = { FORM = ministry }
-		nr_industrialists_commissions_set_penalty = { FACTOR = 1.25 }
+		nr_campaign_choose_form = { KEY = nr_industrialists_commissions FORM = ministry }
+		nr_campaign_mark_running = { KEY = nr_industrialists_commissions FORM = ministry }
+		nr_campaign_set_penalty = { KEY = nr_industrialists_commissions FACTOR = 1.25 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_industrialists_commissions.11
@@ -66,8 +67,9 @@ nr_industrialists_commissions.1 = {
 			has_variable = nr_industrialists_commissions_offer_patents
 		}
 		custom_tooltip = nr_industrialists_commissions_lore_patents
-		nr_industrialists_commissions_choose_form = { FORM = patents }
-		nr_industrialists_commissions_set_penalty = { FACTOR = 0.75 }
+		nr_campaign_choose_form = { KEY = nr_industrialists_commissions FORM = patents }
+		nr_campaign_mark_running = { KEY = nr_industrialists_commissions FORM = patents }
+		nr_campaign_set_penalty = { KEY = nr_industrialists_commissions FACTOR = 0.75 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_industrialists_commissions.12
@@ -86,7 +88,9 @@ nr_industrialists_commissions.1 = {
 			has_variable = nr_industrialists_commissions_offer_company_law
 		}
 		custom_tooltip = nr_industrialists_commissions_lore_company_law
-		nr_industrialists_commissions_choose_form = { FORM = company_law }
+		nr_campaign_choose_form = { KEY = nr_industrialists_commissions FORM = company_law }
+		nr_campaign_mark_running = { KEY = nr_industrialists_commissions FORM = company_law }
+		nr_campaign_remember_slot = { KEY = nr_industrialists_commissions FORM = company_law }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_industrialists_commissions.13
@@ -105,8 +109,10 @@ nr_industrialists_commissions.1 = {
 			has_variable = nr_industrialists_commissions_offer_inspection
 		}
 		custom_tooltip = nr_industrialists_commissions_lore_inspection
-		nr_industrialists_commissions_choose_form = { FORM = inspection }
-		nr_industrialists_commissions_set_penalty = { FACTOR = 0.75 }
+		nr_campaign_choose_form = { KEY = nr_industrialists_commissions FORM = inspection }
+		nr_campaign_mark_running = { KEY = nr_industrialists_commissions FORM = inspection }
+		nr_campaign_remember_slot = { KEY = nr_industrialists_commissions FORM = inspection }
+		nr_campaign_set_penalty = { KEY = nr_industrialists_commissions FACTOR = 0.75 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_industrialists_commissions.14
@@ -125,8 +131,9 @@ nr_industrialists_commissions.1 = {
 			has_variable = nr_industrialists_commissions_offer_consuls
 		}
 		custom_tooltip = nr_industrialists_commissions_lore_consuls
-		nr_industrialists_commissions_choose_form = { FORM = consuls }
-		nr_industrialists_commissions_set_penalty = { FACTOR = 0.75 }
+		nr_campaign_choose_form = { KEY = nr_industrialists_commissions FORM = consuls }
+		nr_campaign_mark_running = { KEY = nr_industrialists_commissions FORM = consuls }
+		nr_campaign_set_penalty = { KEY = nr_industrialists_commissions FACTOR = 0.75 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_industrialists_commissions.15
@@ -145,7 +152,9 @@ nr_industrialists_commissions.1 = {
 			has_variable = nr_industrialists_commissions_offer_bank
 		}
 		custom_tooltip = nr_industrialists_commissions_lore_bank
-		nr_industrialists_commissions_choose_form = { FORM = bank }
+		nr_campaign_choose_form = { KEY = nr_industrialists_commissions FORM = bank }
+		nr_campaign_mark_running = { KEY = nr_industrialists_commissions FORM = bank }
+		nr_campaign_remember_slot = { KEY = nr_industrialists_commissions FORM = bank }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_industrialists_commissions.16

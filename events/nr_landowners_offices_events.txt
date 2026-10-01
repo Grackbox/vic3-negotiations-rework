@@ -48,8 +48,10 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_patrimonial
 		}
 		custom_tooltip = nr_landowners_offices_lore_patrimonial
-		nr_landowners_offices_choose_form = { FORM = patrimonial }
-		nr_landowners_offices_set_penalty = { FACTOR = 0.5 }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = patrimonial }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = patrimonial }
+		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = patrimonial }
+		nr_campaign_set_penalty = { KEY = nr_landowners_offices FACTOR = 0.5 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.11
@@ -68,8 +70,9 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_justices
 		}
 		custom_tooltip = nr_landowners_offices_lore_justices
-		nr_landowners_offices_choose_form = { FORM = justices }
-		nr_landowners_offices_set_penalty = { FACTOR = 0.75 }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = justices }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = justices }
+		nr_campaign_set_penalty = { KEY = nr_landowners_offices FACTOR = 0.75 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.12
@@ -88,8 +91,10 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_constabulary
 		}
 		custom_tooltip = nr_landowners_offices_lore_constabulary
-		nr_landowners_offices_choose_form = { FORM = constabulary }
-		nr_landowners_offices_set_penalty = { FACTOR = 0.75 }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = constabulary }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = constabulary }
+		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = constabulary }
+		nr_campaign_set_penalty = { KEY = nr_landowners_offices FACTOR = 0.75 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.13
@@ -108,8 +113,10 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_assemblies
 		}
 		custom_tooltip = nr_landowners_offices_lore_assemblies
-		nr_landowners_offices_choose_form = { FORM = assemblies }
-		nr_landowners_offices_set_penalty = { FACTOR = 1.25 }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = assemblies }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = assemblies }
+		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = assemblies }
+		nr_campaign_set_penalty = { KEY = nr_landowners_offices FACTOR = 1.25 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.14
@@ -128,8 +135,10 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_tax_farming
 		}
 		custom_tooltip = nr_landowners_offices_lore_tax_farming
-		nr_landowners_offices_choose_form = { FORM = tax_farming }
-		nr_landowners_offices_set_penalty = { FACTOR = 0.5 }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = tax_farming }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = tax_farming }
+		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = tax_farming }
+		nr_campaign_set_penalty = { KEY = nr_landowners_offices FACTOR = 0.5 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.15
@@ -148,8 +157,10 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_patrols
 		}
 		custom_tooltip = nr_landowners_offices_lore_patrols
-		nr_landowners_offices_choose_form = { FORM = patrols }
-		nr_landowners_offices_set_penalty = { FACTOR = 0.5 }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = patrols }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = patrols }
+		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = patrols }
+		nr_campaign_set_penalty = { KEY = nr_landowners_offices FACTOR = 0.5 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.16
@@ -168,7 +179,9 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_state_slaves
 		}
 		custom_tooltip = nr_landowners_offices_lore_state_slaves
-		nr_landowners_offices_choose_form = { FORM = state_slaves }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = state_slaves }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = state_slaves }
+		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = state_slaves }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.17
@@ -187,7 +200,9 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_officers
 		}
 		custom_tooltip = nr_landowners_offices_lore_officers
-		nr_landowners_offices_choose_form = { FORM = officers }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = officers }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = officers }
+		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = officers }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.18
@@ -206,8 +221,10 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_recruits
 		}
 		custom_tooltip = nr_landowners_offices_lore_recruits
-		nr_landowners_offices_choose_form = { FORM = recruits }
-		nr_landowners_offices_set_penalty = { FACTOR = 0.5 }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = recruits }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = recruits }
+		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = recruits }
+		nr_campaign_set_penalty = { KEY = nr_landowners_offices FACTOR = 0.5 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.19
@@ -226,8 +243,9 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_naval
 		}
 		custom_tooltip = nr_landowners_offices_lore_naval
-		nr_landowners_offices_choose_form = { FORM = naval }
-		nr_landowners_offices_set_penalty = { FACTOR = 0.75 }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = naval }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = naval }
+		nr_campaign_set_penalty = { KEY = nr_landowners_offices FACTOR = 0.75 }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.20
@@ -246,7 +264,9 @@ nr_landowners_offices.1 = {
 			has_variable = nr_landowners_offices_offer_chancery
 		}
 		custom_tooltip = nr_landowners_offices_lore_chancery
-		nr_landowners_offices_choose_form = { FORM = chancery }
+		nr_campaign_choose_form = { KEY = nr_landowners_offices FORM = chancery }
+		nr_campaign_mark_running = { KEY = nr_landowners_offices FORM = chancery }
+		nr_campaign_remember_slot = { KEY = nr_landowners_offices FORM = chancery }
 		hidden_effect = {
 			trigger_event = {
 				id = nr_landowners_offices.21

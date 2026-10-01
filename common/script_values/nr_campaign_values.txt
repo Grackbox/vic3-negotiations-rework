@@ -1,0 +1,28 @@
+﻿# NR: values shared by the campaigns (pattern "Campaign slots" / "Campaign forms", README_NR.md).
+
+# -7.5% bureaucracy per penalty point, as vanilla negotiation_bureaucracy.
+nr_neg_bureaucracy_penalty_share = 0.075
+
+# Spare bureaucracy after this negotiation's x1 penalty, as a share of usage (AI weights of option 2 and of the forms).
+# Below 0 = deficit. Scope: country, scope:ig.
+nr_campaign_spare_share = {
+	value = produced_bureaucracy
+	multiply = {
+		value = 1
+		subtract = {
+			value = nr_neg_bureaucracy_penalty_share
+			multiply = {
+				value = 1
+				if = {
+					limit = { exists = scope:ig }
+					value = scope:ig.amenability_level
+				}
+			}
+		}
+	}
+	subtract = bureaucracy_usage
+	divide = {
+		value = bureaucracy_usage
+		min = 1
+	}
+}

@@ -46,7 +46,8 @@ nr_industrialists_contracts.1 = {
 			has_variable = nr_industrialists_contracts_offer_railway
 		}
 		custom_tooltip = nr_industrialists_contracts_lore_railway
-		nr_industrialists_contracts_choose_form = { FORM = railway }
+		nr_campaign_choose_form = { KEY = nr_industrialists_contracts FORM = railway }
+		nr_campaign_mark_running = { KEY = nr_industrialists_contracts FORM = railway }
 		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 1.25 }
 		nr_industrialists_contracts_build_railways = yes
 		hidden_effect = {
@@ -67,7 +68,8 @@ nr_industrialists_contracts.1 = {
 			has_variable = nr_industrialists_contracts_offer_arms
 		}
 		custom_tooltip = nr_industrialists_contracts_lore_arms
-		nr_industrialists_contracts_choose_form = { FORM = arms }
+		nr_campaign_choose_form = { KEY = nr_industrialists_contracts FORM = arms }
+		nr_campaign_mark_running = { KEY = nr_industrialists_contracts FORM = arms }
 		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 1 }
 		hidden_effect = {
 			trigger_event = {
@@ -87,7 +89,9 @@ nr_industrialists_contracts.1 = {
 			has_variable = nr_industrialists_contracts_offer_iron_tariff
 		}
 		custom_tooltip = nr_industrialists_contracts_lore_iron_tariff
-		nr_industrialists_contracts_choose_form = { FORM = iron_tariff }
+		nr_campaign_choose_form = { KEY = nr_industrialists_contracts FORM = iron_tariff }
+		nr_campaign_mark_running = { KEY = nr_industrialists_contracts FORM = iron_tariff }
+		nr_campaign_remember_slot = { KEY = nr_industrialists_contracts FORM = iron_tariff }
 		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 0.25 }
 		hidden_effect = {
 			trigger_event = {
@@ -107,7 +111,8 @@ nr_industrialists_contracts.1 = {
 			has_variable = nr_industrialists_contracts_offer_mining
 		}
 		custom_tooltip = nr_industrialists_contracts_lore_mining
-		nr_industrialists_contracts_choose_form = { FORM = mining }
+		nr_campaign_choose_form = { KEY = nr_industrialists_contracts FORM = mining }
+		nr_campaign_mark_running = { KEY = nr_industrialists_contracts FORM = mining }
 		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 0.5 }
 		hidden_effect = {
 			trigger_event = {
@@ -127,7 +132,9 @@ nr_industrialists_contracts.1 = {
 			has_variable = nr_industrialists_contracts_offer_charter
 		}
 		custom_tooltip = nr_industrialists_contracts_lore_charter
-		nr_industrialists_contracts_choose_form = { FORM = charter }
+		nr_campaign_choose_form = { KEY = nr_industrialists_contracts FORM = charter }
+		nr_campaign_mark_running = { KEY = nr_industrialists_contracts FORM = charter }
+		nr_campaign_remember_slot = { KEY = nr_industrialists_contracts FORM = charter }
 		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 0.75 }
 		hidden_effect = {
 			trigger_event = {
@@ -147,7 +154,9 @@ nr_industrialists_contracts.1 = {
 			has_variable = nr_industrialists_contracts_offer_strikes
 		}
 		custom_tooltip = nr_industrialists_contracts_lore_strikes
-		nr_industrialists_contracts_choose_form = { FORM = strikes }
+		nr_campaign_choose_form = { KEY = nr_industrialists_contracts FORM = strikes }
+		nr_campaign_mark_running = { KEY = nr_industrialists_contracts FORM = strikes }
+		nr_campaign_remember_slot = { KEY = nr_industrialists_contracts FORM = strikes }
 		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 0.5 }
 		hidden_effect = {
 			trigger_event = {
@@ -167,7 +176,9 @@ nr_industrialists_contracts.1 = {
 			has_variable = nr_industrialists_contracts_offer_contract_labour
 		}
 		custom_tooltip = nr_industrialists_contracts_lore_contract_labour
-		nr_industrialists_contracts_choose_form = { FORM = contract_labour }
+		nr_campaign_choose_form = { KEY = nr_industrialists_contracts FORM = contract_labour }
+		nr_campaign_mark_running = { KEY = nr_industrialists_contracts FORM = contract_labour }
+		nr_campaign_remember_slot = { KEY = nr_industrialists_contracts FORM = contract_labour }
 		nr_softbribe_set_cost = { KEY = nr_industrialists_contracts FACTOR = 0.5 }
 		hidden_effect = {
 			trigger_event = {

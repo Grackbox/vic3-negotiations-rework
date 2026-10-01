@@ -109,11 +109,11 @@ nr_industrialists_commissions_bank_available = {
 
 # AI of the commissions option: spare bureaucracy after the penalty.
 nr_industrialists_commissions_ai_good = {
-	nr_industrialists_commissions_spare_share >= 0.25
+	nr_campaign_spare_share >= 0.25
 }
 
 nr_industrialists_commissions_ai_bad = {
-	nr_industrialists_commissions_spare_share < 0.10
+	nr_campaign_spare_share < 0.10
 }
 
 # ---------- follow-ups ----------
